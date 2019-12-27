@@ -13,11 +13,7 @@
 #import "MediaSelectItemModel.h"
 
 static NSInteger Show_Column = 3;
-static CGFloat Item_Height = 180;
-static CGFloat Box_Top = 0;
-static CGFloat Box_Bottom = 0;
-static CGFloat Box_left = 0;
-static CGFloat Box_Right = 0;
+static CGFloat Item_Height = 150;
 
 @interface MediaSelectBoxView ()
 <
@@ -26,10 +22,12 @@ UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 CTAssetsPickerControllerDelegate
 >
-@property (nonatomic, strong) UIView * boxView;
 @property (nonatomic, strong) NSMutableArray<MediaSelectItemView *> * itemsArray;
 @property (nonatomic, strong) MediaSelectItemView * addItem;
-@property (nonatomic, assign) BOOL didSetup;
+@property (nonatomic, assign) BOOL didChangeDatasource;
+@property (nonatomic, assign) NSInteger column;
+@property (nonatomic, assign) CGFloat itemHeight;
+@property (nonatomic, assign) NSInteger rowCount;
 @end
 
 @implementation MediaSelectBoxView
@@ -59,28 +57,16 @@ CTAssetsPickerControllerDelegate
 }
 
 -(void)setUpView{
-    [self addSubview:self.boxView];
-    self.didSetup = NO;
+    self.dataSource = [NSMutableArray array];
+    self.didChangeDatasource = NO;
     self.backgroundColor = Color_white_1;
-    self.boxView.backgroundColor = Color_white_1;
 }
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    [self resetFrame];
+    [self resetConstrants];
+    [self changeDatasource];
 }
-
--(CGSize)intrinsicContentSize{
-    NSInteger row = 0;
-    if (self.itemsArray.count % Show_Column == 0) {
-        row = self.itemsArray.count/Show_Column;
-    } else {
-        row = self.itemsArray.count/Show_Column + 1;
-    }
-    CGFloat height = Item_Height * row;
-    return CGSizeMake(self.frame.size.width, height+Box_Top-Box_Bottom);
-}
-
 
 #pragma mark - media select item delegate
 
@@ -149,72 +135,121 @@ CTAssetsPickerControllerDelegate
 }
 
 #pragma mark - private method
-
--(void)layoutItems{
-    if (self.didSetup) {
-        return;
+// 通知数据改变
+-(void)changeDatasource{
+    if (self.didChangeDatasource) {
+        self.didChangeDatasource = NO;
+        if (_delegate && [_delegate respondsToSelector:@selector(mediaSelectBox:didChangeDataSource:)]) {
+            [_delegate mediaSelectBox:self didChangeDataSource:self.dataSource];
+        }
+        NSInteger rowCount = self.itemsArray.count/ self.column;
+        NSInteger lastColumn = self.itemsArray.count % self.column;
+        if (lastColumn != 0) {
+            rowCount = rowCount + 1;
+        }
+        self.rowCount = rowCount;
+        if (_delegate && [_delegate respondsToSelector:@selector(mediaSelectBox:didChangeHeight:)]) {
+            [_delegate mediaSelectBox:self didChangeHeight:self.rowCount * self.itemHeight];
+        }
     }
-    NSLog(@"box frame: %@",NSStringFromCGRect(self.boxView.frame));
-    CGFloat itemWidth = self.boxView.frame.size.width / Show_Column;
-    CGFloat itemHeight = Item_Height;
-    for (int index = 0; index < self.itemsArray.count ; index ++) {
-        NSInteger currentRow = index / Show_Column; // 当前行
-        NSInteger currentColumn = index % Show_Column; // 当前列
+}
+// 刷新约束
+-(void)resetConstrants{
+    // 循环约束
+    for (int index = 0; index < self.itemsArray.count; index ++) {
+        // 获取当前 item
         MediaSelectItemView * item = self.itemsArray[index];
-        item.frame = CGRectMake(itemWidth * currentColumn, itemHeight * currentRow, itemWidth, itemHeight);
-        
-        NSLog(@"item frame: %@",NSStringFromCGRect(item.frame));
+        // 计算当前 item 所在行和列
+        NSInteger column = index % self.column;
+        NSInteger row = index / self.column;
+        // 当为最后一个 item 时 要相对于 self.bottom 约束
+        // 当为第一个 item 时 相对于 self.left self.top 约束
+        // 当为第一列 item 时 移动列 还要移动行，相对于上一行第一列约束， 即相对于 show_column 个数量之前的 item 约束
+        // 除以上两种情况 在同一行 向后移位， item 相对于前一个 item.right item.top 约束
+        if (index != self.itemsArray.count - 1) {
+            if (row == 0 && column == 0) {
+                [item mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.left.equalTo(self);
+                    make.height.mas_equalTo(self.itemHeight);
+                    make.width.mas_equalTo(self.frame.size.width / self.column);
+                }];
+            } else {
+                MediaSelectItemView * targetItem;
+                if (column == 0) {
+                    targetItem = self.itemsArray[index - self.column];
+                    [item mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(targetItem);
+                        make.top.equalTo(targetItem.mas_bottom);
+                        make.width.height.equalTo(targetItem);
+                    }];
+                } else {
+                    targetItem = self.itemsArray[index - 1];
+                    [item mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(targetItem.mas_right);
+                        make.top.equalTo(targetItem);
+                        make.width.height.equalTo(targetItem);
+                    }];
+                }
+                
+            }
+        } else {
+            if (row == 0 && column == 0) {
+                [item mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.left.equalTo(self);
+                    make.height.mas_equalTo(self.itemHeight);
+                    make.width.mas_equalTo(self.frame.size.width / self.column);
+                    make.bottom.equalTo(self);
+                }];
+            } else {
+                MediaSelectItemView * targetItem;
+                if (column == 0) {
+                    targetItem = self.itemsArray[index - self.column];
+                    [item mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(targetItem);
+                        make.top.equalTo(targetItem.mas_bottom);
+                        make.width.height.equalTo(targetItem);
+                        make.bottom.equalTo(self);
+                    }];
+                } else {
+                    targetItem = self.itemsArray[index - 1];
+                    [item mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(targetItem.mas_right);
+                        make.top.equalTo(targetItem);
+                        make.width.height.equalTo(targetItem);
+                        make.bottom.equalTo(self);
+                    }];
+                }
+            }
+        }
     }
-    self.didSetup = YES;
 }
-
--(void)resetFrame{
-    if (self.didSetup) {
-        return;
-    }
-    NSInteger row = 0;
-    if (self.itemsArray.count % Show_Column == 0) {
-        row = self.itemsArray.count/Show_Column;
-    } else {
-        row = self.itemsArray.count/Show_Column + 1;
-    }
-    CGFloat height = Item_Height * row;
-    self.boxView.frame = CGRectMake(Box_left, Box_Top, self.frame.size.width - Box_left + Box_Right, height);
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, height+Box_Top-Box_Bottom);
-    [self layoutItems];
-    NSLog(@"self frame :%@",NSStringFromCGRect(self.frame));
-    if (_delegate && [_delegate respondsToSelector:@selector(mediaSelectBox:changeHeight:)]) {
-        [_delegate mediaSelectBox:self changeHeight:self.frame.size.height];
-    }
-    self.didSetup = YES;
-}
-
+// 数据重新载入
 -(void)reloadItems{
     self.itemsArray = nil;
     [self itemsArray];
     [self addNewItemsWithModels:self.dataSource];
 }
-
+// 添加新item 单个
 -(void)addNewItemWithModel:(id<MediaSelectItemProtocol>)model{
     MediaSelectItemView * item = [[MediaSelectItemView alloc]init];
     item.model = model;
     item.delegate = self;
-    [self.boxView addSubview:item];
     [self.itemsArray insertObject:item atIndex:self.itemsArray.count -1];
-    self.didSetup = NO;
+    [self addSubview:item];
+    self.didChangeDatasource = YES;
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
-
+// 添加新item 多个
 -(void)addNewItemsWithModels:(NSArray<id<MediaSelectItemProtocol>> *)models{
     for (id<MediaSelectItemProtocol>model in models) {
         MediaSelectItemView * item = [[MediaSelectItemView alloc]init];
         item.model = model;
         item.delegate = self;
-        [self.boxView addSubview:item];
         [self.itemsArray insertObject:item atIndex:self.itemsArray.count -1];
+        [self addSubview:item];
     }
-    self.didSetup = NO;
+    self.didChangeDatasource = YES;
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
@@ -278,11 +313,17 @@ CTAssetsPickerControllerDelegate
 }
 
 #pragma mark - setters and getters
--(NSMutableArray<id<MediaSelectItemProtocol>> *)dataSource{
-    if (!_dataSource) {
-        _dataSource = [NSMutableArray array];
+
+-(void)setDataSource:(NSMutableArray<id<MediaSelectItemProtocol>> *)dataSource{
+    _dataSource = dataSource;
+    [self reloadItems];
+}
+
+-(void)setDelegate:(id<MediaSelectBoxViewDelegate>)delegate{
+    _delegate = delegate;
+    if (delegate && [delegate respondsToSelector:@selector(mediaSelectBox:didChangeHeight:)]) {
+        [delegate mediaSelectBox:self didChangeHeight:self.rowCount * self.itemHeight];
     }
-    return _dataSource;
 }
 
 -(NSMutableArray<MediaSelectItemView *> *)itemsArray{
@@ -291,6 +332,9 @@ CTAssetsPickerControllerDelegate
     }
     if (![_itemsArray containsObject:self.addItem]) {
         [_itemsArray addObject:self.addItem];
+        [self addSubview:_addItem];
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
     } else {
         if ([_itemsArray lastObject] != self.addItem) {
             [_itemsArray removeObject:self.addItem];
@@ -307,16 +351,24 @@ CTAssetsPickerControllerDelegate
         _addItem = [[MediaSelectItemView alloc]init];
         _addItem.model = addModel;
         _addItem.delegate = self;
-        [self.boxView addSubview:_addItem];
     }
     return _addItem;
 }
 
--(UIView *)boxView{
-    if (!_boxView) {
-        _boxView = [[UIView alloc]init];
+-(NSInteger)column{
+    if (_config && [_config respondsToSelector:@selector(numberOfMediaSelectBoxColumn)]) {
+        return [_config numberOfMediaSelectBoxColumn];
+    } else {
+        return Show_Column;
     }
-    return _boxView;
+}
+
+-(CGFloat)itemHeight{
+    if (_config && [_config respondsToSelector:@selector(heightOfMediaSelectBoxItem)]) {
+        return [_config heightOfMediaSelectBoxItem];
+    } else {
+        return Item_Height;
+    }
 }
 
 @end

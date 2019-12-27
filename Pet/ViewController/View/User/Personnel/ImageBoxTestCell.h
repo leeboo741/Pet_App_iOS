@@ -17,16 +17,22 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ImageBoxTestCellDelegate <NSObject>
 
 @optional
--(void)imageBoxTestCellTapAdd:(ImageBoxTestCell *)cell;
--(void)imageBoxTestCell:(ImageBoxTestCell *)cell tapImageAtIndex:(NSInteger)index data:(id<MediaSelectItemProtocol>)data;
--(void)imageBoxTestCell:(ImageBoxTestCell *)cell deleteAtIndex:(NSInteger)index data:(id<MediaSelectItemProtocol>)data;
--(void)imageBoxTestCell:(ImageBoxTestCell *)cell reloadData:(NSArray *)dataSource;
--(void)imageBoxTestCell:(ImageBoxTestCell *)cell chengeHeight:(CGFloat)height;
+-(void)imageBoxTestCell:(ImageBoxTestCell *)cell changeData:(NSArray *)dataSource;
+-(void)imageBoxTestCell:(ImageBoxTestCell *)cell changeHeight:(CGFloat)height;
 @end
+
+@protocol ImageBoxTestCellConfig <NSObject>
+
+-(NSInteger)numberOfMediaColumn;
+-(CGFloat)heightOfMediaItem;
+
+@end
+
 
 @interface ImageBoxTestCell : UITableViewCell
 @property (nonatomic, weak) id<ImageBoxTestCellDelegate> delegate;
-@property (nonatomic, assign) CGFloat cellHeight;
+@property (nonatomic, weak) id<ImageBoxTestCellConfig> config;
+@property (nonatomic, assign, readonly) CGFloat mediaItemHeight;
 @end
 
 NS_ASSUME_NONNULL_END

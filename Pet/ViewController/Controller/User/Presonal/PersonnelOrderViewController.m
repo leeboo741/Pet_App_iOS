@@ -13,11 +13,17 @@
 static NSString * imageBoxTestCellName = @"ImageBoxTestCell";
 static NSString * imageBoxTestCellIdentifier = @"ImageBoxTestCellIdentifier";
 
+static NSInteger mediaColumn = 3;
+static NSInteger mediaHeight = 150;
+
 @interface PersonnelOrderViewController ()
 <UITableViewDelegate,
 UITableViewDataSource,
-ImageBoxTestCellDelegate>
+ImageBoxTestCellDelegate,
+ImageBoxTestCellConfig>
 @property (nonatomic, strong) UITableView * orderListView;
+@property (nonatomic, strong) NSArray * datasource;
+@property (nonatomic, assign) CGFloat boxHeight;
 @end
 
 @implementation PersonnelOrderViewController
@@ -25,6 +31,7 @@ ImageBoxTestCellDelegate>
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.datasource = [NSArray array];
     [self.view addSubview:self.orderListView];
 }
 -(void)viewDidLayoutSubviews{
@@ -51,39 +58,37 @@ ImageBoxTestCellDelegate>
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    ImageBoxTestCell * cell = [tableView dequeueReusableCellWithIdentifier:imageBoxTestCellIdentifier forIndexPath:indexPath];
-//    return cell.cellHeight;
-    CGFloat height = [tableView fd_heightForCellWithIdentifier:imageBoxTestCellIdentifier configuration:^(id cell) {
-        [self configImageBoxTestCell:cell atIndexPath:indexPath];
-    }];
-    return height;
+//    return self.boxHeight;
+    NSInteger rowCount = (self.datasource.count+1)/ mediaColumn;
+    NSInteger lastColumn = (self.datasource.count+1) % mediaColumn;
+    if (lastColumn != 0) {
+        rowCount = rowCount + 1;
+    }
+    return rowCount * mediaHeight;
 }
 
 -(void)configImageBoxTestCell:(ImageBoxTestCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     cell.delegate = self;
+    cell.config = self;
 }
-#pragma mark - image box test cell delegate
--(void)imageBoxTestCellTapAdd:(ImageBoxTestCell *)cell{
-    
-}
-
--(void)imageBoxTestCell:(ImageBoxTestCell *)cell tapImageAtIndex:(NSInteger)index data:(id<MediaSelectItemProtocol>)data {
-    
-}
-
--(void)imageBoxTestCell:(ImageBoxTestCell *)cell deleteAtIndex:(NSInteger)index data:(id<MediaSelectItemProtocol>)data {
-    
-}
-
--(void)imageBoxTestCell:(ImageBoxTestCell *)cell reloadData:(NSArray *)dataSource{
+#pragma mark - image box test cell delegate and datasource
+-(void)imageBoxTestCell:(ImageBoxTestCell *)cell changeData:(NSArray *)dataSource{
+    self.datasource = dataSource;
     [self.orderListView reloadData];
 }
+//
+//-(void)imageBoxTestCell:(ImageBoxTestCell *)cell changeHeight:(CGFloat)height{
+//    self.boxHeight = height;
+//    [self.orderListView reloadData];
+//}
 
--(void)imageBoxTestCell:(ImageBoxTestCell *)cell chengeHeight:(CGFloat)height{
-    [self.orderListView reloadData];
+-(NSInteger)numberOfMediaColumn{
+    return mediaColumn;
 }
 
-
+-(CGFloat)heightOfMediaItem{
+    return mediaHeight;
+}
 
 #pragma mark - refresh and loadmore
 
@@ -103,13 +108,13 @@ ImageBoxTestCellDelegate>
         _orderListView = [[UITableView alloc]init];
         _orderListView.delegate = self;
         _orderListView.dataSource = self;
-        [self addRefreshViewWithRefreshAction:@selector(refreshAction) tableView:_orderListView];
-        [self addLoadMoreViewWithLoadMoreAction:@selector(loadMoreAction) tableView:_orderListView];
+//        [self addRefreshViewWithRefreshAction:@selector(refreshAction) tableView:_orderListView];
+//        [self addLoadMoreViewWithLoadMoreAction:@selector(loadMoreAction) tableView:_orderListView];
         [_orderListView registerNib:[UINib nibWithNibName:imageBoxTestCellName bundle:nil] forCellReuseIdentifier:imageBoxTestCellIdentifier];
-        _orderListView.estimatedRowHeight = 180;
+//        _orderListView.estimatedRowHeight = 180;
+//        _orderListView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _orderListView;
 }
-
 
 @end
