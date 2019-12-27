@@ -1,0 +1,40 @@
+//
+//  LoginView.h
+//  Pet
+//
+//  Created by mac on 2019/12/17.
+//  Copyright © 2019年 mac. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(NSInteger, LoginViewTapActionType) {
+    LoginViewTapActionType_Login = 0, // 登录
+    LoginViewTapActionType_Privacy, // 隐私政策
+};
+
+typedef NS_ENUM(NSInteger, LoginViewInputActionType) {
+    LoginViewInputActionType_Account = 0, // 账户输入
+    LoginViewInputActionType_Password, // 密码输入
+};
+
+@protocol LoginViewDelegate <NSObject>
+
+-(void)loginViewTapActionType:(LoginViewTapActionType)type;
+-(void)loginViewInputActionType:(LoginViewInputActionType)type inputText:(NSString *)inputText;
+
+@end
+
+@interface LoginView : UIView
+
+@property (nonatomic, copy) NSString * logoImageName;
+@property (nonatomic, copy) NSString * account;
+@property (nonatomic, copy) NSString * password;
+@property (nonatomic, assign) BOOL agreePrivacy;
+@property (nonatomic, weak) id<LoginViewDelegate> delegate;
+
+@end
+
+NS_ASSUME_NONNULL_END

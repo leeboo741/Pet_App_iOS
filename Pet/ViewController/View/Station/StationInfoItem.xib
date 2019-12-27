@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StationInfoItem">
+            <connections>
+                <outlet property="iconImageView" destination="vCe-xx-yEv" id="oCG-Rp-vbN"/>
+                <outlet property="titleLabel" destination="6n7-Fw-di1" id="ydP-9x-lYt"/>
+                <outlet property="valueLabel" destination="14H-1p-mOo" id="xxr-2K-NhS"/>
+                <outlet property="view" destination="iN0-l3-epB" id="L1N-RC-fJi"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="374" height="193"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vCe-xx-yEv">
+                    <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="aRl-Qd-3Up"/>
+                        <constraint firstAttribute="width" constant="25" id="oXU-Be-UTd"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="测试诗句测试:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6n7-Fw-di1">
+                    <rect key="frame" x="33" y="4" width="90" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="C1A-tm-k3I"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说说" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14H-1p-mOo">
+                    <rect key="frame" x="131" y="4" width="243" height="84"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vCe-xx-yEv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="7it-dX-71y"/>
+                <constraint firstItem="14H-1p-mOo" firstAttribute="leading" secondItem="6n7-Fw-di1" secondAttribute="trailing" constant="8" id="F43-yo-ykx"/>
+                <constraint firstItem="vCe-xx-yEv" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="IJq-al-fjv"/>
+                <constraint firstItem="14H-1p-mOo" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Q1Y-cH-Vvc"/>
+                <constraint firstItem="14H-1p-mOo" firstAttribute="top" secondItem="6n7-Fw-di1" secondAttribute="top" id="VNp-vH-qy1"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="14H-1p-mOo" secondAttribute="bottom" id="cfA-4W-K7l"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vCe-xx-yEv" secondAttribute="bottom" constant="8" id="deh-wY-BiF"/>
+                <constraint firstItem="6n7-Fw-di1" firstAttribute="centerY" secondItem="vCe-xx-yEv" secondAttribute="centerY" id="kHD-Hf-cex"/>
+                <constraint firstItem="6n7-Fw-di1" firstAttribute="leading" secondItem="vCe-xx-yEv" secondAttribute="trailing" constant="8" id="og7-r1-e1W"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="131.19999999999999" y="180.35982008995504"/>
+        </view>
+    </objects>
+</document>

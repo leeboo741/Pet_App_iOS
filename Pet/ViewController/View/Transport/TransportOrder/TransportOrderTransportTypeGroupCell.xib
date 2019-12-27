@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="180" id="KGk-i7-Jjw" customClass="TransportOrderTransportTypeGroupCell">
+            <rect key="frame" x="0.0" y="0.0" width="340" height="180"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="340" height="179.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YrU-MO-DZB">
+                        <rect key="frame" x="8" y="8" width="324" height="70"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="yb8-Cd-GvR"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="YrU-MO-DZB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="45B-4n-q44"/>
+                    <constraint firstItem="YrU-MO-DZB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="M5x-qX-c2z"/>
+                    <constraint firstAttribute="bottom" secondItem="YrU-MO-DZB" secondAttribute="bottom" constant="8" id="oQB-TD-33w"/>
+                    <constraint firstAttribute="trailing" secondItem="YrU-MO-DZB" secondAttribute="trailing" constant="8" id="sTE-zg-ri9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="boxView" destination="YrU-MO-DZB" id="HX6-r0-dQy"/>
+                <outlet property="boxViewHeightConstraint" destination="yb8-Cd-GvR" id="Wqg-9I-6i7"/>
+            </connections>
+            <point key="canvasLocation" x="148.80000000000001" y="200.59970014992504"/>
+        </tableViewCell>
+    </objects>
+</document>
