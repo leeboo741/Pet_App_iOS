@@ -58,7 +58,6 @@ ImageBoxTestCellConfig>
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return self.boxHeight;
     NSInteger rowCount = (self.datasource.count+1)/ mediaColumn;
     NSInteger lastColumn = (self.datasource.count+1) % mediaColumn;
     if (lastColumn != 0) {
@@ -76,11 +75,6 @@ ImageBoxTestCellConfig>
     self.datasource = dataSource;
     [self.orderListView reloadData];
 }
-//
-//-(void)imageBoxTestCell:(ImageBoxTestCell *)cell changeHeight:(CGFloat)height{
-//    self.boxHeight = height;
-//    [self.orderListView reloadData];
-//}
 
 -(NSInteger)numberOfMediaColumn{
     return mediaColumn;
@@ -108,11 +102,9 @@ ImageBoxTestCellConfig>
         _orderListView = [[UITableView alloc]init];
         _orderListView.delegate = self;
         _orderListView.dataSource = self;
-//        [self addRefreshViewWithRefreshAction:@selector(refreshAction) tableView:_orderListView];
-//        [self addLoadMoreViewWithLoadMoreAction:@selector(loadMoreAction) tableView:_orderListView];
+        [self addRefreshViewWithRefreshAction:@selector(refreshAction) tableView:_orderListView];
+        [self addLoadMoreViewWithLoadMoreAction:@selector(loadMoreAction) tableView:_orderListView];
         [_orderListView registerNib:[UINib nibWithNibName:imageBoxTestCellName bundle:nil] forCellReuseIdentifier:imageBoxTestCellIdentifier];
-//        _orderListView.estimatedRowHeight = 180;
-//        _orderListView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _orderListView;
 }

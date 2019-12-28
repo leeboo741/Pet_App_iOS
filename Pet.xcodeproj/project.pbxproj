@@ -34,10 +34,6 @@
 		042EA9EE23ADA34A00F3D376 /* StationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA9EC23ADA34900F3D376 /* StationCell.m */; };
 		042EA9EF23ADA34A00F3D376 /* StationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042EA9ED23ADA34900F3D376 /* StationCell.xib */; };
 		043693E123B3699D00433BE5 /* UILabel+LineAndWordSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 043693E023B3699D00433BE5 /* UILabel+LineAndWordSpace.m */; };
-		0436942223B4556300433BE5 /* ImageAndVideoSelectBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436942123B4556200433BE5 /* ImageAndVideoSelectBox.m */; };
-		0436942423B4558100433BE5 /* ImageAndVideoSelectBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0436942323B4558100433BE5 /* ImageAndVideoSelectBox.xib */; };
-		0436942823B45F9B00433BE5 /* ImageAndVideoSelectItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436942623B45F9B00433BE5 /* ImageAndVideoSelectItemCell.m */; };
-		0436942923B45F9B00433BE5 /* ImageAndVideoSelectItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0436942723B45F9B00433BE5 /* ImageAndVideoSelectItemCell.xib */; };
 		0442D80F23B4B70B007ABE89 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0442D80E23B4B70B007ABE89 /* MobileCoreServices.framework */; };
 		0442D81123B589A4007ABE89 /* 1.mov in Resources */ = {isa = PBXBuildFile; fileRef = 0442D81023B589A4007ABE89 /* 1.mov */; };
 		0469F05223ADB1BB009B8E4F /* StationInfoItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0469F05123ADB1BB009B8E4F /* StationInfoItem.xib */; };
@@ -64,9 +60,10 @@
 		04E7D22E23B04AA1004EEAAB /* TransportTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E7D22C23B04AA1004EEAAB /* TransportTypeCell.xib */; };
 		04E7D23A23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7D23823B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.m */; };
 		04E7D23B23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E7D23923B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.xib */; };
-		04ED17F623B5E0FD002F2266 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED17F523B5E0FD002F2266 /* TestViewController.m */; };
 		04ED17F923B5E79C002F2266 /* MediaSelectBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED17F823B5E79C002F2266 /* MediaSelectBoxView.m */; };
 		04ED17FC23B5E7B7002F2266 /* MediaSelectItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED17FB23B5E7B7002F2266 /* MediaSelectItemView.m */; };
+		04ED181B23B74CBF002F2266 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED181A23B74CBF002F2266 /* PreviewViewController.m */; };
+		04ED181F23B75F0D002F2266 /* MainTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED181E23B75F0D002F2266 /* MainTabbarController.m */; };
 		04EDDA2923B496E8008F379D /* PersonnelOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDDA2823B496E8008F379D /* PersonnelOrderViewController.m */; };
 		04EDDA3323B498B9008F379D /* UIViewController+AddMJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDDA3223B498B9008F379D /* UIViewController+AddMJRefresh.m */; };
 		04EDDA3623B49A7A008F379D /* UIView+AddMJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDDA3523B49A7A008F379D /* UIView+AddMJRefresh.m */; };
@@ -156,12 +153,6 @@
 		042EA9ED23ADA34900F3D376 /* StationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationCell.xib; sourceTree = "<group>"; };
 		043693DF23B3699D00433BE5 /* UILabel+LineAndWordSpace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+LineAndWordSpace.h"; sourceTree = "<group>"; };
 		043693E023B3699D00433BE5 /* UILabel+LineAndWordSpace.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LineAndWordSpace.m"; sourceTree = "<group>"; };
-		0436942023B4556200433BE5 /* ImageAndVideoSelectBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageAndVideoSelectBox.h; sourceTree = "<group>"; };
-		0436942123B4556200433BE5 /* ImageAndVideoSelectBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageAndVideoSelectBox.m; sourceTree = "<group>"; };
-		0436942323B4558100433BE5 /* ImageAndVideoSelectBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageAndVideoSelectBox.xib; sourceTree = "<group>"; };
-		0436942523B45F9B00433BE5 /* ImageAndVideoSelectItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageAndVideoSelectItemCell.h; sourceTree = "<group>"; };
-		0436942623B45F9B00433BE5 /* ImageAndVideoSelectItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageAndVideoSelectItemCell.m; sourceTree = "<group>"; };
-		0436942723B45F9B00433BE5 /* ImageAndVideoSelectItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageAndVideoSelectItemCell.xib; sourceTree = "<group>"; };
 		0442D80E23B4B70B007ABE89 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		0442D81023B589A4007ABE89 /* 1.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 1.mov; sourceTree = "<group>"; };
 		0469F05123ADB1BB009B8E4F /* StationInfoItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationInfoItem.xib; sourceTree = "<group>"; };
@@ -192,7 +183,6 @@
 		048C9F4323B308FC00730C70 /* TransportPayContractConfirmCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportPayContractConfirmCell.h; sourceTree = "<group>"; };
 		048C9F4423B308FC00730C70 /* TransportPayContractConfirmCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportPayContractConfirmCell.m; sourceTree = "<group>"; };
 		048C9F4523B308FC00730C70 /* TransportPayContractConfirmCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransportPayContractConfirmCell.xib; sourceTree = "<group>"; };
-		04C52B0023B5B94C00024FE0 /* MediaSelectItemProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaSelectItemProtocol.h; sourceTree = "<group>"; };
 		04C52B0123B5B9D200024FE0 /* MediaSelectItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaSelectItemModel.h; sourceTree = "<group>"; };
 		04C52B0223B5B9D200024FE0 /* MediaSelectItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaSelectItemModel.m; sourceTree = "<group>"; };
 		04E7D22423AE2056004EEAAB /* TransportOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportOrder.h; sourceTree = "<group>"; };
@@ -206,12 +196,14 @@
 		04E7D23723B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportOrderTransportTypeGroupCell.h; sourceTree = "<group>"; };
 		04E7D23823B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportOrderTransportTypeGroupCell.m; sourceTree = "<group>"; };
 		04E7D23923B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransportOrderTransportTypeGroupCell.xib; sourceTree = "<group>"; };
-		04ED17F423B5E0FD002F2266 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		04ED17F523B5E0FD002F2266 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		04ED17F723B5E79C002F2266 /* MediaSelectBoxView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaSelectBoxView.h; sourceTree = "<group>"; };
 		04ED17F823B5E79C002F2266 /* MediaSelectBoxView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaSelectBoxView.m; sourceTree = "<group>"; };
 		04ED17FA23B5E7B7002F2266 /* MediaSelectItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaSelectItemView.h; sourceTree = "<group>"; };
 		04ED17FB23B5E7B7002F2266 /* MediaSelectItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaSelectItemView.m; sourceTree = "<group>"; };
+		04ED181923B74CBF002F2266 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		04ED181A23B74CBF002F2266 /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		04ED181D23B75F0D002F2266 /* MainTabbarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabbarController.h; sourceTree = "<group>"; };
+		04ED181E23B75F0D002F2266 /* MainTabbarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabbarController.m; sourceTree = "<group>"; };
 		04EDDA2723B496E7008F379D /* PersonnelOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonnelOrderViewController.h; sourceTree = "<group>"; };
 		04EDDA2823B496E8008F379D /* PersonnelOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonnelOrderViewController.m; sourceTree = "<group>"; };
 		04EDDA3123B498B9008F379D /* UIViewController+AddMJRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AddMJRefresh.h"; sourceTree = "<group>"; };
@@ -288,6 +280,7 @@
 		042EA91223A8B08100F3D376 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				04ED181C23B75EEE002F2266 /* Main */,
 				0469F05323ADBB63009B8E4F /* Transport */,
 				042EA9AA23AA343100F3D376 /* User */,
 				042EA9A923AA342200F3D376 /* Station */,
@@ -423,8 +416,6 @@
 			children = (
 				04EDDA2723B496E7008F379D /* PersonnelOrderViewController.h */,
 				04EDDA2823B496E8008F379D /* PersonnelOrderViewController.m */,
-				04ED17F423B5E0FD002F2266 /* TestViewController.h */,
-				04ED17F523B5E0FD002F2266 /* TestViewController.m */,
 			);
 			path = Presonal;
 			sourceTree = "<group>";
@@ -466,7 +457,7 @@
 		042EA9BC23AB4D5900F3D376 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				04C52AFB23B5AC0000024FE0 /* ImageAndVideoSelectView */,
+				04ED180923B702FF002F2266 /* MediaShowAndSelected */,
 				042EA9DE23ACB57900F3D376 /* IconFont */,
 			);
 			path = ThirdParty;
@@ -580,24 +571,28 @@
 			path = TransportPay;
 			sourceTree = "<group>";
 		};
-		04C52AFB23B5AC0000024FE0 /* ImageAndVideoSelectView */ = {
+		04ED180923B702FF002F2266 /* MediaShowAndSelected */ = {
 			isa = PBXGroup;
 			children = (
-				0436942023B4556200433BE5 /* ImageAndVideoSelectBox.h */,
-				0436942123B4556200433BE5 /* ImageAndVideoSelectBox.m */,
-				0436942323B4558100433BE5 /* ImageAndVideoSelectBox.xib */,
-				0436942523B45F9B00433BE5 /* ImageAndVideoSelectItemCell.h */,
-				0436942623B45F9B00433BE5 /* ImageAndVideoSelectItemCell.m */,
-				0436942723B45F9B00433BE5 /* ImageAndVideoSelectItemCell.xib */,
-				04C52B0023B5B94C00024FE0 /* MediaSelectItemProtocol.h */,
 				04C52B0123B5B9D200024FE0 /* MediaSelectItemModel.h */,
 				04C52B0223B5B9D200024FE0 /* MediaSelectItemModel.m */,
+				04ED181923B74CBF002F2266 /* PreviewViewController.h */,
+				04ED181A23B74CBF002F2266 /* PreviewViewController.m */,
 				04ED17F723B5E79C002F2266 /* MediaSelectBoxView.h */,
 				04ED17F823B5E79C002F2266 /* MediaSelectBoxView.m */,
 				04ED17FA23B5E7B7002F2266 /* MediaSelectItemView.h */,
 				04ED17FB23B5E7B7002F2266 /* MediaSelectItemView.m */,
 			);
-			path = ImageAndVideoSelectView;
+			path = MediaShowAndSelected;
+			sourceTree = "<group>";
+		};
+		04ED181C23B75EEE002F2266 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				04ED181D23B75F0D002F2266 /* MainTabbarController.h */,
+				04ED181E23B75F0D002F2266 /* MainTabbarController.m */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		04EDDA2A23B49700008F379D /* User */ = {
@@ -822,13 +817,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				042EA9EF23ADA34A00F3D376 /* StationCell.xib in Resources */,
-				0436942423B4558100433BE5 /* ImageAndVideoSelectBox.xib in Resources */,
 				04F49E982397A9FE008E1334 /* LaunchScreen.storyboard in Resources */,
 				0442D81123B589A4007ABE89 /* 1.mov in Resources */,
 				04E7D23B23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.xib in Resources */,
 				048C9F3523B3086200730C70 /* TransportPayPersonnelCell.xib in Resources */,
 				0469F05223ADB1BB009B8E4F /* StationInfoItem.xib in Resources */,
-				0436942923B45F9B00433BE5 /* ImageAndVideoSelectItemCell.xib in Resources */,
 				048C9F4223B308DC00730C70 /* TransportPayPetConditionConfirmCell.xib in Resources */,
 				048C9F3D23B308A900730C70 /* TransportPayRemarkCell.xib in Resources */,
 				04E7D22E23B04AA1004EEAAB /* TransportTypeCell.xib in Resources */,
@@ -913,6 +906,7 @@
 				"${BUILT_PRODUCTS_DIR}/RadioButton/RadioButton.framework",
 				"${BUILT_PRODUCTS_DIR}/SDCycleScrollView/SDCycleScrollView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/TZImagePickerController/TZImagePickerController.framework",
 				"${BUILT_PRODUCTS_DIR}/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
@@ -944,6 +938,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RadioButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDCycleScrollView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TZImagePickerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITableView_FDTemplateLayoutCell.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
@@ -975,18 +970,17 @@
 				042EA9E523ACB57900F3D376 /* TBCityIconFont.m in Sources */,
 				0469F06B23ADCE24009B8E4F /* TransportOrderValueAddCell.m in Sources */,
 				042EA9B823AB195500F3D376 /* AspectsUIViewController.m in Sources */,
-				04ED17F623B5E0FD002F2266 /* TestViewController.m in Sources */,
 				04F49E902397A9FB008E1334 /* ViewController.m in Sources */,
 				042EA9B423AA383700F3D376 /* MainBannerView.m in Sources */,
 				042EA9CF23AC653400F3D376 /* Station.m in Sources */,
 				0469F06F23ADCF77009B8E4F /* SelectActionLabel.m in Sources */,
 				048C9F4123B308DC00730C70 /* TransportPayPetConditionConfirmCell.m in Sources */,
-				0436942823B45F9B00433BE5 /* ImageAndVideoSelectItemCell.m in Sources */,
 				04E7D22623AE2056004EEAAB /* TransportOrder.m in Sources */,
 				042EA9D223AC661500F3D376 /* StationListViewController.m in Sources */,
 				04F49E9B2397A9FE008E1334 /* main.m in Sources */,
 				048C9F2E23B1ED8600730C70 /* TransportOrderFooterView.m in Sources */,
 				042EA94C23A8C23500F3D376 /* LoginView.m in Sources */,
+				04ED181F23B75F0D002F2266 /* MainTabbarController.m in Sources */,
 				042EA9D523AC6A0E00F3D376 /* UITableViewController+AddMJRefresh.m in Sources */,
 				042EA9BF23AB5B5800F3D376 /* HomeActionCell.m in Sources */,
 				04F49E8D2397A9FB008E1334 /* AppDelegate.m in Sources */,
@@ -996,10 +990,10 @@
 				04ED17F923B5E79C002F2266 /* MediaSelectBoxView.m in Sources */,
 				04EDDA2923B496E8008F379D /* PersonnelOrderViewController.m in Sources */,
 				04F49EBF2397B585008E1334 /* SwiftFile.swift in Sources */,
+				04ED181B23B74CBF002F2266 /* PreviewViewController.m in Sources */,
 				042EA9B123AA34C300F3D376 /* HomeView.m in Sources */,
 				042EA9A423AA331E00F3D376 /* MeViewController.m in Sources */,
 				042EA94823A8C08E00F3D376 /* UIColor+ColorWithHexString.m in Sources */,
-				0436942223B4556300433BE5 /* ImageAndVideoSelectBox.m in Sources */,
 				042EA95223A8C35A00F3D376 /* InputAreaView.m in Sources */,
 				042EA9E623ACB57900F3D376 /* TBCityIconInfo.m in Sources */,
 				042EA95623A9BE0800F3D376 /* PrivacyPolicyView.m in Sources */,

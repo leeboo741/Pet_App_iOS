@@ -1,6 +1,8 @@
 platform :ios, '9.0'
 target 'Pet' do
 
+pod "TZImagePickerController"
+
 pod 'CTAssetsPickerController', '~> 3.3.2-alpha'
 
 pod 'Aspects', '~> 1.4.1'

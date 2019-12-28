@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ImageAndVideoSelectBox.h"
 #import "MediaSelectBoxView.h"
 
 NS_ASSUME_NONNULL_BEGIN

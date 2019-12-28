@@ -11,7 +11,6 @@
 #import "StationListViewController.h"
 #import "TransportOrderViewController.h"
 #import "PersonnelOrderViewController.h"
-#import "TestViewController.h"
 
 @interface HomeViewAction : NSObject<HomeActionProtocol>
 @property (nonatomic, copy) NSString * iconName;
@@ -64,7 +63,6 @@
         StationListViewController * stationListView = [[StationListViewController alloc]init];
         [self.navigationController pushViewController:stationListView animated:YES];
     } else if (index == 2) {
-//        TestViewController * personnelOrderVC = [[TestViewController alloc]init];
         PersonnelOrderViewController * personnelOrderVC = [[PersonnelOrderViewController alloc]init];
         [self.navigationController pushViewController:personnelOrderVC animated:YES];
     }

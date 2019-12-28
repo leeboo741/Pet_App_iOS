@@ -34,7 +34,7 @@
 }
 
 #pragma mark - image and video select boxview delegate and datasource
--(void)mediaSelectBox:(MediaSelectBoxView *)box didChangeDataSource:(NSArray<id<MediaSelectItemProtocol>> *)dataSource{
+-(void)mediaSelectBox:(MediaSelectBoxView *)box didChangeDataSource:(NSArray<MediaSelectItemModel *> *)dataSource{
     if(_delegate && [_delegate respondsToSelector:@selector(imageBoxTestCell:changeData:)]) {
         [_delegate imageBoxTestCell:self changeData:dataSource];
     }
