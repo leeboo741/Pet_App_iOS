@@ -63,7 +63,6 @@
 		04ED17F923B5E79C002F2266 /* MediaSelectBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED17F823B5E79C002F2266 /* MediaSelectBoxView.m */; };
 		04ED17FC23B5E7B7002F2266 /* MediaSelectItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED17FB23B5E7B7002F2266 /* MediaSelectItemView.m */; };
 		04ED181B23B74CBF002F2266 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED181A23B74CBF002F2266 /* PreviewViewController.m */; };
-		04ED181F23B75F0D002F2266 /* MainTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED181E23B75F0D002F2266 /* MainTabbarController.m */; };
 		04EDDA2923B496E8008F379D /* PersonnelOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDDA2823B496E8008F379D /* PersonnelOrderViewController.m */; };
 		04EDDA3323B498B9008F379D /* UIViewController+AddMJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDDA3223B498B9008F379D /* UIViewController+AddMJRefresh.m */; };
 		04EDDA3623B49A7A008F379D /* UIView+AddMJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDDA3523B49A7A008F379D /* UIView+AddMJRefresh.m */; };
@@ -79,6 +78,8 @@
 		04F49EB02397A9FE008E1334 /* PetUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F49EAF2397A9FE008E1334 /* PetUITests.m */; };
 		04F49EBF2397B585008E1334 /* SwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F49EBE2397B585008E1334 /* SwiftFile.swift */; };
 		88410C987A8CE9B14A2BC46C /* Pods_Pet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E80B9F829CF87B2C859FA1 /* Pods_Pet.framework */; };
+		9B82322723B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */; };
+		9B82322B23B8FC6300B676C1 /* GlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,8 +203,6 @@
 		04ED17FB23B5E7B7002F2266 /* MediaSelectItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaSelectItemView.m; sourceTree = "<group>"; };
 		04ED181923B74CBF002F2266 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
 		04ED181A23B74CBF002F2266 /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
-		04ED181D23B75F0D002F2266 /* MainTabbarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabbarController.h; sourceTree = "<group>"; };
-		04ED181E23B75F0D002F2266 /* MainTabbarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabbarController.m; sourceTree = "<group>"; };
 		04EDDA2723B496E7008F379D /* PersonnelOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonnelOrderViewController.h; sourceTree = "<group>"; };
 		04EDDA2823B496E8008F379D /* PersonnelOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonnelOrderViewController.m; sourceTree = "<group>"; };
 		04EDDA3123B498B9008F379D /* UIViewController+AddMJRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AddMJRefresh.h"; sourceTree = "<group>"; };
@@ -235,6 +234,10 @@
 		22705CF52ADBC99330006240 /* Pods-Pet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pet/Pods-Pet.debug.xcconfig"; sourceTree = "<group>"; };
 		3BBC6076F79464A1B8655A4C /* Pods-Pet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pet/Pods-Pet.release.xcconfig"; sourceTree = "<group>"; };
 		68E80B9F829CF87B2C859FA1 /* Pods_Pet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B82322523B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+ChangeViewControllers.h"; sourceTree = "<group>"; };
+		9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+ChangeViewControllers.m"; sourceTree = "<group>"; };
+		9B82322923B8FC6300B676C1 /* GlobalDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalDataManager.h; sourceTree = "<group>"; };
+		9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalDataManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,7 +283,6 @@
 		042EA91223A8B08100F3D376 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				04ED181C23B75EEE002F2266 /* Main */,
 				0469F05323ADBB63009B8E4F /* Transport */,
 				042EA9AA23AA343100F3D376 /* User */,
 				042EA9A923AA342200F3D376 /* Station */,
@@ -336,6 +338,8 @@
 				04EDDA3523B49A7A008F379D /* UIView+AddMJRefresh.m */,
 				043693DF23B3699D00433BE5 /* UILabel+LineAndWordSpace.h */,
 				043693E023B3699D00433BE5 /* UILabel+LineAndWordSpace.m */,
+				9B82322523B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.h */,
+				9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -586,15 +590,6 @@
 			path = MediaShowAndSelected;
 			sourceTree = "<group>";
 		};
-		04ED181C23B75EEE002F2266 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				04ED181D23B75F0D002F2266 /* MainTabbarController.h */,
-				04ED181E23B75F0D002F2266 /* MainTabbarController.m */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
 		04EDDA2A23B49700008F379D /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -638,15 +633,16 @@
 		04F49E8A2397A9FB008E1334 /* Pet */ = {
 			isa = PBXGroup;
 			children = (
-				042EA9D623AC93EE00F3D376 /* Resource */,
-				042EA9BC23AB4D5900F3D376 /* ThirdParty */,
-				042EA9B523AB191600F3D376 /* Aspects */,
-				042EA93F23A8C07400F3D376 /* Category */,
-				042EA93E23A8C06600F3D376 /* Utils */,
-				042EA93B23A8BA0300F3D376 /* Macros */,
 				04F49EC22397BB03008E1334 /* ViewController */,
 				04F49E8B2397A9FB008E1334 /* AppDelegate.h */,
 				04F49E8C2397A9FB008E1334 /* AppDelegate.m */,
+				042EA93B23A8BA0300F3D376 /* Macros */,
+				9B82322823B8FC5500B676C1 /* Data */,
+				042EA9B523AB191600F3D376 /* Aspects */,
+				042EA93F23A8C07400F3D376 /* Category */,
+				042EA93E23A8C06600F3D376 /* Utils */,
+				042EA9D623AC93EE00F3D376 /* Resource */,
+				042EA9BC23AB4D5900F3D376 /* ThirdParty */,
 				04F49E8E2397A9FB008E1334 /* ViewController.h */,
 				04F49E8F2397A9FB008E1334 /* ViewController.m */,
 				04F49E912397A9FB008E1334 /* Main.storyboard */,
@@ -699,6 +695,15 @@
 				68E80B9F829CF87B2C859FA1 /* Pods_Pet.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9B82322823B8FC5500B676C1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9B82322923B8FC6300B676C1 /* GlobalDataManager.h */,
+				9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		AFF55560CF13BDD49129A0C3 /* Pods */ = {
@@ -957,6 +962,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0469F05923ADBF21009B8E4F /* TransportPayViewController.m in Sources */,
+				9B82322723B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m in Sources */,
 				043693E123B3699D00433BE5 /* UILabel+LineAndWordSpace.m in Sources */,
 				042EA9A123AA330E00F3D376 /* StationDetailViewController.m in Sources */,
 				04EDDA3623B49A7A008F379D /* UIView+AddMJRefresh.m in Sources */,
@@ -980,7 +986,6 @@
 				04F49E9B2397A9FE008E1334 /* main.m in Sources */,
 				048C9F2E23B1ED8600730C70 /* TransportOrderFooterView.m in Sources */,
 				042EA94C23A8C23500F3D376 /* LoginView.m in Sources */,
-				04ED181F23B75F0D002F2266 /* MainTabbarController.m in Sources */,
 				042EA9D523AC6A0E00F3D376 /* UITableViewController+AddMJRefresh.m in Sources */,
 				042EA9BF23AB5B5800F3D376 /* HomeActionCell.m in Sources */,
 				04F49E8D2397A9FB008E1334 /* AppDelegate.m in Sources */,
@@ -1004,6 +1009,7 @@
 				042EA9EE23ADA34A00F3D376 /* StationCell.m in Sources */,
 				04E7D22923AE236A004EEAAB /* Utils.m in Sources */,
 				042EA99B23AA32A300F3D376 /* HomeViewController.m in Sources */,
+				9B82322B23B8FC6300B676C1 /* GlobalDataManager.m in Sources */,
 				048C9F3423B3086200730C70 /* TransportPayPersonnelCell.m in Sources */,
 				04ED17FC23B5E7B7002F2266 /* MediaSelectItemView.m in Sources */,
 				048C9F3C23B308A900730C70 /* TransportPayRemarkCell.m in Sources */,
