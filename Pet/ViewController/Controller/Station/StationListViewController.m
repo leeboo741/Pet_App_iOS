@@ -24,6 +24,7 @@ static NSString * StationListCellIdentifier = @"stationListCellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.title = @"驿站中心";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self.tableView registerNib:[UINib nibWithNibName:@"StationCell" bundle:nil] forCellReuseIdentifier:StationListCellIdentifier];

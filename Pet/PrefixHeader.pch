@@ -35,5 +35,9 @@
 
 // Handle
 
+// Manager
+#import "UserManager.h"
+#import "GlobalDataManager.h"
+
 
 #endif /* PrefixHeader_pch */

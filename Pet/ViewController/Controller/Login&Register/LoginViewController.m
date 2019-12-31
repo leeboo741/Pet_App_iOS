@@ -10,6 +10,7 @@
 #import "LoginView.h"
 #import "PrivacyPolicyView.h"
 #import "HomeViewController.h"
+#import "MainTabbarController.h"
 
 @interface LoginViewController ()<LoginViewDelegate, PrivacyPolicyViewDelegate>
 @property (nonatomic, strong) LoginView * loginView;
@@ -43,8 +44,18 @@
 -(void)loginViewTapActionType:(LoginViewTapActionType)type{
     if (type == LoginViewTapActionType_Login) {
         NSLog(@"登录\n账户:%@\n密码:%@\n是否同意条款:%d",self.account,self.password,self.agreePrivacy);
-        UINavigationController * navi = [[UINavigationController alloc]initWithRootViewController:[[HomeViewController alloc]init]];
-        [self presentViewController:navi animated:YES completion:nil];
+        if ([[UserManager shareUserManager] getUser] == nil) {
+            UserEntity * user = [[UserEntity alloc]init];
+            user.userName = @"李静波";
+            user.role = USER_ROLE_CUSTOMER;
+            user.phone = @"16607093121";
+            user.avaterImagePath = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576732013190&di=a566b0fff9b908ef63b10ad32e17e769&imgtype=0&src=http%3A%2F%2Fimg1.gtimg.com%2Frushidao%2Fpics%2Fhv1%2F20%2F108%2F1744%2F113431160.jpg";
+            [[UserManager shareUserManager] saveUser:user];
+        }
+        MainTabbarController * mainTabbarController = [MainTabbarController shareMainTabbarController];
+        UIWindow * window = kKeyWindow;
+        window.rootViewController = mainTabbarController;
+        [window makeKeyAndVisible];
     } else if (type == LoginViewTapActionType_Privacy) {
         [self.privacyPolicyView addPopViewToWindow];
     }

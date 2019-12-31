@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042DA76723B9FE780027C39B /* UIBarButtonItem+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA76323B9FE780027C39B /* UIBarButtonItem+Badge.m */; };
+		042DA76823B9FE780027C39B /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA76423B9FE780027C39B /* UIButton+Badge.m */; };
+		042DA76D23BA02C80027C39B /* SqliteBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA76C23BA02C70027C39B /* SqliteBase.m */; };
+		042DA77023BA06F80027C39B /* UserDataBaseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA76F23BA06F80027C39B /* UserDataBaseHandler.m */; };
+		042DA77323BA09FF0027C39B /* DatabaseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA77223BA09FF0027C39B /* DatabaseHandler.m */; };
+		042DA77723BB2E980027C39B /* CenterActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA77523BB2E980027C39B /* CenterActionCell.m */; };
+		042DA77823BB2E980027C39B /* CenterActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042DA77623BB2E980027C39B /* CenterActionCell.xib */; };
+		042DA77B23BB303E0027C39B /* CenterActionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA77A23BB303E0027C39B /* CenterActionItem.m */; };
+		042DA78223BB49A00027C39B /* SegmentedSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA78123BB49A00027C39B /* SegmentedSelectView.m */; };
 		042EA91023A8B05600F3D376 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA90F23A8B05600F3D376 /* LoginViewController.m */; };
 		042EA94623A8C08E00F3D376 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA94123A8C08E00F3D376 /* UIView+Frame.m */; };
 		042EA94723A8C08E00F3D376 /* UIImage+JKRImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA94423A8C08E00F3D376 /* UIImage+JKRImage.m */; };
@@ -63,6 +72,15 @@
 		04ED17F923B5E79C002F2266 /* MediaSelectBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED17F823B5E79C002F2266 /* MediaSelectBoxView.m */; };
 		04ED17FC23B5E7B7002F2266 /* MediaSelectItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED17FB23B5E7B7002F2266 /* MediaSelectItemView.m */; };
 		04ED181B23B74CBF002F2266 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED181A23B74CBF002F2266 /* PreviewViewController.m */; };
+		04ED182223B98375002F2266 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED182123B98375002F2266 /* UserManager.m */; };
+		04ED182723B98CBA002F2266 /* UserEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED182623B98CBA002F2266 /* UserEntity.m */; };
+		04ED182C23B999FB002F2266 /* UITabBarController+Pet.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED182B23B999FB002F2266 /* UITabBarController+Pet.m */; };
+		04ED183023B9A284002F2266 /* MainTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED182F23B9A284002F2266 /* MainTabbarController.m */; };
+		04ED183423B9CCFD002F2266 /* CustomerCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED183323B9CCFD002F2266 /* CustomerCenterController.m */; };
+		04ED183723B9CD14002F2266 /* StationCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED183623B9CD14002F2266 /* StationCenterController.m */; };
+		04ED183A23B9CD26002F2266 /* SiteCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED183923B9CD26002F2266 /* SiteCenterController.m */; };
+		04ED183F23B9E5DB002F2266 /* CenterHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ED183D23B9E5DB002F2266 /* CenterHeaderCell.m */; };
+		04ED184023B9E5DB002F2266 /* CenterHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04ED183E23B9E5DB002F2266 /* CenterHeaderCell.xib */; };
 		04EDDA2923B496E8008F379D /* PersonnelOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDDA2823B496E8008F379D /* PersonnelOrderViewController.m */; };
 		04EDDA3323B498B9008F379D /* UIViewController+AddMJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDDA3223B498B9008F379D /* UIViewController+AddMJRefresh.m */; };
 		04EDDA3623B49A7A008F379D /* UIView+AddMJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDDA3523B49A7A008F379D /* UIView+AddMJRefresh.m */; };
@@ -100,6 +118,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		042DA76323B9FE780027C39B /* UIBarButtonItem+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Badge.m"; sourceTree = "<group>"; };
+		042DA76423B9FE780027C39B /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
+		042DA76523B9FE780027C39B /* UIBarButtonItem+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Badge.h"; sourceTree = "<group>"; };
+		042DA76623B9FE780027C39B /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
+		042DA76B23BA02C70027C39B /* SqliteBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteBase.h; sourceTree = "<group>"; };
+		042DA76C23BA02C70027C39B /* SqliteBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteBase.m; sourceTree = "<group>"; };
+		042DA76E23BA06F80027C39B /* UserDataBaseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDataBaseHandler.h; sourceTree = "<group>"; };
+		042DA76F23BA06F80027C39B /* UserDataBaseHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDataBaseHandler.m; sourceTree = "<group>"; };
+		042DA77123BA09FF0027C39B /* DatabaseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DatabaseHandler.h; sourceTree = "<group>"; };
+		042DA77223BA09FF0027C39B /* DatabaseHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DatabaseHandler.m; sourceTree = "<group>"; };
+		042DA77423BB2E980027C39B /* CenterActionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CenterActionCell.h; sourceTree = "<group>"; };
+		042DA77523BB2E980027C39B /* CenterActionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CenterActionCell.m; sourceTree = "<group>"; };
+		042DA77623BB2E980027C39B /* CenterActionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CenterActionCell.xib; sourceTree = "<group>"; };
+		042DA77923BB303E0027C39B /* CenterActionItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CenterActionItem.h; sourceTree = "<group>"; };
+		042DA77A23BB303E0027C39B /* CenterActionItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CenterActionItem.m; sourceTree = "<group>"; };
+		042DA78023BB49A00027C39B /* SegmentedSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SegmentedSelectView.h; sourceTree = "<group>"; };
+		042DA78123BB49A00027C39B /* SegmentedSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SegmentedSelectView.m; sourceTree = "<group>"; };
 		042EA90E23A8B05600F3D376 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		042EA90F23A8B05600F3D376 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		042EA93C23A8BCA000F3D376 /* ResourceMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceMacros.h; sourceTree = "<group>"; };
@@ -203,6 +238,24 @@
 		04ED17FB23B5E7B7002F2266 /* MediaSelectItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaSelectItemView.m; sourceTree = "<group>"; };
 		04ED181923B74CBF002F2266 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
 		04ED181A23B74CBF002F2266 /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		04ED182023B98375002F2266 /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		04ED182123B98375002F2266 /* UserManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+		04ED182423B988DC002F2266 /* SingleInstanceMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SingleInstanceMacro.h; sourceTree = "<group>"; };
+		04ED182523B98CBA002F2266 /* UserEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserEntity.h; sourceTree = "<group>"; };
+		04ED182623B98CBA002F2266 /* UserEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserEntity.m; sourceTree = "<group>"; };
+		04ED182A23B999FB002F2266 /* UITabBarController+Pet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+Pet.h"; sourceTree = "<group>"; };
+		04ED182B23B999FB002F2266 /* UITabBarController+Pet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+Pet.m"; sourceTree = "<group>"; };
+		04ED182E23B9A284002F2266 /* MainTabbarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabbarController.h; sourceTree = "<group>"; };
+		04ED182F23B9A284002F2266 /* MainTabbarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabbarController.m; sourceTree = "<group>"; };
+		04ED183223B9CCFD002F2266 /* CustomerCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerCenterController.h; sourceTree = "<group>"; };
+		04ED183323B9CCFD002F2266 /* CustomerCenterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerCenterController.m; sourceTree = "<group>"; };
+		04ED183523B9CD14002F2266 /* StationCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StationCenterController.h; sourceTree = "<group>"; };
+		04ED183623B9CD14002F2266 /* StationCenterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StationCenterController.m; sourceTree = "<group>"; };
+		04ED183823B9CD26002F2266 /* SiteCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteCenterController.h; sourceTree = "<group>"; };
+		04ED183923B9CD26002F2266 /* SiteCenterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteCenterController.m; sourceTree = "<group>"; };
+		04ED183C23B9E5DB002F2266 /* CenterHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CenterHeaderCell.h; sourceTree = "<group>"; };
+		04ED183D23B9E5DB002F2266 /* CenterHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CenterHeaderCell.m; sourceTree = "<group>"; };
+		04ED183E23B9E5DB002F2266 /* CenterHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CenterHeaderCell.xib; sourceTree = "<group>"; };
 		04EDDA2723B496E7008F379D /* PersonnelOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonnelOrderViewController.h; sourceTree = "<group>"; };
 		04EDDA2823B496E8008F379D /* PersonnelOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonnelOrderViewController.m; sourceTree = "<group>"; };
 		04EDDA3123B498B9008F379D /* UIViewController+AddMJRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AddMJRefresh.h"; sourceTree = "<group>"; };
@@ -267,6 +320,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		042DA76223B9FE570027C39B /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				042DA76523B9FE780027C39B /* UIBarButtonItem+Badge.h */,
+				042DA76323B9FE780027C39B /* UIBarButtonItem+Badge.m */,
+				042DA76623B9FE780027C39B /* UIButton+Badge.h */,
+				042DA76423B9FE780027C39B /* UIButton+Badge.m */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		042DA76923BA023D0027C39B /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				04ED182523B98CBA002F2266 /* UserEntity.h */,
+				04ED182623B98CBA002F2266 /* UserEntity.m */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		042DA76A23BA024C0027C39B /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				042DA76B23BA02C70027C39B /* SqliteBase.h */,
+				042DA76C23BA02C70027C39B /* SqliteBase.m */,
+				042DA77123BA09FF0027C39B /* DatabaseHandler.h */,
+				042DA77223BA09FF0027C39B /* DatabaseHandler.m */,
+				042DA76E23BA06F80027C39B /* UserDataBaseHandler.h */,
+				042DA76F23BA06F80027C39B /* UserDataBaseHandler.m */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		042DA77C23BB42610027C39B /* Customer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Customer;
+			sourceTree = "<group>";
+		};
 		042EA91123A8B07900F3D376 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +376,7 @@
 		042EA91223A8B08100F3D376 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				04ED182D23B9A22F002F2266 /* Main */,
 				0469F05323ADBB63009B8E4F /* Transport */,
 				042EA9AA23AA343100F3D376 /* User */,
 				042EA9A923AA342200F3D376 /* Station */,
@@ -308,6 +402,7 @@
 			children = (
 				042EA93C23A8BCA000F3D376 /* ResourceMacros.h */,
 				042EA93D23A8BD8C00F3D376 /* ToolsMacros.h */,
+				04ED182423B988DC002F2266 /* SingleInstanceMacro.h */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -330,16 +425,11 @@
 				042EA94423A8C08E00F3D376 /* UIImage+JKRImage.m */,
 				042EA94223A8C08E00F3D376 /* UIView+Frame.h */,
 				042EA94123A8C08E00F3D376 /* UIView+Frame.m */,
-				042EA9D323AC6A0E00F3D376 /* UITableViewController+AddMJRefresh.h */,
-				042EA9D423AC6A0E00F3D376 /* UITableViewController+AddMJRefresh.m */,
-				04EDDA3123B498B9008F379D /* UIViewController+AddMJRefresh.h */,
-				04EDDA3223B498B9008F379D /* UIViewController+AddMJRefresh.m */,
-				04EDDA3423B49A7A008F379D /* UIView+AddMJRefresh.h */,
-				04EDDA3523B49A7A008F379D /* UIView+AddMJRefresh.m */,
 				043693DF23B3699D00433BE5 /* UILabel+LineAndWordSpace.h */,
 				043693E023B3699D00433BE5 /* UILabel+LineAndWordSpace.m */,
-				9B82322523B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.h */,
-				9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */,
+				04ED182823B9998E002F2266 /* TableViewRefresh */,
+				042DA76223B9FE570027C39B /* Button */,
+				04ED182923B999AE002F2266 /* Tabbar */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -377,6 +467,8 @@
 				04E7D22A23B04AA1004EEAAB /* TransportTypeCell.h */,
 				04E7D22B23B04AA1004EEAAB /* TransportTypeCell.m */,
 				04E7D22C23B04AA1004EEAAB /* TransportTypeCell.xib */,
+				042DA78023BB49A00027C39B /* SegmentedSelectView.h */,
+				042DA78123BB49A00027C39B /* SegmentedSelectView.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -406,6 +498,7 @@
 		042EA9AA23AA343100F3D376 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				04ED183123B9CCB3002F2266 /* Customer */,
 				042EA9AD23AA345700F3D376 /* Station */,
 				042EA9AC23AA345200F3D376 /* Site */,
 				042EA9AB23AA344B00F3D376 /* Presonal */,
@@ -427,6 +520,8 @@
 		042EA9AC23AA345200F3D376 /* Site */ = {
 			isa = PBXGroup;
 			children = (
+				04ED183823B9CD26002F2266 /* SiteCenterController.h */,
+				04ED183923B9CD26002F2266 /* SiteCenterController.m */,
 			);
 			path = Site;
 			sourceTree = "<group>";
@@ -434,6 +529,8 @@
 		042EA9AD23AA345700F3D376 /* Station */ = {
 			isa = PBXGroup;
 			children = (
+				04ED183523B9CD14002F2266 /* StationCenterController.h */,
+				04ED183623B9CD14002F2266 /* StationCenterController.m */,
 			);
 			path = Station;
 			sourceTree = "<group>";
@@ -590,9 +687,68 @@
 			path = MediaShowAndSelected;
 			sourceTree = "<group>";
 		};
+		04ED182823B9998E002F2266 /* TableViewRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				042EA9D323AC6A0E00F3D376 /* UITableViewController+AddMJRefresh.h */,
+				042EA9D423AC6A0E00F3D376 /* UITableViewController+AddMJRefresh.m */,
+				04EDDA3123B498B9008F379D /* UIViewController+AddMJRefresh.h */,
+				04EDDA3223B498B9008F379D /* UIViewController+AddMJRefresh.m */,
+				04EDDA3423B49A7A008F379D /* UIView+AddMJRefresh.h */,
+				04EDDA3523B49A7A008F379D /* UIView+AddMJRefresh.m */,
+			);
+			path = TableViewRefresh;
+			sourceTree = "<group>";
+		};
+		04ED182923B999AE002F2266 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				9B82322523B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.h */,
+				9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */,
+				04ED182A23B999FB002F2266 /* UITabBarController+Pet.h */,
+				04ED182B23B999FB002F2266 /* UITabBarController+Pet.m */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		04ED182D23B9A22F002F2266 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				04ED182E23B9A284002F2266 /* MainTabbarController.h */,
+				04ED182F23B9A284002F2266 /* MainTabbarController.m */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		04ED183123B9CCB3002F2266 /* Customer */ = {
+			isa = PBXGroup;
+			children = (
+				04ED183223B9CCFD002F2266 /* CustomerCenterController.h */,
+				04ED183323B9CCFD002F2266 /* CustomerCenterController.m */,
+			);
+			path = Customer;
+			sourceTree = "<group>";
+		};
+		04ED183B23B9E599002F2266 /* Center */ = {
+			isa = PBXGroup;
+			children = (
+				042DA77C23BB42610027C39B /* Customer */,
+				04ED183C23B9E5DB002F2266 /* CenterHeaderCell.h */,
+				04ED183D23B9E5DB002F2266 /* CenterHeaderCell.m */,
+				04ED183E23B9E5DB002F2266 /* CenterHeaderCell.xib */,
+				042DA77423BB2E980027C39B /* CenterActionCell.h */,
+				042DA77523BB2E980027C39B /* CenterActionCell.m */,
+				042DA77623BB2E980027C39B /* CenterActionCell.xib */,
+				042DA77923BB303E0027C39B /* CenterActionItem.h */,
+				042DA77A23BB303E0027C39B /* CenterActionItem.m */,
+			);
+			path = Center;
+			sourceTree = "<group>";
+		};
 		04EDDA2A23B49700008F379D /* User */ = {
 			isa = PBXGroup;
 			children = (
+				04ED183B23B9E599002F2266 /* Center */,
 				04EDDA2B23B49716008F379D /* Personnel */,
 			);
 			path = User;
@@ -702,6 +858,10 @@
 			children = (
 				9B82322923B8FC6300B676C1 /* GlobalDataManager.h */,
 				9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */,
+				04ED182023B98375002F2266 /* UserManager.h */,
+				04ED182123B98375002F2266 /* UserManager.m */,
+				042DA76A23BA024C0027C39B /* Database */,
+				042DA76923BA023D0027C39B /* Entity */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -822,6 +982,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				042EA9EF23ADA34A00F3D376 /* StationCell.xib in Resources */,
+				04ED184023B9E5DB002F2266 /* CenterHeaderCell.xib in Resources */,
 				04F49E982397A9FE008E1334 /* LaunchScreen.storyboard in Resources */,
 				0442D81123B589A4007ABE89 /* 1.mov in Resources */,
 				04E7D23B23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.xib in Resources */,
@@ -834,6 +995,7 @@
 				048C9F4723B308FC00730C70 /* TransportPayContractConfirmCell.xib in Resources */,
 				04F49E952397A9FE008E1334 /* Assets.xcassets in Resources */,
 				042EA9DA23AC96A900F3D376 /* iconfont.ttf in Resources */,
+				042DA77823BB2E980027C39B /* CenterActionCell.xib in Resources */,
 				04F49E932397A9FB008E1334 /* Main.storyboard in Resources */,
 				042EA95723A9BE0800F3D376 /* PrivacyPolicyView.xib in Resources */,
 				04EDDA3B23B49C28008F379D /* ImageBoxTestCell.xib in Resources */,
@@ -963,7 +1125,9 @@
 			files = (
 				0469F05923ADBF21009B8E4F /* TransportPayViewController.m in Sources */,
 				9B82322723B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m in Sources */,
+				042DA77023BA06F80027C39B /* UserDataBaseHandler.m in Sources */,
 				043693E123B3699D00433BE5 /* UILabel+LineAndWordSpace.m in Sources */,
+				04ED183F23B9E5DB002F2266 /* CenterHeaderCell.m in Sources */,
 				042EA9A123AA330E00F3D376 /* StationDetailViewController.m in Sources */,
 				04EDDA3623B49A7A008F379D /* UIView+AddMJRefresh.m in Sources */,
 				0469F05D23ADCD9C009B8E4F /* TransportOrderViewController.m in Sources */,
@@ -976,8 +1140,10 @@
 				042EA9E523ACB57900F3D376 /* TBCityIconFont.m in Sources */,
 				0469F06B23ADCE24009B8E4F /* TransportOrderValueAddCell.m in Sources */,
 				042EA9B823AB195500F3D376 /* AspectsUIViewController.m in Sources */,
+				04ED182723B98CBA002F2266 /* UserEntity.m in Sources */,
 				04F49E902397A9FB008E1334 /* ViewController.m in Sources */,
 				042EA9B423AA383700F3D376 /* MainBannerView.m in Sources */,
+				042DA76823B9FE780027C39B /* UIButton+Badge.m in Sources */,
 				042EA9CF23AC653400F3D376 /* Station.m in Sources */,
 				0469F06F23ADCF77009B8E4F /* SelectActionLabel.m in Sources */,
 				048C9F4123B308DC00730C70 /* TransportPayPetConditionConfirmCell.m in Sources */,
@@ -985,15 +1151,22 @@
 				042EA9D223AC661500F3D376 /* StationListViewController.m in Sources */,
 				04F49E9B2397A9FE008E1334 /* main.m in Sources */,
 				048C9F2E23B1ED8600730C70 /* TransportOrderFooterView.m in Sources */,
+				04ED182C23B999FB002F2266 /* UITabBarController+Pet.m in Sources */,
 				042EA94C23A8C23500F3D376 /* LoginView.m in Sources */,
+				04ED183A23B9CD26002F2266 /* SiteCenterController.m in Sources */,
+				042DA76D23BA02C80027C39B /* SqliteBase.m in Sources */,
 				042EA9D523AC6A0E00F3D376 /* UITableViewController+AddMJRefresh.m in Sources */,
 				042EA9BF23AB5B5800F3D376 /* HomeActionCell.m in Sources */,
 				04F49E8D2397A9FB008E1334 /* AppDelegate.m in Sources */,
+				04ED183423B9CCFD002F2266 /* CustomerCenterController.m in Sources */,
 				042EA94723A8C08E00F3D376 /* UIImage+JKRImage.m in Sources */,
 				0469F06123ADCDC2009B8E4F /* TransportOrderBaseInfoCell.m in Sources */,
 				04E7D23A23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.m in Sources */,
 				04ED17F923B5E79C002F2266 /* MediaSelectBoxView.m in Sources */,
+				04ED183723B9CD14002F2266 /* StationCenterController.m in Sources */,
 				04EDDA2923B496E8008F379D /* PersonnelOrderViewController.m in Sources */,
+				042DA76723B9FE780027C39B /* UIBarButtonItem+Badge.m in Sources */,
+				042DA77B23BB303E0027C39B /* CenterActionItem.m in Sources */,
 				04F49EBF2397B585008E1334 /* SwiftFile.swift in Sources */,
 				04ED181B23B74CBF002F2266 /* PreviewViewController.m in Sources */,
 				042EA9B123AA34C300F3D376 /* HomeView.m in Sources */,
@@ -1001,6 +1174,7 @@
 				042EA94823A8C08E00F3D376 /* UIColor+ColorWithHexString.m in Sources */,
 				042EA95223A8C35A00F3D376 /* InputAreaView.m in Sources */,
 				042EA9E623ACB57900F3D376 /* TBCityIconInfo.m in Sources */,
+				042DA77323BA09FF0027C39B /* DatabaseHandler.m in Sources */,
 				042EA95623A9BE0800F3D376 /* PrivacyPolicyView.m in Sources */,
 				042EA9EA23ACC9BC00F3D376 /* FakeStationListData.m in Sources */,
 				04C52B0323B5B9D200024FE0 /* MediaSelectItemModel.m in Sources */,
@@ -1009,9 +1183,13 @@
 				042EA9EE23ADA34A00F3D376 /* StationCell.m in Sources */,
 				04E7D22923AE236A004EEAAB /* Utils.m in Sources */,
 				042EA99B23AA32A300F3D376 /* HomeViewController.m in Sources */,
+				042DA78223BB49A00027C39B /* SegmentedSelectView.m in Sources */,
 				9B82322B23B8FC6300B676C1 /* GlobalDataManager.m in Sources */,
+				042DA77723BB2E980027C39B /* CenterActionCell.m in Sources */,
+				04ED182223B98375002F2266 /* UserManager.m in Sources */,
 				048C9F3423B3086200730C70 /* TransportPayPersonnelCell.m in Sources */,
 				04ED17FC23B5E7B7002F2266 /* MediaSelectItemView.m in Sources */,
+				04ED183023B9A284002F2266 /* MainTabbarController.m in Sources */,
 				048C9F3C23B308A900730C70 /* TransportPayRemarkCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

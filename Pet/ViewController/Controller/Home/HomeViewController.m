@@ -42,6 +42,7 @@
     [super viewDidLoad];
     [self.view addSubview:self.homeView];
     self.homeView.actionArray = self.homeActionArray;
+    self.navigationItem.title = @"首页";
 }
 
 -(void)viewWillLayoutSubviews{
@@ -65,6 +66,8 @@
     } else if (index == 2) {
         PersonnelOrderViewController * personnelOrderVC = [[PersonnelOrderViewController alloc]init];
         [self.navigationController pushViewController:personnelOrderVC animated:YES];
+    } else if (index == 3) {
+        [[UserManager shareUserManager] changeUserRole:[[UserManager shareUserManager] getUserRole]+1];
     }
 }
 

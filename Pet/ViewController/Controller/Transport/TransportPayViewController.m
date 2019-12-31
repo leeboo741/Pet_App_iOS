@@ -56,6 +56,7 @@ TransportPayContractConfirmCellDelegate>
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"托运订单";
     [self.tableView registerNib:[UINib nibWithNibName:PersonnelCellName bundle:nil] forCellReuseIdentifier:PersonnelCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:RemarkCellName bundle:nil] forCellReuseIdentifier:RemarkCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:PetConditionConfirmCellName bundle:nil] forCellReuseIdentifier:PetConditionConfirmCellIdentifier];

@@ -1,0 +1,97 @@
+//
+//  CenterHeaderCell.m
+//  Pet
+//
+//  Created by mac on 2019/12/30.
+//  Copyright © 2019年 mac. All rights reserved.
+//
+
+#import "CenterHeaderCell.h"
+#import "UIButton+Badge.h"
+
+@interface CenterHeaderCell ()
+@property (weak, nonatomic) IBOutlet UIView *boxView;
+@property (weak, nonatomic) IBOutlet UIImageView *avaterImageView;
+@property (weak, nonatomic) IBOutlet UILabel *roleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIView *infoLineOne;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoLineOneHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet UIView *infoLineTwo;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoLineTwoHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
+@property (weak, nonatomic) IBOutlet UIButton *messageButton;
+
+@end
+
+@implementation CenterHeaderCell
+#pragma mark - life cycle
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+    [self initView];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+-(void)initView{
+    self.avaterImageView.layer.cornerRadius = 45;
+    self.roleLabel.layer.cornerRadius = 10;
+    [self.messageButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(IconFont_Message, 32, Color_blue_2)] forState:UIControlStateNormal];
+    self.messageButton.badgeMinSize = 4;
+    self.messageButton.badgePadding = 2;
+    [self.messageButton addTarget:self action:@selector(tapMessageButton) forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark - event target
+-(void)tapMessageButton{
+    if (_delegate && [_delegate respondsToSelector:@selector(tapMessageButtonAtHeaderCell:)]) {
+        [_delegate tapMessageButtonAtHeaderCell:self];
+    }
+}
+
+#pragma mark - setters and getters
+-(void)setUser:(UserEntity *)user {
+    _user = user;
+    [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:user.avaterImagePath] placeholderImage:[UIImage imageNamed:@"logo"]];
+    self.nameLabel.text = user.userName;
+    self.phoneLabel.text = user.phone;
+    switch (user.role) {
+        case USER_ROLE_UNKOWN:
+        case USER_ROLE_CUSTOMER:
+            self.roleLabel.hidden = YES;
+            break;
+        case USER_ROLE_SERVICE:
+            self.roleLabel.hidden = NO;
+            self.roleLabel.text = @"客服";
+        case USER_ROLE_DRIVER:
+            self.roleLabel.text = @"司机";
+        case USER_ROLE_MANAGER:
+            self.roleLabel.text = @"管理员";
+        case USER_ROLE_BUSINESS:
+            self.roleLabel.text = @"认证商家";
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)setBalance:(CGFloat)balance{
+    _balance = balance;
+    self.balanceLabel.text = [NSString stringWithFormat:@"%.2lf元",balance];
+}
+
+-(void)setHaveNewMessage:(BOOL)haveNewMessage {
+    _haveNewMessage = haveNewMessage;
+    if (haveNewMessage) {
+        self.messageButton.badgeValue = @" ";
+    } else {
+        self.messageButton.badgeValue = @"";
+    }
+}
+
+@end

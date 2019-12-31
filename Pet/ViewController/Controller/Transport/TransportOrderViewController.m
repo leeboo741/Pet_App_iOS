@@ -99,6 +99,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"托运订单";
     [self.tableView registerNib:[UINib nibWithNibName:BaseInfoCellName bundle:nil] forCellReuseIdentifier:BaseInfoCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:TransportTypeGroupCellName bundle:nil] forCellReuseIdentifier:TransportTypeGroupCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:ValueAddedCellName bundle:nil] forCellReuseIdentifier:ValueAddedCellIdentifier];

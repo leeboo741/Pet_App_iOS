@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableViewController (AddMJRefresh)
+// 
 -(void)addRefreshViewWithRefreshAction:(SEL)refreshAction;
 -(void)addLoadMoreViewWithLoadMoreAction:(SEL)loadmoreAction;
 -(void)startRefresh;

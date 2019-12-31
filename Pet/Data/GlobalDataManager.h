@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SingleInstanceMacro.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +19,8 @@ typedef NS_ENUM(NSInteger, GLOBAL_DATA_KEY) {
 /**
  *  获取单例对象
  */
-+(instancetype)shareInstance;
+//+(instancetype)shareGlobalDataManager;
+SingleInterface(GlobalDataManager);
 /**
  *  存储数据
  *  @param data 要存储的数据
