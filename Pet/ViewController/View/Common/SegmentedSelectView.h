@@ -30,11 +30,17 @@ typedef NS_ENUM(NSInteger, SegmentedItemStyle) {
 
 @interface SegmentedSelectItem : UIView
 @property (nonatomic, strong) SegmentedSelectItemModel * model;
+-(void)selectItem:(BOOL)selectItem;
+@end
 
+@class SegmentedSelectView;
+@protocol SegmentedSelectViewDelegate <NSObject>
+-(void)segmentedSelectView:(SegmentedSelectView *)view selectIndex:(NSInteger)index;
 @end
 
 @interface SegmentedSelectView : UIView
 @property (nonatomic, strong) NSArray<SegmentedSelectItemModel *>* modelArray;
+@property (nonatomic, weak) id<SegmentedSelectViewDelegate>delegate;
 @end
 
 NS_ASSUME_NONNULL_END

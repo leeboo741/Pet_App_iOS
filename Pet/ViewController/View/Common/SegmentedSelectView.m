@@ -12,6 +12,8 @@
 
 @implementation SegmentedSelectItemModel
 
+#pragma mark - model | life cycle
+
 -(instancetype)init{
     self = [super init];
     if (self) {
@@ -22,6 +24,8 @@
     }
     return self;
 }
+
+#pragma mark - model | setters and getters
 
 -(SegmentedItemStyle)style{
     return SegmentedItemStyle_Bottom;
@@ -43,7 +47,7 @@
 -(instancetype)init{
     self = [super init];
     if (self) {
-        
+        self.backgroundColor = Color_white_1;
     }
     return self;
 }
@@ -78,6 +82,19 @@
 
 -(void)setModel:(SegmentedSelectItemModel *)model{
     _model = model;
+    [self resetUIWithModel:model];
+}
+
+#pragma mark - item | public method
+
+-(void)selectItem:(BOOL)selectItem{
+    self.model.itemIsSelected = selectItem;
+    [self resetUIWithModel:self.model];
+}
+
+#pragma mark - item | private method
+
+-(void)resetUIWithModel:(SegmentedSelectItemModel *)model{
     if (kStringIsEmpty(model.title)) {
         if ([self.subviews containsObject:self.label]) {
             [self.label removeFromSuperview];
@@ -130,7 +147,6 @@
     }
 }
 
-#pragma mark - private method
 -(void)resetConstrant{
     if ([self.subviews containsObject:self.label]) {
         if ([self.subviews containsObject:self.imageView]) {
@@ -187,10 +203,12 @@
 
 @implementation SegmentedSelectView
 
+#pragma mark - view | life cycle
+
 -(instancetype)init{
     self = [super init];
     if (self) {
-        
+        self.backgroundColor = Color_white_1;
     }
     return self;
 }
@@ -200,7 +218,7 @@
     [self resetConstant];
 }
 
-#pragma mark - setters and getters
+#pragma mark - view | setters and getters
 
 -(void)setModelArray:(NSArray<SegmentedSelectItemModel *> *)modelArray{
     _modelArray = modelArray;
@@ -214,7 +232,7 @@
     return _itemsArray;
 }
 
-#pragma mark - private method
+#pragma mark - view | private method
 
 -(void)resetUI{
     for (SegmentedSelectItem * item in self.itemsArray) {
@@ -259,13 +277,22 @@
     [self updateConstraintsIfNeeded];
 }
 
-#pragma mark - event action
+#pragma mark - view | event action
 -(void)tapItem:(UITapGestureRecognizer *)tap{
     SegmentedSelectItem * item = (SegmentedSelectItem *)tap.view;
-//    for (NSInteger index = 0; index < self.itemsArray.count; index++) {
-//        SegmentedSelectItem * tempItem = self.itemsArray[index];
-//        if (tempItem.)
-//    }
+    NSInteger selectIndex = 0;
+    for (NSInteger index = 0; index < self.itemsArray.count; index++) {
+        SegmentedSelectItem * tempItem = self.itemsArray[index];
+        if (tempItem == item) {
+            selectIndex = index;
+            [tempItem selectItem:YES];
+        } else {
+            [tempItem selectItem:NO];
+        }
+    }
+    if (_delegate && [_delegate respondsToSelector:@selector(segmentedSelectView:selectIndex:)]) {
+        [_delegate segmentedSelectView:self selectIndex:selectIndex];
+    }
 }
 
 

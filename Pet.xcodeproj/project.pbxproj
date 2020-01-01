@@ -98,6 +98,11 @@
 		88410C987A8CE9B14A2BC46C /* Pods_Pet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E80B9F829CF87B2C859FA1 /* Pods_Pet.framework */; };
 		9B82322723B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */; };
 		9B82322B23B8FC6300B676C1 /* GlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */; };
+		9B8EC50723BCFBB800FFFDE8 /* OrderBaseInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8EC50623BCFBB800FFFDE8 /* OrderBaseInfoView.m */; };
+		9B8EC50923BCFC0700FFFDE8 /* OrderBaseInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B8EC50823BCFC0700FFFDE8 /* OrderBaseInfoView.xib */; };
+		9B8EC50D23BD0D6400FFFDE8 /* CustomerOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8EC50B23BD0D6400FFFDE8 /* CustomerOrderCell.m */; };
+		9B8EC50E23BD0D6400FFFDE8 /* CustomerOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B8EC50C23BD0D6400FFFDE8 /* CustomerOrderCell.xib */; };
+		9B8EC51123BD0F7700FFFDE8 /* OrderEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8EC51023BD0F7700FFFDE8 /* OrderEntity.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -291,6 +296,14 @@
 		9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+ChangeViewControllers.m"; sourceTree = "<group>"; };
 		9B82322923B8FC6300B676C1 /* GlobalDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalDataManager.h; sourceTree = "<group>"; };
 		9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalDataManager.m; sourceTree = "<group>"; };
+		9B8EC50523BCFBB800FFFDE8 /* OrderBaseInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderBaseInfoView.h; sourceTree = "<group>"; };
+		9B8EC50623BCFBB800FFFDE8 /* OrderBaseInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderBaseInfoView.m; sourceTree = "<group>"; };
+		9B8EC50823BCFC0700FFFDE8 /* OrderBaseInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderBaseInfoView.xib; sourceTree = "<group>"; };
+		9B8EC50A23BD0D6400FFFDE8 /* CustomerOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CustomerOrderCell.h; path = Pet/ViewController/View/User/CustomerOrderCell.h; sourceTree = SOURCE_ROOT; };
+		9B8EC50B23BD0D6400FFFDE8 /* CustomerOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CustomerOrderCell.m; path = Pet/ViewController/View/User/CustomerOrderCell.m; sourceTree = SOURCE_ROOT; };
+		9B8EC50C23BD0D6400FFFDE8 /* CustomerOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CustomerOrderCell.xib; path = Pet/ViewController/View/User/CustomerOrderCell.xib; sourceTree = SOURCE_ROOT; };
+		9B8EC50F23BD0F7700FFFDE8 /* OrderEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderEntity.h; sourceTree = "<group>"; };
+		9B8EC51023BD0F7700FFFDE8 /* OrderEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderEntity.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -336,6 +349,8 @@
 			children = (
 				04ED182523B98CBA002F2266 /* UserEntity.h */,
 				04ED182623B98CBA002F2266 /* UserEntity.m */,
+				9B8EC50F23BD0F7700FFFDE8 /* OrderEntity.h */,
+				9B8EC51023BD0F7700FFFDE8 /* OrderEntity.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -356,6 +371,9 @@
 		042DA77C23BB42610027C39B /* Customer */ = {
 			isa = PBXGroup;
 			children = (
+				9B8EC50A23BD0D6400FFFDE8 /* CustomerOrderCell.h */,
+				9B8EC50B23BD0D6400FFFDE8 /* CustomerOrderCell.m */,
+				9B8EC50C23BD0D6400FFFDE8 /* CustomerOrderCell.xib */,
 			);
 			path = Customer;
 			sourceTree = "<group>";
@@ -750,6 +768,9 @@
 			children = (
 				04ED183B23B9E599002F2266 /* Center */,
 				04EDDA2B23B49716008F379D /* Personnel */,
+				9B8EC50523BCFBB800FFFDE8 /* OrderBaseInfoView.h */,
+				9B8EC50623BCFBB800FFFDE8 /* OrderBaseInfoView.m */,
+				9B8EC50823BCFC0700FFFDE8 /* OrderBaseInfoView.xib */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -991,8 +1012,10 @@
 				048C9F4223B308DC00730C70 /* TransportPayPetConditionConfirmCell.xib in Resources */,
 				048C9F3D23B308A900730C70 /* TransportPayRemarkCell.xib in Resources */,
 				04E7D22E23B04AA1004EEAAB /* TransportTypeCell.xib in Resources */,
+				9B8EC50E23BD0D6400FFFDE8 /* CustomerOrderCell.xib in Resources */,
 				0469F06C23ADCE24009B8E4F /* TransportOrderValueAddCell.xib in Resources */,
 				048C9F4723B308FC00730C70 /* TransportPayContractConfirmCell.xib in Resources */,
+				9B8EC50923BCFC0700FFFDE8 /* OrderBaseInfoView.xib in Resources */,
 				04F49E952397A9FE008E1334 /* Assets.xcassets in Resources */,
 				042EA9DA23AC96A900F3D376 /* iconfont.ttf in Resources */,
 				042DA77823BB2E980027C39B /* CenterActionCell.xib in Resources */,
@@ -1141,6 +1164,7 @@
 				0469F06B23ADCE24009B8E4F /* TransportOrderValueAddCell.m in Sources */,
 				042EA9B823AB195500F3D376 /* AspectsUIViewController.m in Sources */,
 				04ED182723B98CBA002F2266 /* UserEntity.m in Sources */,
+				9B8EC50D23BD0D6400FFFDE8 /* CustomerOrderCell.m in Sources */,
 				04F49E902397A9FB008E1334 /* ViewController.m in Sources */,
 				042EA9B423AA383700F3D376 /* MainBannerView.m in Sources */,
 				042DA76823B9FE780027C39B /* UIButton+Badge.m in Sources */,
@@ -1180,6 +1204,7 @@
 				04C52B0323B5B9D200024FE0 /* MediaSelectItemModel.m in Sources */,
 				042EA9DD23ACA08B00F3D376 /* StationInfoItem.m in Sources */,
 				042EA91023A8B05600F3D376 /* LoginViewController.m in Sources */,
+				9B8EC51123BD0F7700FFFDE8 /* OrderEntity.m in Sources */,
 				042EA9EE23ADA34A00F3D376 /* StationCell.m in Sources */,
 				04E7D22923AE236A004EEAAB /* Utils.m in Sources */,
 				042EA99B23AA32A300F3D376 /* HomeViewController.m in Sources */,
@@ -1191,6 +1216,7 @@
 				04ED17FC23B5E7B7002F2266 /* MediaSelectItemView.m in Sources */,
 				04ED183023B9A284002F2266 /* MainTabbarController.m in Sources */,
 				048C9F3C23B308A900730C70 /* TransportPayRemarkCell.m in Sources */,
+				9B8EC50723BCFBB800FFFDE8 /* OrderBaseInfoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
