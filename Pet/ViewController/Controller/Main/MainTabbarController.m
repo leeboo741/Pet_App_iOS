@@ -83,7 +83,7 @@ SingleImplementation(MainTabbarController)
         centerViewController = [[CustomerCenterController alloc]init];
     } else if (role == USER_ROLE_BUSINESS) {
         centerViewController = [[StationCenterController alloc]init];
-    } else if (role == USER_ROLE_MANAGER) {
+    } else if (role == USER_ROLE_MANAGER || role == USER_ROLE_SERVICE || role == USER_ROLE_DRIVER) {
         centerViewController = [[SiteCenterController alloc]init];
     } else {
         centerViewController = [[UIViewController alloc]init];

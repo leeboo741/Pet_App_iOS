@@ -24,7 +24,11 @@ typedef NS_ENUM(NSInteger, CustomerSelectOrderType) {
     CustomerSelectOrderType_complete = 3,
 };
 
-@interface CustomerCenterController () <CenterheaderCellDelegate,SegmentedSelectViewDelegate>
+@interface CustomerCenterController ()
+<CenterheaderCellDelegate,
+CenterActionCellDelegate,
+SegmentedSelectViewDelegate,
+CustomerOrderCellDelegate>
 @property (nonatomic, assign) BOOL haveNewMessage;
 @property (nonatomic, assign) CGFloat balance;
 @property (nonatomic, strong) NSArray<CenterActionItemModel *>* actionModelArray;
@@ -160,9 +164,11 @@ typedef NS_ENUM(NSInteger, CustomerSelectOrderType) {
 }
 -(void)configActionCell:(CenterActionCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     cell.modelArray = self.actionModelArray;
+    cell.delegate = self;
 }
 -(void)configCustomerOrderCell:(CustomerOrderCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    
+    cell.orderType = [self getCustomerOrderType];
+    cell.delegate = self;
 }
 
 #pragma mark - center header cell delegate
@@ -171,17 +177,52 @@ typedef NS_ENUM(NSInteger, CustomerSelectOrderType) {
     self.haveNewMessage = NO;
 }
 
--(CenterActionItemModel *)getActionModelWithActionName:(NSString *)actionName andIconName:(NSString *)iconName{
-    CenterActionItemModel * model = [[CenterActionItemModel alloc]init];
-    model.actionName = actionName;
-    model.actionIconName = iconName;
-    return model;
+#pragma mark - center action cell delegate
+
+-(void)tapActionAtIndex:(NSInteger)index atActionCell:(CenterActionCell *)cell{
+    switch (index) {
+        case 0:
+            NSLog(@"查单");
+            break;
+        case 1:
+            NSLog(@"领券");
+            break;
+        case 2:
+            NSLog(@"提现");
+            break;
+        case 3:
+        {
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"切换角色" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction * action1 = [UIAlertAction actionWithTitle:@"站点" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[UserManager shareUserManager]changeUserRole:USER_ROLE_SERVICE];
+            }];
+            UIAlertAction * action2 = [UIAlertAction actionWithTitle:@"商家" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[UserManager shareUserManager]changeUserRole:USER_ROLE_BUSINESS];
+            }];
+            UIAlertAction * action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            [alertController addAction:action1];
+            [alertController addAction:action2];
+            [alertController addAction:action3];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - segmented select view delegate
 
 -(void)segmentedSelectView:(SegmentedSelectView *)view selectIndex:(NSInteger)index{
     self.selectOrderType = index;
+}
+
+#pragma mark - customer order cell delegate
+
+-(void)tapCustomerOrderCell:(CustomerOrderCell *)cell operateType:(OrderOperateButtonType)type atIndex:(NSInteger)index{
+    NSLog(@"customer order cell button type : %ld and index : %ld", type, index);
 }
 
 #pragma mark - setters and getters
@@ -197,13 +238,11 @@ typedef NS_ENUM(NSInteger, CustomerSelectOrderType) {
 
 -(NSArray<CenterActionItemModel *> *)actionModelArray{
     if (!_actionModelArray) {
-        CenterActionItemModel * action1 = [self getActionModelWithActionName:@"功能1" andIconName:IconFont_Car];
-        CenterActionItemModel * action2 = [self getActionModelWithActionName:@"功能2" andIconName:IconFont_Bill];
-        CenterActionItemModel * action3 = [self getActionModelWithActionName:@"功能3" andIconName:IconFont_Home];
-        CenterActionItemModel * action4 = [self getActionModelWithActionName:@"功能4" andIconName:IconFont_Scan];
-        CenterActionItemModel * action5 = [self getActionModelWithActionName:@"功能5" andIconName:IconFont_Apply];
-        CenterActionItemModel * action6 = [self getActionModelWithActionName:@"功能6" andIconName:IconFont_Train];
-        _actionModelArray = @[action1,action2,action3,action4,action5,action6];
+        CenterActionItemModel * action1 = [self getActionModelWithActionName:@"查单" andIconName:IconFont_Scan];
+        CenterActionItemModel * action2 = [self getActionModelWithActionName:@"领券" andIconName:IconFont_Coupon];
+        CenterActionItemModel * action3 = [self getActionModelWithActionName:@"申请" andIconName:IconFont_Apply];
+        CenterActionItemModel * action4 = [self getActionModelWithActionName:@"切换角色" andIconName:IconFont_ChangeRole];
+        _actionModelArray = @[action1,action2,action3,action4];
     }
     return _actionModelArray;
 }
@@ -224,7 +263,8 @@ typedef NS_ENUM(NSInteger, CustomerSelectOrderType) {
 -(void)setSelectOrderType:(CustomerSelectOrderType)selectOrderType{
     if (_selectOrderType != selectOrderType) {
         _selectOrderType = selectOrderType;
-        [self.tableView reloadData];
+        NSIndexSet * set = [[NSIndexSet alloc]initWithIndex:2];
+        [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 
@@ -277,6 +317,28 @@ typedef NS_ENUM(NSInteger, CustomerSelectOrderType) {
     model.title = name;
     model.itemIsSelected = isSelected;
     return model;
+}
+
+-(CenterActionItemModel *)getActionModelWithActionName:(NSString *)actionName andIconName:(NSString *)iconName{
+    CenterActionItemModel * model = [[CenterActionItemModel alloc]init];
+    model.actionName = actionName;
+    model.actionIconName = iconName;
+    return model;
+}
+
+-(CustomerOrderType)getCustomerOrderType{
+    switch (self.selectOrderType) {
+        case CustomerSelectOrderType_unpay:
+            return CustomerOrderType_Unpay;
+        case CustomerSelectOrderType_unsend:
+            return CustomerOrderType_Unsend;
+        case CustomerSelectOrderType_unreceiver:
+            return CustomerOrderType_Unreceive;
+        case CustomerSelectOrderType_complete:
+            return CustomerOrderType_Complete;
+        default:
+            return CustomerOrderType_Unpay;
+    }
 }
 
 

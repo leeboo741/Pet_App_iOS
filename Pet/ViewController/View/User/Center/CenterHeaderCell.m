@@ -39,8 +39,10 @@
 }
 
 -(void)initView{
-    self.avaterImageView.layer.cornerRadius = 45;
+    self.avaterImageView.layer.cornerRadius = 50;
+    self.avaterImageView.layer.masksToBounds = YES;
     self.roleLabel.layer.cornerRadius = 10;
+    self.roleLabel.layer.masksToBounds = YES;
     [self.messageButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(IconFont_Message, 32, Color_blue_2)] forState:UIControlStateNormal];
     self.messageButton.badgeMinSize = 4;
     self.messageButton.badgePadding = 2;
@@ -64,15 +66,22 @@
         case USER_ROLE_UNKOWN:
         case USER_ROLE_CUSTOMER:
             self.roleLabel.hidden = YES;
+            self.roleLabel.text = @"客户";
             break;
         case USER_ROLE_SERVICE:
             self.roleLabel.hidden = NO;
             self.roleLabel.text = @"客服";
+            break;
         case USER_ROLE_DRIVER:
+            self.roleLabel.hidden = NO;
             self.roleLabel.text = @"司机";
+            break;
         case USER_ROLE_MANAGER:
+            self.roleLabel.hidden = NO;
             self.roleLabel.text = @"管理员";
+            break;
         case USER_ROLE_BUSINESS:
+            self.roleLabel.hidden = NO;
             self.roleLabel.text = @"认证商家";
             break;
         default:

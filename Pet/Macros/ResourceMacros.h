@@ -11,7 +11,7 @@
 
 #pragma mark - Iconfont Resource Macros
 
-#define IconFont_Bill_2         @"\U0000E605" // 单据_2
+#define IconFont_Bill_2         @"\U0000E605" // 单据_2 审批
 #define IconFont_Withdrawal     @"\U0000E607" // 提现
 #define IconFont_Pet            @"\U0000E608" // 宠物
 #define IconFont_Add            @"\U0000E609" // 新增
@@ -22,20 +22,22 @@
 #define IconFont_Unselected     @"\U0000E610" // 未选中
 #define IconFont_Selected       @"\U0000E611" // 选中
 #define IconFont_Home           @"\U0000E612" // 首页
+#define IconFont_ChangeRole     @"\U0000E613" // 角色转换
 #define IconFont_Car            @"\U0000E616" // 汽运
 #define IconFont_Recharge       @"\U0000E617" // 充值
 #define IconFont_Coupon         @"\U0000E618" // 优惠券
 #define IconFont_Setting        @"\U0000E625" // 设置
 #define IconFont_Cancel         @"\U0000E627" // 取消
-#define IconFont_Bill           @"\U0000E629" // 单据
+#define IconFont_Bill           @"\U0000E629" // 单据 全部
 #define IconFont_Delete         @"\U0000E62B" // 删除
 #define IconFont_Location       @"\U0000E62C" // 定位
 #define IconFont_NoData         @"\U0000E642" // 无数据
 #define IconFont_Apply          @"\U0000E665" // 申请
 #define IconFont_Play           @"\U0000E667" // 播放
-#define IconFont_Bill_4         @"\U0000E669" // 单据_4
-#define IconFont_Bill_3         @"\U0000E66A" // 单据_3
+#define IconFont_Bill_4         @"\U0000E669" // 单据_4 入港单
+#define IconFont_Bill_3         @"\U0000E66A" // 单据_3 出港单
 #define IconFont_Train          @"\U0000E674" // 火车
+#define IconFont_Bill_5         @"\U0000E67F" // 单据_5 待付款
 #define IconFont_Time           @"\U0000E6C2" // 时间
 #define IconFont_QRCode         @"\U0000E6D2" // 二维码
 #define IconFont_ServiceCall    @"\U0000E71C" // 客服

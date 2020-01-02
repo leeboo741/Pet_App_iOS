@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="275" id="KGk-i7-Jjw" customClass="SiteUnpayOrderCell">
+            <rect key="frame" x="0.0" y="0.0" width="347" height="275"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="347" height="274.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bS6-NQ-KEz" customClass="OrderBaseInfoView">
+                        <rect key="frame" x="8" y="11" width="331" height="128"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s1d-Es-zgk" customClass="OrderRemarkView">
+                        <rect key="frame" x="8" y="136" width="331" height="74"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sKp-tq-7g0" customClass="OrderOperateBoxView">
+                        <rect key="frame" x="8" y="223" width="331" height="51"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="s1d-Es-zgk" firstAttribute="trailing" secondItem="bS6-NQ-KEz" secondAttribute="trailing" id="F5F-0m-Zbg"/>
+                    <constraint firstItem="sKp-tq-7g0" firstAttribute="trailing" secondItem="s1d-Es-zgk" secondAttribute="trailing" id="G41-tL-kS2"/>
+                    <constraint firstItem="s1d-Es-zgk" firstAttribute="leading" secondItem="bS6-NQ-KEz" secondAttribute="leading" id="QQt-kd-5v2"/>
+                    <constraint firstItem="bS6-NQ-KEz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="QkN-59-vYw"/>
+                    <constraint firstItem="sKp-tq-7g0" firstAttribute="top" secondItem="s1d-Es-zgk" secondAttribute="bottom" id="RFH-nP-Qhv"/>
+                    <constraint firstItem="bS6-NQ-KEz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Wmf-dU-I03"/>
+                    <constraint firstAttribute="trailing" secondItem="bS6-NQ-KEz" secondAttribute="trailing" constant="8" id="bcV-7O-gio"/>
+                    <constraint firstItem="sKp-tq-7g0" firstAttribute="leading" secondItem="s1d-Es-zgk" secondAttribute="leading" id="nOi-Sf-NwO"/>
+                    <constraint firstItem="s1d-Es-zgk" firstAttribute="top" secondItem="bS6-NQ-KEz" secondAttribute="bottom" id="uLK-4p-GdA"/>
+                    <constraint firstAttribute="bottom" secondItem="sKp-tq-7g0" secondAttribute="bottom" constant="8" id="yaC-ra-qZ0"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="orderBaseInfoView" destination="bS6-NQ-KEz" id="Dzm-DO-DhQ"/>
+                <outlet property="orderOperateBoxView" destination="sKp-tq-7g0" id="CKg-3M-dUv"/>
+                <outlet property="orderRemarkView" destination="s1d-Es-zgk" id="coF-iL-8RD"/>
+            </connections>
+            <point key="canvasLocation" x="154.40000000000001" y="248.72563718140933"/>
+        </tableViewCell>
+    </objects>
+</document>

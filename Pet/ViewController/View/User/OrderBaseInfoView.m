@@ -53,6 +53,81 @@
     [[NSBundle mainBundle] loadNibNamed:@"OrderBaseInfoView" owner:self options:nil];
     self.view.frame = self.bounds;
     [self addSubview:self.view];
+    
+    self.titleIconImageView.layer.cornerRadius = 15/2.0f;
+    self.titleIconImageView.image = [UIImage jkr_imageWithColor:Color_blue_1 size:CGSizeMake(15, 15)];
 }
 
+
+#pragma mark - setters and getters
+
+-(void)setOrderNo:(NSString *)orderNo{
+    _orderNo = orderNo;
+    self.orderNoLabel.text = orderNo;
+}
+
+-(void)setOrderTime:(NSString *)orderTime{
+    _orderTime = orderTime;
+    self.orderNoLabel.text = orderTime;
+}
+
+-(void)setOutportTime:(NSString *)outportTime{
+    _outportTime = outportTime;
+    self.outPortTimeLabel.text = outportTime;
+}
+
+-(void)setStartCity:(NSString *)startCity{
+    _startCity = startCity;
+    self.startCityLabel.text = startCity;
+}
+
+-(void)setEndCity:(NSString *)endCity{
+    _endCity = endCity;
+    self.endCityLabel.text = endCity;
+}
+
+-(void)setTransportType:(NSString *)transportType{
+    _transportType = transportType;
+    self.transportTypeLabel.text = transportType;
+}
+
+-(void)setPetType:(NSString *)petType{
+    _petType = petType;
+    self.petTypeLabel.text = petType;
+}
+
+-(void)setPetBreed:(NSString *)petBreed{
+    _petBreed = petBreed;
+    self.petBreedLabel.text = petBreed;
+}
+
+-(void)setSenderName:(NSString *)senderName{
+    _senderName = senderName;
+    self.senderNameLabel.text = senderName;
+}
+
+-(void)setSenderPhone:(NSString *)senderPhone{
+    _senderPhone = senderPhone;
+    self.senderPhoneLabel.text = senderPhone;
+}
+
+-(void)setReceiverName:(NSString *)receiverName{
+    _receiverName = receiverName;
+    self.recevierNameLabel.text = receiverName;
+}
+
+-(void)setReceiverPhone:(NSString *)receiverPhone{
+    _receiverPhone = receiverPhone;
+    self.receiverPhoneLabel.text = receiverPhone;
+}
+
+-(void)setOrderState:(NSString *)orderState{
+    _orderState = orderState;
+    self.orderStateLabel.text = orderState;
+}
+
+-(void)setOrderAmount:(NSString *)orderAmount{
+    _orderAmount = orderAmount;
+    self.orderAmountLabel.text = orderAmount;
+}
 @end

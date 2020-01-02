@@ -1,0 +1,67 @@
+//
+//  SiteUnpayOrderCell.m
+//  Pet
+//
+//  Created by mac on 2020/1/2.
+//  Copyright © 2020年 mac. All rights reserved.
+//
+
+#import "SiteUnpayOrderCell.h"
+#import "OrderBaseInfoView.h"
+#import "OrderRemarkView.h"
+#import "OrderOperateBoxView.h"
+
+@interface SiteUnpayOrderCell () <OrderOperateBoxViewDelegate>
+@property (weak, nonatomic) IBOutlet OrderBaseInfoView *orderBaseInfoView;
+@property (weak, nonatomic) IBOutlet OrderRemarkView *orderRemarkView;
+@property (weak, nonatomic) IBOutlet OrderOperateBoxView *orderOperateBoxView;
+@property (nonatomic, strong) NSMutableArray<OrderOperateButtonModel *> *operateButtonModelArray;
+
+@end
+
+@implementation SiteUnpayOrderCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.orderOperateBoxView.delegate = self;
+    [self insertButtonModelWithTitle:@"改价" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_ChangePrice];
+    [self insertButtonModelWithTitle:@"订单详情" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_DetailOrder];
+    self.orderOperateBoxView.buttonModelArray = self.operateButtonModelArray;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+#pragma mark - operate box view delegate
+
+-(void)onClickButtonWithModel:(OrderOperateButtonModel *)model atOrderOperateBoxView:(OrderOperateBoxView *)view{
+    NSLog(@"%ld",model.index);
+    if (_delegate && [_delegate respondsToSelector:@selector(tapSiteUnpayOrderCell:operateType:)]) {
+        [_delegate tapSiteUnpayOrderCell:self operateType:model.type];
+    }
+}
+
+#pragma mark - setters and getters
+
+-(NSMutableArray<OrderOperateButtonModel *> *)operateButtonModelArray{
+    if (!_operateButtonModelArray) {
+        _operateButtonModelArray = [NSMutableArray array];
+    }
+    return _operateButtonModelArray;
+}
+
+
+#pragma mark - private method
+
+-(void)insertButtonModelWithTitle:(NSString *)title style:(OrderOperateButtonStyle)style type:(OrderOperateButtonType)type{
+    OrderOperateButtonModel * model = [[OrderOperateButtonModel alloc]init];
+    model.title = title;
+    model.style = style;
+    model.type = type;
+    [self.operateButtonModelArray addObject:model];
+}
+
+@end

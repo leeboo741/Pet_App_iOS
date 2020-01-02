@@ -25,6 +25,7 @@
 #import "UIView+Frame.h"
 #import "UIColor+ColorWithHexString.h"
 #import "UILabel+LineAndWordSpace.h"
+#import "UIImage+JKRImage.h"
 
 // Tools
 #import "Utils/Utils.h"
@@ -38,6 +39,9 @@
 // Manager
 #import "UserManager.h"
 #import "GlobalDataManager.h"
+
+// ViewController
+#import "MainTabbarController.h"
 
 
 #endif /* PrefixHeader_pch */

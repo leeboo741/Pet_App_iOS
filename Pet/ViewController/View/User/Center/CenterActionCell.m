@@ -115,21 +115,44 @@ static NSInteger Column_Count = 5;
         [item removeFromSuperview];
     }
     [self.itemsArray removeAllObjects];
-    for (CenterActionItemModel * model in self.modelArray) {
-        CenterActionItem * item = [[CenterActionItem alloc]init];
-        item.model = model;
-        [self.itemsArray addObject:item];
-        [self addSubview:item];
+    for (NSInteger index = 0; index < self.modelArray.count; index++) {
+        CenterActionItemModel * model = self.modelArray[index];
+        model.index = index;
+        if (model.hidden) {
+            continue;
+        } else {
+            CenterActionItem * item = [[CenterActionItem alloc]init];
+            item.model = model;
+            UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapItem:)];
+            [item addGestureRecognizer:tap];
+            [self.itemsArray addObject:item];
+            [self addSubview:item];
+        }
     }
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
 
+#pragma mark - event action
+
+-(void)tapItem:(UITapGestureRecognizer *)tap{
+    CenterActionItem * item = (CenterActionItem *)tap.view;
+    if (_delegate && [_delegate respondsToSelector:@selector(tapActionAtIndex:atActionCell:)]) {
+        [_delegate tapActionAtIndex:item.model.index atActionCell:self];
+    }
+}
+
 #pragma mark - setters and getters
 -(void)setModelArray:(NSArray<CenterActionItemModel *> *)modelArray{
     _modelArray = modelArray;
-    NSInteger rowCount = modelArray.count / Column_Count;
-    NSInteger lastColumn = modelArray.count % Column_Count;
+    NSInteger showItemCount = 0;
+    for (CenterActionItemModel * model in modelArray) {
+        if (model.hidden == NO) {
+            showItemCount ++;
+        }
+    }
+    NSInteger rowCount = showItemCount / Column_Count;
+    NSInteger lastColumn = showItemCount % Column_Count;
     if (lastColumn != 0) {
         rowCount = rowCount + 1;
     }

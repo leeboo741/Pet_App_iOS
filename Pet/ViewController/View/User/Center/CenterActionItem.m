@@ -24,6 +24,7 @@
 -(instancetype)init{
     self = [super init];
     if (self) {
+        self.hidden = NO;
         [self addSubview:self.iconImageView];
         [self addSubview:self.nameLabel];
     }

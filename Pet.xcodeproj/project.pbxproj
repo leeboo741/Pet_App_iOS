@@ -16,6 +16,17 @@
 		042DA77823BB2E980027C39B /* CenterActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042DA77623BB2E980027C39B /* CenterActionCell.xib */; };
 		042DA77B23BB303E0027C39B /* CenterActionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA77A23BB303E0027C39B /* CenterActionItem.m */; };
 		042DA78223BB49A00027C39B /* SegmentedSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA78123BB49A00027C39B /* SegmentedSelectView.m */; };
+		042DA78523BD7E920027C39B /* OrderOperateBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA78423BD7E920027C39B /* OrderOperateBoxView.m */; };
+		042DA78923BDD5680027C39B /* SiteUnpayOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA78823BDD5680027C39B /* SiteUnpayOrderController.m */; };
+		042DA78C23BDD5880027C39B /* SiteOutportOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA78B23BDD5880027C39B /* SiteOutportOrderController.m */; };
+		042DA78F23BDD59E0027C39B /* SiteInportOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA78E23BDD59E0027C39B /* SiteInportOrderController.m */; };
+		042DA79223BDD5BA0027C39B /* SiteAllOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA79123BDD5BA0027C39B /* SiteAllOrderController.m */; };
+		042DA79723BDD71F0027C39B /* SiteUnpayOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA79523BDD71F0027C39B /* SiteUnpayOrderCell.m */; };
+		042DA79823BDD71F0027C39B /* SiteUnpayOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042DA79623BDD71F0027C39B /* SiteUnpayOrderCell.xib */; };
+		042DA79B23BDD77F0027C39B /* OrderRemarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA79A23BDD77F0027C39B /* OrderRemarkView.m */; };
+		042DA79D23BDD7910027C39B /* OrderRemarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042DA79C23BDD7910027C39B /* OrderRemarkView.xib */; };
+		042DA7A123BDF88C0027C39B /* SiteAllOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA79F23BDF88C0027C39B /* SiteAllOrderCell.m */; };
+		042DA7A223BDF88C0027C39B /* SiteAllOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042DA7A023BDF88C0027C39B /* SiteAllOrderCell.xib */; };
 		042EA91023A8B05600F3D376 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA90F23A8B05600F3D376 /* LoginViewController.m */; };
 		042EA94623A8C08E00F3D376 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA94123A8C08E00F3D376 /* UIView+Frame.m */; };
 		042EA94723A8C08E00F3D376 /* UIImage+JKRImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA94423A8C08E00F3D376 /* UIImage+JKRImage.m */; };
@@ -140,6 +151,25 @@
 		042DA77A23BB303E0027C39B /* CenterActionItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CenterActionItem.m; sourceTree = "<group>"; };
 		042DA78023BB49A00027C39B /* SegmentedSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SegmentedSelectView.h; sourceTree = "<group>"; };
 		042DA78123BB49A00027C39B /* SegmentedSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SegmentedSelectView.m; sourceTree = "<group>"; };
+		042DA78323BD7E920027C39B /* OrderOperateBoxView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderOperateBoxView.h; sourceTree = "<group>"; };
+		042DA78423BD7E920027C39B /* OrderOperateBoxView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderOperateBoxView.m; sourceTree = "<group>"; };
+		042DA78723BDD5680027C39B /* SiteUnpayOrderController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteUnpayOrderController.h; sourceTree = "<group>"; };
+		042DA78823BDD5680027C39B /* SiteUnpayOrderController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteUnpayOrderController.m; sourceTree = "<group>"; };
+		042DA78A23BDD5880027C39B /* SiteOutportOrderController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteOutportOrderController.h; sourceTree = "<group>"; };
+		042DA78B23BDD5880027C39B /* SiteOutportOrderController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteOutportOrderController.m; sourceTree = "<group>"; };
+		042DA78D23BDD59E0027C39B /* SiteInportOrderController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteInportOrderController.h; sourceTree = "<group>"; };
+		042DA78E23BDD59E0027C39B /* SiteInportOrderController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteInportOrderController.m; sourceTree = "<group>"; };
+		042DA79023BDD5BA0027C39B /* SiteAllOrderController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteAllOrderController.h; sourceTree = "<group>"; };
+		042DA79123BDD5BA0027C39B /* SiteAllOrderController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteAllOrderController.m; sourceTree = "<group>"; };
+		042DA79423BDD71F0027C39B /* SiteUnpayOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteUnpayOrderCell.h; sourceTree = "<group>"; };
+		042DA79523BDD71F0027C39B /* SiteUnpayOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteUnpayOrderCell.m; sourceTree = "<group>"; };
+		042DA79623BDD71F0027C39B /* SiteUnpayOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SiteUnpayOrderCell.xib; sourceTree = "<group>"; };
+		042DA79923BDD77F0027C39B /* OrderRemarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderRemarkView.h; sourceTree = "<group>"; };
+		042DA79A23BDD77F0027C39B /* OrderRemarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderRemarkView.m; sourceTree = "<group>"; };
+		042DA79C23BDD7910027C39B /* OrderRemarkView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderRemarkView.xib; sourceTree = "<group>"; };
+		042DA79E23BDF88C0027C39B /* SiteAllOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteAllOrderCell.h; sourceTree = "<group>"; };
+		042DA79F23BDF88C0027C39B /* SiteAllOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteAllOrderCell.m; sourceTree = "<group>"; };
+		042DA7A023BDF88C0027C39B /* SiteAllOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SiteAllOrderCell.xib; sourceTree = "<group>"; };
 		042EA90E23A8B05600F3D376 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		042EA90F23A8B05600F3D376 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		042EA93C23A8BCA000F3D376 /* ResourceMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceMacros.h; sourceTree = "<group>"; };
@@ -378,6 +408,34 @@
 			path = Customer;
 			sourceTree = "<group>";
 		};
+		042DA78623BDD51D0027C39B /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				042DA78723BDD5680027C39B /* SiteUnpayOrderController.h */,
+				042DA78823BDD5680027C39B /* SiteUnpayOrderController.m */,
+				042DA78A23BDD5880027C39B /* SiteOutportOrderController.h */,
+				042DA78B23BDD5880027C39B /* SiteOutportOrderController.m */,
+				042DA78D23BDD59E0027C39B /* SiteInportOrderController.h */,
+				042DA78E23BDD59E0027C39B /* SiteInportOrderController.m */,
+				042DA79023BDD5BA0027C39B /* SiteAllOrderController.h */,
+				042DA79123BDD5BA0027C39B /* SiteAllOrderController.m */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
+		042DA79323BDD6910027C39B /* Site */ = {
+			isa = PBXGroup;
+			children = (
+				042DA79423BDD71F0027C39B /* SiteUnpayOrderCell.h */,
+				042DA79523BDD71F0027C39B /* SiteUnpayOrderCell.m */,
+				042DA79623BDD71F0027C39B /* SiteUnpayOrderCell.xib */,
+				042DA79E23BDF88C0027C39B /* SiteAllOrderCell.h */,
+				042DA79F23BDF88C0027C39B /* SiteAllOrderCell.m */,
+				042DA7A023BDF88C0027C39B /* SiteAllOrderCell.xib */,
+			);
+			path = Site;
+			sourceTree = "<group>";
+		};
 		042EA91123A8B07900F3D376 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -538,6 +596,7 @@
 		042EA9AC23AA345200F3D376 /* Site */ = {
 			isa = PBXGroup;
 			children = (
+				042DA78623BDD51D0027C39B /* Order */,
 				04ED183823B9CD26002F2266 /* SiteCenterController.h */,
 				04ED183923B9CD26002F2266 /* SiteCenterController.m */,
 			);
@@ -750,6 +809,7 @@
 		04ED183B23B9E599002F2266 /* Center */ = {
 			isa = PBXGroup;
 			children = (
+				042DA79323BDD6910027C39B /* Site */,
 				042DA77C23BB42610027C39B /* Customer */,
 				04ED183C23B9E5DB002F2266 /* CenterHeaderCell.h */,
 				04ED183D23B9E5DB002F2266 /* CenterHeaderCell.m */,
@@ -771,6 +831,11 @@
 				9B8EC50523BCFBB800FFFDE8 /* OrderBaseInfoView.h */,
 				9B8EC50623BCFBB800FFFDE8 /* OrderBaseInfoView.m */,
 				9B8EC50823BCFC0700FFFDE8 /* OrderBaseInfoView.xib */,
+				042DA78323BD7E920027C39B /* OrderOperateBoxView.h */,
+				042DA78423BD7E920027C39B /* OrderOperateBoxView.m */,
+				042DA79923BDD77F0027C39B /* OrderRemarkView.h */,
+				042DA79A23BDD77F0027C39B /* OrderRemarkView.m */,
+				042DA79C23BDD7910027C39B /* OrderRemarkView.xib */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1003,6 +1068,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				042EA9EF23ADA34A00F3D376 /* StationCell.xib in Resources */,
+				042DA79823BDD71F0027C39B /* SiteUnpayOrderCell.xib in Resources */,
+				042DA79D23BDD7910027C39B /* OrderRemarkView.xib in Resources */,
 				04ED184023B9E5DB002F2266 /* CenterHeaderCell.xib in Resources */,
 				04F49E982397A9FE008E1334 /* LaunchScreen.storyboard in Resources */,
 				0442D81123B589A4007ABE89 /* 1.mov in Resources */,
@@ -1023,6 +1090,7 @@
 				042EA95723A9BE0800F3D376 /* PrivacyPolicyView.xib in Resources */,
 				04EDDA3B23B49C28008F379D /* ImageBoxTestCell.xib in Resources */,
 				0469F06223ADCDC2009B8E4F /* TransportOrderBaseInfoCell.xib in Resources */,
+				042DA7A223BDF88C0027C39B /* SiteAllOrderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1153,9 +1221,11 @@
 				04ED183F23B9E5DB002F2266 /* CenterHeaderCell.m in Sources */,
 				042EA9A123AA330E00F3D376 /* StationDetailViewController.m in Sources */,
 				04EDDA3623B49A7A008F379D /* UIView+AddMJRefresh.m in Sources */,
+				042DA79B23BDD77F0027C39B /* OrderRemarkView.m in Sources */,
 				0469F05D23ADCD9C009B8E4F /* TransportOrderViewController.m in Sources */,
 				042EA94623A8C08E00F3D376 /* UIView+Frame.m in Sources */,
 				048C9F4623B308FC00730C70 /* TransportPayContractConfirmCell.m in Sources */,
+				042DA78F23BDD59E0027C39B /* SiteInportOrderController.m in Sources */,
 				04EDDA3323B498B9008F379D /* UIViewController+AddMJRefresh.m in Sources */,
 				042EA9E723ACB57900F3D376 /* UIImage+TBCityIconFont.m in Sources */,
 				04E7D22D23B04AA1004EEAAB /* TransportTypeCell.m in Sources */,
@@ -1168,6 +1238,7 @@
 				04F49E902397A9FB008E1334 /* ViewController.m in Sources */,
 				042EA9B423AA383700F3D376 /* MainBannerView.m in Sources */,
 				042DA76823B9FE780027C39B /* UIButton+Badge.m in Sources */,
+				042DA78923BDD5680027C39B /* SiteUnpayOrderController.m in Sources */,
 				042EA9CF23AC653400F3D376 /* Station.m in Sources */,
 				0469F06F23ADCF77009B8E4F /* SelectActionLabel.m in Sources */,
 				048C9F4123B308DC00730C70 /* TransportPayPetConditionConfirmCell.m in Sources */,
@@ -1177,15 +1248,20 @@
 				048C9F2E23B1ED8600730C70 /* TransportOrderFooterView.m in Sources */,
 				04ED182C23B999FB002F2266 /* UITabBarController+Pet.m in Sources */,
 				042EA94C23A8C23500F3D376 /* LoginView.m in Sources */,
+				042DA79223BDD5BA0027C39B /* SiteAllOrderController.m in Sources */,
 				04ED183A23B9CD26002F2266 /* SiteCenterController.m in Sources */,
 				042DA76D23BA02C80027C39B /* SqliteBase.m in Sources */,
 				042EA9D523AC6A0E00F3D376 /* UITableViewController+AddMJRefresh.m in Sources */,
+				042DA7A123BDF88C0027C39B /* SiteAllOrderCell.m in Sources */,
+				042DA79723BDD71F0027C39B /* SiteUnpayOrderCell.m in Sources */,
 				042EA9BF23AB5B5800F3D376 /* HomeActionCell.m in Sources */,
+				042DA78C23BDD5880027C39B /* SiteOutportOrderController.m in Sources */,
 				04F49E8D2397A9FB008E1334 /* AppDelegate.m in Sources */,
 				04ED183423B9CCFD002F2266 /* CustomerCenterController.m in Sources */,
 				042EA94723A8C08E00F3D376 /* UIImage+JKRImage.m in Sources */,
 				0469F06123ADCDC2009B8E4F /* TransportOrderBaseInfoCell.m in Sources */,
 				04E7D23A23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.m in Sources */,
+				042DA78523BD7E920027C39B /* OrderOperateBoxView.m in Sources */,
 				04ED17F923B5E79C002F2266 /* MediaSelectBoxView.m in Sources */,
 				04ED183723B9CD14002F2266 /* StationCenterController.m in Sources */,
 				04EDDA2923B496E8008F379D /* PersonnelOrderViewController.m in Sources */,

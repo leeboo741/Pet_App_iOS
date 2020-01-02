@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CenterActionItemModel : NSObject
 @property (nonatomic, copy) NSString * actionName;
 @property (nonatomic, copy) NSString * actionIconName;
+@property (nonatomic, assign) BOOL hidden;
+@property (nonatomic, assign) NSInteger index;
 @end
 
 @interface CenterActionItem : UIView
