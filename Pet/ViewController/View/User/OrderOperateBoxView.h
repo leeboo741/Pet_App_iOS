@@ -5,6 +5,8 @@
 //  Created by mac on 2020/1/2.
 //  Copyright © 2020年 mac. All rights reserved.
 //
+//  订单操作按钮栏
+//
 
 #import <UIKit/UIKit.h>
 
@@ -25,6 +27,14 @@ typedef NS_ENUM(NSInteger, OrderOperateButtonType) {
     OrderOperateButtonType_CancelOrder, // 取消订单
     OrderOperateButtonType_DetailOrder, // 订单详情
     OrderOperateButtonType_ChangePrice, // 订单改价
+    OrderOperateButtonType_Upload, // 上传
+    OrderOperateButtonType_Package, // 揽件
+    OrderOperateButtonType_OutInPort, // 出入港
+    OrderOperateButtonType_Remark, // 备注
+    OrderOperateButtonType_Assignment, // 分配
+    OrderOperateButtonType_Print, // 打印
+    OrderOperateButtonType_AddPrice, // 补价
+    OrderOperateButtonType_Refund, // 退款
     OrderOperateButtonType_More, // 更多
 };
 
@@ -33,6 +43,7 @@ typedef NS_ENUM(NSInteger, OrderOperateButtonType) {
 @property (nonatomic, assign) OrderOperateButtonStyle style;
 @property (nonatomic, assign) OrderOperateButtonType type;
 @property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) BOOL show;
 @end
 
 

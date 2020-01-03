@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderEntity : NSObject
 @property (nonatomic, copy) NSString * orderNo;
+@property (nonatomic, strong) NSArray * waitUploadMediaList;
 @end
 
 NS_ASSUME_NONNULL_END

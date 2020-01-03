@@ -11,6 +11,8 @@
 #import "CenterActionCell.h"
 #import "SiteUnpayOrderController.h"
 #import "SiteAllOrderController.h"
+#import "SiteOutportOrderController.h"
+#import "SiteInportOrderController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -137,10 +139,18 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
         }
             break;
         case 1:
+        {
             NSLog(@"出港单");
+            SiteOutportOrderController * outportOrderController = [[SiteOutportOrderController alloc]init];
+            [self.navigationController pushViewController:outportOrderController animated:YES];
+        }
             break;
         case 2:
+        {
             NSLog(@"入港单");
+            SiteInportOrderController * inportOrderController = [[SiteInportOrderController alloc]init];
+            [self.navigationController pushViewController:inportOrderController animated:YES];
+        }
             break;
         case 3:
         {

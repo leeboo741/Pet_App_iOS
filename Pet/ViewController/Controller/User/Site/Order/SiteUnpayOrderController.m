@@ -56,20 +56,6 @@ static NSString * SiteUnpayOrderCellIdentifier = @"SiteUnpayOrderCell";
     return 10;
 }
 
-//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-//    UIView * view = [[UIView alloc] init];
-//    view.backgroundColor = Color_gray_1;
-//    return view;
-//}
-//
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-//    return 5;
-//}
-//
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//}
-
 #pragma mark - config cell
 -(void)configSiteUnpayOrderCell:(SiteUnpayOrderCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     cell.delegate = self;

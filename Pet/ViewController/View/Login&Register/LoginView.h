@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, LoginViewTapActionType) {
     LoginViewTapActionType_Login = 0, // 登录
+    LoginViewTapActionType_ForgetPassword, // 忘记密码
+    LoginViewTapActionType_Register, // 注册
     LoginViewTapActionType_Privacy, // 隐私政策
 };
 

@@ -15,6 +15,8 @@
 @property (nonatomic, strong) InputAreaView * accoutInputView; // 账号输入框
 @property (nonatomic, strong) InputAreaView * passwordInputView; // 密码输入框
 @property (nonatomic, strong) UIButton * loginButton; // 登录按钮
+@property (nonatomic, strong) UIButton * forgetPasswordButton; // 忘记密码按钮
+@property (nonatomic, strong) UIButton * registerButton; // 注册按钮
 @property (nonatomic, strong) UIButton * pravicyButton; // 隐私声明按钮
 @property (nonatomic, strong) PrivacyPolicyView * privacyPolicyView; // 隐私政策弹窗
 
@@ -31,6 +33,8 @@
         [self addSubview:self.accoutInputView];
         [self addSubview:self.passwordInputView];
         [self addSubview:self.loginButton];
+        [self addSubview:self.forgetPasswordButton];
+        [self addSubview:self.registerButton];
         [self addSubview:self.pravicyButton];
     }
     return self;
@@ -62,6 +66,16 @@
         make.top.equalTo(self.passwordInputView.mas_bottom).offset(30);
     }];
     
+    [self.forgetPasswordButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.loginButton);
+        make.top.equalTo(self.loginButton.mas_bottom).offset(30);
+    }];
+    
+    [self.registerButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.loginButton);
+        make.centerY.equalTo(self.forgetPasswordButton);
+    }];
+    
     [self.pravicyButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom).offset(-60);
         make.width.centerX.equalTo(self.loginButton);
@@ -79,6 +93,18 @@
 -(void)tapPravicayButton{
     if (_delegate && [_delegate respondsToSelector:@selector(loginViewTapActionType:)]) {
         [_delegate loginViewTapActionType:LoginViewTapActionType_Privacy];
+    }
+}
+
+-(void)forgetPassword{
+    if (_delegate && [_delegate respondsToSelector:@selector(loginViewTapActionType:)]) {
+        [_delegate loginViewTapActionType:LoginViewTapActionType_ForgetPassword];
+    }
+}
+
+-(void)registerAction{
+    if (_delegate && [_delegate respondsToSelector:@selector(loginViewTapActionType:)]) {
+        [_delegate loginViewTapActionType:LoginViewTapActionType_Register];
     }
 }
 
@@ -132,6 +158,29 @@
         [_loginButton addTarget:self action:@selector(tapLoginButton) forControlEvents:UIControlEventTouchUpInside];
     }
     return _loginButton;
+}
+
+-(UIButton *)forgetPasswordButton{
+    if (!_forgetPasswordButton) {
+        _forgetPasswordButton = [[UIButton alloc]init];
+        NSString * title = @"忘记密码?";
+        NSMutableAttributedString * attributeStr = [[NSMutableAttributedString alloc]initWithString:title attributes:@{NSForegroundColorAttributeName:Color_blue_1,NSUnderlineStyleAttributeName:kIntegerNumber(NSUnderlineStyleSingle),NSFontAttributeName:[UIFont systemFontOfSize:15],NSUnderlineColorAttributeName:Color_blue_1}];
+        [_forgetPasswordButton setAttributedTitle:attributeStr forState:UIControlStateNormal];
+        [_forgetPasswordButton addTarget:self action:@selector(forgetPassword) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _forgetPasswordButton;
+}
+
+-(UIButton *)registerButton{
+    if (!_registerButton) {
+        _registerButton = [[UIButton alloc]init];
+        NSString * title = @"没有账号,前往注册!";
+        
+        NSMutableAttributedString * attributeStr = [[NSMutableAttributedString alloc]initWithString:title attributes:@{NSForegroundColorAttributeName:Color_blue_1,NSUnderlineStyleAttributeName:kIntegerNumber(NSUnderlineStyleSingle),NSFontAttributeName:[UIFont systemFontOfSize:15],NSUnderlineColorAttributeName:Color_blue_1}];
+        [_registerButton setAttributedTitle:attributeStr forState:UIControlStateNormal];
+        [_registerButton addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _registerButton;
 }
 
 -(UIButton *)pravicyButton {

@@ -12,7 +12,13 @@
 
 @implementation OrderOperateButtonModel
 
-
+-(instancetype)init{
+    self = [super init];
+    if (self) {
+        self.show = YES;
+    }
+    return self;
+}
 
 @end
 
@@ -155,11 +161,18 @@ static NSInteger MAX_BUTTON_COUNT = 4;
         [button removeFromSuperview];
     }
     [self.buttonArray removeAllObjects];
+    NSMutableArray * showButtonModelArray = [NSMutableArray array];
     for (NSInteger index = 0; index < self.buttonModelArray.count; index ++) {
         OrderOperateButtonModel * model = self.buttonModelArray[index];
         model.index = index;
+        if (model.show) {
+            [showButtonModelArray addObject:model];
+        }
+    }
+    for (NSInteger index = 0; index < showButtonModelArray.count; index ++) {
+        OrderOperateButtonModel * model = showButtonModelArray[index];
         if (index < (MAX_BUTTON_COUNT - 1) ||
-            (index == (MAX_BUTTON_COUNT - 1) && self.buttonModelArray.count <= MAX_BUTTON_COUNT)) {
+            (index == (MAX_BUTTON_COUNT - 1) && showButtonModelArray.count <= MAX_BUTTON_COUNT)) {
             OrderOperateButton * button = [[OrderOperateButton alloc]init];
             button.model = model;
             button.delegate = self;

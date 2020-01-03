@@ -58,6 +58,10 @@
         [window makeKeyAndVisible];
     } else if (type == LoginViewTapActionType_Privacy) {
         [self.privacyPolicyView addPopViewToWindow];
+    } else if (type == LoginViewTapActionType_ForgetPassword) {
+        NSLog(@"忘记密码");
+    } else if (type == LoginViewTapActionType_Register) {
+        NSLog(@"注册");
     }
 }
 

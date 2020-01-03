@@ -13,11 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class MediaSelectBoxView;
 @protocol MediaSelectBoxViewDelegate <NSObject>
 @optional
--(void)mediaSelectBox:(MediaSelectBoxView *)box didChangeDataSource:(NSArray<MediaSelectItemModel *> *)dataSource;
--(void)mediaSelectBox:(MediaSelectBoxView *)box didChangeHeight:(CGFloat)height;
+-(void)mediaSelectBoxView:(MediaSelectBoxView*)view dataSourceDidChanged:(NSArray<MediaSelectItemModel *> *)dataSource;
 @end
 
 @protocol MediaSelectBoxViewConfig <NSObject>
+@optional
 -(NSInteger)numberOfMediaSelectBoxColumn;
 -(CGFloat)heightOfMediaSelectBoxItem;
 @end
@@ -26,8 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<MediaSelectItemModel *> * dataSource;
 @property (nonatomic, weak) id<MediaSelectBoxViewDelegate> delegate;
 @property (nonatomic, weak) id<MediaSelectBoxViewConfig>config;
-
--(void)reloadItems;
+@property (nonatomic, assign) BOOL ableDelete;
 @end
 
 NS_ASSUME_NONNULL_END

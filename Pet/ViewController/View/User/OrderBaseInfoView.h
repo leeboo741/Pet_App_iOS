@@ -5,6 +5,8 @@
 //  Created by lee on 2020/1/2.
 //  Copyright © 2020 mac. All rights reserved.
 //
+//  订单基本信息栏
+//
 
 #import <UIKit/UIKit.h>
 

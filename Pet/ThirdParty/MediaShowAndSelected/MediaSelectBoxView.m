@@ -16,6 +16,9 @@
 static NSInteger Show_Column = 3;
 static CGFloat Item_Height = 150;
 
+static NSInteger Max_Count = 9;
+static CGFloat Max_Video_Length = 30;
+
 @interface MediaSelectBoxView ()
 <
 MediaSelectItemDelegate
@@ -56,14 +59,13 @@ MediaSelectItemDelegate
 
 -(void)setUpView{
     self.dataSource = [NSMutableArray array];
-    self.didChangeDatasource = NO;
     self.backgroundColor = Color_white_1;
+    self.ableDelete = YES;
 }
 
 -(void)layoutSubviews{
     [super layoutSubviews];
     [self resetConstrants];
-    [self changeDatasource];
 }
 
 #pragma mark - media select item delegate
@@ -100,24 +102,28 @@ MediaSelectItemDelegate
     }
     return assetModelList;
 }
-// 通知数据改变
--(void)changeDatasource{
-    if (self.didChangeDatasource) {
-        self.didChangeDatasource = NO;
-        if (_delegate && [_delegate respondsToSelector:@selector(mediaSelectBox:didChangeDataSource:)]) {
-            [_delegate mediaSelectBox:self didChangeDataSource:self.dataSource];
-        }
-        NSInteger rowCount = self.itemsArray.count/ self.column;
-        NSInteger lastColumn = self.itemsArray.count % self.column;
-        if (lastColumn != 0) {
-            rowCount = rowCount + 1;
-        }
-        self.rowCount = rowCount;
-        if (_delegate && [_delegate respondsToSelector:@selector(mediaSelectBox:didChangeHeight:)]) {
-            [_delegate mediaSelectBox:self didChangeHeight:self.rowCount * self.itemHeight];
-        }
+// 数据重新载入
+-(void)reloadItems{
+    for (UIView * item in self.itemsArray) {
+        [item removeFromSuperview];
     }
+    [self.itemsArray removeAllObjects];
+    for (MediaSelectItemModel * model in self.dataSource) {
+        MediaSelectItemView * item = [[MediaSelectItemView alloc]init];
+        item.model = model;
+        item.delegate = self;
+        item.ableDelete = self.ableDelete;
+        [self.itemsArray addObject:item];
+        [self addSubview:item];
+    }
+    if (self.itemsArray.count < Max_Count) {
+        [self.itemsArray addObject:self.addItem];
+        [self addSubview:self.addItem];
+    }
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
 }
+
 // 刷新约束
 -(void)resetConstrants{
     // 循环约束
@@ -187,50 +193,16 @@ MediaSelectItemDelegate
             }
         }
     }
-}
-// 数据重新载入
--(void)reloadItems{
-    for (UIView * item in self.itemsArray) {
-        [item removeFromSuperview];
-    }
-    self.itemsArray = nil;
-    [self itemsArray];
-    [self addNewItemsWithModels:self.dataSource];
-}
-
-// 添加新item 单个
--(void)addNewItemWithModel:(MediaSelectItemModel *)model{
-    MediaSelectItemView * item = [[MediaSelectItemView alloc]init];
-    item.model = model;
-    item.delegate = self;
-    [self.itemsArray insertObject:item atIndex:self.itemsArray.count -1];
-    [self addSubview:item];
-    self.didChangeDatasource = YES;
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
-}
-// 添加新item 多个
--(void)addNewItemsWithModels:(NSArray<MediaSelectItemModel *> *)models{
-    for (MediaSelectItemModel * model in models) {
-        MediaSelectItemView * item = [[MediaSelectItemView alloc]init];
-        item.model = model;
-        item.delegate = self;
-        [self.itemsArray insertObject:item atIndex:self.itemsArray.count -1];
-        [self addSubview:item];
-    }
-    self.didChangeDatasource = YES;
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    
+    [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];
 }
 
 -(void)deleteItemAtIndex:(NSInteger)index{
-    MediaSelectItemView * item = [self.itemsArray objectAtIndex:index];
-    [item removeFromSuperview];
     [self.dataSource removeObjectAtIndex:index];
-    [self.itemsArray removeObjectAtIndex:index];
-    self.didChangeDatasource = YES;
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    if (_delegate && [_delegate respondsToSelector:@selector(mediaSelectBoxView:dataSourceDidChanged:)]) {
+        [_delegate mediaSelectBoxView:self dataSourceDidChanged:self.dataSource];
+    }
 }
 
 -(void)addMedia{
@@ -239,10 +211,16 @@ MediaSelectItemDelegate
         [assetsArray addObject:model.data];
     }
     __weak typeof(self)weakSelf = self;
-    TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:nil];
+    TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:Max_Count delegate:nil];
     imagePicker.selectedAssets = assetsArray; // 已经选中的资源文件列表
     imagePicker.allowPickingMultipleVideo = YES; // 是否允许多选视频
     imagePicker.allowPickingVideo = YES; // 是否允许选择视频
+    imagePicker.videoMaximumDuration = Max_Video_Length; // 最大视频时间
+    imagePicker.maxImagesCount = Max_Count; // 最大数量
+    imagePicker.allowTakePicture = YES; // 允许拍摄图片
+    imagePicker.allowTakeVideo = YES; // 允许拍摄视频
+    imagePicker.allowCameraLocation = YES;//
+    imagePicker.allowPickingOriginalPhoto = NO; // 是否允许选取原图
     [imagePicker setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         NSMutableArray *modelsArray = @[].mutableCopy;
         for (int i = 0; i < photos.count; i ++) {
@@ -254,8 +232,6 @@ MediaSelectItemDelegate
             } else {
                 model.type = MediaSelectItemType_VIDEO;
             }
-//            model.imageType = YNImageUploadImageTypeUpload;
-//            model.state = YNImageUploadStateNormal;
             model.coverImagePath = [NSString stringWithFormat:@"%@%u.jpg",[self uuidString],arc4random_uniform(255)];
             [modelsArray addObject:model];
         }
@@ -319,7 +295,9 @@ MediaSelectItemDelegate
     // 插入 要插入的数据
     [resultArray addObjectsFromArray:willInsertArray];
     // 重新赋值 datasource 触发 setter 方法 中的 重置数据 移除页面的原有item 重新addItem 并计算
-    self.dataSource = resultArray;
+    if (_delegate && [_delegate respondsToSelector:@selector(mediaSelectBoxView:dataSourceDidChanged:)]) {
+        [_delegate mediaSelectBoxView:self dataSourceDidChanged:resultArray];
+    }
 }
 
 #pragma mark - setters and getters
@@ -329,27 +307,9 @@ MediaSelectItemDelegate
     [self reloadItems];
 }
 
--(void)setDelegate:(id<MediaSelectBoxViewDelegate>)delegate{
-    _delegate = delegate;
-    if (delegate && [delegate respondsToSelector:@selector(mediaSelectBox:didChangeHeight:)]) {
-        [delegate mediaSelectBox:self didChangeHeight:self.rowCount * self.itemHeight];
-    }
-}
-
 -(NSMutableArray<MediaSelectItemView *> *)itemsArray{
     if (!_itemsArray){
         _itemsArray = [NSMutableArray array];
-    }
-    if (![_itemsArray containsObject:self.addItem]) {
-        [_itemsArray addObject:self.addItem];
-        [self addSubview:_addItem];
-        [self setNeedsLayout];
-        [self layoutIfNeeded];
-    } else {
-        if ([_itemsArray lastObject] != self.addItem) {
-            [_itemsArray removeObject:self.addItem];
-            [_itemsArray addObject:self.addItem];
-        }
     }
     return _itemsArray;
 }
