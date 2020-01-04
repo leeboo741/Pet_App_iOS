@@ -20,6 +20,12 @@ typedef NS_ENUM(NSInteger, OrderOperateButtonStyle) {
 
 typedef NS_ENUM(NSInteger, OrderOperateButtonType) {
     OrderOperateButtonType_Pay = 0, // 支付
+    OrderOperateButtonType_Upload, // 上传
+    OrderOperateButtonType_Package, // 揽件
+    OrderOperateButtonType_OutInPort, // 出入港
+    OrderOperateButtonType_Arrived, // 到达
+    OrderOperateButtonType_SignIn, // 签收
+    
     OrderOperateButtonType_Call, // 拨打电话
     OrderOperateButtonType_Evaluate, // 评价
     OrderOperateButtonType_ConfirmReceive, // 确认收货
@@ -27,14 +33,13 @@ typedef NS_ENUM(NSInteger, OrderOperateButtonType) {
     OrderOperateButtonType_CancelOrder, // 取消订单
     OrderOperateButtonType_DetailOrder, // 订单详情
     OrderOperateButtonType_ChangePrice, // 订单改价
-    OrderOperateButtonType_Upload, // 上传
-    OrderOperateButtonType_Package, // 揽件
-    OrderOperateButtonType_OutInPort, // 出入港
+    OrderOperateButtonType_TempDeliver, // 临派
     OrderOperateButtonType_Remark, // 备注
     OrderOperateButtonType_Assignment, // 分配
     OrderOperateButtonType_Print, // 打印
     OrderOperateButtonType_AddPrice, // 补价
     OrderOperateButtonType_Refund, // 退款
+    
     OrderOperateButtonType_More, // 更多
 };
 

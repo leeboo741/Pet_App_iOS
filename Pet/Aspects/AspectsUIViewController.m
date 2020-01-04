@@ -14,7 +14,7 @@
 +(void)aspect_viewDidLoad{
     [UIViewController aspect_hookSelector:@selector(viewDidLoad) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> info){
         UIViewController * viewController = (UIViewController *)info.instance;
-        NSLog(@"%@",NSStringFromClass([viewController class]));
+        MSLog(@"%@",NSStringFromClass([viewController class]));
     } error:nil];
 }
 

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderAssignmentsView : UIView
 @property (nonatomic, strong) NSArray * assignmentsList;
+@property (nonatomic, copy) NSString * assignmentsStr;
 @end
 
 NS_ASSUME_NONNULL_END

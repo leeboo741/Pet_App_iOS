@@ -7,87 +7,89 @@
 //
 
 #import "SiteInportOrderController.h"
+#import "OrderEntity.h"
+#import "SiteInportOrderCell.h"
 
-@interface SiteInportOrderController ()
+static NSString * SiteInportOrderCellIdentifier = @"SiteInportOrderCell";
 
+@interface SiteInportOrderController ()<SiteInportOrderCellDelegate>
+@property (nonatomic, strong)NSMutableArray * dataSource;
 @end
 
 @implementation SiteInportOrderController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.title = @"待签收单";
+    [self.tableView registerNib:[UINib nibWithNibName:SiteInportOrderCellIdentifier bundle:nil] forCellReuseIdentifier:SiteInportOrderCellIdentifier];
 }
 
-#pragma mark - Table view data source
+#pragma mark - tableview datasource and delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return self.dataSource.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
+    SiteInportOrderCell * cell = [tableView dequeueReusableCellWithIdentifier:SiteInportOrderCellIdentifier forIndexPath:indexPath];
+    [self configSiteInportOrderCell:cell atIndexPath:indexPath];
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [tableView fd_heightForCellWithIdentifier:SiteInportOrderCellIdentifier configuration:^(id cell) {
+        [self configSiteInportOrderCell:cell atIndexPath:indexPath];
+    }];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return nil;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+#pragma mark - config cell
+-(void)configSiteInportOrderCell:(SiteInportOrderCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    cell.delegate = self;
+    OrderEntity * orderEntity = self.dataSource[indexPath.row];
+    cell.selectImageDataList = orderEntity.waitUploadMediaList;
 }
-*/
 
-/*
-#pragma mark - Navigation
+#pragma mark - site inport order cell delegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)tapSiteInportOrderCell:(SiteInportOrderCell *)cell operateType:(OrderOperateButtonType)type{
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    MSLog(@"点击 index : %ld || type : %ld", indexPath.row, type);
 }
-*/
+
+-(void)siteInportOrderCell:(SiteInportOrderCell *)cell selectImageDataChange:(NSArray *)selectImageData{
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    OrderEntity * orderEntity = self.dataSource[indexPath.row];
+    orderEntity.waitUploadMediaList = selectImageData;
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+#pragma mark - setters and getters
+
+-(NSMutableArray *)dataSource{
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray array];
+        OrderEntity * orderEntity = [[OrderEntity alloc]init];
+        [_dataSource addObject:orderEntity];
+        [_dataSource addObject:orderEntity];
+        [_dataSource addObject:orderEntity];
+        [_dataSource addObject:orderEntity];
+        [_dataSource addObject:orderEntity];
+    }
+    return _dataSource;
+}
 
 @end

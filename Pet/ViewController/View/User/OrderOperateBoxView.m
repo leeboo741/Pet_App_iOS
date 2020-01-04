@@ -117,7 +117,6 @@ static NSInteger MAX_BUTTON_COUNT = 4;
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    [self resetConstraint];
 }
 
 #pragma mark - boxView | setters and getters
@@ -186,8 +185,7 @@ static NSInteger MAX_BUTTON_COUNT = 4;
             [self.moreArray addObject:model];
         }
     }
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    [self resetConstraint];
 }
 
 -(void)resetConstraint{

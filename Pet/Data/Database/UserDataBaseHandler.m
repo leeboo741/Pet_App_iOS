@@ -25,8 +25,8 @@
               Table_User_BusinessNo];
     BOOL a = [dataBase executeUpdate:sqlStr,[NSNumber numberWithInteger:user.role],user.userName,user.phone,user.avaterImagePath,user.customerNo,user.stationNo,user.businessNo];
     if (!a) {
-        NSLog(@"用户表数据插入失败:");
-        NSLog(@"%@",sqlStr);
+        MSLog(@"用户表数据插入失败:");
+        MSLog(@"%@",sqlStr);
     }
     [SqliteBase closeDatabase];
     return YES;
@@ -49,8 +49,8 @@
     NSString * sqlStr = [NSString stringWithFormat:@"UPDATE %@ SET %@ = '%ld' WHERE %@ = '%@'", Table_User_TableName,Table_User_Role,role,Table_User_Phone,phone];
     BOOL result = [database executeUpdate:sqlStr];
     if (!result) {
-        NSLog(@"更新用户表 '%@' role 数据失败:",phone);
-        NSLog(@"%@",sqlStr);
+        MSLog(@"更新用户表 '%@' role 数据失败:",phone);
+        MSLog(@"%@",sqlStr);
     }
     return result;
 }
@@ -61,8 +61,8 @@
 +(UserEntity *)getUser{
     FMDatabase * database = [SqliteBase getDatabase];
     NSString * sqlStr = [NSString stringWithFormat:@"SELECT * FROM %@",Table_User_TableName];
-    NSLog(@"获取用户表数据:");
-    NSLog(@"%@",sqlStr);
+    MSLog(@"获取用户表数据:");
+    MSLog(@"%@",sqlStr);
     FMResultSet *resultSet = [database executeQuery:sqlStr];
     UserEntity * user = nil;
     while ([resultSet next]) {
@@ -82,8 +82,8 @@
 +(BOOL)userExistWithPhone:(NSString *)phone{
     FMDatabase * database = [SqliteBase getDatabase];
     NSString * sqlStr =  [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE %@ = '%@'",Table_User_TableName,Table_User_Phone,phone];
-    NSLog(@"统计用户表数据数量:");
-    NSLog(@"%@",sqlStr);
+    MSLog(@"统计用户表数据数量:");
+    MSLog(@"%@",sqlStr);
     NSInteger count = [database intForQuery:sqlStr];
     [SqliteBase closeDatabase];
     if (count <= 0) {
@@ -99,8 +99,8 @@
     NSString * sqlStr = [NSString stringWithFormat:@"DELETE FROM %@", Table_User_TableName];
     BOOL result = [database executeUpdate:sqlStr];
     if (!result) {
-        NSLog(@"用户表数据删除失败:");
-        NSLog(@"%@",sqlStr);
+        MSLog(@"用户表数据删除失败:");
+        MSLog(@"%@",sqlStr);
     }
     [SqliteBase closeDatabase];
     return result;
@@ -110,8 +110,8 @@
     NSString * sqlStr = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = '%@'", Table_User_TableName,Table_User_Phone,phone];
     BOOL result = [database executeUpdate:sqlStr];
     if (!result) {
-        NSLog(@"用户表 '%@'数据 删除失败:",phone);
-        NSLog(@"%@",sqlStr);
+        MSLog(@"用户表 '%@'数据 删除失败:",phone);
+        MSLog(@"%@",sqlStr);
     }
     [SqliteBase closeDatabase];
     return result;
@@ -121,7 +121,7 @@
     [sqlite getReadableDatabase];
     BOOL result = [sqlite deleteTable:Table_User_TableName];
     if (!result) {
-        NSLog(@"删除用户表失败");
+        MSLog(@"删除用户表失败");
     }
     [sqlite closeDataBase];
     return result;

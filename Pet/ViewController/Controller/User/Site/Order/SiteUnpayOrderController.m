@@ -12,8 +12,10 @@
 
 static NSString * SiteUnpayOrderCellIdentifier = @"SiteUnpayOrderCell";
 
-@interface SiteUnpayOrderController () <SiteUnpayOrderCellDelegate>
+@interface SiteUnpayOrderController () <SiteUnpayOrderCellDelegate,UITextFieldDelegate>
 @property (nonatomic, strong) NSMutableArray * dataSource;
+
+@property (nonatomic, strong) UITextField * changePriceTextField; // 改价输入框
 @end
 
 @implementation SiteUnpayOrderController
@@ -66,9 +68,26 @@ static NSString * SiteUnpayOrderCellIdentifier = @"SiteUnpayOrderCell";
 -(void)tapSiteUnpayOrderCell:(SiteUnpayOrderCell *)cell operateType:(OrderOperateButtonType)type{
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     if(type == OrderOperateButtonType_ChangePrice) {
-        NSLog(@"改价 : %ld", indexPath.row);
+        MSLog(@"改价 : %ld", indexPath.row);
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"改价" message:@"修改订单价格" preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"请输入新的订单价格";
+            textField.keyboardType = UIKeyboardTypeDecimalPad;
+        }];
+        UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UITextField * newPirceTextField = alertController.textFields.firstObject;
+            if (kStringIsEmpty(newPirceTextField.text)) {
+                [MBProgressHUD showTipMessageInWindow:@"改价金额不能为空"];
+            } else {
+                MSLog(@"修改价格为:%@",newPirceTextField.text);
+            }
+        }];
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:confirmAction];
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:nil];
     } else if (type == OrderOperateButtonType_DetailOrder) {
-        NSLog(@"详情 : %ld", indexPath.row);
+        MSLog(@"详情 : %ld", indexPath.row);
     }
 }
 
@@ -85,6 +104,15 @@ static NSString * SiteUnpayOrderCellIdentifier = @"SiteUnpayOrderCell";
         [_dataSource addObject:orderEntity];
     }
     return _dataSource;
+}
+
+-(UITextField *)changePriceTextField{
+    if (!_changePriceTextField) {
+        _changePriceTextField = [[UITextField alloc]init];
+        _changePriceTextField.delegate = self;
+        _changePriceTextField.borderStyle = UITextBorderStyleRoundedRect;
+    }
+    return _changePriceTextField;
 }
 
 @end

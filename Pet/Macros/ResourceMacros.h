@@ -42,6 +42,7 @@
 #define IconFont_QRCode         @"\U0000E6D2" // 二维码
 #define IconFont_ServiceCall    @"\U0000E71C" // 客服
 #define IconFont_Message        @"\U0000E764" // 信息
+#define IconFont_NotNull        @"\U0000E83D" // 必填
 
 #pragma mark - Color Resource Macros
 

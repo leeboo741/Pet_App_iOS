@@ -295,17 +295,17 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 -(void)valueAddCellTapContract:(TransportOrderValueAddCell *)cell {
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     TransportValueAdd * valueAdd = (TransportValueAdd *)self.transportValueAddArray[indexPath.row];
-    NSLog(@"点击Contract: %@",valueAdd.serviceContract);
+    MSLog(@"点击Contract: %@",valueAdd.serviceContract);
 }
 
 #pragma mark - footer view delegate
 -(void)transportOrderFooterTapOrder{
-    NSLog(@"点击预定");
+    MSLog(@"点击预定");
     TransportPayViewController * transportPayVC = [[TransportPayViewController alloc]init];
     [self.navigationController pushViewController:transportPayVC animated:YES];
 }
 -(void)transportOrderFooterTapCall {
-    NSLog(@"点击客服电话");
+    MSLog(@"点击客服电话");
 }
 
 #pragma mark - config cell

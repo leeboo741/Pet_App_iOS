@@ -216,11 +216,11 @@ TransportPayContractConfirmCellDelegate>
 #pragma mark - transport footer view delegate
 
 -(void)transportOrderFooterTapCall {
-    NSLog(@"点击客服电话");
+    MSLog(@"点击客服电话");
 }
 
 -(void)transportOrderFooterTapOrder{
-    NSLog(@"点击提交");
+    MSLog(@"点击提交");
 }
 
 #pragma mark - config cell

@@ -41,11 +41,11 @@ static NSString * datbaseName  = @"BanMaPetApp.sqlite";
     sqlStr = [sqlStr stringByAppendingFormat:@"%@ text,", Table_User_CustomerNo];
     sqlStr = [sqlStr stringByAppendingFormat:@"%@ text,", Table_User_StationNo];
     sqlStr = [sqlStr stringByAppendingFormat:@"%@ text)", Table_User_BusinessNo];
-    NSLog(@"create %@ = %@",Table_User_TableName,sqlStr);
+    MSLog(@"create %@ = %@",Table_User_TableName,sqlStr);
     if ([database executeUpdate:sqlStr]) {
-        NSLog(@"创建 %@ 成功",Table_User_TableName);
+        MSLog(@"创建 %@ 成功",Table_User_TableName);
     }else{
-        NSLog(@"创建 %@ 失败",Table_User_TableName);
+        MSLog(@"创建 %@ 失败",Table_User_TableName);
     }
     sqlStr = nil;
 }
@@ -90,7 +90,7 @@ static NSString * datbaseName  = @"BanMaPetApp.sqlite";
  */
 - (id)init{
     if(self = [super init]){
-        NSLog(@"数据库文件路径 : %@",[self getPath:datbaseName]);
+        MSLog(@"数据库文件路径 : %@",[self getPath:datbaseName]);
         BOOL isExist = [self isDatabaseExist];
         if(isExist == NO){
             _db = [self getReadableDatabase];
@@ -178,8 +178,8 @@ static NSString * datbaseName  = @"BanMaPetApp.sqlite";
     NSString *sqlStr = [NSString stringWithFormat:@"delete from %@", table];
     BOOL a = [_db executeUpdate:sqlStr];
     if (!a) {
-        NSLog(@"删除%@失败:",table);
-        NSLog(@"%@",sqlStr);
+        MSLog(@"删除%@失败:",table);
+        MSLog(@"%@",sqlStr);
     }
     [self closeDataBase];
     return a;

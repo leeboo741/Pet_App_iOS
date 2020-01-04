@@ -28,6 +28,8 @@
     [super awakeFromNib];
     // Initialization code
     
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     self.orderOperateBoxView.delegate = self;
     self.mediaSelectBoxView.delegate = self;
     self.mediaSelectBoxView.config = self;
@@ -64,7 +66,7 @@
 #pragma mark - operate box view delegate
 
 -(void)onClickButtonWithModel:(OrderOperateButtonModel *)model atOrderOperateBoxView:(OrderOperateBoxView *)view{
-    NSLog(@"%ld",model.index);
+    MSLog(@"%ld",model.index);
     if (_delegate && [_delegate respondsToSelector:@selector(tapSiteOutportOrderCell:operateType:)]) {
         [_delegate tapSiteOutportOrderCell:self operateType:model.type];
     }
@@ -82,6 +84,12 @@
 -(void)setSelectImageDataList:(NSArray<MediaSelectItemModel *> *)selectImageDataList{
     _selectImageDataList = selectImageDataList;
     self.mediaSelectBoxView.dataSource = [NSMutableArray arrayWithArray:selectImageDataList];
+}
+
+-(void)setOrderEntity:(OrderEntity *)orderEntity{
+    _orderEntity = orderEntity;
+    self.orderBaseInfoView.orderNo = orderEntity.orderNo;
+    self.orderAssignmentsView.assignmentsStr = orderEntity.assignmentedStaffString;
 }
 
 #pragma mark - private method

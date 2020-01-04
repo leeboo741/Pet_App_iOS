@@ -127,10 +127,10 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
 -(void)tapActionAtIndex:(NSInteger)index atActionCell:(CenterActionCell *)cell{
     switch (index) {
         case 0:
-            NSLog(@"提现");
+            MSLog(@"提现");
             break;
         case 1:
-            NSLog(@"申请");
+            MSLog(@"申请");
             break;
         case 2:
         {

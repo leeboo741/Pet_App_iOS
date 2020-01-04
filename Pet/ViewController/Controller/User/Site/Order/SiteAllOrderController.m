@@ -97,14 +97,14 @@ SegmentedSelectViewDelegate>
 -(void)tapSiteAllOrderCell:(SiteAllOrderCell *)cell operateType:(OrderOperateButtonType)type{
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     if (type == OrderOperateButtonType_DetailOrder) {
-        NSLog(@"详情 : %ld", indexPath.row);
+        MSLog(@"详情 : %ld", indexPath.row);
     }
 }
 
 #pragma mark - segmented select view delegate
 
 -(void)segmentedSelectView:(SegmentedSelectView *)view selectIndex:(NSInteger)index{
-    NSLog(@"选择类型: %ld",index);
+    MSLog(@"选择类型: %ld",index);
     self.selectOrderType = index;
 }
 

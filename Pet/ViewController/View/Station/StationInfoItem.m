@@ -30,7 +30,7 @@
 }
 
 -(void)dealloc{
-    NSLog(@"StationInfoItem Dealloc");
+    MSLog(@"StationInfoItem Dealloc");
     [self removeIconKVO];
 }
 

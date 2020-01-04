@@ -215,7 +215,6 @@
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    [self resetConstant];
 }
 
 #pragma mark - view | setters and getters
@@ -247,8 +246,7 @@
         [self.itemsArray addObject:item];
         [self addSubview:item];
     }
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    [self resetConstant];
 }
 
 -(void)resetConstant{

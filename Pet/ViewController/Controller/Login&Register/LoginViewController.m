@@ -43,7 +43,7 @@
 #pragma mark - login view delegate
 -(void)loginViewTapActionType:(LoginViewTapActionType)type{
     if (type == LoginViewTapActionType_Login) {
-        NSLog(@"登录\n账户:%@\n密码:%@\n是否同意条款:%d",self.account,self.password,self.agreePrivacy);
+        MSLog(@"登录\n账户:%@\n密码:%@\n是否同意条款:%d",self.account,self.password,self.agreePrivacy);
         if ([[UserManager shareUserManager] getUser] == nil) {
             UserEntity * user = [[UserEntity alloc]init];
             user.userName = @"李静波";
@@ -59,9 +59,9 @@
     } else if (type == LoginViewTapActionType_Privacy) {
         [self.privacyPolicyView addPopViewToWindow];
     } else if (type == LoginViewTapActionType_ForgetPassword) {
-        NSLog(@"忘记密码");
+        MSLog(@"忘记密码");
     } else if (type == LoginViewTapActionType_Register) {
-        NSLog(@"注册");
+        MSLog(@"注册");
     }
 }
 

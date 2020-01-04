@@ -65,7 +65,7 @@ MediaSelectItemDelegate
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    [self resetConstrants];
+//    [self resetConstrants];
 }
 
 #pragma mark - media select item delegate
@@ -104,24 +104,72 @@ MediaSelectItemDelegate
 }
 // 数据重新载入
 -(void)reloadItems{
-    for (UIView * item in self.itemsArray) {
-        [item removeFromSuperview];
+    // addItem 不进入计算
+    [self.itemsArray removeObject:self.addItem];
+    
+    // 求 item 和 data 数量
+    NSInteger itemsCount = self.itemsArray.count;
+    NSInteger datasCount = 0;
+    if (self.dataSource != nil) {
+        datasCount = self.dataSource.count;
     }
-    [self.itemsArray removeAllObjects];
-    for (MediaSelectItemModel * model in self.dataSource) {
-        MediaSelectItemView * item = [[MediaSelectItemView alloc]init];
-        item.model = model;
-        item.delegate = self;
-        item.ableDelete = self.ableDelete;
-        [self.itemsArray addObject:item];
-        [self addSubview:item];
+    // 取差值 绝对值
+    NSInteger diffrence = abs((int)(itemsCount - datasCount)) ;
+    
+    // 如果 item 多于 data, 删减itemsarray
+    // 如果 item 少于 data, 增加itemsarray
+    // 如果 item 等于 data, 不变
+    if (itemsCount  < datasCount) {
+        for (NSInteger index = 0; index < diffrence; index ++) {
+            MediaSelectItemView * item = [[MediaSelectItemView alloc]init];
+            item.delegate = self;
+            item.ableDelete = self.ableDelete;
+            [self.itemsArray addObject:item];
+            [self addSubview:item];
+        }
+    } else if (itemsCount > datasCount) {
+        for (NSInteger index = 0; index < diffrence; index ++) {
+            MediaSelectItemView * item = self.itemsArray.lastObject;
+            [self.itemsArray removeObject:item];
+            [item removeFromSuperview];
+        }
     }
+    
+    for (NSInteger index = 0; index < self.itemsArray.count; index ++) {
+        MediaSelectItemView * item = self.itemsArray[index];
+        item.model = self.dataSource[index];
+    }
+    
     if (self.itemsArray.count < Max_Count) {
         [self.itemsArray addObject:self.addItem];
-        [self addSubview:self.addItem];
+        if (![self.subviews containsObject:self.addItem]) {
+            [self addSubview:self.addItem];
+        }
+    } else {
+        if ([self.subviews containsObject:self.addItem]) {
+            [self.addItem removeFromSuperview];
+        }
     }
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    
+//    for (UIView * item in self.itemsArray) {
+//        [item removeFromSuperview];
+//    }
+//    [self.itemsArray removeAllObjects];
+//    for (MediaSelectItemModel * model in self.dataSource) {
+//        MediaSelectItemView * item = [[MediaSelectItemView alloc]init];
+//        item.model = model;
+//        item.delegate = self;
+//        item.ableDelete = self.ableDelete;
+//        [self.itemsArray addObject:item];
+//        [self addSubview:item];
+//    }
+//    if (self.itemsArray.count < Max_Count) {
+//        [self.itemsArray addObject:self.addItem];
+//        [self addSubview:self.addItem];
+//    }
+//    [self setNeedsLayout];
+//    [self layoutIfNeeded];
+    [self resetConstrants];
 }
 
 // 刷新约束

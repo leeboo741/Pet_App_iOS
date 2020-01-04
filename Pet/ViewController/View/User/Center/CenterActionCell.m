@@ -24,6 +24,7 @@ static NSInteger Column_Count = 5;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     // Initialization code
 }
 
@@ -35,7 +36,6 @@ static NSInteger Column_Count = 5;
 
 -(void)layoutIfNeeded{
     [super layoutIfNeeded];
-    [self resetConstrants];
 }
 
 #pragma mark - private method
@@ -109,6 +109,9 @@ static NSInteger Column_Count = 5;
             }
         }
     }
+    
+    [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];
 }
 -(void)resetActionItems{
     for (CenterActionItem * item in self.itemsArray) {
@@ -129,8 +132,7 @@ static NSInteger Column_Count = 5;
             [self addSubview:item];
         }
     }
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    [self resetConstrants];
 }
 
 #pragma mark - event action
@@ -157,8 +159,6 @@ static NSInteger Column_Count = 5;
         rowCount = rowCount + 1;
     }
     self.actionContentViewHeightConstrant.constant = rowCount * Row_Height;
-    [self setNeedsUpdateConstraints];
-    [self updateConstraintsIfNeeded];
     [self resetActionItems];
 }
 

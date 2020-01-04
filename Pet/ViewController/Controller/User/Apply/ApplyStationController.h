@@ -1,8 +1,8 @@
 //
-//  SiteInportCell.h
+//  ApplyStationController.h
 //  Pet
 //
-//  Created by mac on 2020/1/3.
+//  Created by mac on 2020/1/4.
 //  Copyright © 2020年 mac. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SiteInportCell : UITableViewCell
+@interface ApplyStationController : UITableViewController
 
 @end
 

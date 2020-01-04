@@ -13,6 +13,7 @@
 #import "SiteAllOrderController.h"
 #import "SiteOutportOrderController.h"
 #import "SiteInportOrderController.h"
+#import "ApplyCenterController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -133,43 +134,47 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
     switch (index) {
         case 0:
         {
-            NSLog(@"待付款");
+            MSLog(@"待付款");
             SiteUnpayOrderController * unpayOrderController = [[SiteUnpayOrderController alloc]init];
             [self.navigationController pushViewController:unpayOrderController animated:YES];
         }
             break;
         case 1:
         {
-            NSLog(@"出港单");
+            MSLog(@"出港单");
             SiteOutportOrderController * outportOrderController = [[SiteOutportOrderController alloc]init];
             [self.navigationController pushViewController:outportOrderController animated:YES];
         }
             break;
         case 2:
         {
-            NSLog(@"入港单");
+            MSLog(@"入港单");
             SiteInportOrderController * inportOrderController = [[SiteInportOrderController alloc]init];
             [self.navigationController pushViewController:inportOrderController animated:YES];
         }
             break;
         case 3:
         {
-            NSLog(@"全部单据");
+            MSLog(@"全部单据");
             SiteAllOrderController * allOrderController = [[SiteAllOrderController alloc]init];
             [self.navigationController pushViewController:allOrderController animated:YES];
         }
             break;
         case 4:
-            NSLog(@"查单");
+            MSLog(@"查单");
             break;
         case 5:
-            NSLog(@"审批");
+            MSLog(@"审批");
             break;
         case 6:
-            NSLog(@"提现");
+            MSLog(@"提现");
             break;
         case 7:
-            NSLog(@"申请");
+        {
+            MSLog(@"申请");
+            ApplyCenterController * applyCenterController = [[ApplyCenterController alloc] init];
+            [self.navigationController pushViewController:applyCenterController animated:YES];
+        }
             break;
         case 8:
         {

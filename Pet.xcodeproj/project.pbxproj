@@ -29,8 +29,6 @@
 		042DA7A223BDF88C0027C39B /* SiteAllOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042DA7A023BDF88C0027C39B /* SiteAllOrderCell.xib */; };
 		042DA80D23BEE77C0027C39B /* SiteOutportOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA80B23BEE77C0027C39B /* SiteOutportOrderCell.m */; };
 		042DA80E23BEE77C0027C39B /* SiteOutportOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042DA80C23BEE77C0027C39B /* SiteOutportOrderCell.xib */; };
-		042DA81223BEE79F0027C39B /* SiteInportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA81023BEE79F0027C39B /* SiteInportCell.m */; };
-		042DA81323BEE79F0027C39B /* SiteInportCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042DA81123BEE79F0027C39B /* SiteInportCell.xib */; };
 		042DA81623BEE8B50027C39B /* OrderAssignmentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042DA81523BEE8B50027C39B /* OrderAssignmentsView.m */; };
 		042EA91023A8B05600F3D376 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA90F23A8B05600F3D376 /* LoginViewController.m */; };
 		042EA94623A8C08E00F3D376 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA94123A8C08E00F3D376 /* UIView+Frame.m */; };
@@ -57,7 +55,21 @@
 		042EA9EA23ACC9BC00F3D376 /* FakeStationListData.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA9E923ACC9BC00F3D376 /* FakeStationListData.m */; };
 		042EA9EE23ADA34A00F3D376 /* StationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA9EC23ADA34900F3D376 /* StationCell.m */; };
 		042EA9EF23ADA34A00F3D376 /* StationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042EA9ED23ADA34900F3D376 /* StationCell.xib */; };
-		04333C0B23BF36DE00676FBD /* OrderTransportInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C0A23BF36DE00676FBD /* OrderTransportInfoView.m */; };
+		04333C0F23C029ED00676FBD /* SiteInportOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C0D23C029ED00676FBD /* SiteInportOrderCell.m */; };
+		04333C1023C029ED00676FBD /* SiteInportOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04333C0E23C029ED00676FBD /* SiteInportOrderCell.xib */; };
+		04333C1323C0330600676FBD /* MapTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C1223C0330600676FBD /* MapTool.m */; };
+		04333C1B23C0453100676FBD /* AssignmentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C1A23C0453100676FBD /* AssignmentsController.m */; };
+		04333C1F23C0455C00676FBD /* AssignmentsItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C1D23C0455C00676FBD /* AssignmentsItemCell.m */; };
+		04333C2023C0455C00676FBD /* AssignmentsItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04333C1E23C0455C00676FBD /* AssignmentsItemCell.xib */; };
+		04333C2323C066B100676FBD /* StaffEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C2223C066B100676FBD /* StaffEntity.m */; };
+		04333C2823C0837700676FBD /* ApplyCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C2723C0837700676FBD /* ApplyCenterController.m */; };
+		04333C2C23C083C900676FBD /* ApplyCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C2B23C083C900676FBD /* ApplyCenterView.m */; };
+		04333C2F23C083E100676FBD /* ApplyCenterItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C2E23C083E100676FBD /* ApplyCenterItem.m */; };
+		04333C3223C08D8900676FBD /* ApplyStationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C3123C08D8900676FBD /* ApplyStationController.m */; };
+		04333C3523C08D9900676FBD /* ApplyStaffController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C3423C08D9900676FBD /* ApplyStaffController.m */; };
+		04333C3823C08FF200676FBD /* FormTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C3723C08FF200676FBD /* FormTableViewCell.m */; };
+		04333C3C23C0960200676FBD /* ApplyInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C3A23C0960200676FBD /* ApplyInputCell.m */; };
+		04333C3D23C0960200676FBD /* ApplyInputCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04333C3B23C0960200676FBD /* ApplyInputCell.xib */; };
 		043693E123B3699D00433BE5 /* UILabel+LineAndWordSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 043693E023B3699D00433BE5 /* UILabel+LineAndWordSpace.m */; };
 		0442D80F23B4B70B007ABE89 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0442D80E23B4B70B007ABE89 /* MobileCoreServices.framework */; };
 		0442D81123B589A4007ABE89 /* 1.mov in Resources */ = {isa = PBXBuildFile; fileRef = 0442D81023B589A4007ABE89 /* 1.mov */; };
@@ -175,9 +187,6 @@
 		042DA80A23BEE77C0027C39B /* SiteOutportOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteOutportOrderCell.h; sourceTree = "<group>"; };
 		042DA80B23BEE77C0027C39B /* SiteOutportOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteOutportOrderCell.m; sourceTree = "<group>"; };
 		042DA80C23BEE77C0027C39B /* SiteOutportOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SiteOutportOrderCell.xib; sourceTree = "<group>"; };
-		042DA80F23BEE79F0027C39B /* SiteInportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteInportCell.h; sourceTree = "<group>"; };
-		042DA81023BEE79F0027C39B /* SiteInportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteInportCell.m; sourceTree = "<group>"; };
-		042DA81123BEE79F0027C39B /* SiteInportCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SiteInportCell.xib; sourceTree = "<group>"; };
 		042DA81423BEE8B50027C39B /* OrderAssignmentsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderAssignmentsView.h; sourceTree = "<group>"; };
 		042DA81523BEE8B50027C39B /* OrderAssignmentsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderAssignmentsView.m; sourceTree = "<group>"; };
 		042EA90E23A8B05600F3D376 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -230,8 +239,33 @@
 		042EA9EB23ADA34900F3D376 /* StationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StationCell.h; sourceTree = "<group>"; };
 		042EA9EC23ADA34900F3D376 /* StationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StationCell.m; sourceTree = "<group>"; };
 		042EA9ED23ADA34900F3D376 /* StationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationCell.xib; sourceTree = "<group>"; };
-		04333C0923BF36DE00676FBD /* OrderTransportInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderTransportInfoView.h; sourceTree = "<group>"; };
-		04333C0A23BF36DE00676FBD /* OrderTransportInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderTransportInfoView.m; sourceTree = "<group>"; };
+		04333C0C23C029ED00676FBD /* SiteInportOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteInportOrderCell.h; sourceTree = "<group>"; };
+		04333C0D23C029ED00676FBD /* SiteInportOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteInportOrderCell.m; sourceTree = "<group>"; };
+		04333C0E23C029ED00676FBD /* SiteInportOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SiteInportOrderCell.xib; sourceTree = "<group>"; };
+		04333C1123C0330600676FBD /* MapTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapTool.h; sourceTree = "<group>"; };
+		04333C1223C0330600676FBD /* MapTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapTool.m; sourceTree = "<group>"; };
+		04333C1923C0453100676FBD /* AssignmentsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssignmentsController.h; sourceTree = "<group>"; };
+		04333C1A23C0453100676FBD /* AssignmentsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssignmentsController.m; sourceTree = "<group>"; };
+		04333C1C23C0455C00676FBD /* AssignmentsItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssignmentsItemCell.h; sourceTree = "<group>"; };
+		04333C1D23C0455C00676FBD /* AssignmentsItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssignmentsItemCell.m; sourceTree = "<group>"; };
+		04333C1E23C0455C00676FBD /* AssignmentsItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentsItemCell.xib; sourceTree = "<group>"; };
+		04333C2123C066B100676FBD /* StaffEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StaffEntity.h; sourceTree = "<group>"; };
+		04333C2223C066B100676FBD /* StaffEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StaffEntity.m; sourceTree = "<group>"; };
+		04333C2623C0837700676FBD /* ApplyCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyCenterController.h; sourceTree = "<group>"; };
+		04333C2723C0837700676FBD /* ApplyCenterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyCenterController.m; sourceTree = "<group>"; };
+		04333C2A23C083C900676FBD /* ApplyCenterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyCenterView.h; sourceTree = "<group>"; };
+		04333C2B23C083C900676FBD /* ApplyCenterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyCenterView.m; sourceTree = "<group>"; };
+		04333C2D23C083E100676FBD /* ApplyCenterItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyCenterItem.h; sourceTree = "<group>"; };
+		04333C2E23C083E100676FBD /* ApplyCenterItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyCenterItem.m; sourceTree = "<group>"; };
+		04333C3023C08D8900676FBD /* ApplyStationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyStationController.h; sourceTree = "<group>"; };
+		04333C3123C08D8900676FBD /* ApplyStationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyStationController.m; sourceTree = "<group>"; };
+		04333C3323C08D9900676FBD /* ApplyStaffController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyStaffController.h; sourceTree = "<group>"; };
+		04333C3423C08D9900676FBD /* ApplyStaffController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyStaffController.m; sourceTree = "<group>"; };
+		04333C3623C08FF200676FBD /* FormTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormTableViewCell.h; sourceTree = "<group>"; };
+		04333C3723C08FF200676FBD /* FormTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormTableViewCell.m; sourceTree = "<group>"; };
+		04333C3923C0960200676FBD /* ApplyInputCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyInputCell.h; sourceTree = "<group>"; };
+		04333C3A23C0960200676FBD /* ApplyInputCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyInputCell.m; sourceTree = "<group>"; };
+		04333C3B23C0960200676FBD /* ApplyInputCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplyInputCell.xib; sourceTree = "<group>"; };
 		043693DF23B3699D00433BE5 /* UILabel+LineAndWordSpace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+LineAndWordSpace.h"; sourceTree = "<group>"; };
 		043693E023B3699D00433BE5 /* UILabel+LineAndWordSpace.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LineAndWordSpace.m"; sourceTree = "<group>"; };
 		0442D80E23B4B70B007ABE89 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -386,6 +420,8 @@
 				04ED182623B98CBA002F2266 /* UserEntity.m */,
 				9B8EC50F23BD0F7700FFFDE8 /* OrderEntity.h */,
 				9B8EC51023BD0F7700FFFDE8 /* OrderEntity.m */,
+				04333C2123C066B100676FBD /* StaffEntity.h */,
+				04333C2223C066B100676FBD /* StaffEntity.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -424,6 +460,8 @@
 				042DA78E23BDD59E0027C39B /* SiteInportOrderController.m */,
 				042DA79023BDD5BA0027C39B /* SiteAllOrderController.h */,
 				042DA79123BDD5BA0027C39B /* SiteAllOrderController.m */,
+				04333C1923C0453100676FBD /* AssignmentsController.h */,
+				04333C1A23C0453100676FBD /* AssignmentsController.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -440,9 +478,12 @@
 				042DA80A23BEE77C0027C39B /* SiteOutportOrderCell.h */,
 				042DA80B23BEE77C0027C39B /* SiteOutportOrderCell.m */,
 				042DA80C23BEE77C0027C39B /* SiteOutportOrderCell.xib */,
-				042DA80F23BEE79F0027C39B /* SiteInportCell.h */,
-				042DA81023BEE79F0027C39B /* SiteInportCell.m */,
-				042DA81123BEE79F0027C39B /* SiteInportCell.xib */,
+				04333C0C23C029ED00676FBD /* SiteInportOrderCell.h */,
+				04333C0D23C029ED00676FBD /* SiteInportOrderCell.m */,
+				04333C0E23C029ED00676FBD /* SiteInportOrderCell.xib */,
+				04333C1C23C0455C00676FBD /* AssignmentsItemCell.h */,
+				04333C1D23C0455C00676FBD /* AssignmentsItemCell.m */,
+				04333C1E23C0455C00676FBD /* AssignmentsItemCell.xib */,
 			);
 			path = Site;
 			sourceTree = "<group>";
@@ -497,6 +538,8 @@
 		042EA93E23A8C06600F3D376 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				04333C1123C0330600676FBD /* MapTool.h */,
+				04333C1223C0330600676FBD /* MapTool.m */,
 				04E7D22723AE236A004EEAAB /* Utils.h */,
 				04E7D22823AE236A004EEAAB /* Utils.m */,
 			);
@@ -556,6 +599,8 @@
 				04E7D22C23B04AA1004EEAAB /* TransportTypeCell.xib */,
 				042DA78023BB49A00027C39B /* SegmentedSelectView.h */,
 				042DA78123BB49A00027C39B /* SegmentedSelectView.m */,
+				04333C3623C08FF200676FBD /* FormTableViewCell.h */,
+				04333C3723C08FF200676FBD /* FormTableViewCell.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -585,6 +630,7 @@
 		042EA9AA23AA343100F3D376 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				04333C2523C0833700676FBD /* Apply */,
 				04ED183123B9CCB3002F2266 /* Customer */,
 				042EA9AD23AA345700F3D376 /* Station */,
 				042EA9AC23AA345200F3D376 /* Site */,
@@ -689,6 +735,33 @@
 				042EA9E123ACB57900F3D376 /* UIImage+TBCityIconFont.m */,
 			);
 			path = IconFont;
+			sourceTree = "<group>";
+		};
+		04333C2523C0833700676FBD /* Apply */ = {
+			isa = PBXGroup;
+			children = (
+				04333C2623C0837700676FBD /* ApplyCenterController.h */,
+				04333C2723C0837700676FBD /* ApplyCenterController.m */,
+				04333C3023C08D8900676FBD /* ApplyStationController.h */,
+				04333C3123C08D8900676FBD /* ApplyStationController.m */,
+				04333C3323C08D9900676FBD /* ApplyStaffController.h */,
+				04333C3423C08D9900676FBD /* ApplyStaffController.m */,
+			);
+			path = Apply;
+			sourceTree = "<group>";
+		};
+		04333C2923C0839500676FBD /* Apply */ = {
+			isa = PBXGroup;
+			children = (
+				04333C2A23C083C900676FBD /* ApplyCenterView.h */,
+				04333C2B23C083C900676FBD /* ApplyCenterView.m */,
+				04333C2D23C083E100676FBD /* ApplyCenterItem.h */,
+				04333C2E23C083E100676FBD /* ApplyCenterItem.m */,
+				04333C3923C0960200676FBD /* ApplyInputCell.h */,
+				04333C3A23C0960200676FBD /* ApplyInputCell.m */,
+				04333C3B23C0960200676FBD /* ApplyInputCell.xib */,
+			);
+			path = Apply;
 			sourceTree = "<group>";
 		};
 		0469F05323ADBB63009B8E4F /* Transport */ = {
@@ -825,6 +898,7 @@
 		04EDDA2A23B49700008F379D /* User */ = {
 			isa = PBXGroup;
 			children = (
+				04333C2923C0839500676FBD /* Apply */,
 				04ED183B23B9E599002F2266 /* Center */,
 				9B8EC50523BCFBB800FFFDE8 /* OrderBaseInfoView.h */,
 				9B8EC50623BCFBB800FFFDE8 /* OrderBaseInfoView.m */,
@@ -836,8 +910,6 @@
 				042DA79C23BDD7910027C39B /* OrderRemarkView.xib */,
 				042DA81423BEE8B50027C39B /* OrderAssignmentsView.h */,
 				042DA81523BEE8B50027C39B /* OrderAssignmentsView.m */,
-				04333C0923BF36DE00676FBD /* OrderTransportInfoView.h */,
-				04333C0A23BF36DE00676FBD /* OrderTransportInfoView.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1062,12 +1134,14 @@
 				042EA9EF23ADA34A00F3D376 /* StationCell.xib in Resources */,
 				042DA79823BDD71F0027C39B /* SiteUnpayOrderCell.xib in Resources */,
 				042DA79D23BDD7910027C39B /* OrderRemarkView.xib in Resources */,
-				042DA81323BEE79F0027C39B /* SiteInportCell.xib in Resources */,
+				04333C2023C0455C00676FBD /* AssignmentsItemCell.xib in Resources */,
 				04ED184023B9E5DB002F2266 /* CenterHeaderCell.xib in Resources */,
 				04F49E982397A9FE008E1334 /* LaunchScreen.storyboard in Resources */,
 				0442D81123B589A4007ABE89 /* 1.mov in Resources */,
+				04333C3D23C0960200676FBD /* ApplyInputCell.xib in Resources */,
 				04E7D23B23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.xib in Resources */,
 				048C9F3523B3086200730C70 /* TransportPayPersonnelCell.xib in Resources */,
+				04333C1023C029ED00676FBD /* SiteInportOrderCell.xib in Resources */,
 				0469F05223ADB1BB009B8E4F /* StationInfoItem.xib in Resources */,
 				048C9F4223B308DC00730C70 /* TransportPayPetConditionConfirmCell.xib in Resources */,
 				048C9F3D23B308A900730C70 /* TransportPayRemarkCell.xib in Resources */,
@@ -1207,6 +1281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04333C1323C0330600676FBD /* MapTool.m in Sources */,
 				0469F05923ADBF21009B8E4F /* TransportPayViewController.m in Sources */,
 				9B82322723B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m in Sources */,
 				042DA77023BA06F80027C39B /* UserDataBaseHandler.m in Sources */,
@@ -1216,6 +1291,7 @@
 				042EA9A123AA330E00F3D376 /* StationDetailViewController.m in Sources */,
 				04EDDA3623B49A7A008F379D /* UIView+AddMJRefresh.m in Sources */,
 				042DA80D23BEE77C0027C39B /* SiteOutportOrderCell.m in Sources */,
+				04333C2F23C083E100676FBD /* ApplyCenterItem.m in Sources */,
 				042DA79B23BDD77F0027C39B /* OrderRemarkView.m in Sources */,
 				0469F05D23ADCD9C009B8E4F /* TransportOrderViewController.m in Sources */,
 				042EA94623A8C08E00F3D376 /* UIView+Frame.m in Sources */,
@@ -1223,10 +1299,11 @@
 				042DA78F23BDD59E0027C39B /* SiteInportOrderController.m in Sources */,
 				04EDDA3323B498B9008F379D /* UIViewController+AddMJRefresh.m in Sources */,
 				042EA9E723ACB57900F3D376 /* UIImage+TBCityIconFont.m in Sources */,
+				04333C2823C0837700676FBD /* ApplyCenterController.m in Sources */,
 				04E7D22D23B04AA1004EEAAB /* TransportTypeCell.m in Sources */,
+				04333C1B23C0453100676FBD /* AssignmentsController.m in Sources */,
 				042EA9E523ACB57900F3D376 /* TBCityIconFont.m in Sources */,
 				0469F06B23ADCE24009B8E4F /* TransportOrderValueAddCell.m in Sources */,
-				04333C0B23BF36DE00676FBD /* OrderTransportInfoView.m in Sources */,
 				042EA9B823AB195500F3D376 /* AspectsUIViewController.m in Sources */,
 				04ED182723B98CBA002F2266 /* UserEntity.m in Sources */,
 				9B8EC50D23BD0D6400FFFDE8 /* CustomerOrderCell.m in Sources */,
@@ -1237,19 +1314,22 @@
 				042EA9CF23AC653400F3D376 /* Station.m in Sources */,
 				0469F06F23ADCF77009B8E4F /* SelectActionLabel.m in Sources */,
 				048C9F4123B308DC00730C70 /* TransportPayPetConditionConfirmCell.m in Sources */,
+				04333C3223C08D8900676FBD /* ApplyStationController.m in Sources */,
 				04E7D22623AE2056004EEAAB /* TransportOrder.m in Sources */,
 				042EA9D223AC661500F3D376 /* StationListViewController.m in Sources */,
 				04F49E9B2397A9FE008E1334 /* main.m in Sources */,
 				048C9F2E23B1ED8600730C70 /* TransportOrderFooterView.m in Sources */,
 				04ED182C23B999FB002F2266 /* UITabBarController+Pet.m in Sources */,
-				042DA81223BEE79F0027C39B /* SiteInportCell.m in Sources */,
 				042EA94C23A8C23500F3D376 /* LoginView.m in Sources */,
+				04333C2C23C083C900676FBD /* ApplyCenterView.m in Sources */,
 				042DA79223BDD5BA0027C39B /* SiteAllOrderController.m in Sources */,
 				04ED183A23B9CD26002F2266 /* SiteCenterController.m in Sources */,
 				042DA76D23BA02C80027C39B /* SqliteBase.m in Sources */,
 				042EA9D523AC6A0E00F3D376 /* UITableViewController+AddMJRefresh.m in Sources */,
 				042DA7A123BDF88C0027C39B /* SiteAllOrderCell.m in Sources */,
 				042DA79723BDD71F0027C39B /* SiteUnpayOrderCell.m in Sources */,
+				04333C3523C08D9900676FBD /* ApplyStaffController.m in Sources */,
+				04333C3823C08FF200676FBD /* FormTableViewCell.m in Sources */,
 				042EA9BF23AB5B5800F3D376 /* HomeActionCell.m in Sources */,
 				042DA78C23BDD5880027C39B /* SiteOutportOrderController.m in Sources */,
 				04F49E8D2397A9FB008E1334 /* AppDelegate.m in Sources */,
@@ -1260,15 +1340,18 @@
 				042DA78523BD7E920027C39B /* OrderOperateBoxView.m in Sources */,
 				04ED17F923B5E79C002F2266 /* MediaSelectBoxView.m in Sources */,
 				04ED183723B9CD14002F2266 /* StationCenterController.m in Sources */,
+				04333C0F23C029ED00676FBD /* SiteInportOrderCell.m in Sources */,
 				042DA76723B9FE780027C39B /* UIBarButtonItem+Badge.m in Sources */,
 				042DA77B23BB303E0027C39B /* CenterActionItem.m in Sources */,
 				04F49EBF2397B585008E1334 /* SwiftFile.swift in Sources */,
 				04ED181B23B74CBF002F2266 /* PreviewViewController.m in Sources */,
 				042EA9B123AA34C300F3D376 /* HomeView.m in Sources */,
 				042EA94823A8C08E00F3D376 /* UIColor+ColorWithHexString.m in Sources */,
+				04333C2323C066B100676FBD /* StaffEntity.m in Sources */,
 				042EA95223A8C35A00F3D376 /* InputAreaView.m in Sources */,
 				042EA9E623ACB57900F3D376 /* TBCityIconInfo.m in Sources */,
 				042DA77323BA09FF0027C39B /* DatabaseHandler.m in Sources */,
+				04333C1F23C0455C00676FBD /* AssignmentsItemCell.m in Sources */,
 				042EA95623A9BE0800F3D376 /* PrivacyPolicyView.m in Sources */,
 				042EA9EA23ACC9BC00F3D376 /* FakeStationListData.m in Sources */,
 				04C52B0323B5B9D200024FE0 /* MediaSelectItemModel.m in Sources */,
@@ -1277,6 +1360,7 @@
 				9B8EC51123BD0F7700FFFDE8 /* OrderEntity.m in Sources */,
 				042EA9EE23ADA34A00F3D376 /* StationCell.m in Sources */,
 				04E7D22923AE236A004EEAAB /* Utils.m in Sources */,
+				04333C3C23C0960200676FBD /* ApplyInputCell.m in Sources */,
 				042EA99B23AA32A300F3D376 /* HomeViewController.m in Sources */,
 				042DA78223BB49A00027C39B /* SegmentedSelectView.m in Sources */,
 				9B82322B23B8FC6300B676C1 /* GlobalDataManager.m in Sources */,

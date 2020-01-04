@@ -21,7 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    NSLog(@"%@",kDocumentPath);
+    MSLog(@"%@",kDocumentPath);
     [self initIQKeyBorad];
     [TBCityIconFont setFontName:@"iconfont"];
     [AspectsUIViewController aspect_viewDidLoad];

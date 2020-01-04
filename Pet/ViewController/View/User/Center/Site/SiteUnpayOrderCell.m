@@ -23,6 +23,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.orderOperateBoxView.delegate = self;
     [self insertButtonModelWithTitle:@"改价" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_ChangePrice];
     [self insertButtonModelWithTitle:@"订单详情" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_DetailOrder];
@@ -38,7 +39,7 @@
 #pragma mark - operate box view delegate
 
 -(void)onClickButtonWithModel:(OrderOperateButtonModel *)model atOrderOperateBoxView:(OrderOperateBoxView *)view{
-    NSLog(@"%ld",model.index);
+    MSLog(@"%ld",model.index);
     if (_delegate && [_delegate respondsToSelector:@selector(tapSiteUnpayOrderCell:operateType:)]) {
         [_delegate tapSiteUnpayOrderCell:self operateType:model.type];
     }

@@ -48,6 +48,13 @@
     #define kLongNumber(value) [NSNumber numberWithLong:value]
     #define kBoolNumber(value) [NSNumber numberWithBool:value]
 
+    // 打印
+    //解决Xcode8+iOS10打印不全的问题
+    #ifdef DEBUG
+    #define MSLog(format, ...) printf("[%s] %s [%d行] %s\n", __TIME__, [[[NSString stringWithUTF8String: __FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
+    #else
+    #define MSLog(format, ...)
+    #endif
 
     /**==================================================*/
     #pragma mark - 系统方法 缩写

@@ -68,7 +68,7 @@
 
 -(void)setOrderTime:(NSString *)orderTime{
     _orderTime = orderTime;
-    self.orderNoLabel.text = orderTime;
+    self.orderTimeLabel.text = orderTime;
 }
 
 -(void)setOutportTime:(NSString *)outportTime{

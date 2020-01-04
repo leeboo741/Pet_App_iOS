@@ -124,6 +124,14 @@
     self.contentLabel.text = contentStr;
 }
 
+-(void)setAssignmentsStr:(NSString *)assignmentsStr{
+    if (kStringIsEmpty(assignmentsStr)) {
+        self.contentLabel.text = @"暂未分配";
+    } else {
+        self.contentLabel.text = assignmentsStr;
+    }
+}
+
 
 
 @end

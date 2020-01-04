@@ -36,7 +36,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oOD-X0-xD1" customClass="OrderOperateBoxView">
-                        <rect key="frame" x="0.0" y="170" width="368" height="49"/>
+                        <rect key="frame" x="0.0" y="218" width="368" height="49"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </subviews>
@@ -52,11 +52,11 @@
                     <constraint firstItem="eEc-ff-rDl" firstAttribute="leading" secondItem="YmE-13-vHm" secondAttribute="leading" id="ddn-sc-33E"/>
                     <constraint firstItem="oOD-X0-xD1" firstAttribute="trailing" secondItem="IU8-tR-cfg" secondAttribute="trailing" id="deX-Mg-PYv"/>
                     <constraint firstItem="YmE-13-vHm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="drb-I5-AbS"/>
-                    <constraint firstItem="oOD-X0-xD1" firstAttribute="top" secondItem="q2Z-hn-UpB" secondAttribute="bottom" constant="8" id="kBw-ky-lTk"/>
-                    <constraint firstItem="q2Z-hn-UpB" firstAttribute="top" secondItem="IU8-tR-cfg" secondAttribute="bottom" constant="8" id="kun-Zc-JRC"/>
+                    <constraint firstItem="q2Z-hn-UpB" firstAttribute="top" secondItem="IU8-tR-cfg" secondAttribute="bottom" id="kun-Zc-JRC"/>
                     <constraint firstItem="IU8-tR-cfg" firstAttribute="trailing" secondItem="eEc-ff-rDl" secondAttribute="trailing" id="qGn-RJ-D3P"/>
                     <constraint firstItem="YmE-13-vHm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="t9g-tv-oCK"/>
                     <constraint firstItem="IU8-tR-cfg" firstAttribute="top" secondItem="eEc-ff-rDl" secondAttribute="bottom" id="vsQ-Mz-jws"/>
+                    <constraint firstItem="oOD-X0-xD1" firstAttribute="top" secondItem="q2Z-hn-UpB" secondAttribute="bottom" id="vxE-LX-YEl"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>

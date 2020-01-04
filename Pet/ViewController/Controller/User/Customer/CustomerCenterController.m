@@ -12,6 +12,7 @@
 #import "SegmentedSelectView.h"
 #import "CustomerOrderCell.h"
 #import "OrderEntity.h"
+#import "ApplyCenterController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -182,13 +183,17 @@ CustomerOrderCellDelegate>
 -(void)tapActionAtIndex:(NSInteger)index atActionCell:(CenterActionCell *)cell{
     switch (index) {
         case 0:
-            NSLog(@"查单");
+            MSLog(@"查单");
             break;
         case 1:
-            NSLog(@"领券");
+            MSLog(@"领券");
             break;
         case 2:
-            NSLog(@"提现");
+        {
+            MSLog(@"申请");
+            ApplyCenterController * applyCenterController = [[ApplyCenterController alloc] init];
+            [self.navigationController pushViewController:applyCenterController animated:YES];
+        }
             break;
         case 3:
         {
@@ -222,7 +227,7 @@ CustomerOrderCellDelegate>
 #pragma mark - customer order cell delegate
 
 -(void)tapCustomerOrderCell:(CustomerOrderCell *)cell operateType:(OrderOperateButtonType)type atIndex:(NSInteger)index{
-    NSLog(@"customer order cell button type : %ld and index : %ld", type, index);
+    MSLog(@"customer order cell button type : %ld and index : %ld", type, index);
 }
 
 #pragma mark - setters and getters

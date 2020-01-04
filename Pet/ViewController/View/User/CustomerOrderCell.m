@@ -20,6 +20,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.orderOperateBoxView.delegate = self;
 }
 
@@ -32,7 +33,7 @@
 #pragma mark - operate box view delegate
 
 -(void)onClickButtonWithModel:(OrderOperateButtonModel *)model atOrderOperateBoxView:(OrderOperateBoxView *)view{
-    NSLog(@"%ld",model.index);
+    MSLog(@"%ld",model.index);
     if (_delegate && [_delegate respondsToSelector:@selector(tapCustomerOrderCell:operateType:atIndex:)]) {
         [_delegate tapCustomerOrderCell:self operateType:model.type atIndex:model.index];
     }
