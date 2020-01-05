@@ -10,6 +10,7 @@
 #import "HomeView.h"
 #import "StationListViewController.h"
 #import "TransportOrderViewController.h"
+#import "TestShowBoxViewController.h"
 
 @interface HomeViewAction : NSObject<HomeActionProtocol>
 @property (nonatomic, copy) NSString * iconName;
@@ -63,7 +64,8 @@
         StationListViewController * stationListView = [[StationListViewController alloc]init];
         [self.navigationController pushViewController:stationListView animated:YES];
     } else if (index == 2) {
-        
+        TestShowBoxViewController * previewMediaVC = [[TestShowBoxViewController alloc]init];
+        [self.navigationController pushViewController:previewMediaVC animated:YES];
     } else if (index == 3) {
         [[UserManager shareUserManager] changeUserRole:[[UserManager shareUserManager] getUserRole]+1];
     }

@@ -65,7 +65,6 @@ MediaSelectItemDelegate
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-//    [self resetConstrants];
 }
 
 #pragma mark - media select item delegate
@@ -150,25 +149,6 @@ MediaSelectItemDelegate
             [self.addItem removeFromSuperview];
         }
     }
-    
-//    for (UIView * item in self.itemsArray) {
-//        [item removeFromSuperview];
-//    }
-//    [self.itemsArray removeAllObjects];
-//    for (MediaSelectItemModel * model in self.dataSource) {
-//        MediaSelectItemView * item = [[MediaSelectItemView alloc]init];
-//        item.model = model;
-//        item.delegate = self;
-//        item.ableDelete = self.ableDelete;
-//        [self.itemsArray addObject:item];
-//        [self addSubview:item];
-//    }
-//    if (self.itemsArray.count < Max_Count) {
-//        [self.itemsArray addObject:self.addItem];
-//        [self addSubview:self.addItem];
-//    }
-//    [self setNeedsLayout];
-//    [self layoutIfNeeded];
     [self resetConstrants];
 }
 

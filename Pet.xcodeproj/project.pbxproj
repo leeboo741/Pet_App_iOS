@@ -121,6 +121,16 @@
 		04F49EB02397A9FE008E1334 /* PetUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F49EAF2397A9FE008E1334 /* PetUITests.m */; };
 		04F49EBF2397B585008E1334 /* SwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F49EBE2397B585008E1334 /* SwiftFile.swift */; };
 		88410C987A8CE9B14A2BC46C /* Pods_Pet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E80B9F829CF87B2C859FA1 /* Pods_Pet.framework */; };
+		9B6E4C2723C21B4300922542 /* MediaShowItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C2623C21B4300922542 /* MediaShowItemModel.m */; };
+		9B6E4C2D23C21B9D00922542 /* MediaShowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C2C23C21B9D00922542 /* MediaShowItem.m */; };
+		9B6E4C3023C21BCB00922542 /* PreviewMediaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C2F23C21BCB00922542 /* PreviewMediaController.m */; };
+		9B6E4C3323C21C2D00922542 /* MediaShowBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C3223C21C2D00922542 /* MediaShowBox.m */; };
+		9B6E4C3723C22B9100922542 /* TestShowBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C3523C22B9100922542 /* TestShowBoxCell.m */; };
+		9B6E4C3823C22B9100922542 /* TestShowBoxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B6E4C3623C22B9100922542 /* TestShowBoxCell.xib */; };
+		9B6E4C3B23C2324A00922542 /* TestShowBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C3A23C2324A00922542 /* TestShowBoxViewController.m */; };
+		9B6E4C3E23C232FF00922542 /* PreviewMediaImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C3D23C232FF00922542 /* PreviewMediaImageCell.m */; };
+		9B6E4C4123C2331700922542 /* PreviewMediaVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C4023C2331700922542 /* PreviewMediaVideoCell.m */; };
+		9B6E4C4423C237FC00922542 /* PreviewMediaUnknowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C4323C237FC00922542 /* PreviewMediaUnknowCell.m */; };
 		9B82322723B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */; };
 		9B82322B23B8FC6300B676C1 /* GlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */; };
 		9B8EC50723BCFBB800FFFDE8 /* OrderBaseInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8EC50623BCFBB800FFFDE8 /* OrderBaseInfoView.m */; };
@@ -361,6 +371,25 @@
 		22705CF52ADBC99330006240 /* Pods-Pet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pet/Pods-Pet.debug.xcconfig"; sourceTree = "<group>"; };
 		3BBC6076F79464A1B8655A4C /* Pods-Pet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pet/Pods-Pet.release.xcconfig"; sourceTree = "<group>"; };
 		68E80B9F829CF87B2C859FA1 /* Pods_Pet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B6E4C2523C21B4300922542 /* MediaShowItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaShowItemModel.h; sourceTree = "<group>"; };
+		9B6E4C2623C21B4300922542 /* MediaShowItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaShowItemModel.m; sourceTree = "<group>"; };
+		9B6E4C2B23C21B9D00922542 /* MediaShowItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaShowItem.h; sourceTree = "<group>"; };
+		9B6E4C2C23C21B9D00922542 /* MediaShowItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaShowItem.m; sourceTree = "<group>"; };
+		9B6E4C2E23C21BCB00922542 /* PreviewMediaController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewMediaController.h; sourceTree = "<group>"; };
+		9B6E4C2F23C21BCB00922542 /* PreviewMediaController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewMediaController.m; sourceTree = "<group>"; };
+		9B6E4C3123C21C2D00922542 /* MediaShowBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaShowBox.h; sourceTree = "<group>"; };
+		9B6E4C3223C21C2D00922542 /* MediaShowBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaShowBox.m; sourceTree = "<group>"; };
+		9B6E4C3423C22B9100922542 /* TestShowBoxCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestShowBoxCell.h; sourceTree = "<group>"; };
+		9B6E4C3523C22B9100922542 /* TestShowBoxCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestShowBoxCell.m; sourceTree = "<group>"; };
+		9B6E4C3623C22B9100922542 /* TestShowBoxCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestShowBoxCell.xib; sourceTree = "<group>"; };
+		9B6E4C3923C2324A00922542 /* TestShowBoxViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestShowBoxViewController.h; sourceTree = "<group>"; };
+		9B6E4C3A23C2324A00922542 /* TestShowBoxViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestShowBoxViewController.m; sourceTree = "<group>"; };
+		9B6E4C3C23C232FF00922542 /* PreviewMediaImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewMediaImageCell.h; sourceTree = "<group>"; };
+		9B6E4C3D23C232FF00922542 /* PreviewMediaImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewMediaImageCell.m; sourceTree = "<group>"; };
+		9B6E4C3F23C2331700922542 /* PreviewMediaVideoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewMediaVideoCell.h; sourceTree = "<group>"; };
+		9B6E4C4023C2331700922542 /* PreviewMediaVideoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewMediaVideoCell.m; sourceTree = "<group>"; };
+		9B6E4C4223C237FC00922542 /* PreviewMediaUnknowCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewMediaUnknowCell.h; sourceTree = "<group>"; };
+		9B6E4C4323C237FC00922542 /* PreviewMediaUnknowCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewMediaUnknowCell.m; sourceTree = "<group>"; };
 		9B82322523B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+ChangeViewControllers.h"; sourceTree = "<group>"; };
 		9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+ChangeViewControllers.m"; sourceTree = "<group>"; };
 		9B82322923B8FC6300B676C1 /* GlobalDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalDataManager.h; sourceTree = "<group>"; };
@@ -680,6 +709,7 @@
 		042EA9BC23AB4D5900F3D376 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				9B6E4C2423C21AD900922542 /* MediaShow */,
 				04ED180923B702FF002F2266 /* MediaShowAndSelected */,
 				042EA9DE23ACB57900F3D376 /* IconFont */,
 			);
@@ -1003,6 +1033,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9B6E4C2423C21AD900922542 /* MediaShow */ = {
+			isa = PBXGroup;
+			children = (
+				9B6E4C2523C21B4300922542 /* MediaShowItemModel.h */,
+				9B6E4C2623C21B4300922542 /* MediaShowItemModel.m */,
+				9B6E4C3123C21C2D00922542 /* MediaShowBox.h */,
+				9B6E4C3223C21C2D00922542 /* MediaShowBox.m */,
+				9B6E4C2B23C21B9D00922542 /* MediaShowItem.h */,
+				9B6E4C2C23C21B9D00922542 /* MediaShowItem.m */,
+				9B6E4C2E23C21BCB00922542 /* PreviewMediaController.h */,
+				9B6E4C2F23C21BCB00922542 /* PreviewMediaController.m */,
+				9B6E4C4223C237FC00922542 /* PreviewMediaUnknowCell.h */,
+				9B6E4C4323C237FC00922542 /* PreviewMediaUnknowCell.m */,
+				9B6E4C3F23C2331700922542 /* PreviewMediaVideoCell.h */,
+				9B6E4C4023C2331700922542 /* PreviewMediaVideoCell.m */,
+				9B6E4C3C23C232FF00922542 /* PreviewMediaImageCell.h */,
+				9B6E4C3D23C232FF00922542 /* PreviewMediaImageCell.m */,
+				9B6E4C3923C2324A00922542 /* TestShowBoxViewController.h */,
+				9B6E4C3A23C2324A00922542 /* TestShowBoxViewController.m */,
+				9B6E4C3423C22B9100922542 /* TestShowBoxCell.h */,
+				9B6E4C3523C22B9100922542 /* TestShowBoxCell.m */,
+				9B6E4C3623C22B9100922542 /* TestShowBoxCell.xib */,
+			);
+			path = MediaShow;
+			sourceTree = "<group>";
+		};
 		9B82322823B8FC5500B676C1 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -1133,6 +1189,7 @@
 			files = (
 				042EA9EF23ADA34A00F3D376 /* StationCell.xib in Resources */,
 				042DA79823BDD71F0027C39B /* SiteUnpayOrderCell.xib in Resources */,
+				9B6E4C3823C22B9100922542 /* TestShowBoxCell.xib in Resources */,
 				042DA79D23BDD7910027C39B /* OrderRemarkView.xib in Resources */,
 				04333C2023C0455C00676FBD /* AssignmentsItemCell.xib in Resources */,
 				04ED184023B9E5DB002F2266 /* CenterHeaderCell.xib in Resources */,
@@ -1298,6 +1355,7 @@
 				048C9F4623B308FC00730C70 /* TransportPayContractConfirmCell.m in Sources */,
 				042DA78F23BDD59E0027C39B /* SiteInportOrderController.m in Sources */,
 				04EDDA3323B498B9008F379D /* UIViewController+AddMJRefresh.m in Sources */,
+				9B6E4C3023C21BCB00922542 /* PreviewMediaController.m in Sources */,
 				042EA9E723ACB57900F3D376 /* UIImage+TBCityIconFont.m in Sources */,
 				04333C2823C0837700676FBD /* ApplyCenterController.m in Sources */,
 				04E7D22D23B04AA1004EEAAB /* TransportTypeCell.m in Sources */,
@@ -1310,6 +1368,7 @@
 				04F49E902397A9FB008E1334 /* ViewController.m in Sources */,
 				042EA9B423AA383700F3D376 /* MainBannerView.m in Sources */,
 				042DA76823B9FE780027C39B /* UIButton+Badge.m in Sources */,
+				9B6E4C2D23C21B9D00922542 /* MediaShowItem.m in Sources */,
 				042DA78923BDD5680027C39B /* SiteUnpayOrderController.m in Sources */,
 				042EA9CF23AC653400F3D376 /* Station.m in Sources */,
 				0469F06F23ADCF77009B8E4F /* SelectActionLabel.m in Sources */,
@@ -1324,6 +1383,8 @@
 				04333C2C23C083C900676FBD /* ApplyCenterView.m in Sources */,
 				042DA79223BDD5BA0027C39B /* SiteAllOrderController.m in Sources */,
 				04ED183A23B9CD26002F2266 /* SiteCenterController.m in Sources */,
+				9B6E4C2723C21B4300922542 /* MediaShowItemModel.m in Sources */,
+				9B6E4C4423C237FC00922542 /* PreviewMediaUnknowCell.m in Sources */,
 				042DA76D23BA02C80027C39B /* SqliteBase.m in Sources */,
 				042EA9D523AC6A0E00F3D376 /* UITableViewController+AddMJRefresh.m in Sources */,
 				042DA7A123BDF88C0027C39B /* SiteAllOrderCell.m in Sources */,
@@ -1333,12 +1394,16 @@
 				042EA9BF23AB5B5800F3D376 /* HomeActionCell.m in Sources */,
 				042DA78C23BDD5880027C39B /* SiteOutportOrderController.m in Sources */,
 				04F49E8D2397A9FB008E1334 /* AppDelegate.m in Sources */,
+				9B6E4C3323C21C2D00922542 /* MediaShowBox.m in Sources */,
 				04ED183423B9CCFD002F2266 /* CustomerCenterController.m in Sources */,
 				042EA94723A8C08E00F3D376 /* UIImage+JKRImage.m in Sources */,
 				0469F06123ADCDC2009B8E4F /* TransportOrderBaseInfoCell.m in Sources */,
 				04E7D23A23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.m in Sources */,
+				9B6E4C3723C22B9100922542 /* TestShowBoxCell.m in Sources */,
 				042DA78523BD7E920027C39B /* OrderOperateBoxView.m in Sources */,
 				04ED17F923B5E79C002F2266 /* MediaSelectBoxView.m in Sources */,
+				9B6E4C3B23C2324A00922542 /* TestShowBoxViewController.m in Sources */,
+				9B6E4C3E23C232FF00922542 /* PreviewMediaImageCell.m in Sources */,
 				04ED183723B9CD14002F2266 /* StationCenterController.m in Sources */,
 				04333C0F23C029ED00676FBD /* SiteInportOrderCell.m in Sources */,
 				042DA76723B9FE780027C39B /* UIBarButtonItem+Badge.m in Sources */,
@@ -1363,6 +1428,7 @@
 				04333C3C23C0960200676FBD /* ApplyInputCell.m in Sources */,
 				042EA99B23AA32A300F3D376 /* HomeViewController.m in Sources */,
 				042DA78223BB49A00027C39B /* SegmentedSelectView.m in Sources */,
+				9B6E4C4123C2331700922542 /* PreviewMediaVideoCell.m in Sources */,
 				9B82322B23B8FC6300B676C1 /* GlobalDataManager.m in Sources */,
 				042DA77723BB2E980027C39B /* CenterActionCell.m in Sources */,
 				04ED182223B98375002F2266 /* UserManager.m in Sources */,
