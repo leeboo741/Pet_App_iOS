@@ -86,6 +86,9 @@
         case OrderOperateButtonStyle_Yellow:
             [self.button setBackgroundColor:Color_yellow_1];
             break;
+        case OrderOperateButtonStyle_Green:
+            [self.button setBackgroundColor:Color_green_1];
+            break;
         default:
             break;
     }
@@ -195,11 +198,13 @@ static NSInteger MAX_BUTTON_COUNT = 4;
             [button mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.bottom.right.equalTo(self);
                 make.width.equalTo(self).multipliedBy(1.0/MAX_BUTTON_COUNT);
+                make.height.mas_greaterThanOrEqualTo(56);
             }];
         } else {
             [button mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.bottom.width.equalTo(preButton);
                 make.right.equalTo(preButton.mas_left);
+                make.height.mas_greaterThanOrEqualTo(56);
             }];
         }
         preButton = button;

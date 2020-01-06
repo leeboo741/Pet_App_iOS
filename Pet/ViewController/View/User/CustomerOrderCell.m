@@ -22,12 +22,16 @@
     [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.orderOperateBoxView.delegate = self;
+    [self resetOperateButtonWithOrderType:CustomerOrderType_Unpay];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+- (void)layoutSubviews{
+    [super layoutSubviews];
 }
 
 #pragma mark - operate box view delegate
@@ -51,6 +55,11 @@
 -(void)setOrderType:(CustomerOrderType)orderType{
     _orderType = orderType;
     [self resetOperateButtonWithOrderType:orderType];
+}
+
+-(void)setOrderEntity:(OrderEntity *)orderEntity {
+    _orderEntity = orderEntity;
+    self.orderBaseInfoView.orderNo = orderEntity.orderNo;
 }
 
 #pragma mark - private method

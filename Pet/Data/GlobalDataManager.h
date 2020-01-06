@@ -17,9 +17,8 @@ typedef NS_ENUM(NSInteger, GLOBAL_DATA_KEY) {
 
 @interface GlobalDataManager : NSObject
 /**
- *  获取单例对象
+ *  获取单例对象 shareGlobalDataManager
  */
-//+(instancetype)shareGlobalDataManager;
 SingleInterface(GlobalDataManager);
 /**
  *  存储数据

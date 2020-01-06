@@ -19,6 +19,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.showFlag = NO;
     self.flagImageView.image = [UIImage iconWithInfo:TBCityIconInfoMake(IconFont_NotNull, 15, Color_red_1)];
     self.cellInputTextField.delegate = self;
 }

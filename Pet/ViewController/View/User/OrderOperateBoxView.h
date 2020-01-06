@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, OrderOperateButtonStyle) {
     OrderOperateButtonStyle_Blue = 0,
     OrderOperateButtonStyle_Red,
     OrderOperateButtonStyle_Yellow,
+    OrderOperateButtonStyle_Green,
 };
 
 typedef NS_ENUM(NSInteger, OrderOperateButtonType) {
@@ -39,6 +40,9 @@ typedef NS_ENUM(NSInteger, OrderOperateButtonType) {
     OrderOperateButtonType_Print, // 打印
     OrderOperateButtonType_AddPrice, // 补价
     OrderOperateButtonType_Refund, // 退款
+    
+    OrderOperateButtonType_Reject, // 驳回 申请
+    OrderOperateButtonType_Approval, // 批准 申请
     
     OrderOperateButtonType_More, // 更多
 };

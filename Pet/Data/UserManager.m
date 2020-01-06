@@ -78,6 +78,13 @@ SingleImplementation(UserManager)
 }
 
 /**
+ *  获取手机号
+ */
+-(NSString *)getPhone{
+    return self.user.phone;
+}
+
+/**
  *  注册UserManager相关通知监听
  *  @param observer 观察者
  *  @param notificationName 通知名称

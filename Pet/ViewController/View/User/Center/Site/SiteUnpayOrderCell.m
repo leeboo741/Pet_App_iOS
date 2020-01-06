@@ -36,6 +36,10 @@
     // Configure the view for the selected state
 }
 
+- (void)layoutSubviews{
+    [super layoutSubviews];
+}
+
 #pragma mark - operate box view delegate
 
 -(void)onClickButtonWithModel:(OrderOperateButtonModel *)model atOrderOperateBoxView:(OrderOperateBoxView *)view{
@@ -52,6 +56,10 @@
         _operateButtonModelArray = [NSMutableArray array];
     }
     return _operateButtonModelArray;
+}
+-(void)setOrderEntity:(OrderEntity *)orderEntity{
+    _orderEntity = orderEntity;
+    self.orderBaseInfoView.orderNo = orderEntity.orderNo;
 }
 
 

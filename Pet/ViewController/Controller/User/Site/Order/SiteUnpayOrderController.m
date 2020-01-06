@@ -23,6 +23,7 @@ static NSString * SiteUnpayOrderCellIdentifier = @"SiteUnpayOrderCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"未支付订单";
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:SiteUnpayOrderCellIdentifier bundle:nil] forCellReuseIdentifier:SiteUnpayOrderCellIdentifier];
 }
 
@@ -61,6 +62,7 @@ static NSString * SiteUnpayOrderCellIdentifier = @"SiteUnpayOrderCell";
 #pragma mark - config cell
 -(void)configSiteUnpayOrderCell:(SiteUnpayOrderCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     cell.delegate = self;
+    cell.orderEntity = self.dataSource[indexPath.row];
 }
 
 #pragma mark - site unpay order cell delegate

@@ -130,6 +130,7 @@
 }
 
 - (void)pausePlayerAndShowNaviBar {
+    [MBProgressHUD hideHUD];
     if (_player.rate != 0.0) {
         [_player pause];
         [_playButton setImage:[UIImage imageNamed:@"previewPlay"] forState:UIControlStateNormal];

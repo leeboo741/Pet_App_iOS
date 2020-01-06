@@ -55,6 +55,7 @@ CustomerOrderCellDelegate>
     [self.tableView registerNib:[UINib nibWithNibName:CenterHeaderCellIdentifier bundle:nil] forCellReuseIdentifier:CenterHeaderCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:CenterActionCellIdentifier bundle:nil] forCellReuseIdentifier:CenterActionCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:OrderCellIdentifier bundle:nil] forCellReuseIdentifier:OrderCellIdentifier];
+    self.tableView.estimatedRowHeight = 300;
     self.haveNewMessage = YES;
     self.balance = 100.90;
 }
@@ -112,9 +113,10 @@ CustomerOrderCellDelegate>
             [self configActionCell:cell atIndexPath:indexPath];
         }];
     } else if (indexPath.section == 2) {
-        return [tableView fd_heightForCellWithIdentifier:OrderCellIdentifier configuration:^(id cell) {
+        CGFloat height =[tableView fd_heightForCellWithIdentifier:OrderCellIdentifier configuration:^(id cell) {
             [self configCustomerOrderCell:cell atIndexPath:indexPath];
         }];
+        return height;
     }
     return 0;
 }

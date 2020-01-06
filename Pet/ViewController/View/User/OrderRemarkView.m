@@ -9,9 +9,7 @@
 #import "OrderRemarkView.h"
 
 @interface OrderRemarkView ()
-@property (weak, nonatomic) IBOutlet UIView *boxView;
 @property (weak, nonatomic) IBOutlet UILabel *customerRemarkLabel;
-@property (weak, nonatomic) IBOutlet UILabel *lastFollowUpTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastFollowUpContentLabel;
 
 @end
@@ -47,11 +45,6 @@
 -(void)setCustomerRemark:(NSString *)customerRemark{
     _customerRemark = customerRemark;
     self.customerRemarkLabel.text = customerRemark;
-}
-
--(void)setLastFollowUpTime:(NSString *)lastFollowUpTime{
-    _lastFollowUpTime = lastFollowUpTime;
-    self.lastFollowUpTimeLabel.text = lastFollowUpTime;
 }
 
 -(void)setLastFollowUpContent:(NSString *)lastFollowUpContent{
