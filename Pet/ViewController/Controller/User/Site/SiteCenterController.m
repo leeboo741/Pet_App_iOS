@@ -14,6 +14,7 @@
 #import "SiteOutportOrderController.h"
 #import "SiteInportOrderController.h"
 #import "ApplyCenterController.h"
+#import "ApprovalCenterController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -164,7 +165,11 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
             MSLog(@"查单");
             break;
         case 5:
+        {
             MSLog(@"审批");
+            ApprovalCenterController * approvalCenterVC = [[ApprovalCenterController alloc]init];
+            [self.navigationController pushViewController:approvalCenterVC animated:YES];
+        }
             break;
         case 6:
             MSLog(@"提现");
