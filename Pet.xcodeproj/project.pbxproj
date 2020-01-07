@@ -1094,8 +1094,6 @@
 			isa = PBXGroup;
 			children = (
 				04F49EC22397BB03008E1334 /* ViewController */,
-				04F49E8B2397A9FB008E1334 /* AppDelegate.h */,
-				04F49E8C2397A9FB008E1334 /* AppDelegate.m */,
 				042EA93B23A8BA0300F3D376 /* Macros */,
 				9B82322823B8FC5500B676C1 /* Data */,
 				042EA9B523AB191600F3D376 /* Aspects */,
@@ -1106,6 +1104,8 @@
 				04F49E8E2397A9FB008E1334 /* ViewController.h */,
 				04F49E8F2397A9FB008E1334 /* ViewController.m */,
 				04F49E912397A9FB008E1334 /* Main.storyboard */,
+				04F49E8B2397A9FB008E1334 /* AppDelegate.h */,
+				04F49E8C2397A9FB008E1334 /* AppDelegate.m */,
 				04F49E942397A9FE008E1334 /* Assets.xcassets */,
 				04F49E962397A9FE008E1334 /* LaunchScreen.storyboard */,
 				04F49E992397A9FE008E1334 /* Info.plist */,
