@@ -48,12 +48,21 @@
     self.messageButton.badgeMinSize = 4;
     self.messageButton.badgePadding = 2;
     [self.messageButton addTarget:self action:@selector(tapMessageButton) forControlEvents:UIControlEventTouchUpInside];
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapBalance)];
+    self.balanceLabel.userInteractionEnabled = YES;
+    [self.balanceLabel addGestureRecognizer:tap];
 }
 
 #pragma mark - event target
 -(void)tapMessageButton{
     if (_delegate && [_delegate respondsToSelector:@selector(tapMessageButtonAtHeaderCell:)]) {
         [_delegate tapMessageButtonAtHeaderCell:self];
+    }
+}
+
+-(void)tapBalance{
+    if (_delegate && [_delegate respondsToSelector:@selector(tapBalanceAtHeaderCell:)]) {
+        [_delegate tapBalanceAtHeaderCell:self];
     }
 }
 

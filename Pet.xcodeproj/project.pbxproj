@@ -74,6 +74,17 @@
 		04333C4C23C2D2B200676FBD /* ApplyTimeCountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C4A23C2D2B200676FBD /* ApplyTimeCountCell.m */; };
 		04333C4D23C2D2B200676FBD /* ApplyTimeCountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04333C4B23C2D2B200676FBD /* ApplyTimeCountCell.xib */; };
 		043693E123B3699D00433BE5 /* UILabel+LineAndWordSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 043693E023B3699D00433BE5 /* UILabel+LineAndWordSpace.m */; };
+		0436963923C4395A00F51CCA /* WithdrawalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436963823C4395A00F51CCA /* WithdrawalController.m */; };
+		0436964023C439D200F51CCA /* BalanceFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436963F23C439D200F51CCA /* BalanceFlowController.m */; };
+		0436964323C439EB00F51CCA /* WithdrawalFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436964223C439EB00F51CCA /* WithdrawalFlowController.m */; };
+		0436964623C43A0400F51CCA /* RechargeFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436964523C43A0400F51CCA /* RechargeFlowController.m */; };
+		0436964A23C43A3400F51CCA /* RechargeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436964923C43A3400F51CCA /* RechargeController.m */; };
+		0436965023C45A1E00F51CCA /* WithdrawalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436964F23C45A1E00F51CCA /* WithdrawalView.m */; };
+		0436965223C45A5A00F51CCA /* WithdrawalView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0436965123C45A5A00F51CCA /* WithdrawalView.xib */; };
+		0436965623C473A600F51CCA /* WithdrawalFlowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436965423C473A600F51CCA /* WithdrawalFlowCell.m */; };
+		0436965723C473A600F51CCA /* WithdrawalFlowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0436965523C473A600F51CCA /* WithdrawalFlowCell.xib */; };
+		0436965B23C47BAC00F51CCA /* BalanceFlowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436965923C47BAC00F51CCA /* BalanceFlowCell.m */; };
+		0436965C23C47BAC00F51CCA /* BalanceFlowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0436965A23C47BAC00F51CCA /* BalanceFlowCell.xib */; };
 		0442D80F23B4B70B007ABE89 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0442D80E23B4B70B007ABE89 /* MobileCoreServices.framework */; };
 		0442D81123B589A4007ABE89 /* 1.mov in Resources */ = {isa = PBXBuildFile; fileRef = 0442D81023B589A4007ABE89 /* 1.mov */; };
 		045B16B623C349EA00754CF9 /* ApprovalCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045B16B523C349EA00754CF9 /* ApprovalCenterController.m */; };
@@ -291,6 +302,30 @@
 		04333C4B23C2D2B200676FBD /* ApplyTimeCountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplyTimeCountCell.xib; sourceTree = "<group>"; };
 		043693DF23B3699D00433BE5 /* UILabel+LineAndWordSpace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+LineAndWordSpace.h"; sourceTree = "<group>"; };
 		043693E023B3699D00433BE5 /* UILabel+LineAndWordSpace.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LineAndWordSpace.m"; sourceTree = "<group>"; };
+		0436963723C4395A00F51CCA /* WithdrawalController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawalController.h; sourceTree = "<group>"; };
+		0436963823C4395A00F51CCA /* WithdrawalController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawalController.m; sourceTree = "<group>"; };
+		0436963E23C439D200F51CCA /* BalanceFlowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalanceFlowController.h; sourceTree = "<group>"; };
+		0436963F23C439D200F51CCA /* BalanceFlowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceFlowController.m; sourceTree = "<group>"; };
+		0436964123C439EB00F51CCA /* WithdrawalFlowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawalFlowController.h; sourceTree = "<group>"; };
+		0436964223C439EB00F51CCA /* WithdrawalFlowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawalFlowController.m; sourceTree = "<group>"; };
+		0436964423C43A0400F51CCA /* RechargeFlowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeFlowController.h; sourceTree = "<group>"; };
+		0436964523C43A0400F51CCA /* RechargeFlowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeFlowController.m; sourceTree = "<group>"; };
+		0436964823C43A3400F51CCA /* RechargeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeController.h; sourceTree = "<group>"; };
+		0436964923C43A3400F51CCA /* RechargeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeController.m; sourceTree = "<group>"; };
+		0436964E23C45A1E00F51CCA /* WithdrawalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawalView.h; sourceTree = "<group>"; };
+		0436964F23C45A1E00F51CCA /* WithdrawalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawalView.m; sourceTree = "<group>"; };
+		0436965123C45A5A00F51CCA /* WithdrawalView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawalView.xib; sourceTree = "<group>"; };
+		0436965323C473A600F51CCA /* WithdrawalFlowCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawalFlowCell.h; sourceTree = "<group>"; };
+		0436965423C473A600F51CCA /* WithdrawalFlowCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawalFlowCell.m; sourceTree = "<group>"; };
+		0436965523C473A600F51CCA /* WithdrawalFlowCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawalFlowCell.xib; sourceTree = "<group>"; };
+		0436965823C47BAC00F51CCA /* BalanceFlowCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalanceFlowCell.h; sourceTree = "<group>"; };
+		0436965923C47BAC00F51CCA /* BalanceFlowCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceFlowCell.m; sourceTree = "<group>"; };
+		0436965A23C47BAC00F51CCA /* BalanceFlowCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BalanceFlowCell.xib; sourceTree = "<group>"; };
+		04380A0723C492BD0011BB9E /* libiconv.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.tbd; path = usr/lib/libiconv.2.tbd; sourceTree = SDKROOT; };
+		04380A0923C4935E0011BB9E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		04380A0B23C4936C0011BB9E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		04380A0D23C493740011BB9E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		04380A0F23C493820011BB9E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0442D80E23B4B70B007ABE89 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		0442D81023B589A4007ABE89 /* 1.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 1.mov; sourceTree = "<group>"; };
 		045B16B423C349EA00754CF9 /* ApprovalCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApprovalCenterController.h; sourceTree = "<group>"; };
@@ -676,6 +711,7 @@
 		042EA9AA23AA343100F3D376 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				0436963623C438EA00F51CCA /* Balance */,
 				045B16B323C349BA00754CF9 /* Approval */,
 				04333C2523C0833700676FBD /* Apply */,
 				04ED183123B9CCB3002F2266 /* Customer */,
@@ -900,6 +936,95 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		0436963623C438EA00F51CCA /* Balance */ = {
+			isa = PBXGroup;
+			children = (
+				0436963D23C439AB00F51CCA /* Withdrawal */,
+				0436963C23C4397600F51CCA /* BalanceFlow */,
+				0436963B23C4396D00F51CCA /* Recharge */,
+			);
+			path = Balance;
+			sourceTree = "<group>";
+		};
+		0436963A23C4396200F51CCA /* WithdrawalFlow */ = {
+			isa = PBXGroup;
+			children = (
+				0436964123C439EB00F51CCA /* WithdrawalFlowController.h */,
+				0436964223C439EB00F51CCA /* WithdrawalFlowController.m */,
+			);
+			path = WithdrawalFlow;
+			sourceTree = "<group>";
+		};
+		0436963B23C4396D00F51CCA /* Recharge */ = {
+			isa = PBXGroup;
+			children = (
+				0436964823C43A3400F51CCA /* RechargeController.h */,
+				0436964923C43A3400F51CCA /* RechargeController.m */,
+				0436964723C43A0900F51CCA /* RechargeFlow */,
+			);
+			path = Recharge;
+			sourceTree = "<group>";
+		};
+		0436963C23C4397600F51CCA /* BalanceFlow */ = {
+			isa = PBXGroup;
+			children = (
+				0436963E23C439D200F51CCA /* BalanceFlowController.h */,
+				0436963F23C439D200F51CCA /* BalanceFlowController.m */,
+			);
+			path = BalanceFlow;
+			sourceTree = "<group>";
+		};
+		0436963D23C439AB00F51CCA /* Withdrawal */ = {
+			isa = PBXGroup;
+			children = (
+				0436963723C4395A00F51CCA /* WithdrawalController.h */,
+				0436963823C4395A00F51CCA /* WithdrawalController.m */,
+				0436963A23C4396200F51CCA /* WithdrawalFlow */,
+			);
+			path = Withdrawal;
+			sourceTree = "<group>";
+		};
+		0436964723C43A0900F51CCA /* RechargeFlow */ = {
+			isa = PBXGroup;
+			children = (
+				0436964423C43A0400F51CCA /* RechargeFlowController.h */,
+				0436964523C43A0400F51CCA /* RechargeFlowController.m */,
+			);
+			path = RechargeFlow;
+			sourceTree = "<group>";
+		};
+		0436964B23C4512800F51CCA /* Balance */ = {
+			isa = PBXGroup;
+			children = (
+				0436965823C47BAC00F51CCA /* BalanceFlowCell.h */,
+				0436965923C47BAC00F51CCA /* BalanceFlowCell.m */,
+				0436965A23C47BAC00F51CCA /* BalanceFlowCell.xib */,
+				0436964D23C459CB00F51CCA /* Withdrawal */,
+				0436964C23C459BB00F51CCA /* Recharge */,
+			);
+			path = Balance;
+			sourceTree = "<group>";
+		};
+		0436964C23C459BB00F51CCA /* Recharge */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Recharge;
+			sourceTree = "<group>";
+		};
+		0436964D23C459CB00F51CCA /* Withdrawal */ = {
+			isa = PBXGroup;
+			children = (
+				0436964E23C45A1E00F51CCA /* WithdrawalView.h */,
+				0436964F23C45A1E00F51CCA /* WithdrawalView.m */,
+				0436965123C45A5A00F51CCA /* WithdrawalView.xib */,
+				0436965323C473A600F51CCA /* WithdrawalFlowCell.h */,
+				0436965423C473A600F51CCA /* WithdrawalFlowCell.m */,
+				0436965523C473A600F51CCA /* WithdrawalFlowCell.xib */,
+			);
+			path = Withdrawal;
+			sourceTree = "<group>";
+		};
 		045B16B223C3499900754CF9 /* Approval */ = {
 			isa = PBXGroup;
 			children = (
@@ -1052,6 +1177,7 @@
 			isa = PBXGroup;
 			children = (
 				045B16B223C3499900754CF9 /* Approval */,
+				0436964B23C4512800F51CCA /* Balance */,
 				04333C2923C0839500676FBD /* Apply */,
 				04ED183B23B9E599002F2266 /* Center */,
 				9B8EC50523BCFBB800FFFDE8 /* OrderBaseInfoView.h */,
@@ -1151,6 +1277,11 @@
 		828B4493BFA215F6090EB5EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04380A0F23C493820011BB9E /* AVFoundation.framework */,
+				04380A0D23C493740011BB9E /* CoreVideo.framework */,
+				04380A0B23C4936C0011BB9E /* CoreMedia.framework */,
+				04380A0923C4935E0011BB9E /* QuartzCore.framework */,
+				04380A0723C492BD0011BB9E /* libiconv.2.tbd */,
 				0442D80E23B4B70B007ABE89 /* MobileCoreServices.framework */,
 				68E80B9F829CF87B2C859FA1 /* Pods_Pet.framework */,
 			);
@@ -1303,9 +1434,12 @@
 				048C9F4223B308DC00730C70 /* TransportPayPetConditionConfirmCell.xib in Resources */,
 				048C9F3D23B308A900730C70 /* TransportPayRemarkCell.xib in Resources */,
 				04E7D22E23B04AA1004EEAAB /* TransportTypeCell.xib in Resources */,
+				0436965723C473A600F51CCA /* WithdrawalFlowCell.xib in Resources */,
 				9B8EC50E23BD0D6400FFFDE8 /* CustomerOrderCell.xib in Resources */,
 				0469F06C23ADCE24009B8E4F /* TransportOrderValueAddCell.xib in Resources */,
 				048C9F4723B308FC00730C70 /* TransportPayContractConfirmCell.xib in Resources */,
+				0436965C23C47BAC00F51CCA /* BalanceFlowCell.xib in Resources */,
+				0436965223C45A5A00F51CCA /* WithdrawalView.xib in Resources */,
 				042DA80E23BEE77C0027C39B /* SiteOutportOrderCell.xib in Resources */,
 				9B8EC50923BCFC0700FFFDE8 /* OrderBaseInfoView.xib in Resources */,
 				04F49E952397A9FE008E1334 /* Assets.xcassets in Resources */,
@@ -1439,6 +1573,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0436964323C439EB00F51CCA /* WithdrawalFlowController.m in Sources */,
 				04333C1323C0330600676FBD /* MapTool.m in Sources */,
 				0469F05923ADBF21009B8E4F /* TransportPayViewController.m in Sources */,
 				9B82322723B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m in Sources */,
@@ -1454,6 +1589,7 @@
 				0469F05D23ADCD9C009B8E4F /* TransportOrderViewController.m in Sources */,
 				042EA94623A8C08E00F3D376 /* UIView+Frame.m in Sources */,
 				048C9F4623B308FC00730C70 /* TransportPayContractConfirmCell.m in Sources */,
+				0436963923C4395A00F51CCA /* WithdrawalController.m in Sources */,
 				042DA78F23BDD59E0027C39B /* SiteInportOrderController.m in Sources */,
 				04EDDA3323B498B9008F379D /* UIViewController+AddMJRefresh.m in Sources */,
 				9B6E4C3023C21BCB00922542 /* PreviewMediaController.m in Sources */,
@@ -1468,6 +1604,7 @@
 				04ED182723B98CBA002F2266 /* UserEntity.m in Sources */,
 				9B8EC50D23BD0D6400FFFDE8 /* CustomerOrderCell.m in Sources */,
 				04F49E902397A9FB008E1334 /* ViewController.m in Sources */,
+				0436965023C45A1E00F51CCA /* WithdrawalView.m in Sources */,
 				042EA9B423AA383700F3D376 /* MainBannerView.m in Sources */,
 				042DA76823B9FE780027C39B /* UIButton+Badge.m in Sources */,
 				9B6E4C2D23C21B9D00922542 /* MediaShowItem.m in Sources */,
@@ -1485,6 +1622,7 @@
 				04333C2C23C083C900676FBD /* ApplyCenterView.m in Sources */,
 				042DA79223BDD5BA0027C39B /* SiteAllOrderController.m in Sources */,
 				04ED183A23B9CD26002F2266 /* SiteCenterController.m in Sources */,
+				0436964623C43A0400F51CCA /* RechargeFlowController.m in Sources */,
 				9B6E4C2723C21B4300922542 /* MediaShowItemModel.m in Sources */,
 				9B6E4C4423C237FC00922542 /* PreviewMediaUnknowCell.m in Sources */,
 				042DA76D23BA02C80027C39B /* SqliteBase.m in Sources */,
@@ -1502,6 +1640,7 @@
 				04ED183423B9CCFD002F2266 /* CustomerCenterController.m in Sources */,
 				042EA94723A8C08E00F3D376 /* UIImage+JKRImage.m in Sources */,
 				0469F06123ADCDC2009B8E4F /* TransportOrderBaseInfoCell.m in Sources */,
+				0436964A23C43A3400F51CCA /* RechargeController.m in Sources */,
 				04E7D23A23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.m in Sources */,
 				9B6E4C3723C22B9100922542 /* TestShowBoxCell.m in Sources */,
 				042DA78523BD7E920027C39B /* OrderOperateBoxView.m in Sources */,
@@ -1509,11 +1648,13 @@
 				9B6E4C3B23C2324A00922542 /* TestShowBoxViewController.m in Sources */,
 				9B6E4C3E23C232FF00922542 /* PreviewMediaImageCell.m in Sources */,
 				04ED183723B9CD14002F2266 /* StationCenterController.m in Sources */,
+				0436965623C473A600F51CCA /* WithdrawalFlowCell.m in Sources */,
 				04333C0F23C029ED00676FBD /* SiteInportOrderCell.m in Sources */,
 				042DA76723B9FE780027C39B /* UIBarButtonItem+Badge.m in Sources */,
 				042DA77B23BB303E0027C39B /* CenterActionItem.m in Sources */,
 				04F49EBF2397B585008E1334 /* SwiftFile.swift in Sources */,
 				04ED181B23B74CBF002F2266 /* PreviewViewController.m in Sources */,
+				0436964023C439D200F51CCA /* BalanceFlowController.m in Sources */,
 				042EA9B123AA34C300F3D376 /* HomeView.m in Sources */,
 				042EA94823A8C08E00F3D376 /* UIColor+ColorWithHexString.m in Sources */,
 				04333C2323C066B100676FBD /* StaffEntity.m in Sources */,
@@ -1538,6 +1679,7 @@
 				042DA77723BB2E980027C39B /* CenterActionCell.m in Sources */,
 				04ED182223B98375002F2266 /* UserManager.m in Sources */,
 				048C9F3423B3086200730C70 /* TransportPayPersonnelCell.m in Sources */,
+				0436965B23C47BAC00F51CCA /* BalanceFlowCell.m in Sources */,
 				04ED17FC23B5E7B7002F2266 /* MediaSelectItemView.m in Sources */,
 				04ED183023B9A284002F2266 /* MainTabbarController.m in Sources */,
 				045B16B623C349EA00754CF9 /* ApprovalCenterController.m in Sources */,
@@ -1724,6 +1866,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pet/ThirdParty/Scan/ZBarSDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangwangkeji.Pet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pet/Pet-Bridging-Header.h";
@@ -1747,6 +1893,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pet/ThirdParty/Scan/ZBarSDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangwangkeji.Pet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
