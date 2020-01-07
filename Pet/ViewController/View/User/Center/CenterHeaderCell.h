@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol CenterheaderCellDelegate <NSObject>
 
 -(void)tapMessageButtonAtHeaderCell:(CenterHeaderCell *)cell;
+-(void)tapBalanceAtHeaderCell:(CenterHeaderCell *)cell;
 
 @end
 @interface CenterHeaderCell : UITableViewCell

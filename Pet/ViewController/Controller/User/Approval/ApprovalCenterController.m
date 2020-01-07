@@ -46,12 +46,14 @@ typedef NS_ENUM(NSInteger, ApprovalType) {
 
 @interface ApprovalCenterController ()
 <
-SegmentedSelectViewDelegate
+SegmentedSelectViewDelegate,
+ApprovalStaffCellDelegate,
+ApprovalStationCellDelegate
 >
 @property (nonatomic, assign) ApprovalType selectedApprovalType;
 @property (nonatomic, strong) SegmentedSelectView * segmentedView;
-@property (nonatomic, strong) NSArray * stationApplyList;
-@property (nonatomic, strong) NSArray * staffApplyList;
+@property (nonatomic, strong) NSMutableArray * stationApplyList;
+@property (nonatomic, strong) NSMutableArray * staffApplyList;
 @end
 
 @implementation ApprovalCenterController
@@ -134,11 +136,52 @@ SegmentedSelectViewDelegate
 #pragma mark - config cell
 
 -(void)configStationCell:(ApprovalStationCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    
+    cell.delegate = self;
 }
 
 -(void)configStaffCell:(ApprovalStaffCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    
+    cell.delegate = self;
+}
+
+#pragma mark - station cell delegate
+-(void)tapOperateButtonWithType:(OrderOperateButtonType)type atApprovalStationCell:(ApprovalStationCell *)cell{
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    ApplyForStation * apply = self.stationApplyList[indexPath.row];
+    __weak typeof(self) weakSelf = self;
+    if (type == OrderOperateButtonType_Reject) {
+        NSLog(@"商家 拒绝 %ld", indexPath.row);
+        [self showAlertControllerWithTitle:@"驳回商家申请" msg:[NSString stringWithFormat:@"驳回 %@ 申请",apply.storeName] confirmBlock:^{
+            [weakSelf.stationApplyList removeObjectAtIndex:indexPath.row];
+            [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        }];
+    } else if (type == OrderOperateButtonType_Approval) {
+        NSLog(@"商家 批准 %ld", indexPath.row);
+        [self showAlertControllerWithTitle:@"批准商家申请" msg:[NSString stringWithFormat:@"批准 %@ 申请",apply.storeName] confirmBlock:^{
+            [weakSelf.stationApplyList removeObjectAtIndex:indexPath.row];
+            [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        }];
+    }
+}
+
+#pragma mark - staff cell delegate
+
+-(void)tapOperateButtonWithType:(OrderOperateButtonType)type atApprovalStaffCell:(ApprovalStaffCell *)cell{
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    ApplyForStaff * apply = self.staffApplyList[indexPath.row];
+    __weak typeof(self) weakSelf = self;
+    if (type == OrderOperateButtonType_Reject) {
+        NSLog(@"员工 拒绝 %ld", indexPath.row);
+        [self showAlertControllerWithTitle:@"驳回员工申请" msg:[NSString stringWithFormat:@"驳回 %@ 申请",apply.staffName] confirmBlock:^{
+            [weakSelf.staffApplyList removeObjectAtIndex:indexPath.row];
+            [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        }];
+    } else if (type == OrderOperateButtonType_Approval) {
+        NSLog(@"员工 批准 %ld", indexPath.row);
+        [self showAlertControllerWithTitle:@"批准员工申请" msg:[NSString stringWithFormat:@"批准 %@ 申请",apply.staffName] confirmBlock:^{
+            [weakSelf.staffApplyList removeObjectAtIndex:indexPath.row];
+            [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        }];
+    }
 }
 
 #pragma mark - segmented select view delegate
@@ -165,18 +208,18 @@ SegmentedSelectViewDelegate
     }
 }
 
--(NSArray *)stationApplyList{
+-(NSMutableArray *)stationApplyList{
     if (!_stationApplyList) {
         ApplyForStation * station1 = [[ApplyForStation alloc]init];
-        _stationApplyList = @[station1, station1, station1, station1];
+        _stationApplyList = [NSMutableArray arrayWithArray:@[station1, station1, station1, station1]];
     }
     return _stationApplyList;
 }
 
--(NSArray *)staffApplyList{
+-(NSMutableArray *)staffApplyList{
     if (!_staffApplyList) {
         ApplyForStaff * staff1 = [[ApplyForStaff alloc]init];
-        _staffApplyList = @[staff1, staff1, staff1, staff1];
+        _staffApplyList = [NSMutableArray arrayWithArray:@[staff1, staff1, staff1, staff1]];
     }
     return _staffApplyList;
 }
@@ -188,6 +231,19 @@ SegmentedSelectViewDelegate
     model.title = name;
     model.itemIsSelected = isSelected;
     return model;
+}
+
+-(void)showAlertControllerWithTitle:(NSString *)title msg:(NSString *)msg confirmBlock:(void(^)(void))confirmBlock {
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * actionConfirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (confirmBlock) {
+            confirmBlock();
+        }
+    }];
+    UIAlertAction * actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:actionConfirm];
+    [alertController addAction:actionCancel];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

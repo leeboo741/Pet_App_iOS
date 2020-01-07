@@ -15,6 +15,8 @@
 #import "SiteInportOrderController.h"
 #import "ApplyCenterController.h"
 #import "ApprovalCenterController.h"
+#import "WithdrawalController.h"
+#import "BalanceFlowController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -128,6 +130,10 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
 -(void)tapMessageButtonAtHeaderCell:(CenterHeaderCell *)cell{
     self.haveNewMessage = NO;
 }
+-(void)tapBalanceAtHeaderCell:(CenterHeaderCell *)cell{
+    BalanceFlowController * balanceFlowController = [[BalanceFlowController alloc]init];
+    [self.navigationController pushViewController:balanceFlowController animated:YES];
+}
 
 #pragma mark - center action cell delegate
 
@@ -162,7 +168,26 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
         }
             break;
         case 4:
+        {
             MSLog(@"查单");
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"查单" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.placeholder = @"输入要查询的单据编号";
+            }];
+            UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"查询" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                UITextField * textField = alertController.textFields.firstObject;
+                NSString * searchOrderNo = textField.text;
+                MSLog(@"查询订单: %@", searchOrderNo);
+            }];
+            UIAlertAction * scanAction = [UIAlertAction actionWithTitle:@"扫描" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                MSLog(@"点击扫描");
+            }];
+            UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [alertController addAction:confirmAction];
+            [alertController addAction:scanAction];
+            [alertController addAction:cancelAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
             break;
         case 5:
         {
@@ -172,7 +197,11 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
         }
             break;
         case 6:
+        {
             MSLog(@"提现");
+            WithdrawalController * withdrawalController = [[WithdrawalController alloc]init];
+            [self.navigationController pushViewController:withdrawalController animated:YES];
+        }
             break;
         case 7:
         {

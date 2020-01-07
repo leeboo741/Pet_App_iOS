@@ -9,6 +9,7 @@
 #import "StationCenterController.h"
 #import "CenterHeaderCell.h"
 #import "CenterActionCell.h"
+#import "BalanceFlowController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -120,6 +121,10 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
 
 -(void)tapMessageButtonAtHeaderCell:(CenterHeaderCell *)cell{
     self.haveNewMessage = NO;
+}
+-(void)tapBalanceAtHeaderCell:(CenterHeaderCell *)cell{
+    BalanceFlowController * balanceFlowController = [[BalanceFlowController alloc]init];
+    [self.navigationController pushViewController:balanceFlowController animated:YES];
 }
 
 #pragma mark - center action cell delegate
