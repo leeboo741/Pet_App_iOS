@@ -161,6 +161,7 @@
 		9B6E4C3E23C232FF00922542 /* PreviewMediaImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C3D23C232FF00922542 /* PreviewMediaImageCell.m */; };
 		9B6E4C4123C2331700922542 /* PreviewMediaVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C4023C2331700922542 /* PreviewMediaVideoCell.m */; };
 		9B6E4C4423C237FC00922542 /* PreviewMediaUnknowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C4323C237FC00922542 /* PreviewMediaUnknowCell.m */; };
+		9B7DB55423C643420075E05C /* MarkAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7DB55323C643420075E05C /* MarkAnnotationView.m */; };
 		9B82322723B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */; };
 		9B82322B23B8FC6300B676C1 /* GlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */; };
 		9B8EC50723BCFBB800FFFDE8 /* OrderBaseInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8EC50623BCFBB800FFFDE8 /* OrderBaseInfoView.m */; };
@@ -470,6 +471,8 @@
 		9B6E4C4023C2331700922542 /* PreviewMediaVideoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewMediaVideoCell.m; sourceTree = "<group>"; };
 		9B6E4C4223C237FC00922542 /* PreviewMediaUnknowCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewMediaUnknowCell.h; sourceTree = "<group>"; };
 		9B6E4C4323C237FC00922542 /* PreviewMediaUnknowCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewMediaUnknowCell.m; sourceTree = "<group>"; };
+		9B7DB55223C643420075E05C /* MarkAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkAnnotationView.h; sourceTree = "<group>"; };
+		9B7DB55323C643420075E05C /* MarkAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkAnnotationView.m; sourceTree = "<group>"; };
 		9B82322523B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+ChangeViewControllers.h"; sourceTree = "<group>"; };
 		9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+ChangeViewControllers.m"; sourceTree = "<group>"; };
 		9B82322923B8FC6300B676C1 /* GlobalDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalDataManager.h; sourceTree = "<group>"; };
@@ -608,6 +611,7 @@
 		042EA91123A8B07900F3D376 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9B7DB55123C6430A0075E05C /* Map */,
 				04EDDA2A23B49700008F379D /* User */,
 				0469F05A23ADCBF0009B8E4F /* Transport */,
 				042EA9C023AB849B00F3D376 /* Station */,
@@ -1288,8 +1292,6 @@
 				042EA93E23A8C06600F3D376 /* Utils */,
 				042EA9D623AC93EE00F3D376 /* Resource */,
 				042EA9BC23AB4D5900F3D376 /* ThirdParty */,
-				04F49E8B2397A9FB008E1334 /* AppDelegate.h */,
-				04F49E8C2397A9FB008E1334 /* AppDelegate.m */,
 				04F49E8E2397A9FB008E1334 /* ViewController.h */,
 				04F49E8F2397A9FB008E1334 /* ViewController.m */,
 				04F49E912397A9FB008E1334 /* Main.storyboard */,
@@ -1355,6 +1357,15 @@
 				68E80B9F829CF87B2C859FA1 /* Pods_Pet.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9B7DB55123C6430A0075E05C /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9B7DB55223C643420075E05C /* MarkAnnotationView.h */,
+				9B7DB55323C643420075E05C /* MarkAnnotationView.m */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		9B82322823B8FC5500B676C1 /* Data */ = {
@@ -1690,6 +1701,7 @@
 				04E7D22623AE2056004EEAAB /* TransportOrder.m in Sources */,
 				042EA9D223AC661500F3D376 /* StationListViewController.m in Sources */,
 				04F49E9B2397A9FE008E1334 /* main.m in Sources */,
+				9B7DB55423C643420075E05C /* MarkAnnotationView.m in Sources */,
 				048C9F2E23B1ED8600730C70 /* TransportOrderFooterView.m in Sources */,
 				04ED182C23B999FB002F2266 /* UITabBarController+Pet.m in Sources */,
 				042EA94C23A8C23500F3D376 /* LoginView.m in Sources */,

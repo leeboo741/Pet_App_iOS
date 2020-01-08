@@ -8,12 +8,17 @@
 
 #import "SelectLocationMapController.h"
 #import <QMapKit/QMapKit.h>
+#import "LocationManager.h"
 
-@interface SelectLocationMapController ()<QMapViewDelegate,UITextFieldDelegate>
+@interface SelectLocationMapController ()<QMapViewDelegate,UITextFieldDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, strong) QMapView * mapView;
+@property (nonatomic, strong) QPointAnnotation * selectAnnotation;
 @property (nonatomic, strong) UITextField * searchTextField;
 @property (nonatomic, strong) UIButton * confirmSearchButton;
 @property (nonatomic, copy) NSString * searchContent;
+
+@property (nonatomic, copy) NSString * selectedCity;
+@property (nonatomic, copy) NSString * selectDetailAddress;
 @end
 
 @implementation SelectLocationMapController
@@ -29,6 +34,15 @@
     [self.view addSubview:self.confirmSearchButton];
     [self.view bringSubviewToFront:self.searchTextField];
     [self.view bringSubviewToFront:self.confirmSearchButton];
+    
+    // 如果传入城市为空，按照自己当前定位位置来确定城市
+    // 如果传入城市不为空，按照传入城市定位
+    // 如果传入详细地址也不为空，按照传入城市和详细地址定位
+    if (kStringIsEmpty(self.city)) {
+        [[LocationManager shareLocationManager] requestLocationWithLocationChangeObserver:self selector:@selector(locationUpdate:)];
+    } else {
+        [self spliceAddress];
+    }
     // Do any additional setup after loading the view.
 }
 
@@ -48,35 +62,51 @@
     }];
 }
 
+#pragma mark - location manager notification
+
+-(void)locationUpdate:(NSNotification *)notification{
+    CLLocation * location = [notification.userInfo objectForKey:NOTIFICATION_CURRENT_LOCATION_KEY];
+    [self resetMapCenterWithCoordinate:location.coordinate];
+}
+
 #pragma mark - mapview delegate
-
-// 将要启动定位
--(void)mapViewWillStartLocatingUser:(QMapView *)mapView{
-    
-}
-
-// 已经定位停止
--(void)mapViewDidStopLocatingUser:(QMapView *)mapView{
-    
-}
-
-// 定位失败
--(void)mapView:(QMapView *)mapView didFailToLocateUserWithError:(NSError *)error{
-    
-}
 
 // 地图加载失败
 -(void)mapViewDidFailLoadingMap:(QMapView *)mapView withError:(NSError *)error{
     MSLog(@"地图加载失败 : %@",error);
 }
 
-// 刷新位置
-- (void)mapView:(QMapView *)mapView didUpdateUserLocation:(QUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
-{
-    if (updatingLocation) {
-        [mapView setCenterCoordinate:userLocation.coordinate];
+// 配置annotation view
+-(QAnnotationView *)mapView:(QMapView *)mapView
+          viewForAnnotation:(id<QAnnotation>)annotation {
+    static NSString *pointReuseIndentifier = @"pointReuseIdentifier";
+ 
+    if ([annotation isKindOfClass:[QPointAnnotation class]]) {
+        //添加默认pinAnnotation
+        if ([annotation isEqual:self.selectAnnotation]) {
+            QPinAnnotationView *annotationView = (QPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndentifier];
+            if (annotationView == nil) {
+                annotationView = [[QPinAnnotationView alloc]
+                                  initWithAnnotation:annotation
+                                  reuseIdentifier:pointReuseIndentifier];
+            }
+            //显示气泡，默认NO
+            annotationView.canShowCallout = NO;
+            //设置大头针颜色
+            annotationView.pinColor = QPinAnnotationColorRed;
+            //可以拖动
+            annotationView.draggable = YES;
+            
+            return annotationView;
+        }
     }
+    return nil;
 }
+//-(void)mapView:(QMapView *)mapView annotationView:(QAnnotationView *)view didChangeDragState:(QAnnotationViewDragState)newState fromOldState:(QAnnotationViewDragState)oldState{
+//    if (view.annotation == self.selectAnnotation && newState == QAnnotationViewDragStateEnding) {
+//        view.annotation.coordinate
+//    }
+//}
 
 #pragma mark - textfield delegate
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -86,25 +116,105 @@
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (!kStringIsEmpty(self.searchContent)) {
+        __weak typeof(self) weakSelf = self;
+        [[LocationManager shareLocationManager] geocoderAddress:self.searchContent resultBlock:^(CLLocationCoordinate2D coordinate) {
+            [weakSelf resetMapCenterWithCoordinate:coordinate];
+        }];
+    }
     return YES;
+}
+
+#pragma mark - gesture recognizer delegate
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+//点击地图时的回调
+-(void)gestureAction:(UIGestureRecognizer *)gestureRecognizer {
+    CGPoint point = [gestureRecognizer locationOfTouch:0 inView:_mapView];
+    CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+    CLLocation * location = [[LocationManager shareLocationManager] getLocationWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    __weak typeof(self) weakSelf = self;
+    [[LocationManager shareLocationManager] geocoderLocation:location resultBlock:^(CLPlacemark * _Nonnull place) {
+        NSString * city = place.locality;
+        if (!city) {
+            city = place.administrativeArea;
+        }
+        if (![city isEqualToString:self.city] && !kStringIsEmpty(self.city)) {
+            [MBProgressHUD showTipMessageInWindow:@"选择位置超出城市范围"];
+            return;
+        }
+        NSString * disctict = place.subLocality;
+        NSString * street = place.thoroughfare;
+        NSString * name = place.name;
+        weakSelf.selectedCity = city;
+        weakSelf.selectDetailAddress = [NSString stringWithFormat:@"%@%@%@",disctict,street,name];
+        weakSelf.searchTextField.text = [NSString stringWithFormat:@"%@%@",weakSelf.selectedCity,weakSelf.selectDetailAddress];
+        [weakSelf addMarkToMapWithLocation:coordinate];
+    }];
 }
 
 #pragma mark - private method
 
--(void)spliceAddress{
-    NSString * address = @"";
-    NSString * tempCity = @"";
-    NSString * tempDetailAddress = @"";
-    if (!kStringIsEmpty(self.city)) {
-        tempCity = self.city;
-    }
-    if (!kStringIsEmpty(self.detailAddress)) {
-        tempDetailAddress = self.detailAddress;
-    }
-    address = [NSString stringWithFormat:@"%@%@",tempCity,tempDetailAddress];
-    self.searchTextField.text = address;
+// 添加标注
+-(void)addMarkToMapWithLocation:(CLLocationCoordinate2D)coordinate{
+    QPointAnnotation * annotation = [[QPointAnnotation alloc]init];
+    annotation.coordinate = coordinate;
+    [self.mapView removeAnnotation:self.selectAnnotation];
+    self.selectAnnotation = annotation;
+    [self.mapView addAnnotation:annotation];
 }
 
+// 拼接传入的城市和详细地址
+// 解析地址成坐标
+// 定位地图到当前位置
+-(void)spliceAddress{
+    NSString * address = nil;
+    NSString * tempCity = self.city;
+    NSString * tempAddress = @"";
+    if (!kStringIsEmpty(self.detailAddress)) {
+        tempAddress = self.detailAddress;
+    }
+    address = [NSString stringWithFormat:@"%@%@",tempCity,tempAddress];
+    self.searchTextField.text = address;
+    __weak typeof(self) weakSelf = self;
+    [[LocationManager shareLocationManager] geocoderAddress:address resultBlock:^(CLLocationCoordinate2D coordinate) {
+        [weakSelf resetMapCenterWithCoordinate:coordinate];
+    }];
+}
+
+// 设置地图中心点
+-(void)resetMapCenterWithCoordinate:(CLLocationCoordinate2D)coordinate{
+    self.mapView.centerCoordinate = coordinate;
+    __weak typeof(self) weakSelf = self;
+    CLLocation * location = [[LocationManager shareLocationManager] getLocationWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    [[LocationManager shareLocationManager] geocoderLocation:location resultBlock:^(CLPlacemark * _Nonnull place) {
+        NSString * city = place.locality;
+        if (!city) {
+            city = place.administrativeArea;
+        }
+        if (![city isEqualToString:self.city] && !kStringIsEmpty(self.city)) {
+            [MBProgressHUD showTipMessageInWindow:@"选择位置超出城市范围"];
+            return;
+        }
+        NSString * disctict = place.subLocality;
+        NSString * street = place.thoroughfare;
+        NSString * name = place.name;
+        weakSelf.selectedCity = city;
+        weakSelf.selectDetailAddress = [NSString stringWithFormat:@"%@%@%@",disctict,street,name];
+        weakSelf.searchTextField.text = [NSString stringWithFormat:@"%@%@",weakSelf.selectedCity,weakSelf.selectDetailAddress];
+        [weakSelf addMarkToMapWithLocation:coordinate];
+    }];
+}
+
+#pragma mark - event action
+
+-(void)tapConfirm{
+    if (self.selectReturnBlock) {
+        self.selectReturnBlock(self.selectedCity, self.selectDetailAddress, self.selectAnnotation.coordinate);
+    }
+}
 
 #pragma mark - setters and getters
 
@@ -112,7 +222,6 @@
     if (!_mapView) {
         _mapView = [[QMapView alloc] initWithFrame:self.view.bounds];
         _mapView.delegate = self;
-        _mapView.showsUserLocation = YES;
         _mapView.zoomLevel = 16;
     }
     return _mapView;
@@ -139,16 +248,14 @@
         _confirmSearchButton.backgroundColor = Color_red_1;
         [_confirmSearchButton setTitleColor:Color_white_1 forState:UIControlStateNormal];
         [_confirmSearchButton setTitle:@"确定" forState:UIControlStateNormal];
+        [_confirmSearchButton addTarget:self action:@selector(tapConfirm) forControlEvents:UIControlEventTouchUpInside];
     }
     return _confirmSearchButton;
 }
 
--(void)setCity:(NSString *)city{
-    _city = city;
-}
-
 -(void)setDetailAddress:(NSString *)detailAddress{
     _detailAddress = detailAddress;
+    [self spliceAddress];
 }
 
 
