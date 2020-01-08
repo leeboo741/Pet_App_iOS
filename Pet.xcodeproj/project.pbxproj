@@ -1293,6 +1293,8 @@
 				04F49E8E2397A9FB008E1334 /* ViewController.h */,
 				04F49E8F2397A9FB008E1334 /* ViewController.m */,
 				04F49E912397A9FB008E1334 /* Main.storyboard */,
+				04F49E8B2397A9FB008E1334 /* AppDelegate.h */,
+				04F49E8C2397A9FB008E1334 /* AppDelegate.m */,
 				04F49E942397A9FE008E1334 /* Assets.xcassets */,
 				04F49E962397A9FE008E1334 /* LaunchScreen.storyboard */,
 				04F49E992397A9FE008E1334 /* Info.plist */,
