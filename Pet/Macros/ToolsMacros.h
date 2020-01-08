@@ -85,6 +85,7 @@
     #define IOS_8  [[UIDevice currentDevice].systemVersion floatValue] >= 8.0
     #define IOS_9  [[UIDevice currentDevice].systemVersion floatValue] >= 9.0
     #define IOS_10 [[UIDevice currentDevice].systemVersion floatValue] >= 10.0
+    #define IOS_11 [[UIDevice currentDevice].systemVersion floatValue] >= 11.0
     // 获取当前语言
     #define kCurrentLanguage ([[NSLocale preferredLanguages] objectAtIndex:0])
     // 判断设备类型

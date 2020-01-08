@@ -11,6 +11,7 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "AspectsUIViewController.h"
 #import "TBCityIconFont.h"
+#import <QMapKit/QMapKit.h>
 
 @interface AppDelegate ()
 
@@ -24,6 +25,7 @@
     MSLog(@"%@",kDocumentPath);
     [self initIQKeyBorad];
     [TBCityIconFont setFontName:@"iconfont"];
+    [QMapServices sharedServices].apiKey = Map_Key_Tencent;
     [AspectsUIViewController aspect_viewDidLoad];
     LoginViewController * loginViewController = [[LoginViewController alloc]init];
     self.window.rootViewController = loginViewController;

@@ -85,6 +85,17 @@
 		0436965723C473A600F51CCA /* WithdrawalFlowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0436965523C473A600F51CCA /* WithdrawalFlowCell.xib */; };
 		0436965B23C47BAC00F51CCA /* BalanceFlowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436965923C47BAC00F51CCA /* BalanceFlowCell.m */; };
 		0436965C23C47BAC00F51CCA /* BalanceFlowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0436965A23C47BAC00F51CCA /* BalanceFlowCell.xib */; };
+		04380A1423C570A50011BB9E /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04380A1323C570A50011BB9E /* BaseNavigationController.m */; };
+		04380A1723C588B80011BB9E /* QMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04380A1623C588B70011BB9E /* QMapKit.framework */; };
+		04380A1923C588D30011BB9E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04380A1823C588D30011BB9E /* libsqlite3.tbd */; };
+		04380A1B23C588E20011BB9E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04380A1A23C588E20011BB9E /* libz.tbd */; };
+		04380A1D23C588F10011BB9E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04380A1C23C588F10011BB9E /* SystemConfiguration.framework */; };
+		04380A1E23C588FC0011BB9E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04380A0923C4935E0011BB9E /* QuartzCore.framework */; };
+		04380A2023C589080011BB9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04380A1F23C589080011BB9E /* CoreLocation.framework */; };
+		04380A2223C589190011BB9E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04380A2123C589190011BB9E /* Foundation.framework */; };
+		04380A2423C589240011BB9E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04380A2323C589240011BB9E /* CoreGraphics.framework */; };
+		04380A2823C58A5E0011BB9E /* SelectLocationMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04380A2723C58A5E0011BB9E /* SelectLocationMapController.m */; };
+		04380A2B23C5CFEA0011BB9E /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04380A2A23C5CFEA0011BB9E /* LocationManager.m */; };
 		0442D80F23B4B70B007ABE89 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0442D80E23B4B70B007ABE89 /* MobileCoreServices.framework */; };
 		0442D81123B589A4007ABE89 /* 1.mov in Resources */ = {isa = PBXBuildFile; fileRef = 0442D81023B589A4007ABE89 /* 1.mov */; };
 		045B16B623C349EA00754CF9 /* ApprovalCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045B16B523C349EA00754CF9 /* ApprovalCenterController.m */; };
@@ -326,6 +337,19 @@
 		04380A0B23C4936C0011BB9E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		04380A0D23C493740011BB9E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		04380A0F23C493820011BB9E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		04380A1223C570A50011BB9E /* BaseNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
+		04380A1323C570A50011BB9E /* BaseNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
+		04380A1623C588B70011BB9E /* QMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QMapKit.framework; sourceTree = "<group>"; };
+		04380A1823C588D30011BB9E /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		04380A1A23C588E20011BB9E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		04380A1C23C588F10011BB9E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		04380A1F23C589080011BB9E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		04380A2123C589190011BB9E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		04380A2323C589240011BB9E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		04380A2623C58A5E0011BB9E /* SelectLocationMapController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectLocationMapController.h; sourceTree = "<group>"; };
+		04380A2723C58A5E0011BB9E /* SelectLocationMapController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectLocationMapController.m; sourceTree = "<group>"; };
+		04380A2923C5CFEA0011BB9E /* LocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		04380A2A23C5CFEA0011BB9E /* LocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		0442D80E23B4B70B007ABE89 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		0442D81023B589A4007ABE89 /* 1.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 1.mov; sourceTree = "<group>"; };
 		045B16B423C349EA00754CF9 /* ApprovalCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApprovalCenterController.h; sourceTree = "<group>"; };
@@ -465,6 +489,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04380A2423C589240011BB9E /* CoreGraphics.framework in Frameworks */,
+				04380A2223C589190011BB9E /* Foundation.framework in Frameworks */,
+				04380A2023C589080011BB9E /* CoreLocation.framework in Frameworks */,
+				04380A1E23C588FC0011BB9E /* QuartzCore.framework in Frameworks */,
+				04380A1D23C588F10011BB9E /* SystemConfiguration.framework in Frameworks */,
+				04380A1B23C588E20011BB9E /* libz.tbd in Frameworks */,
+				04380A1923C588D30011BB9E /* libsqlite3.tbd in Frameworks */,
+				04380A1723C588B80011BB9E /* QMapKit.framework in Frameworks */,
 				0442D80F23B4B70B007ABE89 /* MobileCoreServices.framework in Frameworks */,
 				88410C987A8CE9B14A2BC46C /* Pods_Pet.framework in Frameworks */,
 			);
@@ -589,6 +621,8 @@
 		042EA91223A8B08100F3D376 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				04380A2523C58A320011BB9E /* Map */,
+				04380A1123C570750011BB9E /* Navigation */,
 				04ED182D23B9A22F002F2266 /* Main */,
 				0469F05323ADBB63009B8E4F /* Transport */,
 				042EA9AA23AA343100F3D376 /* User */,
@@ -763,6 +797,7 @@
 		042EA9BC23AB4D5900F3D376 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				04380A1523C5888A0011BB9E /* Map */,
 				04ED180923B702FF002F2266 /* MediaShowAndSelected */,
 				042EA9DE23ACB57900F3D376 /* IconFont */,
 			);
@@ -1025,6 +1060,32 @@
 			path = Withdrawal;
 			sourceTree = "<group>";
 		};
+		04380A1123C570750011BB9E /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				04380A1223C570A50011BB9E /* BaseNavigationController.h */,
+				04380A1323C570A50011BB9E /* BaseNavigationController.m */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		04380A1523C5888A0011BB9E /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				04380A1623C588B70011BB9E /* QMapKit.framework */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		04380A2523C58A320011BB9E /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				04380A2623C58A5E0011BB9E /* SelectLocationMapController.h */,
+				04380A2723C58A5E0011BB9E /* SelectLocationMapController.m */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		045B16B223C3499900754CF9 /* Approval */ = {
 			isa = PBXGroup;
 			children = (
@@ -1220,8 +1281,6 @@
 			isa = PBXGroup;
 			children = (
 				04F49EC22397BB03008E1334 /* ViewController */,
-				04F49E8B2397A9FB008E1334 /* AppDelegate.h */,
-				04F49E8C2397A9FB008E1334 /* AppDelegate.m */,
 				042EA93B23A8BA0300F3D376 /* Macros */,
 				9B82322823B8FC5500B676C1 /* Data */,
 				042EA9B523AB191600F3D376 /* Aspects */,
@@ -1229,6 +1288,8 @@
 				042EA93E23A8C06600F3D376 /* Utils */,
 				042EA9D623AC93EE00F3D376 /* Resource */,
 				042EA9BC23AB4D5900F3D376 /* ThirdParty */,
+				04F49E8B2397A9FB008E1334 /* AppDelegate.h */,
+				04F49E8C2397A9FB008E1334 /* AppDelegate.m */,
 				04F49E8E2397A9FB008E1334 /* ViewController.h */,
 				04F49E8F2397A9FB008E1334 /* ViewController.m */,
 				04F49E912397A9FB008E1334 /* Main.storyboard */,
@@ -1277,6 +1338,12 @@
 		828B4493BFA215F6090EB5EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04380A2323C589240011BB9E /* CoreGraphics.framework */,
+				04380A2123C589190011BB9E /* Foundation.framework */,
+				04380A1F23C589080011BB9E /* CoreLocation.framework */,
+				04380A1C23C588F10011BB9E /* SystemConfiguration.framework */,
+				04380A1A23C588E20011BB9E /* libz.tbd */,
+				04380A1823C588D30011BB9E /* libsqlite3.tbd */,
 				04380A0F23C493820011BB9E /* AVFoundation.framework */,
 				04380A0D23C493740011BB9E /* CoreVideo.framework */,
 				04380A0B23C4936C0011BB9E /* CoreMedia.framework */,
@@ -1295,6 +1362,8 @@
 				9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */,
 				04ED182023B98375002F2266 /* UserManager.h */,
 				04ED182123B98375002F2266 /* UserManager.m */,
+				04380A2923C5CFEA0011BB9E /* LocationManager.h */,
+				04380A2A23C5CFEA0011BB9E /* LocationManager.m */,
 				042DA76A23BA024C0027C39B /* Database */,
 				042DA76923BA023D0027C39B /* Entity */,
 			);
@@ -1515,6 +1584,7 @@
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD+JDragon/MBProgressHUD_JDragon.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/MMScan/MMScan.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/MyLayout/MyLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/PGDatePicker/PGDatePicker.framework",
@@ -1547,6 +1617,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD_JDragon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMScan.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MyLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGDatePicker.framework",
@@ -1580,6 +1651,7 @@
 				042DA77023BA06F80027C39B /* UserDataBaseHandler.m in Sources */,
 				043693E123B3699D00433BE5 /* UILabel+LineAndWordSpace.m in Sources */,
 				042DA81623BEE8B50027C39B /* OrderAssignmentsView.m in Sources */,
+				04380A2823C58A5E0011BB9E /* SelectLocationMapController.m in Sources */,
 				04ED183F23B9E5DB002F2266 /* CenterHeaderCell.m in Sources */,
 				042EA9A123AA330E00F3D376 /* StationDetailViewController.m in Sources */,
 				04EDDA3623B49A7A008F379D /* UIView+AddMJRefresh.m in Sources */,
@@ -1666,6 +1738,7 @@
 				042EA95623A9BE0800F3D376 /* PrivacyPolicyView.m in Sources */,
 				042EA9EA23ACC9BC00F3D376 /* FakeStationListData.m in Sources */,
 				04C52B0323B5B9D200024FE0 /* MediaSelectItemModel.m in Sources */,
+				04380A1423C570A50011BB9E /* BaseNavigationController.m in Sources */,
 				042EA9DD23ACA08B00F3D376 /* StationInfoItem.m in Sources */,
 				042EA91023A8B05600F3D376 /* LoginViewController.m in Sources */,
 				9B8EC51123BD0F7700FFFDE8 /* OrderEntity.m in Sources */,
@@ -1682,6 +1755,7 @@
 				0436965B23C47BAC00F51CCA /* BalanceFlowCell.m in Sources */,
 				04ED17FC23B5E7B7002F2266 /* MediaSelectItemView.m in Sources */,
 				04ED183023B9A284002F2266 /* MainTabbarController.m in Sources */,
+				04380A2B23C5CFEA0011BB9E /* LocationManager.m in Sources */,
 				045B16B623C349EA00754CF9 /* ApprovalCenterController.m in Sources */,
 				048C9F3C23B308A900730C70 /* TransportPayRemarkCell.m in Sources */,
 				9B8EC50723BCFBB800FFFDE8 /* OrderBaseInfoView.m in Sources */,
@@ -1859,6 +1933,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6967F8FN94;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pet/ThirdParty/Map",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Pet/PrefixHeader.pch";
 				INFOPLIST_FILE = Pet/Info.plist;
@@ -1869,6 +1947,66 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pet/ThirdParty/Scan/ZBarSDK",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"ActionSheetPicker_3_0\"",
+					"-framework",
+					"\"Aspects\"",
+					"-framework",
+					"\"CTAssetsPickerController\"",
+					"-framework",
+					"\"Charts\"",
+					"-framework",
+					"\"FDFullscreenPopGesture\"",
+					"-framework",
+					"\"FMDB\"",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-framework",
+					"\"JTCalendar\"",
+					"-framework",
+					"\"LJContactManager\"",
+					"-framework",
+					"\"MBProgressHUD\"",
+					"-framework",
+					"\"MBProgressHUD_JDragon\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"MMScan\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"MyLayout\"",
+					"-framework",
+					"\"PGDatePicker\"",
+					"-framework",
+					"\"PGPickerView\"",
+					"-framework",
+					"\"PureLayout\"",
+					"-framework",
+					"\"RadioButton\"",
+					"-framework",
+					"\"SDCycleScrollView\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"TZImagePickerController\"",
+					"-framework",
+					"\"UITableView_FDTemplateLayoutCell\"",
+					"-framework",
+					"\"YYCache\"",
+					"-framework",
+					"\"YYImage\"",
+					"-framework",
+					"\"YYWebImage\"",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangwangkeji.Pet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1887,6 +2025,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6967F8FN94;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pet/ThirdParty/Map",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Pet/PrefixHeader.pch";
 				INFOPLIST_FILE = Pet/Info.plist;
@@ -1897,6 +2039,66 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pet/ThirdParty/Scan/ZBarSDK",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"ActionSheetPicker_3_0\"",
+					"-framework",
+					"\"Aspects\"",
+					"-framework",
+					"\"CTAssetsPickerController\"",
+					"-framework",
+					"\"Charts\"",
+					"-framework",
+					"\"FDFullscreenPopGesture\"",
+					"-framework",
+					"\"FMDB\"",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-framework",
+					"\"JTCalendar\"",
+					"-framework",
+					"\"LJContactManager\"",
+					"-framework",
+					"\"MBProgressHUD\"",
+					"-framework",
+					"\"MBProgressHUD_JDragon\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"MMScan\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"MyLayout\"",
+					"-framework",
+					"\"PGDatePicker\"",
+					"-framework",
+					"\"PGPickerView\"",
+					"-framework",
+					"\"PureLayout\"",
+					"-framework",
+					"\"RadioButton\"",
+					"-framework",
+					"\"SDCycleScrollView\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"TZImagePickerController\"",
+					"-framework",
+					"\"UITableView_FDTemplateLayoutCell\"",
+					"-framework",
+					"\"YYCache\"",
+					"-framework",
+					"\"YYImage\"",
+					"-framework",
+					"\"YYWebImage\"",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangwangkeji.Pet;
 				PRODUCT_NAME = "$(TARGET_NAME)";

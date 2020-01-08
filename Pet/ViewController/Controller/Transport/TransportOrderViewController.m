@@ -14,6 +14,7 @@
 #import "TransportValueAddProtocol.h"
 #import "TransportOrderFooterView.h"
 #import "TransportPayViewController.h"
+#import "SelectLocationMapController.h"
 
 static NSString * BaseInfoCellName = @"TransportOrderBaseInfoCell";
 static NSString * BaseInfoCellIdentifier = @"BaseInfoCellIdentifier";
@@ -206,6 +207,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 }
 
 #pragma mark - transport baseinfo cell delegate
+
 -(void)selectBaseInfoItem:(TransportBaseInfo_Type)baseInfoType{
     if (baseInfoType == TransportBaseInfo_Type_StartCity) {
         self.transportOrder.startCity = @"南昌市";
@@ -220,6 +222,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     }
     [self.tableView reloadData];
 }
+
 -(void)inputBaseInfoItem:(TransportBaseInfo_Type)baseInfoType withText:(NSString *)text{
     if (baseInfoType == TransportBaseInfo_Type_Count) {
         self.transportOrder.petCount = text;
@@ -233,6 +236,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 }
 
 #pragma mark - transport type cell delegate
+
 -(void)transportTypeGroupCell:(TransportOrderTransportTypeGroupCell *)cell didSelectTransportTypeAtIndex:(NSInteger)index{
     TransportTypeViewModel * type = (TransportTypeViewModel*)[self.transportTypeArray objectAtIndex:index];
     type.typeIsSelected = !type.typeIsSelected;
@@ -240,12 +244,15 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 }
 
 #pragma mark - transport value add cell delegate
+
 -(BOOL)valueAddCell:(TransportOrderValueAddCell *)cell serviceValueInputShouldBeginEditing:(UITextField *)textField {
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     TransportValueAdd * valueAdd = (TransportValueAdd *)self.transportValueAddArray[indexPath.row];
     if (indexPath.row == 2 || indexPath.row == 3) {
         if (indexPath.row == 2) {
-            valueAdd.serviceValue = @"南昌市青山湖区北京东路1666号";
+//            valueAdd.serviceValue = @"南昌市青山湖区北京东路1666号";
+            SelectLocationMapController * selectLocationMapVC = [[SelectLocationMapController alloc]init];
+            [self.navigationController pushViewController:selectLocationMapVC animated:YES];
         } else {
             valueAdd.serviceValue = @"北京市通州区西马庄小区";
         }
@@ -404,6 +411,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
         
         // 上门接宠
         TransportValueAdd * onDoor = [[TransportValueAdd alloc]init];
+        onDoor.serviceEnableUse = YES;
         onDoor.serviceName = @"上门接宠";
         onDoor.serviceContract = @"接宠说明";
         onDoor.serviceValuePlaceholder = @"请选择接宠地址";

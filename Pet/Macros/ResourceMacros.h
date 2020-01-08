@@ -74,6 +74,7 @@
 
 #pragma mark - String Resource Macros
 
+#define Map_Key_Tencent         @"3MEBZ-MYJE4-ENMU2-DNNDM-3UXXZ-5CB4U"
 
 
 #pragma mark - Url Resource Macros

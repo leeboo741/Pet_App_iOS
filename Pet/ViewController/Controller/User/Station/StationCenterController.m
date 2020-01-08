@@ -10,6 +10,8 @@
 #import "CenterHeaderCell.h"
 #import "CenterActionCell.h"
 #import "BalanceFlowController.h"
+#import "WithdrawalController.h"
+#import "ApplyCenterController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -132,10 +134,18 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
 -(void)tapActionAtIndex:(NSInteger)index atActionCell:(CenterActionCell *)cell{
     switch (index) {
         case 0:
+        {
             MSLog(@"提现");
+            WithdrawalController * withdrawalController = [[WithdrawalController alloc]init];
+            [self.navigationController pushViewController:withdrawalController animated:YES];
+        }
             break;
         case 1:
+        {
             MSLog(@"申请");
+            ApplyCenterController * applyCenterController = [[ApplyCenterController alloc] init];
+            [self.navigationController pushViewController:applyCenterController animated:YES];
+        }
             break;
         case 2:
         {

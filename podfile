@@ -1,6 +1,8 @@
 platform :ios, '9.0'
 target 'Pet' do
 
+pod 'MMScan', '~> 0.0.7'
+
 pod "TZImagePickerController"
 
 pod 'CTAssetsPickerController', '~> 3.3.2-alpha'

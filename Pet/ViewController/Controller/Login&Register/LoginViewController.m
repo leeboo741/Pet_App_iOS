@@ -11,6 +11,7 @@
 #import "PrivacyPolicyView.h"
 #import "HomeViewController.h"
 #import "MainTabbarController.h"
+#import "LocationManager.h"
 
 @interface LoginViewController ()<LoginViewDelegate, PrivacyPolicyViewDelegate>
 @property (nonatomic, strong) LoginView * loginView;
@@ -28,7 +29,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.view addSubview:self.loginView];
-    
 }
 
 -(void)viewWillLayoutSubviews{

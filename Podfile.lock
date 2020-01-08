@@ -34,6 +34,7 @@ PODS:
     - MBProgressHUD (~> 0.9.2)
   - MJExtension (3.0.15.1)
   - MJRefresh (3.1.15.7)
+  - MMScan (0.0.7)
   - MyLayout (1.5.3)
   - PGDatePicker (2.5.6):
     - PGPickerView
@@ -70,6 +71,7 @@ DEPENDENCIES:
   - "MBProgressHUD+JDragon (~> 0.0.3)"
   - MJExtension
   - MJRefresh (~> 3.1.15)
+  - MMScan (~> 0.0.7)
   - MyLayout (~> 1.5.0)
   - PGDatePicker
   - RadioButton
@@ -96,6 +98,7 @@ SPEC REPOS:
     - "MBProgressHUD+JDragon"
     - MJExtension
     - MJRefresh
+    - MMScan
     - MyLayout
     - PGDatePicker
     - PGPickerView
@@ -125,6 +128,7 @@ SPEC CHECKSUMS:
   "MBProgressHUD+JDragon": 51958736b3a9f97adc176371544ffa257a0ba058
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
+  MMScan: 388e4e274fce789bfd9911788a9da5e5fea6ad03
   MyLayout: 7a145adc9bed400010efe2b2e1a1e09b0a0804d7
   PGDatePicker: dea9321d8fda67e64e82c74d0f5f9938686c0389
   PGPickerView: 0b781b1d8fb153db5ef09ac3842941f29cbca8a4
@@ -138,6 +142,6 @@ SPEC CHECKSUMS:
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: bf9ce6f8e1fad7c21af6f3ec207b8ff7d58f14bb
+PODFILE CHECKSUM: 565d92676d9ad143d97005627ccd39449fdaf370
 
 COCOAPODS: 1.5.3

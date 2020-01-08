@@ -14,6 +14,7 @@
 #import "StationCenterController.h"
 #import "SiteCenterController.h"
 #import "UITabbarController+ChangeViewControllers.h"
+#import "BaseNavigationController.h"
 
 @interface MainTabbarController ()
 @property (nonatomic, strong) NSArray * viewDataSource;
@@ -52,7 +53,7 @@ SingleImplementation(MainTabbarController)
 
 -(void)changeRole:(NSNotification *)notificationObj{
     USER_ROLE role = [[notificationObj.userInfo objectForKey:@"data"] integerValue];
-    UINavigationController * navi = [self getNaviControllerWithViewController:[self getCenterViewControllerWithUserRole:role]];
+    BaseNavigationController * navi = [self getNaviControllerWithViewController:[self getCenterViewControllerWithUserRole:role]];
     
     [self setTabbarItemInfoWithViewController:navi title:@"中心" iconFontName:IconFont_Pet];
     [self replaceViewControllerAtIndex:2 withViewController:navi];
@@ -71,8 +72,8 @@ SingleImplementation(MainTabbarController)
     viewController.tabBarItem.selectedImage = [UIImage iconWithInfo:TBCityIconInfoMake(iconFontName, 40, Color_blue_1)];
 }
 
--(UINavigationController *)getNaviControllerWithViewController:(UIViewController*)viewController{
-    UINavigationController * naviController = [[UINavigationController alloc]initWithRootViewController:viewController];
+-(BaseNavigationController *)getNaviControllerWithViewController:(UIViewController*)viewController{
+    BaseNavigationController * naviController = [[BaseNavigationController alloc]initWithRootViewController:viewController];
     return naviController;
 }
 
@@ -95,15 +96,15 @@ SingleImplementation(MainTabbarController)
 -(NSArray *)viewDataSource{
     if (!_viewDataSource) {
         HomeViewController * homeViewController = [[HomeViewController alloc]init];
-        UINavigationController * homeNavi = [self getNaviControllerWithViewController:homeViewController];
+        BaseNavigationController * homeNavi = [self getNaviControllerWithViewController:homeViewController];
         [self setTabbarItemInfoWithViewController:homeNavi title:@"首页" iconFontName:IconFont_Home];
         
         StationListViewController * stationListVC = [[StationListViewController alloc]init];
-        UINavigationController * stationNavi = [self getNaviControllerWithViewController:stationListVC];
+        BaseNavigationController * stationNavi = [self getNaviControllerWithViewController:stationListVC];
         [self setTabbarItemInfoWithViewController:stationNavi title:@"驿站" iconFontName:IconFont_Station];
         
         UIViewController * centerViewController = [self getCenterViewControllerWithUserRole:[[UserManager shareUserManager] getUserRole]];
-        UINavigationController * centerNavi = [self getNaviControllerWithViewController:centerViewController];
+        BaseNavigationController * centerNavi = [self getNaviControllerWithViewController:centerViewController];
         [self setTabbarItemInfoWithViewController:centerNavi title:@"中心" iconFontName:IconFont_Pet];
         
         _viewDataSource = @[homeNavi, stationNavi, centerNavi];

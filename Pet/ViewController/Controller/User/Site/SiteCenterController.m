@@ -17,6 +17,7 @@
 #import "ApprovalCenterController.h"
 #import "WithdrawalController.h"
 #import "BalanceFlowController.h"
+#import <MMScan/MMScanViewController.h>
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -170,6 +171,7 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
         case 4:
         {
             MSLog(@"查单");
+            __weak typeof(self) weakSelf = self;
             UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"查单" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.placeholder = @"输入要查询的单据编号";
@@ -181,6 +183,14 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
             }];
             UIAlertAction * scanAction = [UIAlertAction actionWithTitle:@"扫描" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 MSLog(@"点击扫描");
+                MMScanViewController * scanVC = [[MMScanViewController alloc]initWithQrType:MMScanTypeAll onFinish:^(NSString *result, NSError *error) {
+                    if (error) {
+                        MSLog(@"scan error : %@",error);
+                    } else {
+                        MSLog(@"scan result : %@",result);
+                    }
+                }];
+                [weakSelf.navigationController pushViewController:scanVC animated:YES];
             }];
             UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
             [alertController addAction:confirmAction];
