@@ -23,6 +23,7 @@
 #define IconFont_Selected       @"\U0000E611" // 选中
 #define IconFont_Home           @"\U0000E612" // 首页
 #define IconFont_ChangeRole     @"\U0000E613" // 角色转换
+#define IconFont_Location_2     @"\U0000E614" // 定位_2
 #define IconFont_Car            @"\U0000E616" // 汽运
 #define IconFont_Recharge       @"\U0000E617" // 充值
 #define IconFont_Coupon         @"\U0000E618" // 优惠券

@@ -10,6 +10,7 @@
 #import "SegmentedSelectView.h"
 #import "SiteAllOrderCell.h"
 #import "OrderEntity.h"
+#import "OrderDetailController.h"
 
 typedef NS_ENUM(NSInteger, SiteAllOrderType) {
     SiteAllOrderType_All = 0,
@@ -97,7 +98,9 @@ SegmentedSelectViewDelegate>
 -(void)tapSiteAllOrderCell:(SiteAllOrderCell *)cell operateType:(OrderOperateButtonType)type{
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     if (type == OrderOperateButtonType_DetailOrder) {
-        MSLog(@"详情 : %ld", indexPath.row);
+        MSLog(@"订单详情 : %ld", indexPath.row);
+        OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
+        [self presentViewController:orderDetailVC animated:YES completion:nil];
     }
 }
 

@@ -120,6 +120,14 @@
 		048C9F4223B308DC00730C70 /* TransportPayPetConditionConfirmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048C9F4023B308DC00730C70 /* TransportPayPetConditionConfirmCell.xib */; };
 		048C9F4623B308FC00730C70 /* TransportPayContractConfirmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048C9F4423B308FC00730C70 /* TransportPayContractConfirmCell.m */; };
 		048C9F4723B308FC00730C70 /* TransportPayContractConfirmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048C9F4523B308FC00730C70 /* TransportPayContractConfirmCell.xib */; };
+		04B623A223C6F8DD00550BD8 /* MessageCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B623A123C6F8DD00550BD8 /* MessageCenterController.m */; };
+		04B623A723C6FA8600550BD8 /* MessageItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B623A523C6FA8600550BD8 /* MessageItemCell.m */; };
+		04B623A823C6FA8600550BD8 /* MessageItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B623A623C6FA8600550BD8 /* MessageItemCell.xib */; };
+		04B623AC23C7069D00550BD8 /* OrderDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B623AB23C7069D00550BD8 /* OrderDetailController.m */; };
+		04B623B123C7157500550BD8 /* OrderPremiumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B623AF23C7157500550BD8 /* OrderPremiumCell.m */; };
+		04B623B223C7157500550BD8 /* OrderPremiumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B623B023C7157500550BD8 /* OrderPremiumCell.xib */; };
+		04B623B623C7211900550BD8 /* OrderRemarkInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B623B423C7211900550BD8 /* OrderRemarkInputCell.m */; };
+		04B623B723C7211900550BD8 /* OrderRemarkInputCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B623B523C7211900550BD8 /* OrderRemarkInputCell.xib */; };
 		04C52B0323B5B9D200024FE0 /* MediaSelectItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C52B0223B5B9D200024FE0 /* MediaSelectItemModel.m */; };
 		04E7D22623AE2056004EEAAB /* TransportOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7D22523AE2056004EEAAB /* TransportOrder.m */; };
 		04E7D22923AE236A004EEAAB /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7D22823AE236A004EEAAB /* Utils.m */; };
@@ -389,6 +397,19 @@
 		048C9F4323B308FC00730C70 /* TransportPayContractConfirmCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportPayContractConfirmCell.h; sourceTree = "<group>"; };
 		048C9F4423B308FC00730C70 /* TransportPayContractConfirmCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportPayContractConfirmCell.m; sourceTree = "<group>"; };
 		048C9F4523B308FC00730C70 /* TransportPayContractConfirmCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransportPayContractConfirmCell.xib; sourceTree = "<group>"; };
+		04B623A023C6F8DD00550BD8 /* MessageCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageCenterController.h; sourceTree = "<group>"; };
+		04B623A123C6F8DD00550BD8 /* MessageCenterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageCenterController.m; sourceTree = "<group>"; };
+		04B623A423C6FA8600550BD8 /* MessageItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageItemCell.h; sourceTree = "<group>"; };
+		04B623A523C6FA8600550BD8 /* MessageItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageItemCell.m; sourceTree = "<group>"; };
+		04B623A623C6FA8600550BD8 /* MessageItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageItemCell.xib; sourceTree = "<group>"; };
+		04B623AA23C7069D00550BD8 /* OrderDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailController.h; sourceTree = "<group>"; };
+		04B623AB23C7069D00550BD8 /* OrderDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailController.m; sourceTree = "<group>"; };
+		04B623AE23C7157500550BD8 /* OrderPremiumCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderPremiumCell.h; sourceTree = "<group>"; };
+		04B623AF23C7157500550BD8 /* OrderPremiumCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderPremiumCell.m; sourceTree = "<group>"; };
+		04B623B023C7157500550BD8 /* OrderPremiumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderPremiumCell.xib; sourceTree = "<group>"; };
+		04B623B323C7211900550BD8 /* OrderRemarkInputCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderRemarkInputCell.h; sourceTree = "<group>"; };
+		04B623B423C7211900550BD8 /* OrderRemarkInputCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderRemarkInputCell.m; sourceTree = "<group>"; };
+		04B623B523C7211900550BD8 /* OrderRemarkInputCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderRemarkInputCell.xib; sourceTree = "<group>"; };
 		04C52B0123B5B9D200024FE0 /* MediaSelectItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaSelectItemModel.h; sourceTree = "<group>"; };
 		04C52B0223B5B9D200024FE0 /* MediaSelectItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaSelectItemModel.m; sourceTree = "<group>"; };
 		04E7D22423AE2056004EEAAB /* TransportOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportOrder.h; sourceTree = "<group>"; };
@@ -749,6 +770,8 @@
 		042EA9AA23AA343100F3D376 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				04B623A923C7065500550BD8 /* Order */,
+				04B6239F23C6F89D00550BD8 /* Message */,
 				0436963623C438EA00F51CCA /* Balance */,
 				045B16B323C349BA00754CF9 /* Approval */,
 				04333C2523C0833700676FBD /* Apply */,
@@ -1169,6 +1192,47 @@
 			path = TransportPay;
 			sourceTree = "<group>";
 		};
+		04B6239F23C6F89D00550BD8 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				04B623A023C6F8DD00550BD8 /* MessageCenterController.h */,
+				04B623A123C6F8DD00550BD8 /* MessageCenterController.m */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		04B623A323C6FA6300550BD8 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				04B623A423C6FA8600550BD8 /* MessageItemCell.h */,
+				04B623A523C6FA8600550BD8 /* MessageItemCell.m */,
+				04B623A623C6FA8600550BD8 /* MessageItemCell.xib */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		04B623A923C7065500550BD8 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				04B623AA23C7069D00550BD8 /* OrderDetailController.h */,
+				04B623AB23C7069D00550BD8 /* OrderDetailController.m */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
+		04B623AD23C7154900550BD8 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				04B623AE23C7157500550BD8 /* OrderPremiumCell.h */,
+				04B623AF23C7157500550BD8 /* OrderPremiumCell.m */,
+				04B623B023C7157500550BD8 /* OrderPremiumCell.xib */,
+				04B623B323C7211900550BD8 /* OrderRemarkInputCell.h */,
+				04B623B423C7211900550BD8 /* OrderRemarkInputCell.m */,
+				04B623B523C7211900550BD8 /* OrderRemarkInputCell.xib */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
 		04ED180923B702FF002F2266 /* MediaShowAndSelected */ = {
 			isa = PBXGroup;
 			children = (
@@ -1241,6 +1305,8 @@
 		04EDDA2A23B49700008F379D /* User */ = {
 			isa = PBXGroup;
 			children = (
+				04B623AD23C7154900550BD8 /* Order */,
+				04B623A323C6FA6300550BD8 /* Message */,
 				045B16B223C3499900754CF9 /* Approval */,
 				0436964B23C4512800F51CCA /* Balance */,
 				04333C2923C0839500676FBD /* Apply */,
@@ -1508,6 +1574,7 @@
 				04F49E982397A9FE008E1334 /* LaunchScreen.storyboard in Resources */,
 				0442D81123B589A4007ABE89 /* 1.mov in Resources */,
 				04333C3D23C0960200676FBD /* ApplyInputCell.xib in Resources */,
+				04B623B723C7211900550BD8 /* OrderRemarkInputCell.xib in Resources */,
 				045B16C023C34AC600754CF9 /* ApprovalStaffCell.xib in Resources */,
 				04E7D23B23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.xib in Resources */,
 				048C9F3523B3086200730C70 /* TransportPayPersonnelCell.xib in Resources */,
@@ -1524,7 +1591,9 @@
 				0436965223C45A5A00F51CCA /* WithdrawalView.xib in Resources */,
 				042DA80E23BEE77C0027C39B /* SiteOutportOrderCell.xib in Resources */,
 				9B8EC50923BCFC0700FFFDE8 /* OrderBaseInfoView.xib in Resources */,
+				04B623A823C6FA8600550BD8 /* MessageItemCell.xib in Resources */,
 				04F49E952397A9FE008E1334 /* Assets.xcassets in Resources */,
+				04B623B223C7157500550BD8 /* OrderPremiumCell.xib in Resources */,
 				045B16BB23C34A9400754CF9 /* ApprovalStationCell.xib in Resources */,
 				042EA9DA23AC96A900F3D376 /* iconfont.ttf in Resources */,
 				042DA77823BB2E980027C39B /* CenterActionCell.xib in Resources */,
@@ -1678,8 +1747,10 @@
 				042DA78F23BDD59E0027C39B /* SiteInportOrderController.m in Sources */,
 				04EDDA3323B498B9008F379D /* UIViewController+AddMJRefresh.m in Sources */,
 				9B6E4C3023C21BCB00922542 /* PreviewMediaController.m in Sources */,
+				04B623A223C6F8DD00550BD8 /* MessageCenterController.m in Sources */,
 				042EA9E723ACB57900F3D376 /* UIImage+TBCityIconFont.m in Sources */,
 				04333C2823C0837700676FBD /* ApplyCenterController.m in Sources */,
+				04B623B123C7157500550BD8 /* OrderPremiumCell.m in Sources */,
 				04E7D22D23B04AA1004EEAAB /* TransportTypeCell.m in Sources */,
 				04333C1B23C0453100676FBD /* AssignmentsController.m in Sources */,
 				042EA9E523ACB57900F3D376 /* TBCityIconFont.m in Sources */,
@@ -1696,15 +1767,18 @@
 				042DA78923BDD5680027C39B /* SiteUnpayOrderController.m in Sources */,
 				042EA9CF23AC653400F3D376 /* Station.m in Sources */,
 				0469F06F23ADCF77009B8E4F /* SelectActionLabel.m in Sources */,
+				04B623A723C6FA8600550BD8 /* MessageItemCell.m in Sources */,
 				048C9F4123B308DC00730C70 /* TransportPayPetConditionConfirmCell.m in Sources */,
 				04333C3223C08D8900676FBD /* ApplyStationController.m in Sources */,
 				04E7D22623AE2056004EEAAB /* TransportOrder.m in Sources */,
 				042EA9D223AC661500F3D376 /* StationListViewController.m in Sources */,
 				04F49E9B2397A9FE008E1334 /* main.m in Sources */,
 				9B7DB55423C643420075E05C /* MarkAnnotationView.m in Sources */,
+				04B623AC23C7069D00550BD8 /* OrderDetailController.m in Sources */,
 				048C9F2E23B1ED8600730C70 /* TransportOrderFooterView.m in Sources */,
 				04ED182C23B999FB002F2266 /* UITabBarController+Pet.m in Sources */,
 				042EA94C23A8C23500F3D376 /* LoginView.m in Sources */,
+				04B623B623C7211900550BD8 /* OrderRemarkInputCell.m in Sources */,
 				04333C2C23C083C900676FBD /* ApplyCenterView.m in Sources */,
 				042DA79223BDD5BA0027C39B /* SiteAllOrderController.m in Sources */,
 				04ED183A23B9CD26002F2266 /* SiteCenterController.m in Sources */,

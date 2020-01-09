@@ -25,6 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"选择地点";
     if (IOS_7)
     {
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -95,13 +96,14 @@
             //设置大头针颜色
             annotationView.pinColor = QPinAnnotationColorRed;
             //可以拖动
-            annotationView.draggable = YES;
-            
+            annotationView.draggable = NO;
+            annotationView.image = [UIImage iconWithInfo:TBCityIconInfoMake(IconFont_Location_2, 32, Color_red_1)];
             return annotationView;
         }
     }
     return nil;
 }
+
 //-(void)mapView:(QMapView *)mapView annotationView:(QAnnotationView *)view didChangeDragState:(QAnnotationViewDragState)newState fromOldState:(QAnnotationViewDragState)oldState{
 //    if (view.annotation == self.selectAnnotation && newState == QAnnotationViewDragStateEnding) {
 //        view.annotation.coordinate
@@ -109,6 +111,7 @@
 //}
 
 #pragma mark - textfield delegate
+
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     NSString * text = [textField.text stringByReplacingCharactersInRange:range withString:string];
     self.searchContent = text;
@@ -130,12 +133,14 @@
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
-//点击地图时的回调
--(void)gestureAction:(UIGestureRecognizer *)gestureRecognizer {
-    CGPoint point = [gestureRecognizer locationOfTouch:0 inView:_mapView];
-    CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
-    CLLocation * location = [[LocationManager shareLocationManager] getLocationWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+
+#pragma mark - private method
+
+// 添加标注
+-(void)addMarkToMapWithLocation:(CLLocationCoordinate2D)coordinate{
+    
     __weak typeof(self) weakSelf = self;
+    CLLocation * location = [[LocationManager shareLocationManager] getLocationWithLatitude:coordinate.latitude longitude:coordinate.longitude];
     [[LocationManager shareLocationManager] geocoderLocation:location resultBlock:^(CLPlacemark * _Nonnull place) {
         NSString * city = place.locality;
         if (!city) {
@@ -146,24 +151,21 @@
             return;
         }
         NSString * disctict = place.subLocality;
-        NSString * street = place.thoroughfare;
-        NSString * name = place.name;
+        NSString * street = @"";
+        if (!kStringIsEmpty(place.thoroughfare)) street = place.thoroughfare;
+        NSString * name = @"";
+        if (!kStringIsEmpty(place.name)) name = place.name;
         weakSelf.selectedCity = city;
-        weakSelf.selectDetailAddress = [NSString stringWithFormat:@"%@%@%@",disctict,street,name];
+        weakSelf.city = city;
+        weakSelf.selectDetailAddress = [NSString stringWithFormat:@"%@%@",disctict,name];
         weakSelf.searchTextField.text = [NSString stringWithFormat:@"%@%@",weakSelf.selectedCity,weakSelf.selectDetailAddress];
-        [weakSelf addMarkToMapWithLocation:coordinate];
+        
+        QPointAnnotation * annotation = [[QPointAnnotation alloc]init];
+        annotation.coordinate = coordinate;
+        [weakSelf.mapView removeAnnotation:weakSelf.selectAnnotation];
+        weakSelf.selectAnnotation = annotation;
+        [weakSelf.mapView addAnnotation:annotation];
     }];
-}
-
-#pragma mark - private method
-
-// 添加标注
--(void)addMarkToMapWithLocation:(CLLocationCoordinate2D)coordinate{
-    QPointAnnotation * annotation = [[QPointAnnotation alloc]init];
-    annotation.coordinate = coordinate;
-    [self.mapView removeAnnotation:self.selectAnnotation];
-    self.selectAnnotation = annotation;
-    [self.mapView addAnnotation:annotation];
 }
 
 // 拼接传入的城市和详细地址
@@ -187,33 +189,23 @@
 // 设置地图中心点
 -(void)resetMapCenterWithCoordinate:(CLLocationCoordinate2D)coordinate{
     self.mapView.centerCoordinate = coordinate;
-    __weak typeof(self) weakSelf = self;
-    CLLocation * location = [[LocationManager shareLocationManager] getLocationWithLatitude:coordinate.latitude longitude:coordinate.longitude];
-    [[LocationManager shareLocationManager] geocoderLocation:location resultBlock:^(CLPlacemark * _Nonnull place) {
-        NSString * city = place.locality;
-        if (!city) {
-            city = place.administrativeArea;
-        }
-        if (![city isEqualToString:self.city] && !kStringIsEmpty(self.city)) {
-            [MBProgressHUD showTipMessageInWindow:@"选择位置超出城市范围"];
-            return;
-        }
-        NSString * disctict = place.subLocality;
-        NSString * street = place.thoroughfare;
-        NSString * name = place.name;
-        weakSelf.selectedCity = city;
-        weakSelf.selectDetailAddress = [NSString stringWithFormat:@"%@%@%@",disctict,street,name];
-        weakSelf.searchTextField.text = [NSString stringWithFormat:@"%@%@",weakSelf.selectedCity,weakSelf.selectDetailAddress];
-        [weakSelf addMarkToMapWithLocation:coordinate];
-    }];
+    [self addMarkToMapWithLocation:coordinate];
 }
 
 #pragma mark - event action
 
+// 点击确定按钮
 -(void)tapConfirm{
     if (self.selectReturnBlock) {
         self.selectReturnBlock(self.selectedCity, self.selectDetailAddress, self.selectAnnotation.coordinate);
     }
+}
+
+// 点击地图
+-(void)tapMap:(UIGestureRecognizer *)gestureRecognizer {
+    CGPoint point = [gestureRecognizer locationOfTouch:0 inView:_mapView];
+    CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+    [self addMarkToMapWithLocation:coordinate];
 }
 
 #pragma mark - setters and getters
@@ -223,6 +215,9 @@
         _mapView = [[QMapView alloc] initWithFrame:self.view.bounds];
         _mapView.delegate = self;
         _mapView.zoomLevel = 16;
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapMap:)];
+        tap.delegate = self;
+        [_mapView addGestureRecognizer:tap];
     }
     return _mapView;
 }
@@ -251,11 +246,6 @@
         [_confirmSearchButton addTarget:self action:@selector(tapConfirm) forControlEvents:UIControlEventTouchUpInside];
     }
     return _confirmSearchButton;
-}
-
--(void)setDetailAddress:(NSString *)detailAddress{
-    _detailAddress = detailAddress;
-    [self spliceAddress];
 }
 
 

@@ -92,7 +92,7 @@
             break;
         case CustomerOrderType_Unreceive:
         {
-            [self insertButtonModelWithTitle:@"确认收货" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_DetailOrder];
+            [self insertButtonModelWithTitle:@"确认收货" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_ConfirmReceive];
             
             [self insertButtonModelWithTitle:@"订单详情" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_DetailOrder];
             

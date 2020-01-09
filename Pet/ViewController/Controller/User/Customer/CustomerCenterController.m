@@ -15,6 +15,8 @@
 #import "ApplyCenterController.h"
 #import "BalanceFlowController.h"
 #import <MMScan/MMScanViewController.h>
+#import "MessageCenterController.h"
+#import "OrderDetailController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -180,6 +182,8 @@ CustomerOrderCellDelegate>
 
 -(void)tapMessageButtonAtHeaderCell:(CenterHeaderCell *)cell{
     self.haveNewMessage = NO;
+    MessageCenterController * messageCenterController = [[MessageCenterController alloc]init];
+    [self.navigationController pushViewController:messageCenterController animated:YES];
 }
 -(void)tapBalanceAtHeaderCell:(CenterHeaderCell *)cell{
     BalanceFlowController * balanceFlowController = [[BalanceFlowController alloc]init];
@@ -263,7 +267,50 @@ CustomerOrderCellDelegate>
 #pragma mark - customer order cell delegate
 
 -(void)tapCustomerOrderCell:(CustomerOrderCell *)cell operateType:(OrderOperateButtonType)type atIndex:(NSInteger)index{
-    MSLog(@"customer order cell button type : %ld and index : %ld", type, index);
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    MSLog(@"customer order cell button type : %ld and index : %ld", type, indexPath.row);
+    switch (type) {
+        case OrderOperateButtonType_Pay:
+        {
+            MSLog(@"订单支付");
+        }
+            break;
+        case OrderOperateButtonType_DetailOrder:
+        {
+            MSLog(@"订单详情");
+            OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
+            [self presentViewController:orderDetailVC animated:YES completion:nil];
+        }
+            break;
+        case OrderOperateButtonType_ConfirmReceive:
+        {
+            MSLog(@"确认收货");
+        }
+            break;
+        case OrderOperateButtonType_CancelOrder:
+        {
+            MSLog(@"取消订单");
+        }
+            break;
+        case OrderOperateButtonType_EditOrder:
+        {
+            MSLog(@"修改订单")
+        }
+            break;
+        case OrderOperateButtonType_Evaluate:
+        {
+            MSLog(@"评价订单")
+        }
+            break;
+        case OrderOperateButtonType_Call:
+        {
+            MSLog(@"拨打电话")
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - setters and getters

@@ -7,23 +7,17 @@
 //
 
 #import "TransportOrderViewController.h"
+#import "TransportValueAddProtocol.h"
 #import "TransportOrderBaseInfoCell.h"
 #import "TransportOrderTransportTypeGroupCell.h"
-#import "TransportOrderValueAddCell.h"
 #import "TransportOrder.h"
-#import "TransportValueAddProtocol.h"
 #import "TransportOrderFooterView.h"
+#import "TransportOrderValueAddCell.h"
 #import "TransportPayViewController.h"
 #import "SelectLocationMapController.h"
 
-static NSString * BaseInfoCellName = @"TransportOrderBaseInfoCell";
-static NSString * BaseInfoCellIdentifier = @"BaseInfoCellIdentifier";
-
-static NSString * TransportTypeGroupCellName = @"TransportOrderTransportTypeGroupCell";
-static NSString * TransportTypeGroupCellIdentifier = @"TransportTypeGroupCellIdentifier";
-
-static NSString * ValueAddedCellName = @"TransportOrderValueAddCell";
-static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
+#pragma mark - Transport Type View Model
+#pragma mark -
 
 @interface TransportTypeViewModel : NSObject <TransportTypeProtocol>
 @property (nonatomic, copy) NSString * normalIconName;
@@ -53,6 +47,9 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     return _disableColor?_disableColor:Color_gray_2;
 }
 @end
+
+#pragma mark - Transport Value Add Model
+#pragma mark -
 
 @interface TransportValueAdd : NSObject <TransportValueAddProtocol>
 @property (nonatomic, assign) BOOL serviceEnableUse;
@@ -84,6 +81,18 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     return self;
 }
 @end
+
+#pragma mark - Transport Order View Controller
+#pragma mark -
+
+static NSString * BaseInfoCellName = @"TransportOrderBaseInfoCell";
+static NSString * BaseInfoCellIdentifier = @"BaseInfoCellIdentifier";
+
+static NSString * TransportTypeGroupCellName = @"TransportOrderTransportTypeGroupCell";
+static NSString * TransportTypeGroupCellIdentifier = @"TransportTypeGroupCellIdentifier";
+
+static NSString * ValueAddedCellName = @"TransportOrderValueAddCell";
+static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 
 @interface TransportOrderViewController () <TransportOrderBaseInfoCallDelegate, TransportOrderTransportTypeGroupCellDelegate,TransportOrderValueAddCellDelegate,TransportOrderFooterViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) TransportOrder * transportOrder;
@@ -250,11 +259,19 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     TransportValueAdd * valueAdd = (TransportValueAdd *)self.transportValueAddArray[indexPath.row];
     if (indexPath.row == 2 || indexPath.row == 3) {
         if (indexPath.row == 2) {
-//            valueAdd.serviceValue = @"南昌市青山湖区北京东路1666号";
             SelectLocationMapController * selectLocationMapVC = [[SelectLocationMapController alloc]init];
+            selectLocationMapVC.city = self.transportOrder.startCity;
+            selectLocationMapVC.selectReturnBlock = ^(NSString * _Nonnull city, NSString * _Nonnull detailAddress, CLLocationCoordinate2D coordinate) {
+                valueAdd.serviceValue = [NSString stringWithFormat:@"%@%@",city,detailAddress];
+            };
             [self.navigationController pushViewController:selectLocationMapVC animated:YES];
         } else {
-            valueAdd.serviceValue = @"北京市通州区西马庄小区";
+            SelectLocationMapController * selectLocationMapVC = [[SelectLocationMapController alloc]init];
+            selectLocationMapVC.city = self.transportOrder.endCity;
+            selectLocationMapVC.selectReturnBlock = ^(NSString * _Nonnull city, NSString * _Nonnull detailAddress, CLLocationCoordinate2D coordinate) {
+                valueAdd.serviceValue = [NSString stringWithFormat:@"%@%@",city,detailAddress];
+            };
+            [self.navigationController pushViewController:selectLocationMapVC animated:YES];
         }
         [self.tableView reloadData];
         return NO;

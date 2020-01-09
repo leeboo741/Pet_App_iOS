@@ -18,6 +18,7 @@
 #import "WithdrawalController.h"
 #import "BalanceFlowController.h"
 #import <MMScan/MMScanViewController.h>
+#import "MessageCenterController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -130,6 +131,8 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
 
 -(void)tapMessageButtonAtHeaderCell:(CenterHeaderCell *)cell{
     self.haveNewMessage = NO;
+    MessageCenterController * messageCenterController = [[MessageCenterController alloc]init];
+    [self.navigationController pushViewController:messageCenterController animated:YES];
 }
 -(void)tapBalanceAtHeaderCell:(CenterHeaderCell *)cell{
     BalanceFlowController * balanceFlowController = [[BalanceFlowController alloc]init];

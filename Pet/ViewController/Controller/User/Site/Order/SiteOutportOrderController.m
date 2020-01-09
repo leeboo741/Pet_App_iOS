@@ -10,6 +10,7 @@
 #import "OrderEntity.h"
 #import "SiteOutportOrderCell.h"
 #import "AssignmentsController.h"
+#import "OrderDetailController.h"
 
 static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
 
@@ -93,7 +94,11 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
             MSLog(@"打印");
             break;
         case OrderOperateButtonType_DetailOrder:
+        {
             MSLog(@"订单详情");
+            OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
+            [self presentViewController:orderDetailVC animated:YES completion:nil];
+        }
             break;
         case OrderOperateButtonType_Assignment:
         {

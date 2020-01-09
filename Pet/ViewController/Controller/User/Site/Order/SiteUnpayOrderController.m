@@ -9,6 +9,7 @@
 #import "SiteUnpayOrderController.h"
 #import "SiteUnpayOrderCell.h"
 #import "OrderEntity.h"
+#import "OrderDetailController.h"
 
 static NSString * SiteUnpayOrderCellIdentifier = @"SiteUnpayOrderCell";
 
@@ -89,7 +90,9 @@ static NSString * SiteUnpayOrderCellIdentifier = @"SiteUnpayOrderCell";
         [alertController addAction:cancelAction];
         [self presentViewController:alertController animated:YES completion:nil];
     } else if (type == OrderOperateButtonType_DetailOrder) {
-        MSLog(@"详情 : %ld", indexPath.row);
+        MSLog(@"订单详情 : %ld", indexPath.row);
+        OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
+        [self presentViewController:orderDetailVC animated:YES completion:nil];
     }
 }
 

@@ -159,20 +159,32 @@ static NSInteger MAX_BUTTON_COUNT = 4;
 #pragma mark - boxView | private method
 
 -(void)resetUI{
+    // 先将页面上的按钮移除
     for (OrderOperateButton * button in self.buttonArray) {
         [button removeFromSuperview];
     }
+    // 清空 按钮集合
     [self.buttonArray removeAllObjects];
+    // 清空 更多按钮数组
+    [self.moreArray removeAllObjects];
+    // 准备容器
     NSMutableArray * showButtonModelArray = [NSMutableArray array];
+    // 遍历传进来的按钮对象数组
     for (NSInteger index = 0; index < self.buttonModelArray.count; index ++) {
         OrderOperateButtonModel * model = self.buttonModelArray[index];
+        // 赋值 index
         model.index = index;
+        // 如果 按钮模型对象 show 为 yes, 为要展示的按钮 添加进容器中
         if (model.show) {
             [showButtonModelArray addObject:model];
         }
     }
+    // 遍历要展示按钮容器
     for (NSInteger index = 0; index < showButtonModelArray.count; index ++) {
         OrderOperateButtonModel * model = showButtonModelArray[index];
+        // 如果 要展示的 按钮 index 不大于最大按钮显示数量 直接展示按钮
+        // 如果 要展示的 按钮 index 等于最大按钮显示数量 并且 所有要显示按钮数量 不大于 最大按钮显示数量 展示按钮
+        // 除以上两种情况以外 按钮加进 更多按钮中 
         if (index < (MAX_BUTTON_COUNT - 1) ||
             (index == (MAX_BUTTON_COUNT - 1) && showButtonModelArray.count <= MAX_BUTTON_COUNT)) {
             OrderOperateButton * button = [[OrderOperateButton alloc]init];

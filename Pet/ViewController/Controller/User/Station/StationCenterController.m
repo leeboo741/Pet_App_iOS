@@ -12,6 +12,7 @@
 #import "BalanceFlowController.h"
 #import "WithdrawalController.h"
 #import "ApplyCenterController.h"
+#import "MessageCenterController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -123,6 +124,8 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
 
 -(void)tapMessageButtonAtHeaderCell:(CenterHeaderCell *)cell{
     self.haveNewMessage = NO;
+    MessageCenterController * messageCenterController = [[MessageCenterController alloc]init];
+    [self.navigationController pushViewController:messageCenterController animated:YES];
 }
 -(void)tapBalanceAtHeaderCell:(CenterHeaderCell *)cell{
     BalanceFlowController * balanceFlowController = [[BalanceFlowController alloc]init];
