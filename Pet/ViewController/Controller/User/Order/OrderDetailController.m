@@ -25,23 +25,25 @@
 #pragma mark -
 
 @interface OrderStepModel : NSObject
-@property (nonatomic, copy) NSString * orderStepName;
-@property (nonatomic, copy) NSString * orderStepTime;
-@property (nonatomic, strong) NSArray * orderStepMediaList;
+@property (nonatomic, copy) NSString * stepTitle;
+@property (nonatomic, copy) NSString * stepTime;
+@property (nonatomic, strong, nullable) NSArray * stepMediaList;
 @end
-
 @implementation OrderStepModel
 @end
 
 #pragma mark - OrderDetailController
 #pragma mark -
 
+#import "OrderInfoCell.h"
 #import "OrderPremiumCell.h"
 #import "OrderRemarkInputCell.h"
+#import "OrderStepCell.h"
 
-static NSString * TableViewCellIdentifier = @"UITableViewCell";
+static NSString * OrderInfoCellIdentifier = @"OrderInfoCell";
 static NSString * OrderPremiumCellIdentifier = @"OrderPremiumCell";
 static NSString * OrderRemarkInputCellIdentifier = @"OrderRemarkInputCell";
+static NSString * OrderStepCellIdentifier = @"OrderStepCell";
 
 @interface OrderDetailController ()
 @property (nonatomic, strong) NSArray<PremiumModel *> * premiumList;
@@ -57,9 +59,10 @@ static NSString * OrderRemarkInputCellIdentifier = @"OrderRemarkInputCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"订单详情";
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:TableViewCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:OrderInfoCellIdentifier bundle:nil] forCellReuseIdentifier:OrderInfoCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:OrderPremiumCellIdentifier bundle:nil] forCellReuseIdentifier:OrderPremiumCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:OrderRemarkInputCellIdentifier bundle:nil] forCellReuseIdentifier:OrderRemarkInputCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:OrderStepCellIdentifier bundle:nil] forCellReuseIdentifier:OrderStepCellIdentifier];
 }
 
 #pragma mark - tableView datasource and delegate
@@ -74,7 +77,7 @@ static NSString * OrderRemarkInputCellIdentifier = @"OrderRemarkInputCell";
     } else if (indexPath.section == 1 // 基础信息
                || indexPath.section == 2 // 增值服务
                || indexPath.section == 3) { // 收寄人信息
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:TableViewCellIdentifier forIndexPath:indexPath];
+        OrderInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:OrderInfoCellIdentifier forIndexPath:indexPath];
         [self configCell:cell atIndexPath:indexPath];
         return cell;
     } else if (indexPath.section == 4) {
@@ -84,12 +87,15 @@ static NSString * OrderRemarkInputCellIdentifier = @"OrderRemarkInputCell";
             [self configRemarkInputCell:cell atIndexPath:indexPath];
             return cell;
         } else {
-            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:TableViewCellIdentifier forIndexPath:indexPath];
+            OrderInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:OrderInfoCellIdentifier forIndexPath:indexPath];
             [self configRemarkCell:cell atIndexPath:indexPath];
             return cell;
         }
     } else if (indexPath.section == 5) {
         // 订单进度
+        OrderStepCell * cell = [tableView dequeueReusableCellWithIdentifier:OrderStepCellIdentifier forIndexPath:indexPath];
+        [self configStepCell:cell atIndexPath:indexPath];
+        return cell;
     }
     
     return nil;
@@ -107,7 +113,7 @@ static NSString * OrderRemarkInputCellIdentifier = @"OrderRemarkInputCell";
         case 2:
         case 3:
         {
-            return [tableView fd_heightForCellWithIdentifier:TableViewCellIdentifier configuration:^(id cell) {
+            return [tableView fd_heightForCellWithIdentifier:OrderInfoCellIdentifier configuration:^(id cell) {
                 [self configCell:cell atIndexPath:indexPath];
             }];
         }
@@ -118,13 +124,17 @@ static NSString * OrderRemarkInputCellIdentifier = @"OrderRemarkInputCell";
                     [self configRemarkInputCell:cell atIndexPath:indexPath];
                 }];
             } else {
-                return [tableView fd_heightForCellWithIdentifier:TableViewCellIdentifier configuration:^(id cell) {
+                return [tableView fd_heightForCellWithIdentifier:OrderInfoCellIdentifier configuration:^(id cell) {
                     [self configRemarkCell:cell atIndexPath:indexPath];
                 }];
             }
         }
         case 5:
-            return 0;
+        {
+            return [tableView fd_heightForCellWithIdentifier:OrderStepCellIdentifier configuration:^(id cell) {
+                [self configStepCell:cell atIndexPath:indexPath];
+            }];
+        }
         default:
             return 0;
     }
@@ -143,14 +153,10 @@ static NSString * OrderRemarkInputCellIdentifier = @"OrderRemarkInputCell";
         case 4:
             return self.remarkList.count + 1;
         case 5:
-            return 1;
+            return self.orderStepList.count;
         default:
             return 0;
     }
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    return nil;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -195,8 +201,10 @@ static NSString * OrderRemarkInputCellIdentifier = @"OrderRemarkInputCell";
 
 #pragma mark - config cell
 
--(void)configCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    
+-(void)configCell:(OrderInfoCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    cell.infoTitle = self.baseInfoList[indexPath.row];
+    cell.infoValue = [NSString stringWithFormat:@"%ld",indexPath.row];
+    cell.infoDetail = @"普通";
 }
 
 -(void)configPremiumCell:(OrderPremiumCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -207,8 +215,23 @@ static NSString * OrderRemarkInputCellIdentifier = @"OrderRemarkInputCell";
     
 }
 
--(void)configRemarkCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+-(void)configRemarkCell:(OrderInfoCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
+}
+
+-(void)configStepCell:(OrderStepCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    OrderStepModel * model = self.orderStepList[indexPath.row];
+    cell.stepTime = model.stepTime;
+    cell.stepTitle = model.stepTitle;
+    cell.mediaList = model.stepMediaList;
+    cell.stepIndex = indexPath.row + 1;
+    if (indexPath.row == 0) {
+        cell.type = StepItemType_Top;
+    } else if (indexPath.row == self.orderStepList.count - 1) {
+        cell.type = StepItemType_Bottom;
+    } else {
+        cell.type = StepItemType_Middle;
+    }
 }
 
 #pragma mark - setters and getters
@@ -249,7 +272,24 @@ static NSString * OrderRemarkInputCellIdentifier = @"OrderRemarkInputCell";
 
 -(NSArray *)orderStepList{
     if (!_orderStepList) {
-        _orderStepList = @[];
+        OrderStepModel * model = [[OrderStepModel alloc]init];
+        model.stepTitle = @"步骤1";
+        model.stepTime = @"2020-01-10 01:06:22";
+        model.stepMediaList = @[@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578245807510&di=70db1216e8c5a7dc9c1ea808a28a249e&imgtype=0&src=http%3A%2F%2Fbig5.wallcoo.com%2Fphotograph%2Fsummer_feeling%2Fimages%2F%255Bwallcoo.com%255D_summer_feeling_234217.jpg",@"https://media.w3.org/2010/05/sintel/trailer.mp4",@"https://buzhidao.ss.com/sda"];
+        OrderStepModel * model1 = [[OrderStepModel alloc]init];
+        model1.stepTitle = @"步骤2";
+        model1.stepTime = @"2020-01-10 01:06:22";
+        model1.stepMediaList = nil;
+        OrderStepModel * model2 = [[OrderStepModel alloc]init];
+        model2.stepTitle = @"步骤3";
+        model2.stepTime = @"2020-01-10 01:06:22";
+        model2.stepMediaList = @[@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578245807510&di=70db1216e8c5a7dc9c1ea808a28a249e&imgtype=0&src=http%3A%2F%2Fbig5.wallcoo.com%2Fphotograph%2Fsummer_feeling%2Fimages%2F%255Bwallcoo.com%255D_summer_feeling_234217.jpg",@"https://media.w3.org/2010/05/sintel/trailer.mp4",@"https://buzhidao.ss.com/sda",@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578245807510&di=70db1216e8c5a7dc9c1ea808a28a249e&imgtype=0&src=http%3A%2F%2Fbig5.wallcoo.com%2Fphotograph%2Fsummer_feeling%2Fimages%2F%255Bwallcoo.com%255D_summer_feeling_234217.jpg",@"https://media.w3.org/2010/05/sintel/trailer.mp4",@"https://buzhidao.ss.com/sda",@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578245807510&di=70db1216e8c5a7dc9c1ea808a28a249e&imgtype=0&src=http%3A%2F%2Fbig5.wallcoo.com%2Fphotograph%2Fsummer_feeling%2Fimages%2F%255Bwallcoo.com%255D_summer_feeling_234217.jpg",@"https://media.w3.org/2010/05/sintel/trailer.mp4",@"https://buzhidao.ss.com/sda"];
+        OrderStepModel * model3 = [[OrderStepModel alloc]init];
+        model3.stepTitle = @"步骤4";
+        model3.stepTime = @"2020-01-10 01:06:22";
+        model3.stepMediaList = @[@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578245807510&di=70db1216e8c5a7dc9c1ea808a28a249e&imgtype=0&src=http%3A%2F%2Fbig5.wallcoo.com%2Fphotograph%2Fsummer_feeling%2Fimages%2F%255Bwallcoo.com%255D_summer_feeling_234217.jpg",@"https://media.w3.org/2010/05/sintel/trailer.mp4",@"https://buzhidao.ss.com/sda"];
+        
+        _orderStepList = @[model,model1,model2,model3];
     }
     return _orderStepList;
 }

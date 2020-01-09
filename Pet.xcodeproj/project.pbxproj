@@ -169,6 +169,12 @@
 		9B6E4C3E23C232FF00922542 /* PreviewMediaImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C3D23C232FF00922542 /* PreviewMediaImageCell.m */; };
 		9B6E4C4123C2331700922542 /* PreviewMediaVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C4023C2331700922542 /* PreviewMediaVideoCell.m */; };
 		9B6E4C4423C237FC00922542 /* PreviewMediaUnknowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E4C4323C237FC00922542 /* PreviewMediaUnknowCell.m */; };
+		9B6F90C723C7842300B76FCF /* OrderStepItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6F90C623C7842300B76FCF /* OrderStepItem.m */; };
+		9B6F90C923C7845900B76FCF /* OrderStepItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B6F90C823C7845900B76FCF /* OrderStepItem.xib */; };
+		9B6F90CD23C791D100B76FCF /* OrderInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6F90CB23C791D100B76FCF /* OrderInfoCell.m */; };
+		9B6F90CE23C791D100B76FCF /* OrderInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B6F90CC23C791D100B76FCF /* OrderInfoCell.xib */; };
+		9B6F90D223C79A9600B76FCF /* OrderStepCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6F90D023C79A9600B76FCF /* OrderStepCell.m */; };
+		9B6F90D323C79A9600B76FCF /* OrderStepCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B6F90D123C79A9600B76FCF /* OrderStepCell.xib */; };
 		9B7DB55423C643420075E05C /* MarkAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7DB55323C643420075E05C /* MarkAnnotationView.m */; };
 		9B82322723B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B82322623B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.m */; };
 		9B82322B23B8FC6300B676C1 /* GlobalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */; };
@@ -492,6 +498,15 @@
 		9B6E4C4023C2331700922542 /* PreviewMediaVideoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewMediaVideoCell.m; sourceTree = "<group>"; };
 		9B6E4C4223C237FC00922542 /* PreviewMediaUnknowCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewMediaUnknowCell.h; sourceTree = "<group>"; };
 		9B6E4C4323C237FC00922542 /* PreviewMediaUnknowCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewMediaUnknowCell.m; sourceTree = "<group>"; };
+		9B6F90C523C7842300B76FCF /* OrderStepItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderStepItem.h; sourceTree = "<group>"; };
+		9B6F90C623C7842300B76FCF /* OrderStepItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderStepItem.m; sourceTree = "<group>"; };
+		9B6F90C823C7845900B76FCF /* OrderStepItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderStepItem.xib; sourceTree = "<group>"; };
+		9B6F90CA23C791D100B76FCF /* OrderInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderInfoCell.h; sourceTree = "<group>"; };
+		9B6F90CB23C791D100B76FCF /* OrderInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderInfoCell.m; sourceTree = "<group>"; };
+		9B6F90CC23C791D100B76FCF /* OrderInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderInfoCell.xib; sourceTree = "<group>"; };
+		9B6F90CF23C79A9600B76FCF /* OrderStepCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderStepCell.h; sourceTree = "<group>"; };
+		9B6F90D023C79A9600B76FCF /* OrderStepCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderStepCell.m; sourceTree = "<group>"; };
+		9B6F90D123C79A9600B76FCF /* OrderStepCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderStepCell.xib; sourceTree = "<group>"; };
 		9B7DB55223C643420075E05C /* MarkAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkAnnotationView.h; sourceTree = "<group>"; };
 		9B7DB55323C643420075E05C /* MarkAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkAnnotationView.m; sourceTree = "<group>"; };
 		9B82322523B8FC3C00B676C1 /* UITabBarController+ChangeViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+ChangeViewControllers.h"; sourceTree = "<group>"; };
@@ -1229,6 +1244,15 @@
 				04B623B323C7211900550BD8 /* OrderRemarkInputCell.h */,
 				04B623B423C7211900550BD8 /* OrderRemarkInputCell.m */,
 				04B623B523C7211900550BD8 /* OrderRemarkInputCell.xib */,
+				9B6F90CF23C79A9600B76FCF /* OrderStepCell.h */,
+				9B6F90D023C79A9600B76FCF /* OrderStepCell.m */,
+				9B6F90D123C79A9600B76FCF /* OrderStepCell.xib */,
+				9B6F90C523C7842300B76FCF /* OrderStepItem.h */,
+				9B6F90C623C7842300B76FCF /* OrderStepItem.m */,
+				9B6F90C823C7845900B76FCF /* OrderStepItem.xib */,
+				9B6F90CA23C791D100B76FCF /* OrderInfoCell.h */,
+				9B6F90CB23C791D100B76FCF /* OrderInfoCell.m */,
+				9B6F90CC23C791D100B76FCF /* OrderInfoCell.xib */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1571,15 +1595,18 @@
 				04333C2023C0455C00676FBD /* AssignmentsItemCell.xib in Resources */,
 				04ED184023B9E5DB002F2266 /* CenterHeaderCell.xib in Resources */,
 				04333C4D23C2D2B200676FBD /* ApplyTimeCountCell.xib in Resources */,
+				9B6F90C923C7845900B76FCF /* OrderStepItem.xib in Resources */,
 				04F49E982397A9FE008E1334 /* LaunchScreen.storyboard in Resources */,
 				0442D81123B589A4007ABE89 /* 1.mov in Resources */,
 				04333C3D23C0960200676FBD /* ApplyInputCell.xib in Resources */,
 				04B623B723C7211900550BD8 /* OrderRemarkInputCell.xib in Resources */,
+				9B6F90CE23C791D100B76FCF /* OrderInfoCell.xib in Resources */,
 				045B16C023C34AC600754CF9 /* ApprovalStaffCell.xib in Resources */,
 				04E7D23B23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.xib in Resources */,
 				048C9F3523B3086200730C70 /* TransportPayPersonnelCell.xib in Resources */,
 				04333C1023C029ED00676FBD /* SiteInportOrderCell.xib in Resources */,
 				0469F05223ADB1BB009B8E4F /* StationInfoItem.xib in Resources */,
+				9B6F90D323C79A9600B76FCF /* OrderStepCell.xib in Resources */,
 				048C9F4223B308DC00730C70 /* TransportPayPetConditionConfirmCell.xib in Resources */,
 				048C9F3D23B308A900730C70 /* TransportPayRemarkCell.xib in Resources */,
 				04E7D22E23B04AA1004EEAAB /* TransportTypeCell.xib in Resources */,
@@ -1739,6 +1766,7 @@
 				04EDDA3623B49A7A008F379D /* UIView+AddMJRefresh.m in Sources */,
 				042DA80D23BEE77C0027C39B /* SiteOutportOrderCell.m in Sources */,
 				04333C2F23C083E100676FBD /* ApplyCenterItem.m in Sources */,
+				9B6F90C723C7842300B76FCF /* OrderStepItem.m in Sources */,
 				042DA79B23BDD77F0027C39B /* OrderRemarkView.m in Sources */,
 				0469F05D23ADCD9C009B8E4F /* TransportOrderViewController.m in Sources */,
 				042EA94623A8C08E00F3D376 /* UIView+Frame.m in Sources */,
@@ -1814,12 +1842,14 @@
 				042DA77B23BB303E0027C39B /* CenterActionItem.m in Sources */,
 				04F49EBF2397B585008E1334 /* SwiftFile.swift in Sources */,
 				04ED181B23B74CBF002F2266 /* PreviewViewController.m in Sources */,
+				9B6F90CD23C791D100B76FCF /* OrderInfoCell.m in Sources */,
 				0436964023C439D200F51CCA /* BalanceFlowController.m in Sources */,
 				042EA9B123AA34C300F3D376 /* HomeView.m in Sources */,
 				042EA94823A8C08E00F3D376 /* UIColor+ColorWithHexString.m in Sources */,
 				04333C2323C066B100676FBD /* StaffEntity.m in Sources */,
 				042EA95223A8C35A00F3D376 /* InputAreaView.m in Sources */,
 				045B16BF23C34AC600754CF9 /* ApprovalStaffCell.m in Sources */,
+				9B6F90D223C79A9600B76FCF /* OrderStepCell.m in Sources */,
 				042EA9E623ACB57900F3D376 /* TBCityIconInfo.m in Sources */,
 				042DA77323BA09FF0027C39B /* DatabaseHandler.m in Sources */,
 				04333C1F23C0455C00676FBD /* AssignmentsItemCell.m in Sources */,
