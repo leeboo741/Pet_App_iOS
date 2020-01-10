@@ -92,7 +92,7 @@ static NSString * SiteUnpayOrderCellIdentifier = @"SiteUnpayOrderCell";
     } else if (type == OrderOperateButtonType_DetailOrder) {
         MSLog(@"订单详情 : %ld", indexPath.row);
         OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
-        [self presentViewController:orderDetailVC animated:YES completion:nil];
+        [self.navigationController pushViewController:orderDetailVC animated:YES];
     }
 }
 

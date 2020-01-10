@@ -17,6 +17,7 @@
 #import <MMScan/MMScanViewController.h>
 #import "MessageCenterController.h"
 #import "OrderDetailController.h"
+#import "OrderEvaluateController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -279,32 +280,38 @@ CustomerOrderCellDelegate>
         {
             MSLog(@"订单详情");
             OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
-            [self presentViewController:orderDetailVC animated:YES completion:nil];
+            [self.navigationController pushViewController:orderDetailVC animated:YES];
         }
             break;
         case OrderOperateButtonType_ConfirmReceive:
         {
             MSLog(@"确认收货");
+            [self showConfirmReceiverAtIndexPath:indexPath];
         }
             break;
         case OrderOperateButtonType_CancelOrder:
         {
             MSLog(@"取消订单");
+            [self showCancelOrderAtIndexPath:indexPath];
         }
             break;
         case OrderOperateButtonType_EditOrder:
         {
-            MSLog(@"修改订单")
+            MSLog(@"修改订单");
+            [self showOrderEditViewAtIndexPath:indexPath];
         }
             break;
         case OrderOperateButtonType_Evaluate:
         {
-            MSLog(@"评价订单")
+            MSLog(@"评价订单");
+            OrderEvaluateController * orderEvaluateController = [[OrderEvaluateController alloc]init];
+            [self.navigationController pushViewController:orderEvaluateController animated:YES];
         }
             break;
         case OrderOperateButtonType_Call:
         {
-            MSLog(@"拨打电话")
+            MSLog(@"拨打电话");
+            [self showOrderPhoneCallAtIndexPath:indexPath];
         }
             break;
             
@@ -314,6 +321,7 @@ CustomerOrderCellDelegate>
 }
 
 #pragma mark - setters and getters
+
 -(void)setBalance:(CGFloat)balance{
     _balance = balance;
     [self.tableView reloadData];
@@ -430,5 +438,136 @@ CustomerOrderCellDelegate>
     }
 }
 
+/**
+ *  修改订单弹窗
+ *  @param indexPath 订单所在行
+ */
+-(void)showOrderEditViewAtIndexPath:(NSIndexPath *)indexPath{
+    OrderEntity * editOrderEntity = nil;
+    switch (self.selectOrderType) {
+        case CustomerSelectOrderType_unpay:
+            editOrderEntity = self.unpayOrderList[indexPath.row];
+            break;
+        case CustomerSelectOrderType_unsend:
+            editOrderEntity = self.unsendOrderList[indexPath.row];
+            break;
+        case CustomerSelectOrderType_unreceiver:
+            editOrderEntity = self.unreceiverOrderList[indexPath.row];
+            break;
+        case CustomerSelectOrderType_complete:
+        {
+            [MBProgressHUD showErrorMessage:@"已完成订单不能修改"];
+        }
+            return;
+        default:
+        {
+            [MBProgressHUD showErrorMessage:@"未知订单类型"];
+        }
+            return;
+    }
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"修改订单" message:@"修改订单信息" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入寄宠人姓名";
+        textField.text = editOrderEntity.senderName;
+    }];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入寄宠人手机";
+        textField.text = editOrderEntity.senderPhone;
+    }];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入收宠人姓名";
+        textField.text = editOrderEntity.receiverName;
+    }];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"请输入收宠人手机";
+        textField.text = editOrderEntity.receiverPhone;
+    }];
+    
+    UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField * senderNameTF = alertController.textFields[0];
+        UITextField * senderPhoneTF = alertController.textFields[1];
+        UITextField * receiverNameTF = alertController.textFields[2];
+        UITextField * receiverPhoneTF = alertController.textFields[3];
+        if (kStringIsEmpty(senderNameTF.text)
+            || kStringIsEmpty(senderPhoneTF.text)
+            || kStringIsEmpty(receiverNameTF.text)
+            || kStringIsEmpty(receiverPhoneTF.text)) {
+            [MBProgressHUD showErrorMessage:@"收寄人信息不能为空"];
+            return;
+        }
+        MSLog(@"%@ , %@ || %@ , %@",senderNameTF.text, senderPhoneTF.text, receiverNameTF.text, receiverPhoneTF.text);
+    }];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:confirmAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+/**
+ *  确认订单收货
+ *  @param indexPath 订单所在行
+ */
+-(void)showConfirmReceiverAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.selectOrderType != CustomerSelectOrderType_unreceiver) {
+        [MBProgressHUD showErrorMessage:@"不能签收该订单"];
+        return;
+    }
+    OrderEntity * tempOrderEntity = self.unreceiverOrderList[indexPath.row];
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"确认收货" message:[NSString stringWithFormat:@"是否确认签收订单:%@",tempOrderEntity.orderNo] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        MSLog(@"确认签收");
+    }];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:confirmAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+/**
+ *  取消订单
+ *  @param indexPath 订单所在行
+ */
+-(void)showCancelOrderAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.selectOrderType != CustomerSelectOrderType_unpay) {
+        [MBProgressHUD showErrorMessage:@"不能取消该订单"];
+        return;
+    }
+    OrderEntity * tempOrderEntity = self.unpayOrderList[indexPath.row];
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"确认取消" message:[NSString stringWithFormat:@"是否确认取消订单:%@",tempOrderEntity.orderNo] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        MSLog(@"确认取消");
+    }];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:confirmAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+/**
+ *  拨打订单电话
+ *  @param indexPath 订单所在行
+ */
+-(void)showOrderPhoneCallAtIndexPath:(NSIndexPath * )indexPath{
+    OrderEntity * orderEntity = nil;
+    switch (self.selectOrderType) {
+        case CustomerSelectOrderType_unpay:
+            orderEntity = self.unpayOrderList[indexPath.row];
+            break;
+        case CustomerSelectOrderType_unsend:
+            orderEntity = self.unsendOrderList[indexPath.row];
+            break;
+        case CustomerSelectOrderType_unreceiver:
+            orderEntity = self.unreceiverOrderList[indexPath.row];
+        case CustomerSelectOrderType_complete:
+            orderEntity = self.completeOrderList[indexPath.row];
+            break;
+        default:
+        {
+            [MBProgressHUD showErrorMessage:@"未知订单类型"];
+        }
+            return;
+    }
+    Util_MakePhoneCall(@"10086");
+}
 
 @end

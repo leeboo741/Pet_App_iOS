@@ -9,7 +9,7 @@
 #import "OrderStepItem.h"
 #import "MediaShowBox.h"
 
-@interface OrderStepItem ()
+@interface OrderStepItem ()<MediaShowBoxDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *topLine;
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bottomLine;
@@ -57,6 +57,12 @@
     self.countLabel.backgroundColor = Color_white_1;
     self.topLine.backgroundColor = Color_blue_1;
     self.bottomLine.backgroundColor = Color_blue_1;
+    self.stepMediaShowBox.dataSource = self;
+}
+
+#pragma mark - media show box datasource
+-(NSInteger)itemColumnCountForMediaShowBox:(MediaShowBox *)showBox{
+    return 3;
 }
 
 

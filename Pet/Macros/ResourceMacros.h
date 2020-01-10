@@ -17,6 +17,7 @@
 #define IconFont_Add            @"\U0000E609" // 新增
 #define IconFont_Phone          @"\U0000E60A" // 电话
 #define IconFont_Scan           @"\U0000E60B" // 扫描
+#define IconFont_Star           @"\U0000E60C" // 星星
 #define IconFont_AirPlane       @"\U0000E60D" // 飞机
 #define IconFont_Station        @"\U0000E60F" // 驿站
 #define IconFont_Unselected     @"\U0000E610" // 未选中

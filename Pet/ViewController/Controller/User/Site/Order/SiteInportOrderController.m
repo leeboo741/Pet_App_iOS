@@ -100,7 +100,7 @@ static NSString * SiteInportOrderCellIdentifier = @"SiteInportOrderCell";
         {
             MSLog(@"订单详情");
             OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
-            [self presentViewController:orderDetailVC animated:YES completion:nil];
+            [self.navigationController pushViewController:orderDetailVC animated:YES];
         }
             break;
         case OrderOperateButtonType_Print:

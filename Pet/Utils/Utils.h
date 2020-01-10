@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define Util_GetCurrentVC [Utils getCurrentViewController];
 
+#define Util_MakePhoneCall(PhoneNumber) [Utils makePhoneCallWithPhoneNumber:PhoneNumber];
+
 @interface Utils : NSObject
 
 /**
@@ -66,6 +68,13 @@ NS_ASSUME_NONNULL_BEGIN
  @return viewController
  */
 +(UIViewController *)getCurrentViewController;
+
+/**
+ 拨打电话
+ 
+ @param phoneNumber 电话号码
+ */
++(void)makePhoneCallWithPhoneNumber:(NSString *)phoneNumber;
 
 @end
 

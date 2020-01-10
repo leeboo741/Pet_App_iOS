@@ -47,4 +47,12 @@
     }
     return topViewController;
 }
++(void)makePhoneCallWithPhoneNumber:(NSString *)phoneNumber{
+    UIWebView * callWebview = [[UIWebView alloc] init];
+    
+    NSString * phoneStr = [NSString stringWithFormat:@"tel:%@",phoneNumber];
+    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:phoneStr]]];
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
+}
 @end

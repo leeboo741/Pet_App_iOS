@@ -42,14 +42,15 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     [self.logoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(160);
-        make.top.equalTo(self).offset(160);
+        make.width.equalTo(self).multipliedBy(0.3);
+        make.height.equalTo(self.logoImageView.mas_width);
+        make.centerY.equalTo(self).multipliedBy(0.4);
         make.centerX.equalTo(self);
     }];
     
     [self.accoutInputView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(self.mas_centerY);
+        make.bottom.equalTo(self.mas_centerY);
         make.left.equalTo(self).offset(50);
         make.right.equalTo(self).offset(-50);
         make.height.mas_equalTo(50);
@@ -57,18 +58,18 @@
     
     [self.passwordInputView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.height.centerX.equalTo(self.accoutInputView);
-        make.top.equalTo(self.accoutInputView.mas_bottom).offset(30);
+        make.top.equalTo(self.accoutInputView.mas_bottom).offset(20);
     }];
     
     [self.loginButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.centerX.equalTo(self.passwordInputView);
-        make.height.mas_equalTo(60);
-        make.top.equalTo(self.passwordInputView.mas_bottom).offset(30);
+        make.height.mas_equalTo(50);
+        make.top.equalTo(self.passwordInputView.mas_bottom).offset(20);
     }];
     
     [self.forgetPasswordButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.loginButton);
-        make.top.equalTo(self.loginButton.mas_bottom).offset(30);
+        make.top.equalTo(self.loginButton.mas_bottom).offset(20);
     }];
     
     [self.registerButton mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -77,7 +78,7 @@
     }];
     
     [self.pravicyButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_bottom).offset(-60);
+        make.bottom.equalTo(self.mas_bottom).offset(-40);
         make.width.centerX.equalTo(self.loginButton);
         make.height.mas_equalTo(40);
     }];

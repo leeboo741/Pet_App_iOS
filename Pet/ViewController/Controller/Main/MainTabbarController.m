@@ -67,9 +67,16 @@ SingleImplementation(MainTabbarController)
 
 -(void)setTabbarItemInfoWithViewController:(UIViewController *)viewController title:(NSString *)title iconFontName:(NSString *)iconFontName{
     viewController.title = title;
+    
+    UIImage * normalImage = [UIImage iconWithInfo:TBCityIconInfoMake(iconFontName, 40, Color_gray_1)];
+    viewController.tabBarItem.image = normalImage;
+    UIImage * selectedImage = [UIImage iconWithInfo:TBCityIconInfoMake(iconFontName, 40, Color_yellow_1)];
+    selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    viewController.tabBarItem.selectedImage = selectedImage;
+    
     viewController.tabBarItem.title = title;
-    viewController.tabBarItem.image = [UIImage iconWithInfo:TBCityIconInfoMake(iconFontName, 40, Color_gray_2)];
-    viewController.tabBarItem.selectedImage = [UIImage iconWithInfo:TBCityIconInfoMake(iconFontName, 40, Color_blue_1)];
+    NSDictionary *tabbarSelectTitleAtrribute = [NSDictionary dictionaryWithObject:Color_yellow_1 forKey:NSForegroundColorAttributeName];
+    [viewController.tabBarItem setTitleTextAttributes:tabbarSelectTitleAtrribute forState:UIControlStateSelected];
 }
 
 -(BaseNavigationController *)getNaviControllerWithViewController:(UIViewController*)viewController{
