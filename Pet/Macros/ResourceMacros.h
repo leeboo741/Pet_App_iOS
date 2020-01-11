@@ -81,7 +81,11 @@
 
 #pragma mark - Url Resource Macros
 
-
+#ifdef DEBUG
+#define HTTP_BASE_URL           @"http://192.168.3.111:6060"
+#else
+#define HTTP_BASE_URL           @"https://www.taochonghui.com"
+#endif
 
 
 #endif /* ResourceMacros_h */

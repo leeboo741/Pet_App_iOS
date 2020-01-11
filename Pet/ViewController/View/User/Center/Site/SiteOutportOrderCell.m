@@ -96,11 +96,13 @@
 
 -(void)initButtonArray{
     [self.operateButtonModelArray removeAllObjects];
-    [self insertButtonModelWithTitle:@"上传" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Upload show:!kArrayIsEmpty(self.selectImageDataList)];
-    [self insertButtonModelWithTitle:@"揽件" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Package show:NO];
-    [self insertButtonModelWithTitle:@"出港" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_OutInPort show:NO];
+//    [self insertButtonModelWithTitle:@"上传" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Upload show:!kArrayIsEmpty(self.selectImageDataList)];
+    [self insertButtonModelWithTitle:@"上传" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Upload show:YES];
+    [self insertButtonModelWithTitle:@"揽件" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Package show:YES];
+    [self insertButtonModelWithTitle:@"出港" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_OutInPort show:YES];
     [self insertButtonModelWithTitle:@"备注" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Remark show:YES];
-    [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:[[UserManager shareUserManager] getUserRole] == USER_ROLE_MANAGER];
+//    [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:[[UserManager shareUserManager] getUserRole] == USER_ROLE_MANAGER];
+    [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:YES];
     [self insertButtonModelWithTitle:@"补价" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_AddPrice show:YES];
     [self insertButtonModelWithTitle:@"退款" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Refund show:YES];
     [self insertButtonModelWithTitle:@"订单详情" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_DetailOrder show:YES];

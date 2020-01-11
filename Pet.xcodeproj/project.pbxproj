@@ -60,6 +60,9 @@
 		043124A223C84D0A00E00034 /* OrderEvaluateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124A123C84D0A00E00034 /* OrderEvaluateController.m */; };
 		043124A623C86DE700E00034 /* BottomButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124A423C86DE600E00034 /* BottomButtonCell.m */; };
 		043124A723C86DE700E00034 /* BottomButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043124A523C86DE600E00034 /* BottomButtonCell.xib */; };
+		043124AC23C96B2D00E00034 /* HttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124AB23C96B2D00E00034 /* HttpManager.m */; };
+		043124B223C96BBC00E00034 /* HttpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124B123C96BBC00E00034 /* HttpModel.m */; };
+		043124B523C9A1E800E00034 /* HttpResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124B423C9A1E800E00034 /* HttpResponseHandler.m */; };
 		04333C0F23C029ED00676FBD /* SiteInportOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C0D23C029ED00676FBD /* SiteInportOrderCell.m */; };
 		04333C1023C029ED00676FBD /* SiteInportOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04333C0E23C029ED00676FBD /* SiteInportOrderCell.xib */; };
 		04333C1323C0330600676FBD /* MapTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C1223C0330600676FBD /* MapTool.m */; };
@@ -313,6 +316,12 @@
 		043124A323C86DE600E00034 /* BottomButtonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomButtonCell.h; sourceTree = "<group>"; };
 		043124A423C86DE600E00034 /* BottomButtonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomButtonCell.m; sourceTree = "<group>"; };
 		043124A523C86DE600E00034 /* BottomButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomButtonCell.xib; sourceTree = "<group>"; };
+		043124AA23C96B2D00E00034 /* HttpManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpManager.h; sourceTree = "<group>"; };
+		043124AB23C96B2D00E00034 /* HttpManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HttpManager.m; sourceTree = "<group>"; };
+		043124B023C96BBC00E00034 /* HttpModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpModel.h; sourceTree = "<group>"; };
+		043124B123C96BBC00E00034 /* HttpModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HttpModel.m; sourceTree = "<group>"; };
+		043124B323C9A1E800E00034 /* HttpResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpResponseHandler.h; sourceTree = "<group>"; };
+		043124B423C9A1E800E00034 /* HttpResponseHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HttpResponseHandler.m; sourceTree = "<group>"; };
 		04333C0C23C029ED00676FBD /* SiteInportOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteInportOrderCell.h; sourceTree = "<group>"; };
 		04333C0D23C029ED00676FBD /* SiteInportOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteInportOrderCell.m; sourceTree = "<group>"; };
 		04333C0E23C029ED00676FBD /* SiteInportOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SiteInportOrderCell.xib; sourceTree = "<group>"; };
@@ -940,6 +949,32 @@
 			path = IconFont;
 			sourceTree = "<group>";
 		};
+		043124A823C9644300E00034 /* Http */ = {
+			isa = PBXGroup;
+			children = (
+				043124AA23C96B2D00E00034 /* HttpManager.h */,
+				043124AB23C96B2D00E00034 /* HttpManager.m */,
+				043124B323C9A1E800E00034 /* HttpResponseHandler.h */,
+				043124B423C9A1E800E00034 /* HttpResponseHandler.m */,
+				043124B023C96BBC00E00034 /* HttpModel.h */,
+				043124B123C96BBC00E00034 /* HttpModel.m */,
+			);
+			path = Http;
+			sourceTree = "<group>";
+		};
+		043124A923C9645200E00034 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9B82322923B8FC6300B676C1 /* GlobalDataManager.h */,
+				9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */,
+				04ED182023B98375002F2266 /* UserManager.h */,
+				04ED182123B98375002F2266 /* UserManager.m */,
+				04380A2923C5CFEA0011BB9E /* LocationManager.h */,
+				04380A2A23C5CFEA0011BB9E /* LocationManager.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		04333C2523C0833700676FBD /* Apply */ = {
 			isa = PBXGroup;
 			children = (
@@ -1514,12 +1549,8 @@
 		9B82322823B8FC5500B676C1 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				9B82322923B8FC6300B676C1 /* GlobalDataManager.h */,
-				9B82322A23B8FC6300B676C1 /* GlobalDataManager.m */,
-				04ED182023B98375002F2266 /* UserManager.h */,
-				04ED182123B98375002F2266 /* UserManager.m */,
-				04380A2923C5CFEA0011BB9E /* LocationManager.h */,
-				04380A2A23C5CFEA0011BB9E /* LocationManager.m */,
+				043124A923C9645200E00034 /* Manager */,
+				043124A823C9644300E00034 /* Http */,
 				042DA76A23BA024C0027C39B /* Database */,
 				042DA76923BA023D0027C39B /* Entity */,
 			);
@@ -1821,6 +1852,7 @@
 				04380A2823C58A5E0011BB9E /* SelectLocationMapController.m in Sources */,
 				04ED183F23B9E5DB002F2266 /* CenterHeaderCell.m in Sources */,
 				042EA9A123AA330E00F3D376 /* StationDetailViewController.m in Sources */,
+				043124B223C96BBC00E00034 /* HttpModel.m in Sources */,
 				04EDDA3623B49A7A008F379D /* UIView+AddMJRefresh.m in Sources */,
 				042DA80D23BEE77C0027C39B /* SiteOutportOrderCell.m in Sources */,
 				04333C2F23C083E100676FBD /* ApplyCenterItem.m in Sources */,
@@ -1831,6 +1863,7 @@
 				048C9F4623B308FC00730C70 /* TransportPayContractConfirmCell.m in Sources */,
 				0436963923C4395A00F51CCA /* WithdrawalController.m in Sources */,
 				042DA78F23BDD59E0027C39B /* SiteInportOrderController.m in Sources */,
+				043124B523C9A1E800E00034 /* HttpResponseHandler.m in Sources */,
 				04EDDA3323B498B9008F379D /* UIViewController+AddMJRefresh.m in Sources */,
 				0431249D23C82FAD00E00034 /* StarSelectItem.m in Sources */,
 				9B6E4C3023C21BCB00922542 /* PreviewMediaController.m in Sources */,
@@ -1869,6 +1902,7 @@
 				04333C2C23C083C900676FBD /* ApplyCenterView.m in Sources */,
 				042DA79223BDD5BA0027C39B /* SiteAllOrderController.m in Sources */,
 				04ED183A23B9CD26002F2266 /* SiteCenterController.m in Sources */,
+				043124AC23C96B2D00E00034 /* HttpManager.m in Sources */,
 				0436964623C43A0400F51CCA /* RechargeFlowController.m in Sources */,
 				9B6E4C2723C21B4300922542 /* MediaShowItemModel.m in Sources */,
 				9B6E4C4423C237FC00922542 /* PreviewMediaUnknowCell.m in Sources */,
@@ -2046,7 +2080,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2099,7 +2133,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

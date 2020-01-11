@@ -90,12 +90,14 @@
 
 -(void)initButtonArray{
     [self.operateButtonModelArray removeAllObjects];
-    [self insertButtonModelWithTitle:@"上传" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Upload show:!kArrayIsEmpty(self.selectImageDataList)];
-    [self insertButtonModelWithTitle:@"到达" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Arrived show:NO];
-    [self insertButtonModelWithTitle:@"签收" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_SignIn show:NO];
-    [self insertButtonModelWithTitle:@"临派" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_TempDeliver show:NO];
+//    [self insertButtonModelWithTitle:@"上传" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Upload show:!kArrayIsEmpty(self.selectImageDataList)];
+    [self insertButtonModelWithTitle:@"上传" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Upload show:YES];
+    [self insertButtonModelWithTitle:@"到达" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Arrived show:YES];
+    [self insertButtonModelWithTitle:@"签收" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_SignIn show:YES];
+    [self insertButtonModelWithTitle:@"临派" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_TempDeliver show:YES];
     [self insertButtonModelWithTitle:@"备注" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Remark show:YES];
-    [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:[[UserManager shareUserManager] getUserRole] == USER_ROLE_MANAGER];
+//    [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:[[UserManager shareUserManager] getUserRole] == USER_ROLE_MANAGER];
+    [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:YES];
     [self insertButtonModelWithTitle:@"补价" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_AddPrice show:YES];
     [self insertButtonModelWithTitle:@"订单详情" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_DetailOrder show:YES];
     [self insertButtonModelWithTitle:@"打印标签" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Print show:YES];
