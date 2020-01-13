@@ -16,6 +16,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - Aspects (1.4.1)
+  - CGXPickerView (2.0.9)
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
@@ -60,6 +61,7 @@ DEPENDENCIES:
   - ActionSheetPicker-3.0
   - AFNetworking (~> 3.1.0)
   - Aspects (~> 1.4.1)
+  - CGXPickerView (~> 2.0.9)
   - Charts
   - CTAssetsPickerController (~> 3.3.2-alpha)
   - FDFullscreenPopGesture (~> 1.1)
@@ -86,6 +88,7 @@ SPEC REPOS:
     - ActionSheetPicker-3.0
     - AFNetworking
     - Aspects
+    - CGXPickerView
     - Charts
     - CTAssetsPickerController
     - FDFullscreenPopGesture
@@ -116,6 +119,7 @@ SPEC CHECKSUMS:
   ActionSheetPicker-3.0: eef157d75e151f255c5333d26656c7fbfe905a51
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
+  CGXPickerView: d2ff1323a8c87b8d92a5a5e2fe969aa9a7373c2c
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   CTAssetsPickerController: ef06977de8e0b6d6ff11a324d357a12335a61243
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
@@ -142,6 +146,6 @@ SPEC CHECKSUMS:
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 565d92676d9ad143d97005627ccd39449fdaf370
+PODFILE CHECKSUM: 87b9b745571742bc9bd2877331bed2875871ea86
 
 COCOAPODS: 1.5.3

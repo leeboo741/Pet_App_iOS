@@ -49,6 +49,7 @@ static NSString * HEADER_VALUE_APPLICATION_JSON = @"application/json";
 @property (nonatomic, copy) ProgressBlock progressBlock;
 @property (nonatomic, copy) HttpRequestSuccessBlock successBlock;
 @property (nonatomic, copy) HttpRequestFailBlock failBlock;
+-(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url paramers:(id _Nullable)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock;
 @end
 
 #pragma mark - HttpResponseModel

@@ -63,6 +63,11 @@
 		043124AC23C96B2D00E00034 /* HttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124AB23C96B2D00E00034 /* HttpManager.m */; };
 		043124B223C96BBC00E00034 /* HttpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124B123C96BBC00E00034 /* HttpModel.m */; };
 		043124B523C9A1E800E00034 /* HttpResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124B423C9A1E800E00034 /* HttpResponseHandler.m */; };
+		043124B823CC008600E00034 /* StationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124B723CC008600E00034 /* StationManager.m */; };
+		043124BB23CC4ACF00E00034 /* AlertControllerTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124BA23CC4ACF00E00034 /* AlertControllerTools.m */; };
+		043124BE23CC590200E00034 /* DateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124BD23CC590200E00034 /* DateUtils.m */; };
+		043124C123CC686A00E00034 /* OrderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124C023CC686A00E00034 /* OrderManager.m */; };
+		043124C423CC76DD00E00034 /* TransportCitySelectedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124C323CC76DD00E00034 /* TransportCitySelectedController.m */; };
 		04333C0F23C029ED00676FBD /* SiteInportOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C0D23C029ED00676FBD /* SiteInportOrderCell.m */; };
 		04333C1023C029ED00676FBD /* SiteInportOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04333C0E23C029ED00676FBD /* SiteInportOrderCell.xib */; };
 		04333C1323C0330600676FBD /* MapTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04333C1223C0330600676FBD /* MapTool.m */; };
@@ -322,6 +327,16 @@
 		043124B123C96BBC00E00034 /* HttpModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HttpModel.m; sourceTree = "<group>"; };
 		043124B323C9A1E800E00034 /* HttpResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpResponseHandler.h; sourceTree = "<group>"; };
 		043124B423C9A1E800E00034 /* HttpResponseHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HttpResponseHandler.m; sourceTree = "<group>"; };
+		043124B623CC008600E00034 /* StationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StationManager.h; sourceTree = "<group>"; };
+		043124B723CC008600E00034 /* StationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StationManager.m; sourceTree = "<group>"; };
+		043124B923CC4ACF00E00034 /* AlertControllerTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertControllerTools.h; sourceTree = "<group>"; };
+		043124BA23CC4ACF00E00034 /* AlertControllerTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertControllerTools.m; sourceTree = "<group>"; };
+		043124BC23CC590200E00034 /* DateUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateUtils.h; sourceTree = "<group>"; };
+		043124BD23CC590200E00034 /* DateUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateUtils.m; sourceTree = "<group>"; };
+		043124BF23CC686A00E00034 /* OrderManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderManager.h; sourceTree = "<group>"; };
+		043124C023CC686A00E00034 /* OrderManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderManager.m; sourceTree = "<group>"; };
+		043124C223CC76DD00E00034 /* TransportCitySelectedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportCitySelectedController.h; sourceTree = "<group>"; };
+		043124C323CC76DD00E00034 /* TransportCitySelectedController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportCitySelectedController.m; sourceTree = "<group>"; };
 		04333C0C23C029ED00676FBD /* SiteInportOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiteInportOrderCell.h; sourceTree = "<group>"; };
 		04333C0D23C029ED00676FBD /* SiteInportOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiteInportOrderCell.m; sourceTree = "<group>"; };
 		04333C0E23C029ED00676FBD /* SiteInportOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SiteInportOrderCell.xib; sourceTree = "<group>"; };
@@ -744,6 +759,10 @@
 				04333C1223C0330600676FBD /* MapTool.m */,
 				04E7D22723AE236A004EEAAB /* Utils.h */,
 				04E7D22823AE236A004EEAAB /* Utils.m */,
+				043124B923CC4ACF00E00034 /* AlertControllerTools.h */,
+				043124BA23CC4ACF00E00034 /* AlertControllerTools.m */,
+				043124BC23CC590200E00034 /* DateUtils.h */,
+				043124BD23CC590200E00034 /* DateUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -971,6 +990,10 @@
 				04ED182123B98375002F2266 /* UserManager.m */,
 				04380A2923C5CFEA0011BB9E /* LocationManager.h */,
 				04380A2A23C5CFEA0011BB9E /* LocationManager.m */,
+				043124B623CC008600E00034 /* StationManager.h */,
+				043124B723CC008600E00034 /* StationManager.m */,
+				043124BF23CC686A00E00034 /* OrderManager.h */,
+				043124C023CC686A00E00034 /* OrderManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1235,6 +1258,8 @@
 				0469F05823ADBF21009B8E4F /* TransportPayViewController.m */,
 				0469F05B23ADCD9C009B8E4F /* TransportOrderViewController.h */,
 				0469F05C23ADCD9C009B8E4F /* TransportOrderViewController.m */,
+				043124C223CC76DD00E00034 /* TransportCitySelectedController.h */,
+				043124C323CC76DD00E00034 /* TransportCitySelectedController.m */,
 			);
 			path = Transport;
 			sourceTree = "<group>";
@@ -1771,6 +1796,7 @@
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/Aspects/Aspects.framework",
+				"${BUILT_PRODUCTS_DIR}/CGXPickerView/CGXPickerView.framework",
 				"${BUILT_PRODUCTS_DIR}/CTAssetsPickerController/CTAssetsPickerController.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
@@ -1804,6 +1830,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActionSheetPicker_3_0.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Aspects.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CGXPickerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CTAssetsPickerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
@@ -1854,6 +1881,7 @@
 				042EA9A123AA330E00F3D376 /* StationDetailViewController.m in Sources */,
 				043124B223C96BBC00E00034 /* HttpModel.m in Sources */,
 				04EDDA3623B49A7A008F379D /* UIView+AddMJRefresh.m in Sources */,
+				043124C123CC686A00E00034 /* OrderManager.m in Sources */,
 				042DA80D23BEE77C0027C39B /* SiteOutportOrderCell.m in Sources */,
 				04333C2F23C083E100676FBD /* ApplyCenterItem.m in Sources */,
 				9B6F90C723C7842300B76FCF /* OrderStepItem.m in Sources */,
@@ -1898,8 +1926,10 @@
 				048C9F2E23B1ED8600730C70 /* TransportOrderFooterView.m in Sources */,
 				04ED182C23B999FB002F2266 /* UITabBarController+Pet.m in Sources */,
 				042EA94C23A8C23500F3D376 /* LoginView.m in Sources */,
+				043124BB23CC4ACF00E00034 /* AlertControllerTools.m in Sources */,
 				04B623B623C7211900550BD8 /* OrderRemarkInputCell.m in Sources */,
 				04333C2C23C083C900676FBD /* ApplyCenterView.m in Sources */,
+				043124B823CC008600E00034 /* StationManager.m in Sources */,
 				042DA79223BDD5BA0027C39B /* SiteAllOrderController.m in Sources */,
 				04ED183A23B9CD26002F2266 /* SiteCenterController.m in Sources */,
 				043124AC23C96B2D00E00034 /* HttpManager.m in Sources */,
@@ -1949,6 +1979,7 @@
 				04333C1F23C0455C00676FBD /* AssignmentsItemCell.m in Sources */,
 				042EA95623A9BE0800F3D376 /* PrivacyPolicyView.m in Sources */,
 				042EA9EA23ACC9BC00F3D376 /* FakeStationListData.m in Sources */,
+				043124BE23CC590200E00034 /* DateUtils.m in Sources */,
 				04C52B0323B5B9D200024FE0 /* MediaSelectItemModel.m in Sources */,
 				04380A1423C570A50011BB9E /* BaseNavigationController.m in Sources */,
 				042EA9DD23ACA08B00F3D376 /* StationInfoItem.m in Sources */,
@@ -1975,6 +2006,7 @@
 				045B16B623C349EA00754CF9 /* ApprovalCenterController.m in Sources */,
 				048C9F3C23B308A900730C70 /* TransportPayRemarkCell.m in Sources */,
 				9B8EC50723BCFBB800FFFDE8 /* OrderBaseInfoView.m in Sources */,
+				043124C423CC76DD00E00034 /* TransportCitySelectedController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

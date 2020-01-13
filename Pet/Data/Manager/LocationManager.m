@@ -79,6 +79,11 @@ SingleImplementation(LocationManager);
     }];
 }
 
+// 获取当前定位
+-(CLLocation *)getLocation{
+    return self.currentLocation;
+}
+
 // 请求定位 并监听位置改变通知
 -(void)requestLocationWithLocationChangeObserver:(id)observer selector:(SEL)selector{
     [self addCurrentLocationChangeNotificationObserver:observer selector:selector];

@@ -1,0 +1,6 @@
+framework module CGXPickerView {
+  umbrella header "CGXPickerView-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -82,10 +82,17 @@
 #pragma mark - Url Resource Macros
 
 #ifdef DEBUG
-#define HTTP_BASE_URL           @"http://192.168.3.111:6060"
+#define URL_BASE                @"http://192.168.3.111:6060"
+//#define URL_BASE                @"https://www.taochonghui.com"
 #else
-#define HTTP_BASE_URL           @"https://www.taochonghui.com"
+#define URL_BASE                @"https://www.taochonghui.com"
 #endif
+
+#define URL_Pet_Type            @"/api/petType" // 宠物类型
+#define URL_StartCity           @"/api/transport/listStartCity" // 始发城市列表
+#define URL_EndCity             @"/api/transport/listEndCity" // 终点城市列表
+
+#define URL_Staion_List         @"/api/business/listByPosition" // 获取周边商家
 
 
 #endif /* ResourceMacros_h */

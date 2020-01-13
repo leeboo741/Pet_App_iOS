@@ -15,6 +15,10 @@
 #import "TransportOrderValueAddCell.h"
 #import "TransportPayViewController.h"
 #import "SelectLocationMapController.h"
+#import "AlertControllerTools.h"
+#import "CGXPickerView.h"
+#import "DateUtils.h"
+#import "OrderManager.h"
 
 #pragma mark - Transport Type View Model
 #pragma mark -
@@ -99,6 +103,9 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 @property (nonatomic, strong) NSArray<id<TransportTypeProtocol>>* transportTypeArray;
 @property (nonatomic, strong) NSArray<id<TransportValueAddProtocol>>* transportValueAddArray;
 
+@property (nonatomic, strong) NSArray * petAgeValues;
+@property (nonatomic, strong) NSArray * petTypes;
+
 @property (nonatomic, strong) TransportOrderFooterView * footerView;
 @property (nonatomic, assign) CGFloat footerY;
 @end
@@ -117,6 +124,11 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self footerView];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self getPetTypesData];
 }
 
 -(void)viewDidLayoutSubviews{
@@ -198,21 +210,14 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     UIView * sectionFooter = [[UIView alloc]init];
     return sectionFooter;
 }
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)];
-    view.backgroundColor = Color_gray_1;
-    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, tableView.frame.size.width - 20, 30)];
-    [view addSubview:label];
-    label.backgroundColor = Color_gray_1;
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        label.text = @"基础信息";
+        return @"基础信息";
     } else if (section == 1) {
-        label.text = @"运输方式";
+        return @"运输方式";
     } else {
-        label.text = @"增值服务";
+        return @"增值服务";
     }
-    return view;
 }
 
 #pragma mark - transport baseinfo cell delegate
@@ -223,13 +228,23 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     } else if (baseInfoType == TransportBaseInfo_Type_EndCity) {
         self.transportOrder.endCity = @"北京市";
     } else if (baseInfoType == TransportBaseInfo_Type_Time) {
-        self.transportOrder.outTime = @"2019-11-11";
+        NSString * todayStr = [[DateUtils shareDateUtils] getDateStringWithDate:[NSDate date] withFormatterStr:Formatter_YMD];
+        NSDate * maxDate = [[DateUtils shareDateUtils] getDateWithTargetDate:[NSDate date] durationYear:0 durationMonth:1 durationDay:0];
+        NSString * maxDateStr = [[DateUtils shareDateUtils]getDateStringWithDate:maxDate withFormatterStr:Formatter_YMD];
+        __weak typeof(self) weakSelf = self;
+        [CGXPickerView showDatePickerWithTitle:@"出发时间" DateType:UIDatePickerModeDate DefaultSelValue:nil MinDateStr:todayStr MaxDateStr:maxDateStr IsAutoSelect:NO Manager:nil ResultBlock:^(NSString *selectValue) {
+            weakSelf.transportOrder.outTime = selectValue;
+            [weakSelf.tableView reloadData];
+        }];
     } else if (baseInfoType == TransportBaseInfo_Type_Type) {
         self.transportOrder.petType = @"狗";
     } else if (baseInfoType == TransportBaseInfo_Type_Age) {
-        self.transportOrder.petAge = @"0~3个月";
+        __weak typeof(self) weakSelf = self;
+        [AlertControllerTools showActionSheetWithTitle:@"宠物年龄" msg:nil items:self.petAgeValues showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
+            weakSelf.transportOrder.petAge = weakSelf.petAgeValues[actionIndex];
+            [weakSelf.tableView reloadData];
+        }];
     }
-    [self.tableView reloadData];
 }
 
 -(void)inputBaseInfoItem:(TransportBaseInfo_Type)baseInfoType withText:(NSString *)text{
@@ -368,6 +383,20 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 
 #pragma mark - private method
 
+-(void)getPetTypesData{
+    if (kStringIsEmpty(self.transportOrder.petType) || kArrayIsEmpty(self.petTypes)) {
+        [MBProgressHUD showActivityMessageInView:@"请稍等..."];
+        __weak typeof(self) weakSelf = self;
+        [[OrderManager shareOrderManager] getPetTypeSuccess:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+            weakSelf.petTypes = data;
+            weakSelf.transportOrder.petType = weakSelf.petTypes[0];
+            [weakSelf.tableView reloadData];
+        } fail:^(NSInteger code) {
+            [MBProgressHUD hideHUD];
+        }];
+    }
+}
 
 #pragma mark - setters and getters
 -(TransportOrder *)transportOrder{
@@ -375,6 +404,13 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
         _transportOrder = [[TransportOrder alloc]init];
     }
     return _transportOrder;
+}
+
+-(NSArray *)petAgeValues{
+    if (!_petAgeValues) {
+        _petAgeValues = @[@"2~6个月",@"6个月~1岁",@"1~3岁",@"3~6岁",@"6~9岁",@"9岁以上"];
+    }
+    return _petAgeValues;
 }
 
 -(NSArray<id<TransportTypeProtocol>> *)transportTypeArray{

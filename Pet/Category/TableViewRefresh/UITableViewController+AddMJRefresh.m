@@ -7,7 +7,6 @@
 //
 
 #import "UITableViewController+AddMJRefresh.h"
-#import <MJRefresh/MJRefresh.h>
 
 @implementation UITableViewController (AddMJRefresh)
 

@@ -12,11 +12,18 @@
 #import "UITableViewController+AddMJRefresh.h"
 #import "FakeStationListData.h"
 #import "StationCell.h"
+#import "StationManager.h"
+#import "LocationManager.h"
 
 static NSString * StationListCellIdentifier = @"stationListCellIdentifier";
 
+static NSInteger PageSize = 20;
+
 @interface StationListViewController ()
-@property (nonatomic, strong) NSArray<Station*>* dataSource;
+@property (nonatomic, strong) NSMutableArray<Station*>* dataSource;
+@property (nonatomic, assign) NSInteger pageIndex;
+@property (nonatomic, strong) CLLocation * location;
+@property (nonatomic, assign) BOOL waitRefresh;
 @end
 
 @implementation StationListViewController
@@ -30,7 +37,16 @@ static NSString * StationListCellIdentifier = @"stationListCellIdentifier";
     [self.tableView registerNib:[UINib nibWithNibName:@"StationCell" bundle:nil] forCellReuseIdentifier:StationListCellIdentifier];
     [self addRefreshViewWithRefreshAction:@selector(refreshAction)];
     [self addLoadMoreViewWithLoadMoreAction:@selector(loadMoreAction)];
-    [self startRefresh];
+    
+    self.location = [[LocationManager shareLocationManager] getLocation];
+    if (self.location) {
+        self.waitRefresh = NO;
+        [self startRefresh];
+    } else {
+        [MBProgressHUD showActivityMessageInView:@"定位中"];
+        self.waitRefresh = YES;
+        [[LocationManager shareLocationManager] requestLocationWithLocationChangeObserver:self selector:@selector(loactionChange:)];
+    }
 }
 
 #pragma mark - tableview dataSource and delegate
@@ -73,19 +89,64 @@ static NSString * StationListCellIdentifier = @"stationListCellIdentifier";
 }
 
 /**
- 下拉刷新触发
+ 监听 位置变化
+ 
+ @param notification 通知
  */
--(void)refreshAction{
-    self.dataSource = [Station mj_objectArrayWithKeyValuesArray:[FakeStationListData fakeDataJsonStr]];
-    [self.tableView reloadData];
-    [self endRefresh];
+-(void)loactionChange:(NSNotification *)notification{
+    [MBProgressHUD hideHUD];
+    self.location = [notification.userInfo objectForKey:NOTIFICATION_CURRENT_LOCATION_KEY];
+    if (self.waitRefresh) {
+        self.waitRefresh = NO;
+        [self startRefresh];
+    }
 }
 
 /**
- 上拉加载触发
+ 下拉刷新触发
+ */
+-(void)refreshAction{
+    self.pageIndex = 0;
+    __weak typeof(self) weakSelf = self;
+    [[StationManager shareStationManager] getStationWithPageIndex:self.pageIndex pageSize:PageSize latitude:self.location.coordinate.latitude longitude:self.location.coordinate.longitude success:^(id  _Nonnull data) {
+        weakSelf.pageIndex = weakSelf.pageIndex + PageSize;
+        [weakSelf.dataSource removeAllObjects];
+        NSArray * dataArray = [Station mj_objectArrayWithKeyValuesArray:data];
+        [weakSelf.dataSource addObjectsFromArray:dataArray];
+        [weakSelf endRefresh];
+        [weakSelf.tableView reloadData];
+    } fail:^(NSInteger code) {
+        [weakSelf endRefresh];
+    }];
+}
+
+/**
+ 上拉加载
  */
 -(void)loadMoreAction{
-    
+    [self.tableView.mj_footer setState:MJRefreshStateRefreshing];
+    __weak typeof(self) weakSelf = self;
+    [[StationManager shareStationManager] getStationWithPageIndex:self.pageIndex pageSize:PageSize latitude:self.location.coordinate.latitude longitude:self.location.coordinate.longitude success:^(id  _Nonnull data) {
+        weakSelf.pageIndex = weakSelf.pageIndex + PageSize;
+        NSArray * dataArray = [Station mj_objectArrayWithKeyValuesArray:data];
+        if (dataArray.count < PageSize) {
+            [weakSelf.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+        } else {
+            [weakSelf.tableView.mj_footer setState:MJRefreshStateIdle];
+        }
+        [weakSelf.dataSource addObjectsFromArray:dataArray];
+        [weakSelf.tableView reloadData];
+    } fail:^(NSInteger code) {
+        [weakSelf endLoadMore];
+    }];
+}
+
+#pragma mark - setters and getters
+-(NSMutableArray<Station *> *)dataSource{
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
 }
 
 @end

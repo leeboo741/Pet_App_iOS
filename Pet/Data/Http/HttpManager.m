@@ -67,6 +67,95 @@ SingleImplementation(HttpManager);
     }
 }
 
+-(void)handlerFailWithCode:(HttpResponseCode)code msg:(NSString *)msg{
+    switch (code) {
+        case HttpResponseCode_IS_NULL_DATA: {
+            [MBProgressHUD showErrorMessage:@"返回数据为空"];
+        }
+            break;
+        case HttpResponseCode_PARAM_ERROR: {
+            [MBProgressHUD showErrorMessage:@"请求参数有误"];
+        }
+            break;
+        case HttpResponseCode_LOGIN_ERROR: {
+            [MBProgressHUD showErrorMessage:@"账号密码不能为空"];
+        }
+            break;
+        case HttpResponseCode_CHECK_ERROR: {
+            [MBProgressHUD showErrorMessage:@"校验错误"];
+        }
+            break;
+        case HttpResponseCode_NOT_EXISTS: {
+            [MBProgressHUD showErrorMessage:@"用户不存在"];
+        }
+            break;
+        case HttpResponseCode_ACCOUNT_DISABLEED: {
+            [MBProgressHUD showErrorMessage:@"账号被禁用"];
+        }
+            break;
+        case HttpResponseCode_ACCOUNT_ERROR: {
+            [MBProgressHUD showErrorMessage:@"账号密码错误"];
+        }
+            break;
+        case HttpResponseCode_UPDATE_PASSWORD_ERROR: {
+            [MBProgressHUD showErrorMessage:@"原始密码错误"];
+        }
+            break;
+        case HttpResponseCode_NAME_ALREADY_EXISTS: {
+            [MBProgressHUD showErrorMessage:@"名称已经存在"];
+        }
+            break;
+        case HttpResponseCode_ERROR: {
+            [MBProgressHUD showErrorMessage:@"系统异常"];
+        }
+            break;
+        case HttpResponseCode_INSERT_ERROR: {
+            [MBProgressHUD showErrorMessage:@"系统异常,录入失败"];
+        }
+            break;
+        case HttpResponseCode_UPDATE_ERROR: {
+            [MBProgressHUD showErrorMessage:@"系统异常,更新失败"];
+        }
+            break;
+        case HttpResponseCode_NOT_LOGIN: {
+            [MBProgressHUD showErrorMessage:@"请登录"];
+        }
+            break;
+        case HttpResponseCode_JSON_ERROR: {
+            [MBProgressHUD showErrorMessage:@"JSON序列化错误"];
+        }
+            break;
+        case HttpResponseCode_TOKEN_ERROR: {
+            [MBProgressHUD showErrorMessage:@"TOKEN不合法"];
+        }
+            break;
+        case HttpResponseCode_TOKEN_FAIL: {
+            [MBProgressHUD showErrorMessage:@"TOKEN失效"];
+        }
+            break;
+        case HttpResponseCode_HAS_CHILD: {
+            [MBProgressHUD showErrorMessage:@"有子分类"];
+        }
+            break;
+        case HttpResponseCode_INVAILD_TRANSPORT: {
+            [MBProgressHUD showErrorMessage:@"无效的运输路线"];
+        }
+            break;
+        case HttpResponseCode_CONNECT_FAIL: {
+            [MBProgressHUD showErrorMessage:@"链接失败"];
+        }
+            break;
+        case HttpResponseCode_UNKNOW: {
+            [MBProgressHUD showErrorMessage:@"未知错误"];
+        }
+            break;
+        default: {
+            [MBProgressHUD showErrorMessage:@"未知错误"];
+        }
+            break;
+    }
+}
+
 #pragma mark - GET
 
 -(void)GETRequsetWithModel:(HttpRequestModel *)model{

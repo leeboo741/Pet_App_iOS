@@ -7,7 +7,6 @@
 //
 
 #import "UIViewController+AddMJRefresh.h"
-#import <MJRefresh/MJRefresh.h>
 
 @implementation UIViewController (AddMJRefresh)
 -(void)addRefreshViewWithRefreshAction:(SEL)refreshAction tableView:(UITableView *)tableView{

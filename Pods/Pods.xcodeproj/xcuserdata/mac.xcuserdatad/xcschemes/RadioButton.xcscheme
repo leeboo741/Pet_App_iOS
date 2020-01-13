@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "56D5CFE2AA8F22750606C9A182AF9431"
+               BlueprintIdentifier = "FD9F1DDF69FEF246919ACE07DF2D9764"
                BlueprintName = "RadioButton"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "RadioButton.framework">

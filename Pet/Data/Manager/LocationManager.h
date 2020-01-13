@@ -28,6 +28,8 @@ SingleInterface(LocationManager);
 -(void)currentLocationChangeNotificationRemoveObserver:(id)observer;
 // 请求定位 并监听位置改变通知
 -(void)requestLocationWithLocationChangeObserver:(id)observer selector:(SEL)selector;
+// 获取当前位置
+-(CLLocation *)getLocation;
 @end
 
 NS_ASSUME_NONNULL_END

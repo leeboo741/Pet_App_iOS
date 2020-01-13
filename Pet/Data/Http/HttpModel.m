@@ -41,9 +41,20 @@
 }
 -(NSString *)urlStr{
     if (_urlStr) {
-        return [NSString stringWithFormat:@"%@%@",HTTP_BASE_URL,_urlStr];
+        return [NSString stringWithFormat:@"%@%@",URL_BASE,_urlStr];
     }
-    return HTTP_BASE_URL;
+    return URL_BASE;
+}
+-(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url paramers:(id _Nullable)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock{
+    self = [super init];
+    if (self) {
+        self.methodType = type;
+        self.urlStr = url;
+        self.paramers = paramers;
+        self.successBlock = successBlock;
+        self.failBlock = failBlock;
+    }
+    return self;
 }
 @end
 
