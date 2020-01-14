@@ -78,6 +78,8 @@
 
 #define Map_Key_Tencent         @"3MEBZ-MYJE4-ENMU2-DNNDM-3UXXZ-5CB4U"
 
+#define Service_Phone           @"4007778889"
+
 
 #pragma mark - Url Resource Macros
 
@@ -91,6 +93,8 @@
 #define URL_Pet_Type            @"/api/petType" // 宠物类型
 #define URL_StartCity           @"/api/transport/listStartCity" // 始发城市列表
 #define URL_EndCity             @"/api/transport/listEndCity" // 终点城市列表
+#define URL_StorePhoneByCityName @"/api/business/getPhoneByCityName" // 通过城市获取商家电话
+#define URL_InsureRateByCityName @"/api/consign/insure" // 查询保价费率
 
 #define URL_Staion_List         @"/api/business/listByPosition" // 获取周边商家
 

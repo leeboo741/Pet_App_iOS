@@ -10,7 +10,6 @@
 #import "Station.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "UITableViewController+AddMJRefresh.h"
-#import "FakeStationListData.h"
 #import "StationCell.h"
 #import "StationManager.h"
 #import "LocationManager.h"
@@ -111,8 +110,7 @@ static NSInteger PageSize = 20;
     [[StationManager shareStationManager] getStationWithPageIndex:self.pageIndex pageSize:PageSize latitude:self.location.coordinate.latitude longitude:self.location.coordinate.longitude success:^(id  _Nonnull data) {
         weakSelf.pageIndex = weakSelf.pageIndex + PageSize;
         [weakSelf.dataSource removeAllObjects];
-        NSArray * dataArray = [Station mj_objectArrayWithKeyValuesArray:data];
-        [weakSelf.dataSource addObjectsFromArray:dataArray];
+        [weakSelf.dataSource addObjectsFromArray:data];
         [weakSelf endRefresh];
         [weakSelf.tableView reloadData];
     } fail:^(NSInteger code) {
@@ -128,7 +126,7 @@ static NSInteger PageSize = 20;
     __weak typeof(self) weakSelf = self;
     [[StationManager shareStationManager] getStationWithPageIndex:self.pageIndex pageSize:PageSize latitude:self.location.coordinate.latitude longitude:self.location.coordinate.longitude success:^(id  _Nonnull data) {
         weakSelf.pageIndex = weakSelf.pageIndex + PageSize;
-        NSArray * dataArray = [Station mj_objectArrayWithKeyValuesArray:data];
+        NSArray * dataArray = (NSArray *)data;
         if (dataArray.count < PageSize) {
             [weakSelf.tableView.mj_footer setState:MJRefreshStateNoMoreData];
         } else {

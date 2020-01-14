@@ -19,6 +19,7 @@
 #import "CGXPickerView.h"
 #import "DateUtils.h"
 #import "OrderManager.h"
+#import "TransportCitySelectedController.h"
 
 #pragma mark - Transport Type View Model
 #pragma mark -
@@ -56,21 +57,21 @@
 #pragma mark -
 
 @interface TransportValueAdd : NSObject <TransportValueAddProtocol>
-@property (nonatomic, assign) BOOL serviceEnableUse;
-@property (nonatomic, assign) BOOL serviceEnableTap;
-@property (nonatomic, assign) BOOL serviceIsSelected;
-@property (nonatomic, assign) BOOL serviceShowInputArea;
-@property (nonatomic, assign) BOOL serviceShowInfoArea;
+@property (nonatomic, assign) BOOL serviceEnableUse; // 是否可用
+@property (nonatomic, assign) BOOL serviceEnableTap; // 是否可点击
+@property (nonatomic, assign) BOOL serviceIsSelected; // 是否选中
+@property (nonatomic, assign) BOOL serviceShowInputArea; // 是否展示输入区
+@property (nonatomic, assign) BOOL serviceShowInfoArea; // 是否展示信息区
 
-@property (nonatomic, copy) NSString * serviceName;
-@property (nonatomic, copy) NSString * serviceContract;
-@property (nonatomic, copy) NSString * serviceDetail;
-@property (nonatomic, copy) NSString * serviceValue;
-@property (nonatomic, copy) NSString * serviceValuePlaceholder;
-@property (nonatomic, copy) NSString * serviceInfo;
+@property (nonatomic, copy) NSString * serviceName; // 服务名称
+@property (nonatomic, copy) NSString * serviceContract; // 服务协议
+@property (nonatomic, copy) NSString * serviceDetail; // 服务详情
+@property (nonatomic, copy) NSString * serviceValue; // 服务
+@property (nonatomic, copy) NSString * serviceValuePlaceholder; // 服务
+@property (nonatomic, copy) NSString * serviceInfo; // 服务说明
 
-@property (nonatomic, strong) NSNumber * latitude;
-@property (nonatomic, strong) NSNumber * longitude;
+@property (nonatomic, strong) NSNumber * latitude; // 纬度
+@property (nonatomic, strong) NSNumber * longitude; // 经度
 @end
 @implementation TransportValueAdd
 -(instancetype)init{
@@ -106,6 +107,8 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 @property (nonatomic, strong) NSArray * petAgeValues;
 @property (nonatomic, strong) NSArray * petTypes;
 
+@property (nonatomic, copy) NSString * servicePhone;
+
 @property (nonatomic, strong) TransportOrderFooterView * footerView;
 @property (nonatomic, assign) CGFloat footerY;
 @end
@@ -117,6 +120,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"托运订单";
+    [self addKVO];
     [self.tableView registerNib:[UINib nibWithNibName:BaseInfoCellName bundle:nil] forCellReuseIdentifier:BaseInfoCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:TransportTypeGroupCellName bundle:nil] forCellReuseIdentifier:TransportTypeGroupCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:ValueAddedCellName bundle:nil] forCellReuseIdentifier:ValueAddedCellIdentifier];
@@ -134,6 +138,57 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self.tableView bringSubviewToFront:_footerView];
+}
+
+-(void)dealloc{
+    [self removeKVO];
+}
+
+#pragma mark - KVO
+
+-(void)addKVO{
+    [self.transportOrder addObserver:self forKeyPath:@"startCity" options:NSKeyValueObservingOptionNew context:nil];
+    [self.transportOrder addObserver:self forKeyPath:@"endCity" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+-(void)removeKVO{
+    [self.transportOrder removeObserver:self forKeyPath:@"startCity"];
+    [self.transportOrder removeObserver:self forKeyPath:@"endCity"];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"startCity"]) {
+        if (!kStringIsEmpty(self.transportOrder.startCity)) {
+            // 增值服务
+            TransportValueAdd * onDoor = (TransportValueAdd *)self.transportValueAddArray[2];
+            onDoor.serviceEnableUse = YES;
+            onDoor.serviceValue = @"";
+            onDoor.latitude = nil;
+            onDoor.longitude = nil;
+            // 宠物重量
+            self.transportOrder.petWeight = @"";
+            // 目的城市
+            self.transportOrder.endCity = @"";
+            [self getInsureRateWithStartCity:self.transportOrder.startCity];
+            [self requestServicePhoneWithStartCity:self.transportOrder.startCity];
+        }
+    } else if ([keyPath isEqualToString:@"endCity"]) {
+        TransportValueAdd * toHome = (TransportValueAdd *)self.transportValueAddArray[3];
+        if (!kStringIsEmpty(self.transportOrder.endCity)) {
+            toHome.serviceEnableUse = YES;
+        } else {
+            toHome.serviceEnableUse = NO;
+            toHome.serviceIsSelected = NO;
+            toHome.serviceShowInputArea = NO;
+            toHome.serviceValue = @"";
+            toHome.latitude = nil;
+            toHome.longitude = nil;
+            // 运输方式
+            for (TransportTypeViewModel * typeViewModel in self.transportTypeArray) {
+                typeViewModel.typeIsSelected = NO;
+            }
+        }
+    }
 }
 
 #pragma mark - Table view dataSource and delegate
@@ -210,6 +265,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     UIView * sectionFooter = [[UIView alloc]init];
     return sectionFooter;
 }
+
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return @"基础信息";
@@ -224,9 +280,30 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 
 -(void)selectBaseInfoItem:(TransportBaseInfo_Type)baseInfoType{
     if (baseInfoType == TransportBaseInfo_Type_StartCity) {
-        self.transportOrder.startCity = @"南昌市";
+        __weak typeof(self) weakSelf = self;
+        TransportCitySelectedController * citySelectVC = [[TransportCitySelectedController alloc]initWithType:CitySelectedType_Start selectBlock:^(NSString * _Nonnull cityName) {
+            if ([cityName isEqualToString:weakSelf.transportOrder.startCity]) {
+                return;
+            }
+            weakSelf.transportOrder.startCity = cityName;
+            [weakSelf.tableView reloadData];
+        }];
+        [self.navigationController pushViewController:citySelectVC animated:YES];
     } else if (baseInfoType == TransportBaseInfo_Type_EndCity) {
-        self.transportOrder.endCity = @"北京市";
+        if (kStringIsEmpty(self.transportOrder.startCity)) {
+            [MBProgressHUD showErrorMessage:@"请先选择始发城市"];
+            return;
+        }
+        __weak typeof(self) weakSelf = self;
+        TransportCitySelectedController * citySelectVC = [[TransportCitySelectedController alloc]initWithType:CitySelectedType_End selectBlock:^(NSString * _Nonnull cityName) {
+            if ([cityName isEqualToString:weakSelf.transportOrder.endCity]) {
+                return;
+            }
+            weakSelf.transportOrder.endCity = cityName;
+            [weakSelf.tableView reloadData];
+        }];
+        citySelectVC.startCity = self.transportOrder.startCity;
+        [self.navigationController pushViewController:citySelectVC animated:YES];
     } else if (baseInfoType == TransportBaseInfo_Type_Time) {
         NSString * todayStr = [[DateUtils shareDateUtils] getDateStringWithDate:[NSDate date] withFormatterStr:Formatter_YMD];
         NSDate * maxDate = [[DateUtils shareDateUtils] getDateWithTargetDate:[NSDate date] durationYear:0 durationMonth:1 durationDay:0];
@@ -237,7 +314,14 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
             [weakSelf.tableView reloadData];
         }];
     } else if (baseInfoType == TransportBaseInfo_Type_Type) {
-        self.transportOrder.petType = @"狗";
+        if (kArrayIsEmpty(self.petTypes)) {
+            return;
+        }
+        __weak typeof(self) weakSelf = self;
+        [AlertControllerTools showActionSheetWithTitle:@"宠物类型" msg:nil items:self.petTypes showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
+            weakSelf.transportOrder.petType = weakSelf.petTypes[actionIndex];
+            [weakSelf.tableView reloadData];
+        }];
     } else if (baseInfoType == TransportBaseInfo_Type_Age) {
         __weak typeof(self) weakSelf = self;
         [AlertControllerTools showActionSheetWithTitle:@"宠物年龄" msg:nil items:self.petAgeValues showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
@@ -278,6 +362,8 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
             selectLocationMapVC.city = self.transportOrder.startCity;
             selectLocationMapVC.selectReturnBlock = ^(NSString * _Nonnull city, NSString * _Nonnull detailAddress, CLLocationCoordinate2D coordinate) {
                 valueAdd.serviceValue = [NSString stringWithFormat:@"%@%@",city,detailAddress];
+                valueAdd.latitude = kDoubleNumber(coordinate.latitude);
+                valueAdd.longitude = kDoubleNumber(coordinate.longitude);
             };
             [self.navigationController pushViewController:selectLocationMapVC animated:YES];
         } else {
@@ -285,6 +371,8 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
             selectLocationMapVC.city = self.transportOrder.endCity;
             selectLocationMapVC.selectReturnBlock = ^(NSString * _Nonnull city, NSString * _Nonnull detailAddress, CLLocationCoordinate2D coordinate) {
                 valueAdd.serviceValue = [NSString stringWithFormat:@"%@%@",city,detailAddress];
+                valueAdd.latitude = kDoubleNumber(coordinate.latitude);
+                valueAdd.longitude = kDoubleNumber(coordinate.longitude);
             };
             [self.navigationController pushViewController:selectLocationMapVC animated:YES];
         }
@@ -293,6 +381,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     }
     return YES;
 }
+
 -(BOOL)valueAddCell:(TransportOrderValueAddCell *)cell serviceValueinput:(UITextField *)textField afterChangeText:(NSString *)text {
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     TransportValueAdd * valueAdd = (TransportValueAdd *)self.transportValueAddArray[indexPath.row];
@@ -305,6 +394,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     }
     return YES;
 }
+
 -(void)valueAddCell:(TransportOrderValueAddCell *)cell serviceValueinputDidEndEditing:(UITextField *)textField {
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     TransportValueAdd * valueAdd = (TransportValueAdd *)self.transportValueAddArray[indexPath.row];
@@ -322,6 +412,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
         }
     }
 }
+
 -(void)valueAddCellTapHeadder:(TransportOrderValueAddCell *)cell {
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     TransportValueAdd * valueAdd = (TransportValueAdd *)self.transportValueAddArray[indexPath.row];
@@ -331,6 +422,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     }
     [self.tableView reloadData];
 }
+
 -(void)valueAddCellTapContract:(TransportOrderValueAddCell *)cell {
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     TransportValueAdd * valueAdd = (TransportValueAdd *)self.transportValueAddArray[indexPath.row];
@@ -338,16 +430,24 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 }
 
 #pragma mark - footer view delegate
+
 -(void)transportOrderFooterTapOrder{
     MSLog(@"点击预定");
     TransportPayViewController * transportPayVC = [[TransportPayViewController alloc]init];
     [self.navigationController pushViewController:transportPayVC animated:YES];
 }
+
 -(void)transportOrderFooterTapCall {
     MSLog(@"点击客服电话");
+    if (kStringIsEmpty(self.servicePhone)) {
+        Util_MakePhoneCall(Service_Phone);
+    } else {
+        Util_MakePhoneCall(self.servicePhone);
+    }
 }
 
 #pragma mark - config cell
+
 -(void)configBaseInfoCell:(TransportOrderBaseInfoCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     cell.delegate = self;
     cell.startCity = self.transportOrder.startCity;
@@ -398,7 +498,27 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     }
 }
 
+-(void)requestServicePhoneWithStartCity:(NSString *)startCity{
+    __weak typeof(self) weakSelf = self;
+    [[OrderManager shareOrderManager] getServicePhoneByStartCity:startCity success:^(id  _Nonnull data) {
+        weakSelf.servicePhone = data;
+    } fail:^(NSInteger code) {
+        
+    }];
+}
+
+-(void)getInsureRateWithStartCity:(NSString *)startCity{
+    
+    __weak typeof(self) weakSelf = self;
+    [[OrderManager shareOrderManager] getInsureRateByStartCity:startCity success:^(id  _Nonnull data) {
+        
+    } fail:^(NSInteger code) {
+        
+    }];
+}
+
 #pragma mark - setters and getters
+
 -(TransportOrder *)transportOrder{
     if (!_transportOrder) {
         _transportOrder = [[TransportOrder alloc]init];
@@ -419,24 +539,26 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
         TransportTypeViewModel * type_2 = [[TransportTypeViewModel alloc]init];
         type_2.normalTitle = @"铁路";
         type_2.normalIconName = IconFont_Train;
-        type_2.typeIsDisable = NO;
+        type_2.typeIsDisable = YES;
         
         
         TransportTypeViewModel * type_3 = [[TransportTypeViewModel alloc]init];
         type_3.normalTitle = @"单飞";
         type_3.normalIconName = IconFont_AirPlane;
-        type_3.typeIsDisable = NO;
+        type_3.typeIsDisable = YES;
         
         
         TransportTypeViewModel * type_4 = [[TransportTypeViewModel alloc]init];
         type_4.normalTitle = @"随机";
         type_4.normalIconName = IconFont_AirPlane;
-        type_4.typeIsDisable = NO;
+        type_4.typeIsDisable = YES;
         
         
         TransportTypeViewModel * type_5 = [[TransportTypeViewModel alloc]init];
         type_5.normalTitle = @"大巴";
         type_5.normalIconName = IconFont_Car;
+        type_5.typeIsDisable = YES;
+        
         _transportTypeArray = @[type_2,type_3,type_4,type_5];
     }
     return _transportTypeArray;
@@ -464,14 +586,14 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
         
         // 上门接宠
         TransportValueAdd * onDoor = [[TransportValueAdd alloc]init];
-        onDoor.serviceEnableUse = YES;
+        onDoor.serviceEnableUse = NO;
         onDoor.serviceName = @"上门接宠";
         onDoor.serviceContract = @"接宠说明";
         onDoor.serviceValuePlaceholder = @"请选择接宠地址";
         
         // 送宠到家
         TransportValueAdd * toHome = [[TransportValueAdd alloc]init];
-        toHome.serviceEnableUse = YES;
+        toHome.serviceEnableUse = NO;
         toHome.serviceName = @"送宠到家";
         toHome.serviceContract = @"送宠说明";
         toHome.serviceValuePlaceholder = @"请选择送宠地址";

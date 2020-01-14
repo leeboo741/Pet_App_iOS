@@ -15,7 +15,7 @@
     // 是否为空
     #define kStringIsEmpty(str) ([str isEqualToString:@"(null)"]||[str isKindOfClass:[NSNull class]] || str == nil || [str length] < 1 ? YES : NO ) // 字符串
     #define kArrayIsEmpty(array) (array == nil || [array isKindOfClass:[NSNull class]] || array.count == 0) // 数组
-    #define kDictIsEmpty(dic) (dic == nil || [dic isKindOfClass:[NSNull class]] || dic.allKeys == 0) // 字典
+    #define kDictIsEmpty(dic) (dic == nil || [dic isKindOfClass:[NSNull class]] || dic.allKeys.count == 0) // 字典
     #define kObjectIsEmpty(_object) (_object == nil \
     || [_object isKindOfClass:[NSNull class]] \
     || ([_object respondsToSelector:@selector(length)] && [(NSData *)_object length] == 0) \

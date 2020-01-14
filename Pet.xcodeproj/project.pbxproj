@@ -52,7 +52,6 @@
 		042EA9E523ACB57900F3D376 /* TBCityIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA9DF23ACB57900F3D376 /* TBCityIconFont.m */; };
 		042EA9E623ACB57900F3D376 /* TBCityIconInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA9E023ACB57900F3D376 /* TBCityIconInfo.m */; };
 		042EA9E723ACB57900F3D376 /* UIImage+TBCityIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA9E123ACB57900F3D376 /* UIImage+TBCityIconFont.m */; };
-		042EA9EA23ACC9BC00F3D376 /* FakeStationListData.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA9E923ACC9BC00F3D376 /* FakeStationListData.m */; };
 		042EA9EE23ADA34A00F3D376 /* StationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA9EC23ADA34900F3D376 /* StationCell.m */; };
 		042EA9EF23ADA34A00F3D376 /* StationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042EA9ED23ADA34900F3D376 /* StationCell.xib */; };
 		0431249D23C82FAD00E00034 /* StarSelectItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431249C23C82FAD00E00034 /* StarSelectItem.m */; };
@@ -308,8 +307,6 @@
 		042EA9E223ACB57900F3D376 /* TBCityIconInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCityIconInfo.h; sourceTree = "<group>"; };
 		042EA9E323ACB57900F3D376 /* TBCityIconFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCityIconFont.h; sourceTree = "<group>"; };
 		042EA9E423ACB57900F3D376 /* UIImage+TBCityIconFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TBCityIconFont.h"; sourceTree = "<group>"; };
-		042EA9E823ACC9BC00F3D376 /* FakeStationListData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FakeStationListData.h; sourceTree = "<group>"; };
-		042EA9E923ACC9BC00F3D376 /* FakeStationListData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FakeStationListData.m; sourceTree = "<group>"; };
 		042EA9EB23ADA34900F3D376 /* StationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StationCell.h; sourceTree = "<group>"; };
 		042EA9EC23ADA34900F3D376 /* StationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StationCell.m; sourceTree = "<group>"; };
 		042EA9ED23ADA34900F3D376 /* StationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationCell.xib; sourceTree = "<group>"; };
@@ -847,8 +844,6 @@
 				042EA9A023AA330E00F3D376 /* StationDetailViewController.m */,
 				042EA9D023AC661500F3D376 /* StationListViewController.h */,
 				042EA9D123AC661500F3D376 /* StationListViewController.m */,
-				042EA9E823ACC9BC00F3D376 /* FakeStationListData.h */,
-				042EA9E923ACC9BC00F3D376 /* FakeStationListData.m */,
 			);
 			path = Station;
 			sourceTree = "<group>";
@@ -1978,7 +1973,6 @@
 				042DA77323BA09FF0027C39B /* DatabaseHandler.m in Sources */,
 				04333C1F23C0455C00676FBD /* AssignmentsItemCell.m in Sources */,
 				042EA95623A9BE0800F3D376 /* PrivacyPolicyView.m in Sources */,
-				042EA9EA23ACC9BC00F3D376 /* FakeStationListData.m in Sources */,
 				043124BE23CC590200E00034 /* DateUtils.m in Sources */,
 				04C52B0323B5B9D200024FE0 /* MediaSelectItemModel.m in Sources */,
 				04380A1423C570A50011BB9E /* BaseNavigationController.m in Sources */,

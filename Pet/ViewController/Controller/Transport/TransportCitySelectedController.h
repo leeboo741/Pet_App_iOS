@@ -20,6 +20,8 @@ typedef void(^SelectCityBlock)(NSString *cityName);
 @interface TransportCitySelectedController : UIViewController
 @property (nonatomic, assign) CitySelectedType type;
 @property (nonatomic, copy) SelectCityBlock selectCityBlock;
+@property (nonatomic, copy) NSString * startCity;
+-(instancetype)initWithType:(CitySelectedType)type selectBlock:(SelectCityBlock)selectBlock;
 @end
 
 NS_ASSUME_NONNULL_END
