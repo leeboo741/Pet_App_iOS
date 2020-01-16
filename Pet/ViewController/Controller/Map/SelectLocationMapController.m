@@ -199,6 +199,7 @@
     if (self.selectReturnBlock) {
         self.selectReturnBlock(self.selectedCity, self.selectDetailAddress, self.selectAnnotation.coordinate);
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 // 点击地图

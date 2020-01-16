@@ -74,12 +74,27 @@
     _nameTextField.font = kFontSize(17);
     _nameTextField.textAlignment = NSTextAlignmentCenter;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChange:) name:TransportOrderCityChangeKey object:nil];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+#pragma mark - notification
+
+-(void)cityChange:(NSNotification *)notification{
+    NSString * startCity = [notification.userInfo objectForKey:TransportOrderStartCityNotificationKey];
+    NSString * endCity = [notification.userInfo objectForKey:TransportOrderEndCityNotificationKey];
+    if (!kStringIsEmpty(startCity)) {
+        self.startCity = startCity;
+    }
+    if (!kStringIsEmpty(endCity)) {
+        self.endCity = endCity;
+    }
 }
 
 #pragma mark - select action label delegate
@@ -103,23 +118,23 @@
 
 #pragma mark - textfield delegate
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSString * text = [textField.text stringByReplacingCharactersInRange:range withString:string];
     TransportBaseInfo_Type type = TransportBaseInfo_Type_Count;
     if (textField == self.countTextField) {
-        if (![Utils isNumberString:string]) {
+        if (![Utils isNumberString:text] && ![text isEqualToString:@""]) {
             return NO;
         }
         type = TransportBaseInfo_Type_Count;
     } else if (textField == self.breedTextField) {
         type = TransportBaseInfo_Type_Breed;
     } else if (textField == self.weightTextField) {
-        if (![Utils isNumberString:string]) {
+        if (![Utils isNumberString:text] && ![text isEqualToString:@""]) {
             return NO;
         }
         type = TransportBaseInfo_Type_Weight;
     } else if (textField == self.nameTextField) {
         type = TransportBaseInfo_Type_Name;
     }
-    NSString * text = [textField.text stringByReplacingCharactersInRange:range withString:string];
     if (_delegate && [_delegate respondsToSelector:@selector(inputBaseInfoItem:withText:)]) {
         [_delegate inputBaseInfoItem:type withText:text];
     }

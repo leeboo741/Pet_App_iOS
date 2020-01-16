@@ -95,6 +95,9 @@
 #define URL_EndCity             @"/api/transport/listEndCity" // 终点城市列表
 #define URL_StorePhoneByCityName @"/api/business/getPhoneByCityName" // 通过城市获取商家电话
 #define URL_InsureRateByCityName @"/api/consign/insure" // 查询保价费率
+#define URL_AbleTransportType   @"/api/transport/listTransportType" // 可用运输方式
+#define URL_AblePetCageMax      @"/api/consign/cage/max" // 最大箱子重量
+#define URL_PredictPrice        @"/api/order/getOrderPirce" // 获取预估价格
 
 #define URL_Staion_List         @"/api/business/listByPosition" // 获取周边商家
 

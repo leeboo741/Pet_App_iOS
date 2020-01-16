@@ -10,6 +10,8 @@
 
 @implementation CityModel
 @end
+@implementation InsureRateModel
+@end
 
 @interface OrderManager ()
 @property (nonatomic, strong) NSArray * petTypes;
@@ -23,6 +25,10 @@
 @property (nonatomic, strong) NSMutableDictionary * startCityServicePhoneDict;
 
 @property (nonatomic, strong) NSMutableDictionary * startCityInsureRateDict;
+
+@property (nonatomic, strong) NSMutableDictionary * ableTransportTypeDict;
+
+@property (nonatomic, strong) NSMutableDictionary * petWeightDict;
 @end
 
 @implementation OrderManager
@@ -30,14 +36,71 @@ SingleImplementation(OrderManager);
 
 #pragma mark - public method
 
--(void)getInsureRateByStartCity:(NSString *)startCity success:(SuccessBlock)success fail:(FailBlock)fail{
-    NSString * insureRate = [self.startCityInsureRateDict objectForKey:startCity];
-    if (kStringIsEmpty(insureRate)) {
+-(void)getMaxPetCageWeightWithStartCity:(NSString *)startCity endCity:(NSString *)endCity transportType:(OrderTransportType)type success:(SuccessBlock)success fail:(FailBlock)fail{
+    NSString * dictKey = [NSString stringWithFormat:@"%@-%@-%ld",startCity,endCity,type];
+    NSNumber * maxPetWeight = [self.petWeightDict objectForKey:dictKey];
+    if (!maxPetWeight) {
         __weak typeof(self) weakSelf = self;
-        HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:URL_InsureRateByCityName paramers:@{@"startCity":startCity} successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
-            [weakSelf.startCityInsureRateDict setObject:data forKey:startCity];
+        NSDictionary * paramers = @{
+                                    @"startCity":startCity,
+                                    @"endCity":endCity,
+                                    @"transportType":@(type)
+                                    };
+        HttpRequestModel * model = [[HttpRequestModel alloc] initWithType:HttpRequestMethodType_GET Url:URL_AblePetCageMax paramers:paramers successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+            [weakSelf.petWeightDict setObject:data forKey:dictKey];
             if (success) {
                 success(data);
+            }
+        } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+            if (fail) {
+                fail(code);
+            }
+        }];
+        [[HttpManager shareHttpManager] requestWithRequestModel:model];
+    } else {
+        if (success) {
+            success(maxPetWeight);
+        }
+    }
+}
+
+-(void)getAbleTransportTypeWithStartCity:(NSString *)startCity endCity:(NSString *)endCity success:(SuccessBlock)success fail:(FailBlock)fail{
+    NSString * dictKey = [NSString stringWithFormat:@"%@-%@",startCity,endCity];
+    NSArray * ableResults = [self.ableTransportTypeDict objectForKey:dictKey];
+    if (kArrayIsEmpty(ableResults)) {
+        __weak typeof(self) weakSelf = self;
+        NSDictionary * paramers = @{
+                                    @"startCity": startCity,
+                                    @"endCity": endCity
+                                    };
+        HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:URL_AbleTransportType paramers:paramers successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+            NSArray * result = data;
+            [weakSelf.ableTransportTypeDict setObject:result forKey:dictKey];
+            if (success) {
+                success(result);
+            }
+        } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+            if(fail) {
+                fail(code);
+            }
+        }];
+        [[HttpManager shareHttpManager] requestWithRequestModel:model];
+    } else {
+        if (success) {
+            success(ableResults);
+        }
+    }
+}
+
+-(void)getInsureRateByStartCity:(NSString *)startCity success:(SuccessBlock)success fail:(FailBlock)fail{
+    InsureRateModel * insureRate = [self.startCityInsureRateDict objectForKey:startCity];
+    if (!insureRate) {
+        __weak typeof(self) weakSelf = self;
+        HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:URL_InsureRateByCityName paramers:@{@"startCity":startCity} successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+            InsureRateModel * insureRateData = [InsureRateModel mj_objectWithKeyValues:data];
+            [weakSelf.startCityInsureRateDict setObject:insureRateData forKey:startCity];
+            if (success) {
+                success(insureRateData);
             }
         } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
             if(fail) {
@@ -57,7 +120,7 @@ SingleImplementation(OrderManager);
     if (kStringIsEmpty(servicePhone)) {
         __weak typeof(self) weakSelf = self;
         HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:URL_StorePhoneByCityName paramers:@{@"cityName": startCity} successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
-            [weakSelf.startCityServicePhoneDict setObject:servicePhone forKey:startCity];
+            [weakSelf.startCityServicePhoneDict setObject:data forKey:startCity];
             if (success) {
                 success(data);
             }
@@ -290,5 +353,19 @@ SingleImplementation(OrderManager);
         _startCityInsureRateDict = [NSMutableDictionary dictionary];
     }
     return _startCityInsureRateDict;
+}
+
+-(NSMutableDictionary *)ableTransportTypeDict{
+    if (!_ableTransportTypeDict) {
+        _ableTransportTypeDict = [NSMutableDictionary dictionary];
+    }
+    return _ableTransportTypeDict;
+}
+
+-(NSMutableDictionary *)petWeightDict{
+    if (!_petWeightDict) {
+        _petWeightDict = [NSMutableDictionary dictionary];
+    }
+    return _petWeightDict;
 }
 @end

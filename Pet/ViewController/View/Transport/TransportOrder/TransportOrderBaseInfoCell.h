@@ -29,6 +29,10 @@ typedef NS_ENUM(NSInteger, TransportBaseInfo_Type) {
 
 @end
 
+static NSString * TransportOrderCityChangeKey = @"TransportOrderBaseInfoCityChange";
+static NSString * TransportOrderStartCityNotificationKey = @"StartCity";
+static NSString * TransportOrderEndCityNotificationKey = @"EndCity";
+
 @interface TransportOrderBaseInfoCell : UITableViewCell
 @property (nonatomic, weak) id<TransportOrderBaseInfoCallDelegate> delegate;
 @property (nonatomic, copy) NSString * startCity;

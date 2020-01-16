@@ -12,13 +12,15 @@
 #pragma mark -
 
 @interface HttpManager ()
-
 @end
 
 static CGFloat TimeOut = 20.0f; // 超时时间
 
 @implementation HttpManager
-SingleImplementation(HttpManager);
+//SingleImplementation(HttpManager);
++(instancetype)shareHttpManager{
+    return [[HttpManager alloc]init];
+}
 -(instancetype)init{
     self = [super init];
     if (self) {
