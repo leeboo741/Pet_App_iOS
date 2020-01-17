@@ -109,6 +109,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 @property (nonatomic, strong) NSArray * petAgeValues;
 @property (nonatomic, strong) NSArray * petTypes;
 @property (nonatomic, strong) NSNumber * maxPetWeight;
+@property (nonatomic, strong) TransportTypeViewModel * selectTransportType;
 
 @property (nonatomic, copy) NSString * servicePhone;
 
@@ -137,9 +138,6 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     [super viewDidLayoutSubviews];
     [self.tableView bringSubviewToFront:_footerView];
 }
-
-#pragma mark - KVO
-
 
 #pragma mark - Table view dataSource and delegate
 
@@ -236,6 +234,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
                 return;
             }
             [weakSelf resetStartCityWithCity:cityName detailAddress:nil location:nil];
+            [weakSelf getPredictPrice];
         }];
         [self.navigationController pushViewController:citySelectVC animated:YES];
     } else if (baseInfoType == TransportBaseInfo_Type_EndCity) {
@@ -249,6 +248,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
                 return;
             }
             [weakSelf resetEndCityWithCity:cityName];
+            [weakSelf getPredictPrice];
         }];
         citySelectVC.startCity = self.transportOrder.startCity;
         [self.navigationController pushViewController:citySelectVC animated:YES];
@@ -260,6 +260,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
         [CGXPickerView showDatePickerWithTitle:@"出发时间" DateType:UIDatePickerModeDate DefaultSelValue:nil MinDateStr:todayStr MaxDateStr:maxDateStr IsAutoSelect:NO Manager:nil ResultBlock:^(NSString *selectValue) {
             weakSelf.transportOrder.outTime = selectValue;
             [weakSelf.tableView reloadData];
+            [weakSelf getPredictPrice];
         }];
     } else if (baseInfoType == TransportBaseInfo_Type_Type) {
         if (kArrayIsEmpty(self.petTypes)) {
@@ -269,12 +270,14 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
         [AlertControllerTools showActionSheetWithTitle:@"宠物类型" msg:nil items:self.petTypes showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
             weakSelf.transportOrder.petType = weakSelf.petTypes[actionIndex];
             [weakSelf.tableView reloadData];
+            [weakSelf getPredictPrice];
         }];
     } else if (baseInfoType == TransportBaseInfo_Type_Age) {
         __weak typeof(self) weakSelf = self;
         [AlertControllerTools showActionSheetWithTitle:@"宠物年龄" msg:nil items:self.petAgeValues showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
             weakSelf.transportOrder.petAge = weakSelf.petAgeValues[actionIndex];
             [weakSelf.tableView reloadData];
+            [weakSelf getPredictPrice];
         }];
     }
 }
@@ -292,12 +295,21 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     }
 }
 
+-(void)endingInputBaseInfoItem:(TransportBaseInfo_Type)baseInfoType{
+    if (baseInfoType == TransportBaseInfo_Type_Weight
+        || baseInfoType == TransportBaseInfo_Type_Breed
+        || baseInfoType == TransportBaseInfo_Type_Count) {
+        [self getPredictPrice];
+    }
+}
+
 #pragma mark - transport type cell delegate
 
 -(void)transportTypeGroupCell:(TransportOrderTransportTypeGroupCell *)cell didSelectTransportTypeAtIndex:(NSInteger)index{
     for (NSInteger i = 0; i < self.transportTypeArray.count; i ++) {
         TransportTypeViewModel * model = (TransportTypeViewModel *)self.transportTypeArray[i];
         if (i == index) {
+            self.selectTransportType = model;
             model.typeIsSelected = YES;
             [self getMaxAblePetWeightWithStartCity:self.transportOrder.startCity endCity:self.transportOrder.endCity transportType:model.type];
         } else {
@@ -478,6 +490,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     toHome.latitude = nil;
     toHome.longitude = nil;
     // 运输方式
+    self.selectTransportType = nil;
     for (TransportTypeViewModel * typeViewModel in self.transportTypeArray) {
         typeViewModel.typeIsSelected = NO;
         typeViewModel.typeIsDisable = YES;
@@ -489,6 +502,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
         toHome.serviceEnableUse = NO;
     }
     [self.tableView reloadData];
+    [self getPredictPrice];
 }
 
 -(void)comparePetWeightWithClear:(BOOL)clear{
@@ -503,6 +517,62 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
             }
         }
     }
+}
+
+-(BOOL)isAbleOrder{
+    if (kStringIsEmpty(self.transportOrder.startCity)) {
+        return NO;
+    }
+    if (kStringIsEmpty(self.transportOrder.endCity)) {
+        return NO;
+    }
+    if (!self.selectTransportType) {
+        return NO;
+    }
+    if (kStringIsEmpty(self.transportOrder.petWeight)) {
+        return NO;
+    }
+    if (kStringIsEmpty(self.transportOrder.petCount)) {
+        return NO;
+    }
+    if (kStringIsEmpty(self.transportOrder.outTime)) {
+        return NO;
+    }
+    if (kStringIsEmpty(self.transportOrder.petAge)) {
+        return NO;
+    }
+    if (kStringIsEmpty(self.transportOrder.petBreed)) {
+        return NO;
+    }
+    if (kStringIsEmpty(self.transportOrder.petType)) {
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark - request data
+
+-(void)getPredictPrice{
+    if (![self isAbleOrder]) {
+        return;
+    }
+    __weak typeof(self) weakSelf = self;
+    PredictPriceModel * predictModel = [[PredictPriceModel alloc]init];
+    predictModel.startCity = self.transportOrder.startCity;
+    predictModel.endCity = self.transportOrder.endCity;
+    predictModel.transportType = self.selectTransportType.type;
+    predictModel.weight = [self.transportOrder.petWeight floatValue];
+    predictModel.num = [self.transportOrder.petCount integerValue];
+    predictModel.leaveDate = self.transportOrder.outTime;
+    predictModel.petClassify = self.transportOrder.petBreed;
+    predictModel.petAge = self.transportOrder.petAge;
+    predictModel.petType = self.transportOrder.petType;
+    [[OrderManager shareOrderManager] getPredictPriceWithModel:predictModel success:^(id  _Nonnull data) {
+        NSNumber * number = (NSNumber* )data;
+        weakSelf.footerView.price = [NSString stringWithFormat:@"%.2f",[number floatValue]];
+    } fail:^(NSInteger code) {
+        
+    }];
 }
 
 -(void)getMaxAblePetWeightWithStartCity:(NSString *)startCity endCity:(NSString *)endCity transportType:(OrderTransportType)type{

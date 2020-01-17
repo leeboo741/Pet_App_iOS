@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, TransportBaseInfo_Type) {
 
 -(void)selectBaseInfoItem:(TransportBaseInfo_Type)baseInfoType;
 -(void)inputBaseInfoItem:(TransportBaseInfo_Type)baseInfoType withText:(NSString *)text;
+-(void)endingInputBaseInfoItem:(TransportBaseInfo_Type)baseInfoType;
 
 @end
 

@@ -90,6 +90,8 @@
 #define URL_BASE                @"https://www.taochonghui.com"
 #endif
 
+#define URL_GetPhoneCode        @"/business/VerificationCode" // 获取短信验证码
+
 #define URL_Pet_Type            @"/api/petType" // 宠物类型
 #define URL_StartCity           @"/api/transport/listStartCity" // 始发城市列表
 #define URL_EndCity             @"/api/transport/listEndCity" // 终点城市列表
@@ -100,6 +102,11 @@
 #define URL_PredictPrice        @"/api/order/getOrderPirce" // 获取预估价格
 
 #define URL_Staion_List         @"/api/business/listByPosition" // 获取周边商家
+
+#define URL_StatonListByCity    @"/api/staff/listByProvinceAndCity" // 根据城市获取站点列表
+
+#define URL_ApplyStaff          @"/api/staff/applyForStaff" // 员工注册
+#define URL_ApplyStation        @"/business/insetBusiness" // 站点注册
 
 
 #endif /* ResourceMacros_h */

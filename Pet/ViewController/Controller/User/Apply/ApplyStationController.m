@@ -10,12 +10,17 @@
 #import "ApplyInputCell.h"
 #import "ApplyItemCellModel.h"
 #import "ApplyTimeCountCell.h"
+#import "CGXPickerView.h"
+#import "CommonManager.h"
+#import "ApplyManager.h"
 
 static NSString * ApplyInputCellIdentifier = @"ApplyInputCell";
 static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
 
 @interface ApplyStationController ()<ApplyInputCellDelegate,ApplyTimeCountCellDelegate>
 @property (nonatomic, strong) NSArray<ApplyItemCellModel *> *itemsArray;
+@property (nonatomic, strong) NSArray * selectAddressRow;
+@property (nonatomic, strong) NSArray * selectAddressArray;
 @end
 
 @implementation ApplyStationController
@@ -100,6 +105,13 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
 
 -(void)tapTimeCountingAtApplyTimeCountCell:(ApplyTimeCountCell *)cell{
     MSLog(@"点击获取倒计时");
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    ApplyItemCellModel * model = self.itemsArray[indexPath.row];
+    [[CommonManager shareCommonManager] getPhoneCodeByPhoneNumber:model.cellValue success:^(id  _Nonnull data) {
+        
+    } fail:^(NSInteger code) {
+        
+    }];
 }
 
 #pragma mark - input cell delegate
@@ -131,16 +143,36 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
         case 3:
         {
             MSLog(@"开始时间选择");
+            __weak typeof(self) weakSelf = self;
+            [CGXPickerView showDatePickerWithTitle:@"开始时间" DateType:UIDatePickerModeTime DefaultSelValue:nil MinDateStr:@"00:00" MaxDateStr:@"23:59" IsAutoSelect:NO Manager:nil ResultBlock:^(NSString *selectValue) {
+                ApplyItemCellModel * model = weakSelf.itemsArray[indexPath.row];
+                model.cellValue = selectValue;
+                [weakSelf.tableView reloadData];
+            }];
             return NO;
         }
         case 4:
         {
             MSLog(@"结束时间选择");
+            __weak typeof(self) weakSelf = self;
+            [CGXPickerView showDatePickerWithTitle:@"结束时间" DateType:UIDatePickerModeTime DefaultSelValue:nil MinDateStr:@"00:00" MaxDateStr:@"23:59" IsAutoSelect:NO Manager:nil ResultBlock:^(NSString *selectValue) {
+                ApplyItemCellModel * model = weakSelf.itemsArray[indexPath.row];
+                model.cellValue = selectValue;
+                [weakSelf.tableView reloadData];
+            }];
             return NO;
         }
         case 5:
         {
             MSLog(@"区域选择")
+            __weak typeof(self) weakSelf = self;
+            [CGXPickerView showAddressPickerWithTitle:@"选择区域" DefaultSelected:self.selectAddressRow FileName:@"CGXAddressCity.plist" IsAutoSelect:NO Manager:nil ResultBlock:^(NSArray *selectAddressArr, NSArray *selectAddressRow) {
+                ApplyItemCellModel * model = weakSelf.itemsArray[indexPath.row];
+                model.cellValue = [NSString stringWithFormat:@"%@%@",selectAddressArr[0],selectAddressArr[1]];
+                weakSelf.selectAddressRow = selectAddressRow;
+                weakSelf.selectAddressArray = selectAddressArr;
+                [weakSelf.tableView reloadData];
+            }];
             return NO;
         }
         default:
@@ -162,6 +194,13 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
         _itemsArray = @[model1,model2,model3,model4,model5,model6,model7,model8];
     }
     return _itemsArray;
+}
+
+-(NSArray *)selectAddressRow{
+    if (!_selectAddressRow) {
+        _selectAddressRow = @[@0,@0,@0];
+    }
+    return _selectAddressRow;
 }
 
 #pragma mark - event action

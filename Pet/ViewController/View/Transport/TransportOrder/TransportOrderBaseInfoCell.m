@@ -117,6 +117,21 @@
 }
 
 #pragma mark - textfield delegate
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    TransportBaseInfo_Type type = TransportBaseInfo_Type_Count;
+    if (textField == self.countTextField) {
+        type = TransportBaseInfo_Type_Count;
+    } else if (textField == self.breedTextField) {
+        type = TransportBaseInfo_Type_Breed;
+    }else if (textField == self.weightTextField) {
+        type = TransportBaseInfo_Type_Weight;
+    } else if (textField == self.nameTextField) {
+        type = TransportBaseInfo_Type_Name;
+    }
+    if (_delegate && [_delegate respondsToSelector:@selector(endingInputBaseInfoItem:)]) {
+        [_delegate endingInputBaseInfoItem:type];
+    }
+}
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     NSString * text = [textField.text stringByReplacingCharactersInRange:range withString:string];
     TransportBaseInfo_Type type = TransportBaseInfo_Type_Count;

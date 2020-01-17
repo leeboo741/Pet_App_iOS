@@ -812,6 +812,11 @@ SOFTWARE.
 
 
 
+## WechatOpenSDK
+
+Copyright 2019 tencent.com. All rights reserved.
+
+
 ## YYCache
 
 The MIT License (MIT)

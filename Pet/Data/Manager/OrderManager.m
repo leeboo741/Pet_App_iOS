@@ -8,6 +8,8 @@
 
 #import "OrderManager.h"
 
+@implementation PredictPriceModel
+@end
 @implementation CityModel
 @end
 @implementation InsureRateModel
@@ -18,7 +20,6 @@
 
 @property (nonatomic, strong) NSArray * startCitys;
 @property (nonatomic, strong) NSArray * startCityIndexs;
-
 @property (nonatomic, strong) NSMutableDictionary * endCityDict;
 @property (nonatomic, strong) NSMutableDictionary * endCityIndexDict;
 
@@ -35,6 +36,19 @@
 SingleImplementation(OrderManager);
 
 #pragma mark - public method
+
+-(void)getPredictPriceWithModel:(PredictPriceModel *)predictPriceModel success:(SuccessBlock)success fail:(FailBlock)fail {
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:URL_PredictPrice paramers:predictPriceModel successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
 
 -(void)getMaxPetCageWeightWithStartCity:(NSString *)startCity endCity:(NSString *)endCity transportType:(OrderTransportType)type success:(SuccessBlock)success fail:(FailBlock)fail{
     NSString * dictKey = [NSString stringWithFormat:@"%@-%@-%ld",startCity,endCity,type];

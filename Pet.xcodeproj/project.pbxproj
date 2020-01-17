@@ -54,6 +54,9 @@
 		042EA9E723ACB57900F3D376 /* UIImage+TBCityIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA9E123ACB57900F3D376 /* UIImage+TBCityIconFont.m */; };
 		042EA9EE23ADA34A00F3D376 /* StationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EA9EC23ADA34900F3D376 /* StationCell.m */; };
 		042EA9EF23ADA34A00F3D376 /* StationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042EA9ED23ADA34900F3D376 /* StationCell.xib */; };
+		042EF65423D17F3E00543C3F /* ApplyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EF65323D17F3E00543C3F /* ApplyManager.m */; };
+		042EF65723D1954200543C3F /* CommonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EF65623D1954200543C3F /* CommonManager.m */; };
+		042EF65B23D1A69900543C3F /* CGXAddressCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 042EF65A23D1A69900543C3F /* CGXAddressCity.plist */; };
 		0431249D23C82FAD00E00034 /* StarSelectItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431249C23C82FAD00E00034 /* StarSelectItem.m */; };
 		0431249F23C82FEC00E00034 /* StarSelectItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0431249E23C82FEC00E00034 /* StarSelectItem.xib */; };
 		043124A223C84D0A00E00034 /* OrderEvaluateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124A123C84D0A00E00034 /* OrderEvaluateController.m */; };
@@ -109,7 +112,6 @@
 		04380A2823C58A5E0011BB9E /* SelectLocationMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04380A2723C58A5E0011BB9E /* SelectLocationMapController.m */; };
 		04380A2B23C5CFEA0011BB9E /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04380A2A23C5CFEA0011BB9E /* LocationManager.m */; };
 		0442D80F23B4B70B007ABE89 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0442D80E23B4B70B007ABE89 /* MobileCoreServices.framework */; };
-		0442D81123B589A4007ABE89 /* 1.mov in Resources */ = {isa = PBXBuildFile; fileRef = 0442D81023B589A4007ABE89 /* 1.mov */; };
 		045B16B623C349EA00754CF9 /* ApprovalCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045B16B523C349EA00754CF9 /* ApprovalCenterController.m */; };
 		045B16BA23C34A9400754CF9 /* ApprovalStationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045B16B823C34A9400754CF9 /* ApprovalStationCell.m */; };
 		045B16BB23C34A9400754CF9 /* ApprovalStationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045B16B923C34A9400754CF9 /* ApprovalStationCell.xib */; };
@@ -310,6 +312,11 @@
 		042EA9EB23ADA34900F3D376 /* StationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StationCell.h; sourceTree = "<group>"; };
 		042EA9EC23ADA34900F3D376 /* StationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StationCell.m; sourceTree = "<group>"; };
 		042EA9ED23ADA34900F3D376 /* StationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationCell.xib; sourceTree = "<group>"; };
+		042EF65223D17F3E00543C3F /* ApplyManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyManager.h; sourceTree = "<group>"; };
+		042EF65323D17F3E00543C3F /* ApplyManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyManager.m; sourceTree = "<group>"; };
+		042EF65523D1954200543C3F /* CommonManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonManager.h; sourceTree = "<group>"; };
+		042EF65623D1954200543C3F /* CommonManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonManager.m; sourceTree = "<group>"; };
+		042EF65A23D1A69900543C3F /* CGXAddressCity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CGXAddressCity.plist; sourceTree = "<group>"; };
 		0431249B23C82FAC00E00034 /* StarSelectItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarSelectItem.h; sourceTree = "<group>"; };
 		0431249C23C82FAD00E00034 /* StarSelectItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StarSelectItem.m; sourceTree = "<group>"; };
 		0431249E23C82FEC00E00034 /* StarSelectItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StarSelectItem.xib; sourceTree = "<group>"; };
@@ -406,7 +413,6 @@
 		04380A2923C5CFEA0011BB9E /* LocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		04380A2A23C5CFEA0011BB9E /* LocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		0442D80E23B4B70B007ABE89 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		0442D81023B589A4007ABE89 /* 1.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 1.mov; sourceTree = "<group>"; };
 		045B16B423C349EA00754CF9 /* ApprovalCenterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApprovalCenterController.h; sourceTree = "<group>"; };
 		045B16B523C349EA00754CF9 /* ApprovalCenterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApprovalCenterController.m; sourceTree = "<group>"; };
 		045B16B723C34A9400754CF9 /* ApprovalStationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApprovalStationCell.h; sourceTree = "<group>"; };
@@ -944,8 +950,8 @@
 		042EA9D623AC93EE00F3D376 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				042EF65A23D1A69900543C3F /* CGXAddressCity.plist */,
 				042EA9D923AC96A900F3D376 /* iconfont.ttf */,
-				0442D81023B589A4007ABE89 /* 1.mov */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -989,6 +995,10 @@
 				043124B723CC008600E00034 /* StationManager.m */,
 				043124BF23CC686A00E00034 /* OrderManager.h */,
 				043124C023CC686A00E00034 /* OrderManager.m */,
+				042EF65223D17F3E00543C3F /* ApplyManager.h */,
+				042EF65323D17F3E00543C3F /* ApplyManager.m */,
+				042EF65523D1954200543C3F /* CommonManager.h */,
+				042EF65623D1954200543C3F /* CommonManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1702,7 +1712,6 @@
 				9B6F90C923C7845900B76FCF /* OrderStepItem.xib in Resources */,
 				0431249F23C82FEC00E00034 /* StarSelectItem.xib in Resources */,
 				04F49E982397A9FE008E1334 /* LaunchScreen.storyboard in Resources */,
-				0442D81123B589A4007ABE89 /* 1.mov in Resources */,
 				04333C3D23C0960200676FBD /* ApplyInputCell.xib in Resources */,
 				04B623B723C7211900550BD8 /* OrderRemarkInputCell.xib in Resources */,
 				9B6F90CE23C791D100B76FCF /* OrderInfoCell.xib in Resources */,
@@ -1710,6 +1719,7 @@
 				04E7D23B23B06B2A004EEAAB /* TransportOrderTransportTypeGroupCell.xib in Resources */,
 				048C9F3523B3086200730C70 /* TransportPayPersonnelCell.xib in Resources */,
 				04333C1023C029ED00676FBD /* SiteInportOrderCell.xib in Resources */,
+				042EF65B23D1A69900543C3F /* CGXAddressCity.plist in Resources */,
 				0469F05223ADB1BB009B8E4F /* StationInfoItem.xib in Resources */,
 				04B623C823C829B900550BD8 /* OrderEvaluateInputCell.xib in Resources */,
 				9B6F90D323C79A9600B76FCF /* OrderStepCell.xib in Resources */,
@@ -1953,6 +1963,7 @@
 				042DA78523BD7E920027C39B /* OrderOperateBoxView.m in Sources */,
 				04ED17F923B5E79C002F2266 /* MediaSelectBoxView.m in Sources */,
 				9B6E4C3B23C2324A00922542 /* TestShowBoxViewController.m in Sources */,
+				042EF65723D1954200543C3F /* CommonManager.m in Sources */,
 				9B6E4C3E23C232FF00922542 /* PreviewMediaImageCell.m in Sources */,
 				04ED183723B9CD14002F2266 /* StationCenterController.m in Sources */,
 				0436965623C473A600F51CCA /* WithdrawalFlowCell.m in Sources */,
@@ -1984,6 +1995,7 @@
 				042EA9EE23ADA34A00F3D376 /* StationCell.m in Sources */,
 				04E7D22923AE236A004EEAAB /* Utils.m in Sources */,
 				04333C3C23C0960200676FBD /* ApplyInputCell.m in Sources */,
+				042EF65423D17F3E00543C3F /* ApplyManager.m in Sources */,
 				042EA99B23AA32A300F3D376 /* HomeViewController.m in Sources */,
 				042DA78223BB49A00027C39B /* SegmentedSelectView.m in Sources */,
 				04B623C223C8298700550BD8 /* OrderEvaluateStarCell.m in Sources */,

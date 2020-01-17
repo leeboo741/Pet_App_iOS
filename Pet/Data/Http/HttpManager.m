@@ -226,6 +226,17 @@ static CGFloat TimeOut = 20.0f; // 超时时间
 
 #pragma mark - private method
 
+-(NSString *)getCookiesWithUrl:(NSString *)url{
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: [NSURL URLWithString:url]];
+    NSString * JSESSIONID = nil;
+    for (NSHTTPCookie*cookie in cookies) {
+        if ([cookie.name isEqualToString:@"JSESSIONID"]) {
+            JSESSIONID = cookie.value;
+        }
+    }
+    return JSESSIONID;
+}
+
 -(void)addHeader:(HttpRequestModel *)model{
     if (kDictIsEmpty(model.header)) {
         return;
