@@ -76,9 +76,12 @@
 
 #pragma mark - String Resource Macros
 
-#define Map_Key_Tencent         @"3MEBZ-MYJE4-ENMU2-DNNDM-3UXXZ-5CB4U"
+#define Map_Key_Tencent         @"3MEBZ-MYJE4-ENMU2-DNNDM-3UXXZ-5CB4U" // 腾讯地图key
 
-#define Service_Phone           @"4007778889"
+#define Ali_Push_SDK_Key        @"28311432" // 阿里推送 key
+#define Ali_Push_SDK_Secret     @"2be891ccda0e27c7b209096bfdd03047" // 阿里推送 secret
+
+#define Service_Phone           @"4007778889" // 默认服务电话
 
 
 #pragma mark - Url Resource Macros

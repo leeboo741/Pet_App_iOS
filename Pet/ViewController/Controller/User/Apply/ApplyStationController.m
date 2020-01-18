@@ -106,9 +106,9 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
 -(void)tapTimeCountingAtApplyTimeCountCell:(ApplyTimeCountCell *)cell{
     MSLog(@"点击获取倒计时");
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    ApplyItemCellModel * model = self.itemsArray[indexPath.row];
+    ApplyItemCellModel * model = self.itemsArray[1];
     [[CommonManager shareCommonManager] getPhoneCodeByPhoneNumber:model.cellValue success:^(id  _Nonnull data) {
-        
+        [MBProgressHUD showTipMessageInView:@"短信发送成功"];
     } fail:^(NSInteger code) {
         
     }];
@@ -203,12 +203,77 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
     return _selectAddressRow;
 }
 
+#pragma mark - data request
+
+-(void)requestApply{
+    ApplyStationModel * applyModel = [[ApplyStationModel alloc]init];
+    ApplyItemCellModel * cellModel1 = self.itemsArray[0];
+    applyModel.businessName = cellModel1.cellValue;
+    ApplyItemCellModel * cellModel2 = self.itemsArray[1];
+    applyModel.phoneNumber = cellModel2.cellValue;
+    ApplyItemCellModel * cellModel3 = self.itemsArray[2];
+    applyModel.verificationCode = cellModel3.cellValue;
+    ApplyItemCellModel * cellModel4 = self.itemsArray[3];
+    applyModel.startBusinessHours = cellModel4.cellValue;
+    ApplyItemCellModel * cellModel5 = self.itemsArray[4];
+    applyModel.endBusinessHours = cellModel5.cellValue;
+    applyModel.province = self.selectAddressArray[0];
+    applyModel.city = self.selectAddressArray[1];
+    ApplyItemCellModel * cellModel6 = self.itemsArray[6];
+    applyModel.detailAddress = cellModel6.cellValue;
+    ApplyItemCellModel * cellModel7 = self.itemsArray[7];
+    applyModel.describes = cellModel7.cellValue;
+    if ([self isSafeApplyModel:applyModel]) {
+        [MBProgressHUD showActivityMessageInView:@"提交中..."];
+        [[ApplyManager shareApplyManager] requestStationApply:applyModel success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+        } fail:^(NSInteger code) {
+            [MBProgressHUD hideHUD];
+        }];
+    }
+}
+
+#pragma mark - private method
+
+-(BOOL)isSafeApplyModel:(ApplyStationModel *)model{
+    if (kStringIsEmpty(model.businessName)) {
+        [MBProgressHUD showErrorMessage:@"商家名称不能为空"];
+        return NO;
+    }
+    if (kStringIsEmpty(model.phoneNumber) || Util_IsPhoneString(model.phoneNumber)) {
+        [MBProgressHUD showErrorMessage:@"请填写正确手机号码"];
+        return NO;
+    }
+    if (kStringIsEmpty(model.startBusinessHours)) {
+        [MBProgressHUD showErrorMessage:@"请选择开始营业时间"];
+        return NO;
+    }
+    if (kStringIsEmpty(model.endBusinessHours)) {
+        [MBProgressHUD showErrorMessage:@"请选择结束营业时间"];
+        return NO;
+    }
+    if (kStringIsEmpty(model.province) || kStringIsEmpty(model.city)) {
+        [MBProgressHUD showErrorMessage:@"请选择区域"];
+        return NO;
+    }
+    if (kStringIsEmpty(model.detailAddress)) {
+        [MBProgressHUD showErrorMessage:@"请输入详细地址"];
+        return NO;
+    }
+    if (kStringIsEmpty(model.verificationCode)) {
+        [MBProgressHUD showErrorMessage:@"请填写验证码"];
+        return NO;
+    }
+    return YES;
+}
+
 #pragma mark - event action
 -(void)tapCommit{
     MSLog(@"点击提交员工申请:")
     for (ApplyItemCellModel * model in self.itemsArray) {
         MSLog(@"%@",model.cellValue);
     }
+    [self requestApply];
 }
 
 

@@ -57,6 +57,8 @@
 		042EF65423D17F3E00543C3F /* ApplyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EF65323D17F3E00543C3F /* ApplyManager.m */; };
 		042EF65723D1954200543C3F /* CommonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EF65623D1954200543C3F /* CommonManager.m */; };
 		042EF65B23D1A69900543C3F /* CGXAddressCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 042EF65A23D1A69900543C3F /* CGXAddressCity.plist */; };
+		042EF65E23D2FD2B00543C3F /* AliyunEmasServices-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 042EF65D23D2FD2B00543C3F /* AliyunEmasServices-Info.plist */; };
+		042EF66123D2FF8100543C3F /* AppDelegate+Push.m in Sources */ = {isa = PBXBuildFile; fileRef = 042EF66023D2FF8100543C3F /* AppDelegate+Push.m */; };
 		0431249D23C82FAD00E00034 /* StarSelectItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431249C23C82FAD00E00034 /* StarSelectItem.m */; };
 		0431249F23C82FEC00E00034 /* StarSelectItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0431249E23C82FEC00E00034 /* StarSelectItem.xib */; };
 		043124A223C84D0A00E00034 /* OrderEvaluateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043124A123C84D0A00E00034 /* OrderEvaluateController.m */; };
@@ -317,6 +319,10 @@
 		042EF65523D1954200543C3F /* CommonManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonManager.h; sourceTree = "<group>"; };
 		042EF65623D1954200543C3F /* CommonManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonManager.m; sourceTree = "<group>"; };
 		042EF65A23D1A69900543C3F /* CGXAddressCity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CGXAddressCity.plist; sourceTree = "<group>"; };
+		042EF65C23D2F38200543C3F /* Pet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pet.entitlements; sourceTree = "<group>"; };
+		042EF65D23D2FD2B00543C3F /* AliyunEmasServices-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AliyunEmasServices-Info.plist"; sourceTree = "<group>"; };
+		042EF65F23D2FF8100543C3F /* AppDelegate+Push.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Push.h"; sourceTree = "<group>"; };
+		042EF66023D2FF8100543C3F /* AppDelegate+Push.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Push.m"; sourceTree = "<group>"; };
 		0431249B23C82FAC00E00034 /* StarSelectItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarSelectItem.h; sourceTree = "<group>"; };
 		0431249C23C82FAD00E00034 /* StarSelectItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StarSelectItem.m; sourceTree = "<group>"; };
 		0431249E23C82FEC00E00034 /* StarSelectItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StarSelectItem.xib; sourceTree = "<group>"; };
@@ -1470,6 +1476,7 @@
 		04F49E7F2397A9FB008E1334 = {
 			isa = PBXGroup;
 			children = (
+				042EF65D23D2FD2B00543C3F /* AliyunEmasServices-Info.plist */,
 				04F49E8A2397A9FB008E1334 /* Pet */,
 				04F49EA32397A9FE008E1334 /* PetTests */,
 				04F49EAE2397A9FE008E1334 /* PetUITests */,
@@ -1492,6 +1499,7 @@
 		04F49E8A2397A9FB008E1334 /* Pet */ = {
 			isa = PBXGroup;
 			children = (
+				042EF65C23D2F38200543C3F /* Pet.entitlements */,
 				04F49EC22397BB03008E1334 /* ViewController */,
 				042EA93B23A8BA0300F3D376 /* Macros */,
 				9B82322823B8FC5500B676C1 /* Data */,
@@ -1505,6 +1513,8 @@
 				04F49E912397A9FB008E1334 /* Main.storyboard */,
 				04F49E8B2397A9FB008E1334 /* AppDelegate.h */,
 				04F49E8C2397A9FB008E1334 /* AppDelegate.m */,
+				042EF65F23D2FF8100543C3F /* AppDelegate+Push.h */,
+				042EF66023D2FF8100543C3F /* AppDelegate+Push.m */,
 				04F49E942397A9FE008E1334 /* Assets.xcassets */,
 				04F49E962397A9FE008E1334 /* LaunchScreen.storyboard */,
 				04F49E992397A9FE008E1334 /* Info.plist */,
@@ -1666,6 +1676,14 @@
 					04F49E872397A9FB008E1334 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					04F49E9F2397A9FE008E1334 = {
 						CreatedOnToolsVersion = 10.1;
@@ -1708,6 +1726,7 @@
 				042DA79D23BDD7910027C39B /* OrderRemarkView.xib in Resources */,
 				04333C2023C0455C00676FBD /* AssignmentsItemCell.xib in Resources */,
 				04ED184023B9E5DB002F2266 /* CenterHeaderCell.xib in Resources */,
+				042EF65E23D2FD2B00543C3F /* AliyunEmasServices-Info.plist in Resources */,
 				04333C4D23C2D2B200676FBD /* ApplyTimeCountCell.xib in Resources */,
 				9B6F90C923C7845900B76FCF /* OrderStepItem.xib in Resources */,
 				0431249F23C82FEC00E00034 /* StarSelectItem.xib in Resources */,
@@ -1978,6 +1997,7 @@
 				042EA94823A8C08E00F3D376 /* UIColor+ColorWithHexString.m in Sources */,
 				04333C2323C066B100676FBD /* StaffEntity.m in Sources */,
 				042EA95223A8C35A00F3D376 /* InputAreaView.m in Sources */,
+				042EF66123D2FF8100543C3F /* AppDelegate+Push.m in Sources */,
 				045B16BF23C34AC600754CF9 /* ApprovalStaffCell.m in Sources */,
 				9B6F90D223C79A9600B76FCF /* OrderStepCell.m in Sources */,
 				042EA9E623ACB57900F3D376 /* TBCityIconInfo.m in Sources */,
@@ -2185,8 +2205,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6967F8FN94;
+				CODE_SIGN_ENTITLEMENTS = Pet/Pet.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Xue Gao (A8X2SX6422)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pet/ThirdParty/Map",
@@ -2262,8 +2284,9 @@
 					"\"YYWebImage\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yangwangkeji.Pet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ywkj.pet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = banmapet_development;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pet/Pet-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2277,8 +2300,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6967F8FN94;
+				CODE_SIGN_ENTITLEMENTS = Pet/Pet.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: NanChangshi yangwang keji youxiangongsi (462946DA5G)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pet/ThirdParty/Map",
@@ -2354,8 +2379,9 @@
 					"\"YYWebImage\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yangwangkeji.Pet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ywkj.pet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = banmapet_distribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pet/Pet-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -30,7 +30,6 @@ SingleImplementation(StationManager);
                 success(stationArray);
             }
         } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
-            [[HttpManager shareHttpManager]handlerFailWithCode:code msg:errorMsg];
             if (fail) {
                 fail(code);
             }

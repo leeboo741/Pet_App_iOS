@@ -18,7 +18,6 @@ typedef void(^FailBlock)(NSInteger code);
 //SingleInterface(HttpManager);
 +(instancetype)shareHttpManager; // 碰到进程崩溃,初步判断是AFNetworking多任务时线程不安全访问数据导致的,所以先不使用单例模式
 -(void)requestWithRequestModel:(HttpRequestModel *)model;
--(void)handlerFailWithCode:(HttpResponseCode)code msg:(NSString *)msg;
 @end
 
 NS_ASSUME_NONNULL_END

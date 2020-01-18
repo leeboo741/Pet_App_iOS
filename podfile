@@ -1,5 +1,10 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/aliyun/aliyun-specs.git'
+
 platform :ios, '9.0'
 target 'Pet' do
+
+pod 'AlicloudPush', '~> 1.9.9'
 
 pod 'WechatOpenSDK', '~> 1.8.6'
 

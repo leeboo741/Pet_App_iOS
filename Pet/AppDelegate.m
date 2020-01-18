@@ -12,6 +12,7 @@
 #import "AspectsUIViewController.h"
 #import "TBCityIconFont.h"
 #import <QMapKit/QMapKit.h>
+#import "AppDelegate+Push.h"
 
 @interface AppDelegate ()
 
@@ -27,6 +28,33 @@
     [TBCityIconFont setFontName:@"iconfont"];
     [QMapServices sharedServices].apiKey = Map_Key_Tencent;
     [AspectsUIViewController aspect_viewDidLoad];
+    
+    
+//    if (@available(iOS 10.0, *)) {
+//        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+//        center.delegate = self;//设置该代理对象尽量在willFinishLaunchingWithOptions方法中，设置太晚可能无法及时处理通知消息
+//        UNAuthorizationOptions options = UNAuthorizationOptionBadge + UNAuthorizationOptionAlert + UNAuthorizationOptionSound;
+//        //请求指定推送设置的权限
+//        [center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
+//            NSLog(@"granted:%@, error:%@", @(granted), error);
+//            //获得权限后注册远程推送通知
+//            if (!error && granted)
+//            {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [[UIApplication sharedApplication] registerForRemoteNotifications];
+//                });
+//            }
+//        }];
+//    } else {
+//        // Fallback on earlier versions
+//        UIUserNotificationSettings *setting = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+//        //触发权限请求
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:setting];
+//        //注册远程推送
+//        [[UIApplication sharedApplication] registerForRemoteNotifications];
+//    }
+    
+    
     LoginViewController * loginViewController = [[LoginViewController alloc]init];
     self.window.rootViewController = loginViewController;
     return YES;
@@ -58,7 +86,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 
 // IQKeyBorad
 -(void)initIQKeyBorad{

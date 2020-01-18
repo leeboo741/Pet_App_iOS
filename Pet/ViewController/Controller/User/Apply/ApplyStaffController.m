@@ -114,10 +114,9 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
 
 -(void)tapTimeCountingAtApplyTimeCountCell:(ApplyTimeCountCell *)cell{
     MSLog(@"点击获取倒计时");
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    ApplyItemCellModel * model = self.itemsArray[indexPath.row];
+    ApplyItemCellModel * model = self.itemsArray[1];
     [[CommonManager shareCommonManager] getPhoneCodeByPhoneNumber:model.cellValue success:^(id  _Nonnull data) {
-        
+        [MBProgressHUD showTipMessageInView:@"短信发送成功"];
     } fail:^(NSInteger code) {
         
     }];
@@ -210,7 +209,6 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
 }
 
 -(void)requestApply{
-    [MBProgressHUD showActivityMessageInView:@"提交中..."];
     ApplyStaffModel * model = [[ApplyStaffModel alloc]init];
     model.openId = nil;
     ApplyItemCellModel * cellModel1 = self.itemsArray[0];
@@ -221,10 +219,11 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
     model.verificationCode = cellModel3.cellValue;
     model.station = self.selectStation;
     if ([self isSafeDataWithApplyModel:model]) {
+        [MBProgressHUD showActivityMessageInView:@"提交中..."];
         [[ApplyManager shareApplyManager] requestStaffApply:model success:^(id  _Nonnull data) {
-            
+            [MBProgressHUD hideHUD];
         } fail:^(NSInteger code) {
-            
+            [MBProgressHUD hideHUD];
         }];
     }
 }
@@ -276,8 +275,8 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
         [MBProgressHUD showTipMessageInView:@"员工名称不能为空"];
         return NO;
     }
-    if (kStringIsEmpty(model.phone)) {
-        [MBProgressHUD showTipMessageInView:@"电话号码不能为空"];
+    if (kStringIsEmpty(model.phone) || Util_IsPhoneString(model.phone)) {
+        [MBProgressHUD showTipMessageInView:@"请填写正确手机号码"];
         return NO;
     }
     if (!model.station) {

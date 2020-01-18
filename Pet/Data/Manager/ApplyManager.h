@@ -20,7 +20,15 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface ApplyStationModel : NSObject
-
+@property (nonatomic, copy) NSString * businessName;
+@property (nonatomic, copy) NSString * phoneNumber;
+@property (nonatomic, copy) NSString * startBusinessHours;
+@property (nonatomic, copy) NSString * endBusinessHours;
+@property (nonatomic, copy) NSString * describes;
+@property (nonatomic, copy) NSString * province;
+@property (nonatomic, copy) NSString * city;
+@property (nonatomic, copy) NSString * detailAddress;
+@property (nonatomic, copy) NSString * verificationCode;
 @end
 
 @interface ApplyManager : NSObject
