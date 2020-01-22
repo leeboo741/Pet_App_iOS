@@ -127,6 +127,9 @@
 		0469F06B23ADCE24009B8E4F /* TransportOrderValueAddCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469F06923ADCE24009B8E4F /* TransportOrderValueAddCell.m */; };
 		0469F06C23ADCE24009B8E4F /* TransportOrderValueAddCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0469F06A23ADCE24009B8E4F /* TransportOrderValueAddCell.xib */; };
 		0469F06F23ADCF77009B8E4F /* SelectActionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0469F06E23ADCF77009B8E4F /* SelectActionLabel.m */; };
+		0481825E23D6F58B00217854 /* GSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0481825523D6F58B00217854 /* GSDK.a */; };
+		0481826123D6F5C200217854 /* PrinterConneterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0481826023D6F5C200217854 /* PrinterConneterManager.m */; };
+		0481826523D7ED0A00217854 /* BluetoothListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0481826423D7ED0A00217854 /* BluetoothListController.m */; };
 		048C9F2E23B1ED8600730C70 /* TransportOrderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048C9F2D23B1ED8600730C70 /* TransportOrderFooterView.m */; };
 		048C9F3423B3086200730C70 /* TransportPayPersonnelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048C9F3223B3086200730C70 /* TransportPayPersonnelCell.m */; };
 		048C9F3523B3086200730C70 /* TransportPayPersonnelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048C9F3323B3086200730C70 /* TransportPayPersonnelCell.xib */; };
@@ -440,6 +443,17 @@
 		0469F06A23ADCE24009B8E4F /* TransportOrderValueAddCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransportOrderValueAddCell.xib; sourceTree = "<group>"; };
 		0469F06D23ADCF77009B8E4F /* SelectActionLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectActionLabel.h; sourceTree = "<group>"; };
 		0469F06E23ADCF77009B8E4F /* SelectActionLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectActionLabel.m; sourceTree = "<group>"; };
+		0481825523D6F58B00217854 /* GSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = GSDK.a; sourceTree = "<group>"; };
+		0481825823D6F58B00217854 /* EthernetConnecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EthernetConnecter.h; sourceTree = "<group>"; };
+		0481825923D6F58B00217854 /* EscCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EscCommand.h; sourceTree = "<group>"; };
+		0481825A23D6F58B00217854 /* ConnecterBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnecterBlock.h; sourceTree = "<group>"; };
+		0481825B23D6F58B00217854 /* TscCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TscCommand.h; sourceTree = "<group>"; };
+		0481825C23D6F58B00217854 /* BLEConnecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEConnecter.h; sourceTree = "<group>"; };
+		0481825D23D6F58B00217854 /* Connecter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connecter.h; sourceTree = "<group>"; };
+		0481825F23D6F5C200217854 /* PrinterConneterManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrinterConneterManager.h; sourceTree = "<group>"; };
+		0481826023D6F5C200217854 /* PrinterConneterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrinterConneterManager.m; sourceTree = "<group>"; };
+		0481826323D7ED0A00217854 /* BluetoothListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BluetoothListController.h; sourceTree = "<group>"; };
+		0481826423D7ED0A00217854 /* BluetoothListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BluetoothListController.m; sourceTree = "<group>"; };
 		048C9F2B23B1B26E00730C70 /* TransportValueAddProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportValueAddProtocol.h; sourceTree = "<group>"; };
 		048C9F2C23B1ED8600730C70 /* TransportOrderFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportOrderFooterView.h; sourceTree = "<group>"; };
 		048C9F2D23B1ED8600730C70 /* TransportOrderFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportOrderFooterView.m; sourceTree = "<group>"; };
@@ -593,6 +607,7 @@
 				04380A2223C589190011BB9E /* Foundation.framework in Frameworks */,
 				04380A2023C589080011BB9E /* CoreLocation.framework in Frameworks */,
 				04380A1E23C588FC0011BB9E /* QuartzCore.framework in Frameworks */,
+				0481825E23D6F58B00217854 /* GSDK.a in Frameworks */,
 				04380A1D23C588F10011BB9E /* SystemConfiguration.framework in Frameworks */,
 				04380A1B23C588E20011BB9E /* libz.tbd in Frameworks */,
 				04380A1923C588D30011BB9E /* libsqlite3.tbd in Frameworks */,
@@ -728,6 +743,7 @@
 		042EA91223A8B08100F3D376 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0481826223D7ECD700217854 /* Printer */,
 				04380A2523C58A320011BB9E /* Map */,
 				04380A1123C570750011BB9E /* Navigation */,
 				04ED182D23B9A22F002F2266 /* Main */,
@@ -917,6 +933,7 @@
 		042EA9BC23AB4D5900F3D376 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				0481825423D6EA4500217854 /* GainschaPrinter */,
 				04380A1523C5888A0011BB9E /* Map */,
 				04ED180923B702FF002F2266 /* MediaShowAndSelected */,
 				042EA9DE23ACB57900F3D376 /* IconFont */,
@@ -1284,6 +1301,47 @@
 				048C9F2D23B1ED8600730C70 /* TransportOrderFooterView.m */,
 			);
 			path = Transport;
+			sourceTree = "<group>";
+		};
+		0481825423D6EA4500217854 /* GainschaPrinter */ = {
+			isa = PBXGroup;
+			children = (
+				0481825523D6F58B00217854 /* GSDK.a */,
+				0481825623D6F58B00217854 /* include */,
+				0481825F23D6F5C200217854 /* PrinterConneterManager.h */,
+				0481826023D6F5C200217854 /* PrinterConneterManager.m */,
+			);
+			path = GainschaPrinter;
+			sourceTree = "<group>";
+		};
+		0481825623D6F58B00217854 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				0481825723D6F58B00217854 /* GSDK */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		0481825723D6F58B00217854 /* GSDK */ = {
+			isa = PBXGroup;
+			children = (
+				0481825823D6F58B00217854 /* EthernetConnecter.h */,
+				0481825923D6F58B00217854 /* EscCommand.h */,
+				0481825A23D6F58B00217854 /* ConnecterBlock.h */,
+				0481825B23D6F58B00217854 /* TscCommand.h */,
+				0481825C23D6F58B00217854 /* BLEConnecter.h */,
+				0481825D23D6F58B00217854 /* Connecter.h */,
+			);
+			path = GSDK;
+			sourceTree = "<group>";
+		};
+		0481826223D7ECD700217854 /* Printer */ = {
+			isa = PBXGroup;
+			children = (
+				0481826323D7ED0A00217854 /* BluetoothListController.h */,
+				0481826423D7ED0A00217854 /* BluetoothListController.m */,
+			);
+			path = Printer;
 			sourceTree = "<group>";
 		};
 		048C9F2F23B2FEEE00730C70 /* TransportOrder */ = {
@@ -1677,10 +1735,16 @@
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
 						SystemCapabilities = {
+							com.apple.AutoFillCredentialProvider = {
+								enabled = 0;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
 							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
 						};
@@ -1995,6 +2059,7 @@
 				0436964023C439D200F51CCA /* BalanceFlowController.m in Sources */,
 				042EA9B123AA34C300F3D376 /* HomeView.m in Sources */,
 				042EA94823A8C08E00F3D376 /* UIColor+ColorWithHexString.m in Sources */,
+				0481826523D7ED0A00217854 /* BluetoothListController.m in Sources */,
 				04333C2323C066B100676FBD /* StaffEntity.m in Sources */,
 				042EA95223A8C35A00F3D376 /* InputAreaView.m in Sources */,
 				042EF66123D2FF8100543C3F /* AppDelegate+Push.m in Sources */,
@@ -2017,6 +2082,7 @@
 				04333C3C23C0960200676FBD /* ApplyInputCell.m in Sources */,
 				042EF65423D17F3E00543C3F /* ApplyManager.m in Sources */,
 				042EA99B23AA32A300F3D376 /* HomeViewController.m in Sources */,
+				0481826123D6F5C200217854 /* PrinterConneterManager.m in Sources */,
 				042DA78223BB49A00027C39B /* SegmentedSelectView.m in Sources */,
 				04B623C223C8298700550BD8 /* OrderEvaluateStarCell.m in Sources */,
 				9B6E4C4123C2331700922542 /* PreviewMediaVideoCell.m in Sources */,
@@ -2208,7 +2274,7 @@
 				CODE_SIGN_ENTITLEMENTS = Pet/Pet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Xue Gao (A8X2SX6422)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 462946DA5G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pet/ThirdParty/Map",
@@ -2223,6 +2289,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pet/ThirdParty/Scan/ZBarSDK",
+					"$(PROJECT_DIR)/Pet/ThirdParty/GainschaPrinter",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2290,7 +2357,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Pet/Pet-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2303,7 +2370,7 @@
 				CODE_SIGN_ENTITLEMENTS = Pet/Pet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: NanChangshi yangwang keji youxiangongsi (462946DA5G)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 462946DA5G;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pet/ThirdParty/Map",
@@ -2318,6 +2385,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pet/ThirdParty/Scan/ZBarSDK",
+					"$(PROJECT_DIR)/Pet/ThirdParty/GainschaPrinter",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2384,7 +2452,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = banmapet_distribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pet/Pet-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
