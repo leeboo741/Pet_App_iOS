@@ -68,11 +68,12 @@ SingleImplementation(WechatManager);
 -(void)getAccessTokenWithCode:(NSString *)wechatCode
                       success:(SuccessBlock)success
                          fail:(FailBlock)fail{
-    HttpRequestModel * requestModel = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:Wechat_URL_GetAccessToken(Wechat_App_Id, Wechat_App_Secret, wechatCode) paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+    HttpRequestModel * requestModel = [[HttpRequestModel alloc] initWithType:HttpRequestMethodType_GET Url:Wechat_URL_GetAccessToken(Wechat_App_Id, Wechat_App_Secret, wechatCode) isFullUrl:YES paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
         if (success) {
             success(@"");
         }
     } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        
         if (fail) {
             fail(code);
         }

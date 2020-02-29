@@ -30,6 +30,7 @@
 -(instancetype)init{
     self = [super init];
     if (self) {
+        self.isFullUrl = NO;
         self.methodType = HttpRequestMethodType_GET;
         self.header = [NSMutableDictionary dictionary];
         [self.header setObject:HEADER_VALUE_APPLICATION_JSON
@@ -41,9 +42,24 @@
 }
 -(NSString *)urlStr{
     if (_urlStr) {
+        if (self.isFullUrl) {
+            return _urlStr;
+        }
         return [NSString stringWithFormat:@"%@%@",URL_BASE,_urlStr];
     }
     return URL_BASE;
+}
+-(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url isFullUrl:(BOOL)isFull paramers:(id _Nullable)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock{
+    self = [super init];
+    if (self) {
+        self.methodType = type;
+        self.urlStr = url;
+        self.paramers = paramers;
+        self.successBlock = successBlock;
+        self.failBlock = failBlock;
+        self.isFullUrl = isFull;
+    }
+    return self;
 }
 -(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url paramers:(id _Nullable)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock{
     self = [super init];

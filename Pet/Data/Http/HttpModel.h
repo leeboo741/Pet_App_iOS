@@ -41,6 +41,7 @@ static NSString * HEADER_KEY_ACCEPT = @"Accept";
 static NSString * HEADER_VALUE_APPLICATION_JSON = @"application/json";
 
 @interface HttpRequestModel : NSObject
+@property (nonatomic, assign) BOOL isFullUrl; // 是否使用完整路径  还是 需要拼接baseUrl
 @property (nonatomic, assign) HttpRequestMethodType methodType;
 @property (nonatomic, copy) NSString * urlStr;
 @property (nonatomic, strong) id paramers;
@@ -49,6 +50,7 @@ static NSString * HEADER_VALUE_APPLICATION_JSON = @"application/json";
 @property (nonatomic, copy) ProgressBlock progressBlock;
 @property (nonatomic, copy) HttpRequestSuccessBlock successBlock;
 @property (nonatomic, copy) HttpRequestFailBlock failBlock;
+-(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url isFullUrl:(BOOL)isFull paramers:(id _Nullable)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock;
 -(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url paramers:(id _Nullable)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock;
 @end
 
