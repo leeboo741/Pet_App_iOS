@@ -1,5 +1,6 @@
 //
 //  OrderManager.h
+//  下单管理
 //  Pet
 //
 //  Created by mac on 2020/1/13.
@@ -20,15 +21,15 @@ typedef NS_ENUM(NSInteger, OrderTransportType) {
 };
 
 @interface PredictPriceModel: NSObject
-@property (nonatomic, copy) NSString * startCity;
-@property (nonatomic, copy) NSString * endCity;
-@property (nonatomic, assign) OrderTransportType transportType;
-@property (nonatomic, assign) CGFloat weight;
-@property (nonatomic, assign) NSInteger num;
-@property (nonatomic, copy) NSString * leaveDate;
-@property (nonatomic, copy) NSString * petClassify;
-@property (nonatomic, copy) NSString * petAge;
-@property (nonatomic, copy) NSString * petType;
+@property (nonatomic, copy) NSString * startCity; // 开始城市
+@property (nonatomic, copy) NSString * endCity; // 结束城市
+@property (nonatomic, assign) OrderTransportType transportType; // 运输方式
+@property (nonatomic, assign) CGFloat weight; // 重量
+@property (nonatomic, assign) NSInteger num; // 数量
+@property (nonatomic, copy) NSString * leaveDate; // 出发时间
+@property (nonatomic, copy) NSString * petClassify; // 宠物品种
+@property (nonatomic, copy) NSString * petAge; // 宠物年龄
+@property (nonatomic, copy) NSString * petType; // 宠物类型
 @end
 
 @interface CityModel : NSObject
@@ -48,9 +49,12 @@ static NSString * City_Index_Key = @"cityIndex";
 @property (nonatomic, assign) CGFloat rate; // 费率
 @end
 
-// 获取城市数据回调
-// dataList 数据列表
-// index 索引列表
+/**
+ 获取城市数据回调
+
+ @param dataList 数据列表
+ @param indexList 索引列表
+ */
 typedef void(^GetCityDataReturnBlock)(NSArray * _Nullable dataList, NSArray * _Nullable indexList);
 
 @interface OrderManager : NSObject
@@ -58,34 +62,74 @@ SingleInterface(OrderManager);
 
 /**
  查询预估价格
+
+ @param predictPriceModel 预估价格查询条件
+ @param success 成功回调
+ @param fail 失败回调
  */
 -(void)getPredictPriceWithModel:(PredictPriceModel *)predictPriceModel success:(SuccessBlock)success fail:(FailBlock)fail;
 /**
- 查询最大箱子重量
+ 查询可接受最大箱子重量
+
+ @param startCity 开始城市
+ @param endCity 目的城市
+ @param type 运输类型
+ @param success 成功回调
+ @param fail 失败回调
  */
 -(void)getMaxPetCageWeightWithStartCity:(NSString *)startCity endCity:(NSString *)endCity transportType:(OrderTransportType)type success:(SuccessBlock)success fail:(FailBlock)fail;
+
 /**
  查询可用运输方式
+
+ @param startCity 开始城市
+ @param endCity 结束城市
+ @param success 成功回调
+ @param fail 结束回调
  */
 -(void)getAbleTransportTypeWithStartCity:(NSString *)startCity endCity:(NSString *)endCity success:(SuccessBlock)success fail:(FailBlock)fail;
 /**
  通过城市获取保险费率
+
+ @param startCity 开始城市
+ @param success 成功回调
+ @param fail 结束回调
  */
 -(void)getInsureRateByStartCity:(NSString *)startCity success:(SuccessBlock)success fail:(FailBlock)fail;
+
 /**
  通过城市获取商家电话
+
+ @param startCity 开始城市
+ @param success 成功回调
+ @param fail 结束回调
  */
 -(void)getServicePhoneByStartCity:(NSString *)startCity success:(SuccessBlock)success fail:(FailBlock)fail;
+
 /**
- 获取宠物类型
+ 获取宠物类型列表
+
+ @param success 成功回调
+ @param fail 结束回调
  */
 -(void)getPetTypeSuccess:(SuccessBlock)success fail:(FailBlock)fail;
+
 /**
- 获取起始城市
+ 获取开始城市列表
+
+ @param keyword 关键字
+ @param success 成功回调
+ @param fail 结束回调
  */
 -(void)getStartCityWithKeyword:(NSString *)keyword success:(GetCityDataReturnBlock)success fail:(FailBlock)fail;
+
 /**
- 获取目的城市
+ 获取结束城市列表
+
+ @param startCity 开始城市
+ @param keyword 关键字
+ @param success 成功回调
+ @param fail 结束回调
  */
 -(void)getEndCityWithStartCity:(NSString *)startCity keyword:(NSString *)keyword success:(GetCityDataReturnBlock)success fail:(FailBlock)fail;
 @end

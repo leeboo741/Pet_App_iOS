@@ -15,6 +15,7 @@ typedef NS_ENUM(NSInteger, LoginViewTapActionType) {
     LoginViewTapActionType_ForgetPassword, // 忘记密码
     LoginViewTapActionType_Register, // 注册
     LoginViewTapActionType_Privacy, // 隐私政策
+    LoginViewTapActionType_Wechat, // 微信登录
 };
 
 typedef NS_ENUM(NSInteger, LoginViewInputActionType) {
@@ -36,6 +37,7 @@ typedef NS_ENUM(NSInteger, LoginViewInputActionType) {
 @property (nonatomic, copy) NSString * password;
 @property (nonatomic, assign) BOOL agreePrivacy;
 @property (nonatomic, weak) id<LoginViewDelegate> delegate;
+@property (nonatomic, assign) BOOL ableWechatLogin;
 
 @end
 

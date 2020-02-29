@@ -57,17 +57,40 @@
     
 }
 -(void)homeViewSelectActionAtIndex:(NSInteger)index{
-    if (index == 0) {
-        TransportOrderViewController * transportOrderVC = [[TransportOrderViewController alloc]init];
-        [self.navigationController pushViewController:transportOrderVC animated:YES];
-    } else if (index == 1) {
-        StationListViewController * stationListView = [[StationListViewController alloc]init];
-        [self.navigationController pushViewController:stationListView animated:YES];
-    } else if (index == 2) {
-        TestShowBoxViewController * previewMediaVC = [[TestShowBoxViewController alloc]init];
-        [self.navigationController pushViewController:previewMediaVC animated:YES];
-    } else if (index == 3) {
-        [[UserManager shareUserManager] changeUserRole:[[UserManager shareUserManager] getUserRole]+1];
+    switch (index) {
+        case 0:
+        {
+            
+        }
+            break;
+        case 1:
+        {
+            TransportOrderViewController * transportOrderVC = [[TransportOrderViewController alloc]init];
+            [self.navigationController pushViewController:transportOrderVC animated:YES];
+        }
+            break;
+        case 2:
+        {
+            [[MainTabbarController shareMainTabbarController] setSelectedIndex:1];
+        }
+            break;
+        case 3:
+        {
+            [[MainTabbarController shareMainTabbarController] setSelectedIndex:2];
+        }
+            break;
+        case 4:
+        {
+            [[MainTabbarController shareMainTabbarController] setSelectedIndex:1];
+        }
+            break;
+        case 5:
+        {
+            [[MainTabbarController shareMainTabbarController] setSelectedIndex:2];
+        }
+            break;
+        default:
+            break;
     }
 }
 
@@ -92,12 +115,13 @@
 
 -(NSArray<HomeViewAction *> *)homeActionArray{
     if(!_homeActionArray) {
-        HomeViewAction * action1 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"托运宠物"];
-        HomeViewAction * action2 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"驿站"];
-        HomeViewAction * action3 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"个人订单"];
-        HomeViewAction * action4 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"托运宠物"];
-        HomeViewAction * action5 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"托运宠物"];
-        _homeActionArray = @[action1,action2,action3,action4,action5];
+        HomeViewAction * action = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"下单说明"];
+        HomeViewAction * action1 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"寄宠物"];
+        HomeViewAction * action2 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"宠物店"];
+        HomeViewAction * action3 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"我的订单"];
+        HomeViewAction * action4 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"附近网点"];
+        HomeViewAction * action5 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"订单跟踪"];
+        _homeActionArray = @[action,action1,action2,action3,action4,action5];
     }
     return _homeActionArray;
 }

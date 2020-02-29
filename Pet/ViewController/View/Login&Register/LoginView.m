@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UIButton * registerButton; // 注册按钮
 @property (nonatomic, strong) UIButton * pravicyButton; // 隐私声明按钮
 @property (nonatomic, strong) PrivacyPolicyView * privacyPolicyView; // 隐私政策弹窗
+@property (nonatomic, strong) UIButton * wechatLoginButton;
 
 @end
 
@@ -33,6 +34,7 @@
         [self addSubview:self.accoutInputView];
         [self addSubview:self.passwordInputView];
         [self addSubview:self.loginButton];
+        [self addSubview:self.wechatLoginButton];
         [self addSubview:self.forgetPasswordButton];
         [self addSubview:self.registerButton];
         [self addSubview:self.pravicyButton];
@@ -67,16 +69,21 @@
         make.top.equalTo(self.passwordInputView.mas_bottom).offset(20);
     }];
     
+    [self.wechatLoginButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.centerX.equalTo(self.loginButton);
+        make.height.mas_equalTo(50);
+        make.top.equalTo(self.loginButton.mas_bottom).offset(10);
+    }];
+    
     [self.forgetPasswordButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.loginButton);
-        make.top.equalTo(self.loginButton.mas_bottom).offset(20);
+        make.left.equalTo(self.wechatLoginButton);
+        make.top.equalTo(self.wechatLoginButton.mas_bottom).offset(20);
     }];
     
     [self.registerButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.loginButton);
         make.centerY.equalTo(self.forgetPasswordButton);
     }];
-    
     [self.pravicyButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom).offset(-40);
         make.width.centerX.equalTo(self.loginButton);
@@ -106,6 +113,12 @@
 -(void)registerAction{
     if (_delegate && [_delegate respondsToSelector:@selector(loginViewTapActionType:)]) {
         [_delegate loginViewTapActionType:LoginViewTapActionType_Register];
+    }
+}
+
+-(void)wechatLogin{
+    if (_delegate && [_delegate respondsToSelector:@selector(loginViewTapActionType:)]) {
+        [_delegate loginViewTapActionType:LoginViewTapActionType_Wechat];
     }
 }
 
@@ -155,10 +168,33 @@
         [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _loginButton.backgroundColor = kRGBColor(255, 165, 0);
         _loginButton.layer.cornerRadius = 10;
-        _loginButton.titleLabel.font = [UIFont systemFontOfSize: 20];
+        _loginButton.titleLabel.font = [UIFont systemFontOfSize: 18];
         [_loginButton addTarget:self action:@selector(tapLoginButton) forControlEvents:UIControlEventTouchUpInside];
     }
     return _loginButton;
+}
+
+-(UIButton *)wechatLoginButton{
+    if (_wechatLoginButton == nil) {
+        _wechatLoginButton = [[UIButton alloc] init];
+//        [_wechatLoginButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(IconFont_Wechat, 32, Color_green_wechat)] forState:UIControlStateNormal];
+//        [_wechatLoginButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(IconFont_Wechat, 32, Color_gray_1)]  forState:UIControlStateDisabled];
+//        _wechatLoginButton.enabled = self.ableWechatLogin;
+        [_wechatLoginButton setTitle:@"微信授权登录" forState:UIControlStateNormal];
+        [_wechatLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_wechatLoginButton setTitle:@"尚未安装微信" forState:UIControlStateDisabled];
+        [_wechatLoginButton setTitleColor:Color_gray_1 forState:UIControlStateDisabled];
+        _wechatLoginButton.enabled = self.ableWechatLogin;
+        if (self.ableWechatLogin) {
+            [self.wechatLoginButton setBackgroundColor:Color_green_wechat];
+        } else {
+            [self.wechatLoginButton setBackgroundColor:Color_gray_2];
+        }
+        _wechatLoginButton.layer.cornerRadius = 10;
+        _wechatLoginButton.titleLabel.font = [UIFont systemFontOfSize: 18];
+        [_wechatLoginButton addTarget:self action:@selector(wechatLogin) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _wechatLoginButton;
 }
 
 -(UIButton *)forgetPasswordButton{
@@ -232,5 +268,15 @@
 -(void)setAgreePrivacy:(BOOL)agreePrivacy{
     _agreePrivacy = agreePrivacy;
     self.pravicyButton.selected = agreePrivacy;
+}
+
+-(void)setAbleWechatLogin:(BOOL)ableWechatLogin{
+    _ableWechatLogin = ableWechatLogin;
+    self.wechatLoginButton.enabled = ableWechatLogin;
+    if (ableWechatLogin) {
+        [self.wechatLoginButton setBackgroundColor:Color_green_wechat];
+    } else {
+        [self.wechatLoginButton setBackgroundColor:Color_gray_2];
+    }
 }
 @end

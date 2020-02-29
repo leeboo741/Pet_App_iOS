@@ -1,5 +1,6 @@
 //
 //  UserManager.h
+//  用户管理
 //  Pet
 //
 //  Created by mac on 2019/12/30.
@@ -21,6 +22,12 @@ static NSString * USER_ROLE_CHANGE_NOTIFICATION_NAME = @"UserRoleChangeNotificat
  *  获取单例
  */
 SingleInterface(UserManager)
+
+
+/// 登录
+/// @param phone 电话号码
+-(void)loginWithPhone:(NSString *)phone;
+
 /**
  *  保存用户
  *  @param user 用户

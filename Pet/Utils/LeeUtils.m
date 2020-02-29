@@ -6,9 +6,9 @@
 //  Copyright © 2019年 mac. All rights reserved.
 //
 
-#import "Utils.h"
+#import "LeeUtils.h"
 
-@implementation Utils
+@implementation LeeUtils
 +(BOOL)isPhoneString:(NSString *)string;{
     NSString *phoneRegex1=@"1[3456789]([0-9]){9}";
     NSPredicate *phoneTest1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex1];

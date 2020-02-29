@@ -154,16 +154,16 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="李静波" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pr9-dK-uLK">
-                    <rect key="frame" x="84" y="160" width="120" height="20"/>
+                    <rect key="frame" x="77" y="160" width="80" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="120" id="5sc-d5-Hfv"/>
+                        <constraint firstAttribute="width" constant="80" id="5sc-d5-Hfv"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电话：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lzf-yD-eLV">
-                    <rect key="frame" x="200" y="160" width="50" height="20"/>
+                    <rect key="frame" x="153" y="160" width="50" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="Y2t-eS-MVj"/>
                     </constraints>
@@ -172,7 +172,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="15879067924" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7r-In-fIY">
-                    <rect key="frame" x="251" y="160" width="107" height="20"/>
+                    <rect key="frame" x="204" y="160" width="154" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     <nil key="highlightedColor"/>
@@ -184,13 +184,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="李静波" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1l-yF-2kK">
-                    <rect key="frame" x="84" y="190" width="120" height="20"/>
+                    <rect key="frame" x="77" y="190" width="80" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="15879067924" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6jz-vn-3tH">
-                    <rect key="frame" x="251" y="190" width="107" height="20"/>
+                    <rect key="frame" x="204" y="190" width="154" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     <nil key="highlightedColor"/>
@@ -211,7 +211,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电话：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITp-K7-RPD">
-                    <rect key="frame" x="200" y="190" width="50" height="20"/>
+                    <rect key="frame" x="153" y="190" width="50" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     <nil key="highlightedColor"/>
@@ -243,7 +243,7 @@
                 <constraint firstItem="chl-tA-m85" firstAttribute="top" secondItem="eXh-XZ-fMe" secondAttribute="bottom" constant="8" id="Lom-Tl-JWs"/>
                 <constraint firstItem="XtV-E9-UdO" firstAttribute="leading" secondItem="4jD-ag-CNl" secondAttribute="trailing" constant="-6" id="MYz-w9-5Xr"/>
                 <constraint firstItem="Vzy-XB-Ymx" firstAttribute="height" secondItem="0EZ-f7-YtZ" secondAttribute="height" id="Mog-x1-ELf"/>
-                <constraint firstItem="Pr9-dK-uLK" firstAttribute="leading" secondItem="0EZ-f7-YtZ" secondAttribute="trailing" constant="7" id="MzO-DJ-CLy"/>
+                <constraint firstItem="Pr9-dK-uLK" firstAttribute="leading" secondItem="0EZ-f7-YtZ" secondAttribute="trailing" id="MzO-DJ-CLy"/>
                 <constraint firstItem="chl-tA-m85" firstAttribute="width" secondItem="eXh-XZ-fMe" secondAttribute="width" id="Npi-E6-Q2G"/>
                 <constraint firstAttribute="centerX" secondItem="A36-T9-0IT" secondAttribute="trailing" id="Oe9-6A-t5O"/>
                 <constraint firstItem="L2C-cN-X72" firstAttribute="centerY" secondItem="A36-T9-0IT" secondAttribute="centerY" id="P19-qd-lbS"/>

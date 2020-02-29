@@ -17,6 +17,15 @@
 
 @implementation StationManager
 SingleImplementation(StationManager);
+/**
+ 查询站点列表
+ @param pageIndex 页码
+ @param pageSize 页长
+ @param latitude 纬度
+ @param longitude 经度
+ @param success 成功回调
+ @param fail 失败回调
+ */
 -(void)getStationWithPageIndex:(NSInteger)pageIndex pageSize:(NSInteger)pageSize latitude:(double)latitude longitude:(double)longitude success:(SuccessBlock)success fail:(FailBlock)fail{
         NSDictionary * paramers = @{
                                     @"latitude": @(latitude),
@@ -36,6 +45,13 @@ SingleImplementation(StationManager);
         }];
         [[HttpManager shareHttpManager] requestWithRequestModel:model];
 }
+/**
+ 通过城市查询站点列表
+ @param province 省
+ @param city 城市
+ @param success 成功回调
+ @param fail 失败回调
+ */
 -(void)getStationListWithProvince:(NSString *)province city:(NSString *)city success:(SuccessBlock)success fail:(FailBlock)fail{
     NSString * dictKey = [NSString stringWithFormat:@"%@-%@",province,city];
     id result = [self.stationListByCityDict objectForKey:dictKey];

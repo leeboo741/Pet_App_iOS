@@ -1,5 +1,6 @@
 //
 //  LocationManager.h
+//  定位管理
 //  Pet
 //
 //  Created by mac on 2020/1/8.

@@ -124,6 +124,7 @@
  注册苹果推送成功
  */
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    MSLog(@"%@",deviceToken);
     [CloudPushSDK registerDevice:deviceToken withCallback:^(CloudPushCallbackResult *res) {
         if (res.success) {
             MSLog(@"Register deviceToken success.");
@@ -142,6 +143,7 @@
 
 /**
  iOS10以下 App处于打开状态时，点击打开通知 或 App位于前台收到推送通知消息时执行该方法
+ iOS10 一下 前台收到 前台点击 后台点击
  */
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     MSLog(@"iOS10以下系统点击通知消息或App位于前台收到推送通知消息时执行该方法");
@@ -189,6 +191,7 @@
 
 /**
  iOS10 App位于前台时，接收到本地、远程推送时的处理
+ iOS10 以上 前台收到
  */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
 {
@@ -203,6 +206,7 @@
 
 /**
  *  触发通知动作时回调，比如点击、删除通知和点击自定义action(iOS 10+)
+ *  iOS 10 以上 前台点击 后台点击
  */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
 {

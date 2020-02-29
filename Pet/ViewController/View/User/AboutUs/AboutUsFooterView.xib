@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutUsFooterView">
+            <connections>
+                <outlet property="label1" destination="Ry2-sw-W4u" id="s8z-2t-b09"/>
+                <outlet property="label2" destination="sjQ-rd-iuX" id="d14-Kk-U8a"/>
+                <outlet property="view" destination="iN0-l3-epB" id="f4d-RB-0VC"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="412" height="254"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry2-sw-W4u">
+                    <rect key="frame" x="187.5" y="40" width="37.5" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjQ-rd-iuX">
+                    <rect key="frame" x="187.5" y="66" width="37.5" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Ry2-sw-W4u" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="23Z-eD-lh8"/>
+                <constraint firstItem="sjQ-rd-iuX" firstAttribute="top" secondItem="Ry2-sw-W4u" secondAttribute="bottom" constant="8" id="Ae2-1e-Mgl"/>
+                <constraint firstItem="Ry2-sw-W4u" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="40" id="C0c-Rr-9E0"/>
+                <constraint firstItem="sjQ-rd-iuX" firstAttribute="centerX" secondItem="Ry2-sw-W4u" secondAttribute="centerX" id="Nm9-CV-we5"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sjQ-rd-iuX" secondAttribute="bottom" constant="40" id="wC1-5x-pD5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="107.24637681159422" y="-115.17857142857142"/>
+        </view>
+    </objects>
+</document>

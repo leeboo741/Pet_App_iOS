@@ -136,14 +136,14 @@
     NSString * text = [textField.text stringByReplacingCharactersInRange:range withString:string];
     TransportBaseInfo_Type type = TransportBaseInfo_Type_Count;
     if (textField == self.countTextField) {
-        if (![Utils isNumberString:text] && ![text isEqualToString:@""]) {
+        if (![LeeUtils isNumberString:text] && ![text isEqualToString:@""]) {
             return NO;
         }
         type = TransportBaseInfo_Type_Count;
     } else if (textField == self.breedTextField) {
         type = TransportBaseInfo_Type_Breed;
     } else if (textField == self.weightTextField) {
-        if (![Utils isNumberString:text] && ![text isEqualToString:@""]) {
+        if (![LeeUtils isNumberString:text] && ![text isEqualToString:@""]) {
             return NO;
         }
         type = TransportBaseInfo_Type_Weight;

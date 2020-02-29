@@ -36,11 +36,14 @@ SingleImplementation(MainTabbarController)
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    // 注册用户更改通知
     [[UserManager shareUserManager]registerUserManagerNotificationWithObserver:self notificationName:USER_CHANGE_NOTIFICATION_NAME action:@selector(changeUser:)];
+    // 注册用户角色更改通知
     [[UserManager shareUserManager]registerUserManagerNotificationWithObserver:self notificationName:USER_ROLE_CHANGE_NOTIFICATION_NAME action:@selector(changeRole:)];
 }
 
 -(void)dealloc{
+    // 移除通知
     [[UserManager shareUserManager]removeObserverForUserManager:self notificationName:USER_CHANGE_NOTIFICATION_NAME];
     [[UserManager shareUserManager]removeObserverForUserManager:self notificationName:USER_ROLE_CHANGE_NOTIFICATION_NAME];
 }

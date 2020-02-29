@@ -131,7 +131,7 @@ static NSString * cellIdentifier = @"cell";
 #pragma mark - private method
 
 -(void)getData{
-    [MBProgressHUD showActivityMessageInView:@"请稍等..."];
+    [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
     __weak typeof(self) weakSelf = self;
     if (self.type == CitySelectedType_Start) {
         [[OrderManager shareOrderManager] getStartCityWithKeyword:self.searchKeyword success:^(NSArray * _Nullable dataList, NSArray * _Nullable indexList) {

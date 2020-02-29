@@ -605,7 +605,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 
 -(void)getPetTypesData{
     if (kStringIsEmpty(self.transportOrder.petType) || kArrayIsEmpty(self.petTypes)) {
-        [MBProgressHUD showActivityMessageInView:@"请稍等..."];
+        [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
         __weak typeof(self) weakSelf = self;
         [[OrderManager shareOrderManager] getPetTypeSuccess:^(id  _Nonnull data) {
             dispatch_async(dispatch_get_main_queue(), ^{

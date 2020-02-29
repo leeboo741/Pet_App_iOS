@@ -18,6 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * petBreedName;
 @end
 
+@interface OrderTransport : NSObject
+@property (nonatomic, assign) NSInteger transportType;
+@property (nonatomic, copy, readonly) NSString * transportTypeName;
+@end
+
 @interface OrderEntity : NSObject
 @property (nonatomic, copy) NSString * orderNo; // 订单编号
 @property (nonatomic, copy) NSString * orderTime; // 下单时间
@@ -26,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * endCity; // 结束城市
 @property (nonatomic, strong) PetType * petType; // 宠物种类
 @property (nonatomic, strong) PetBreed * petBreed; // 宠物品种
+@property (nonatomic, strong) OrderTransport * transport; // 订单运输类型
+@property (nonatomic, assign) NSInteger num; // 宠物数量
+@property (nonatomic, assign) CGFloat weight; // 宠物重量
 @property (nonatomic, copy) NSString * senderName; // 寄宠人名称
 @property (nonatomic, copy) NSString * senderPhone; // 寄宠人电话
 @property (nonatomic, copy) NSString * receiverName; // 收宠人名称

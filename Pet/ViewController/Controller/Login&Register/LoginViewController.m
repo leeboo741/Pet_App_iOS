@@ -12,8 +12,9 @@
 #import "HomeViewController.h"
 #import "MainTabbarController.h"
 #import "LocationManager.h"
+#import "WechatManager.h"
 
-@interface LoginViewController ()<LoginViewDelegate, PrivacyPolicyViewDelegate>
+@interface LoginViewController ()<LoginViewDelegate, PrivacyPolicyViewDelegate, WechatAuthDelegate>
 @property (nonatomic, strong) LoginView * loginView;
 @property (nonatomic, strong) PrivacyPolicyView * privacyPolicyView;
 
@@ -62,6 +63,15 @@
         MSLog(@"忘记密码");
     } else if (type == LoginViewTapActionType_Register) {
         MSLog(@"注册");
+    } else if (type == LoginViewTapActionType_Wechat) {
+        MSLog(@"微信登录");
+        [[WechatManager shareWechatManager] sendAuthRequestWithController:self delegate:self complete:^(BOOL success) {
+            if (success) {
+                MSLog(@"请求微信登录成功");
+            } else {
+                MSLog(@"请求微信登录失败");
+            }
+        }];
     }
 }
 
@@ -71,6 +81,58 @@
     } else if (type == LoginViewInputActionType_Password) {
         self.password = inputText;
     }
+}
+
+#pragma mark - wechat auth delegate
+
+-(void)wechatAuthCancel{
+    MSLog(@"微信授权取消");
+}
+
+-(void)wechatAuthDenied{
+    MSLog(@"微信授权失败");
+}
+
+-(void)wechatAuthSucceed:(NSString *)code{
+    MSLog(@"微信授权成功: code: %@",code);
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//      NSString *url = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=%@",Wechat_App_Id,Wechat_App_Secret,code,@"authorization_code"];
+    
+//      manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//      [manager.requestSerializer setValue:@"text/html; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+
+//      NSMutableSet *mgrSet = [NSMutableSet set];
+//      mgrSet.set = manager.responseSerializer.acceptableContentTypes;
+//      [mgrSet addObject:@"text/html"];
+//      //因为微信返回的参数是text/plain 必须加上 会进入fail方法
+//      [mgrSet addObject:@"text/plain"];
+//      [mgrSet addObject:@"application/json"];
+//      manager.responseSerializer.acceptableContentTypes = mgrSet;
+//
+//      [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+//
+//      } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//          NSLog(@"success");
+//          NSDictionary *resp = (NSDictionary*)responseObject;
+//          NSString *openid = resp[@"openid"];
+//          NSString *unionid = resp[@"unionid"];
+//          NSString *accessToken = resp[@"access_token"];
+//          NSString *refreshToken = resp[@"refresh_token"];
+//          if(accessToken && ![accessToken isEqualToString:@""] && openid && ![openid isEqualToString:@""]){
+//
+//          }
+//
+//
+//      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//
+//      }];
+    
+    
+    [[WechatManager shareWechatManager] getAccessTokenWithCode:code success:^(id  _Nonnull data) {
+
+    } fail:^(NSInteger code) {
+
+    }];
 }
 
 #pragma mark - privacyPolicy view delegate
@@ -89,6 +151,7 @@
     if (_loginView == nil) {
         _loginView = [[LoginView alloc]init];
         _loginView.delegate = self;
+        _loginView.ableWechatLogin = [[WechatManager shareWechatManager] isWechatInstalled];
     }
     return _loginView;
 }

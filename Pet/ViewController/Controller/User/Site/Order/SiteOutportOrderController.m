@@ -11,11 +11,13 @@
 #import "SiteOutportOrderCell.h"
 #import "AssignmentsController.h"
 #import "OrderDetailController.h"
+#import "PrinterConneterManager.h"
 
 static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
 
 @interface SiteOutportOrderController () <SiteOutportOrderCellDelegate>
 @property (nonatomic, strong)NSMutableArray<OrderEntity *> * dataSource;
+@property (nonatomic, assign, readonly) BOOL hasPrinterConnected; // 是否链接设备
 @end
 
 @implementation SiteOutportOrderController
@@ -91,7 +93,11 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
         }
             break;
         case OrderOperateButtonType_Print:
+        {
             MSLog(@"打印");
+            OrderEntity * printerOrder = self.dataSource[indexPath.row];
+            [[PrinterConneterManager sharePrinterConneterManager] startPrinter:printerOrder];
+        }
             break;
         case OrderOperateButtonType_DetailOrder:
         {
@@ -145,6 +151,20 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
         _dataSource = [NSMutableArray array];
         OrderEntity * orderEntity = [[OrderEntity alloc]init];
         orderEntity.orderNo = @"123123123";
+        orderEntity.outportTime = @"2019-11-11 03:32:22";
+        orderEntity.startCity = @"南昌市";
+        orderEntity.endCity = @"北京市";
+        OrderTransport * transport = [[OrderTransport alloc]init];
+        transport.transportType = 1;
+        orderEntity.transport = transport;
+        PetType * type = [[PetType alloc]init];
+        type.petTypeName = @"狗";
+        orderEntity.petType = type;
+        PetBreed * breed = [[PetBreed alloc]init];
+        breed.petBreedName = @"哈士奇";
+        orderEntity.petBreed = breed;
+        orderEntity.num = 1;
+        orderEntity.weight = 12;
         [_dataSource addObject:orderEntity];
         
         OrderEntity * orderEntity1 = [[OrderEntity alloc]init];
@@ -164,6 +184,10 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
         [_dataSource addObject:orderEntity4];
     }
     return _dataSource;
+}
+
+-(BOOL)hasPrinterConnected{
+    return [[PrinterConneterManager sharePrinterConneterManager] hasConnectPrinter];
 }
 
 #pragma mark - private method

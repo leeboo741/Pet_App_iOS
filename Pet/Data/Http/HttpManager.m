@@ -25,7 +25,15 @@ static CGFloat TimeOut = 20.0f; // 超时时间
     self = [super init];
     if (self) {
         self.requestSerializer = [AFJSONRequestSerializer serializer];
+        [self.requestSerializer setValue:@"text/html; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         self.requestSerializer.timeoutInterval = TimeOut;
+        NSMutableSet *mgrSet = [NSMutableSet set];
+        mgrSet.set = self.responseSerializer.acceptableContentTypes;
+        [mgrSet addObject:@"text/html"];
+        //因为微信返回的参数是text/plain 必须加上 会进入fail方法
+        [mgrSet addObject:@"text/plain"];
+        [mgrSet addObject:@"application/json"];
+        self.responseSerializer.acceptableContentTypes = mgrSet;
     }
     return self;
 }
@@ -68,7 +76,6 @@ static CGFloat TimeOut = 20.0f; // 超时时间
             break;
     }
 }
-
 
 #pragma mark - GET
 

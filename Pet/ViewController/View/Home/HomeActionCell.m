@@ -21,8 +21,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.layer.cornerRadius = 10;
-        self.layer.masksToBounds = NO;
+//        self.layer.cornerRadius = 10;
+//        self.layer.masksToBounds = NO;
     }
     return self;
 }
@@ -30,7 +30,7 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.equalTo(self.mas_width).multipliedBy(0.3);
+        make.width.height.equalTo(self.mas_height).multipliedBy(0.4);
         make.centerX.centerY.equalTo(self);
     }];
     
@@ -54,6 +54,8 @@
 -(UILabel *)label{
     if (!_label) {
         _label = [[UILabel alloc]init];
+        _label.textColor = Color_gray_3;
+        _label.font = kFontSize(14);
         [self addSubview:_label];
     }
     return _label;

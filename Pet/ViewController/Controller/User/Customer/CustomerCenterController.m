@@ -18,6 +18,7 @@
 #import "MessageCenterController.h"
 #import "OrderDetailController.h"
 #import "OrderEvaluateController.h"
+#import "AboutUsViewController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -254,6 +255,13 @@ CustomerOrderCellDelegate>
             [self presentViewController:alertController animated:YES completion:nil];
         }
             break;
+        case 4:
+        {
+            MSLog(@"关于我们");
+            AboutUsViewController * aboutUsVC = [[AboutUsViewController alloc] init];
+            [self.navigationController pushViewController:aboutUsVC animated:YES];
+        }
+            break;
         default:
             break;
     }
@@ -339,7 +347,8 @@ CustomerOrderCellDelegate>
         action2.hidden = YES;
         CenterActionItemModel * action3 = [self getActionModelWithActionName:@"申请" andIconName:IconFont_Apply];
         CenterActionItemModel * action4 = [self getActionModelWithActionName:@"切换角色" andIconName:IconFont_ChangeRole];
-        _actionModelArray = @[action1,action2,action3,action4];
+        CenterActionItemModel * action5 = [self getActionModelWithActionName:@"关于我们" andIconName:IconFont_AboutUs];
+        _actionModelArray = @[action1,action2,action3,action4,action5];
     }
     return _actionModelArray;
 }

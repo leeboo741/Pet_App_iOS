@@ -7,6 +7,7 @@
 //
 
 #import "UserManager.h"
+#import <WXApi.h>
 
 static NSString * User_Key = @"USER_KEY";
 
@@ -31,6 +32,12 @@ SingleImplementation(UserManager)
 }
 
 #pragma mark - public method
+
+/// 登录
+/// @param phone 电话号码
+-(void)loginWithPhone:(NSString *)phone{
+    
+}
 /**
  *  保存用户
  *  @param user 用户

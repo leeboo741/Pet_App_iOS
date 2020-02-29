@@ -13,6 +13,7 @@
 #import "TransportPayRemarkCell.h"
 #import "TransportPayPetConditionConfirmCell.h"
 #import "TransportPayContractConfirmCell.h"
+#import "PaymentViewController.h"
 
 static NSString * PersonnelCellName = @"TransportPayPersonnelCell";
 static NSString * PersonnelCellIdentifier = @"PersonnelCellIdentifier";
@@ -221,6 +222,9 @@ TransportPayContractConfirmCellDelegate>
 
 -(void)transportOrderFooterTapOrder{
     MSLog(@"点击提交");
+    PaymentViewController * paymentVC = [[PaymentViewController alloc]init];
+    paymentVC.paymentPrice = 32.0f;
+    [self.navigationController pushViewController:paymentVC animated:YES];
 }
 
 #pragma mark - config cell

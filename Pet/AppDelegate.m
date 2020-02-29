@@ -13,6 +13,7 @@
 #import "TBCityIconFont.h"
 #import <QMapKit/QMapKit.h>
 #import "AppDelegate+Push.h"
+#import "WechatManager.h"
 
 @interface AppDelegate ()
 
@@ -24,40 +25,37 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     MSLog(@"%@",kDocumentPath);
+    
+    // IQ键盘
     [self initIQKeyBorad];
+    
+    // 阿里推送
+    [self initAliPush];
+    [self registerAPNS:application];
+    [self push_ApplicationDidFinishLaunchingWithOptions:launchOptions];
+    [self registerMessageReceive]; // 注册推送消息
+    
+    // TB Icon
     [TBCityIconFont setFontName:@"iconfont"];
+    
+    // 微信授权
+    [[WechatManager shareWechatManager] registerApp];
+    
+    // 腾讯地图
     [QMapServices sharedServices].apiKey = Map_Key_Tencent;
     [AspectsUIViewController aspect_viewDidLoad];
-    
-    
-//    if (@available(iOS 10.0, *)) {
-//        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-//        center.delegate = self;//设置该代理对象尽量在willFinishLaunchingWithOptions方法中，设置太晚可能无法及时处理通知消息
-//        UNAuthorizationOptions options = UNAuthorizationOptionBadge + UNAuthorizationOptionAlert + UNAuthorizationOptionSound;
-//        //请求指定推送设置的权限
-//        [center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
-//            NSLog(@"granted:%@, error:%@", @(granted), error);
-//            //获得权限后注册远程推送通知
-//            if (!error && granted)
-//            {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [[UIApplication sharedApplication] registerForRemoteNotifications];
-//                });
-//            }
-//        }];
-//    } else {
-//        // Fallback on earlier versions
-//        UIUserNotificationSettings *setting = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-//        //触发权限请求
-//        [[UIApplication sharedApplication] registerUserNotificationSettings:setting];
-//        //注册远程推送
-//        [[UIApplication sharedApplication] registerForRemoteNotifications];
-//    }
-    
-    
     LoginViewController * loginViewController = [[LoginViewController alloc]init];
     self.window.rootViewController = loginViewController;
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    return [[WechatManager shareWechatManager] handlerOpenUrl:url];
+}
+
+-(BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler{
+    NSLog(@"userActivity : %@",userActivity.webpageURL.description);
+    return [[WechatManager shareWechatManager] handlerOpenUniversalLinsk:userActivity];
 }
 
 

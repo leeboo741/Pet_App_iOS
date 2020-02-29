@@ -13,6 +13,7 @@
 #import "WithdrawalController.h"
 #import "ApplyCenterController.h"
 #import "MessageCenterController.h"
+#import "AboutUsViewController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -168,6 +169,13 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
             [self presentViewController:alertController animated:YES completion:nil];
         }
             break;
+        case 3:
+        {
+            MSLog(@"关于我们");
+            AboutUsViewController * aboutUsVC = [[AboutUsViewController alloc] init];
+            [self.navigationController pushViewController:aboutUsVC animated:YES];
+        }
+            break;
         default:
             break;
     }
@@ -189,7 +197,8 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
         CenterActionItemModel * action7 = [self getActionModelWithActionName:@"提现" andIconName:IconFont_Withdrawal];
         CenterActionItemModel * action8 = [self getActionModelWithActionName:@"申请" andIconName:IconFont_Apply];
         CenterActionItemModel * action9 = [self getActionModelWithActionName:@"切换身份" andIconName:IconFont_ChangeRole];
-        _actionModelArray = @[action7,action8,action9];
+        CenterActionItemModel * action10 = [self getActionModelWithActionName:@"关于我们" andIconName:IconFont_AboutUs];
+        _actionModelArray = @[action7,action8,action9,action10];
     }
     return _actionModelArray;
 }

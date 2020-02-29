@@ -30,6 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
  注册推送消息到来监听
  */
 - (void)registerMessageReceive;
+/**
+ iOS 10以下版本
+ 程序启动 App处于关闭状态时，点击打开通知
+ */
+-(void)push_ApplicationDidFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 @end
 
 NS_ASSUME_NONNULL_END

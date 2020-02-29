@@ -1,5 +1,5 @@
 //
-//  Utils.h
+//  LeeUtils.h
 //  Pet
 //
 //  Created by mac on 2019/12/21.
@@ -10,17 +10,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define Util_IsPhoneString(Str) [Utils isPhoneString:Str]
-#define Util_IsNumberString(Str) [Utils isNumberString:Str]
-#define Util_IsEmptyString(Str) [Utils isEmptyString:Str]
-#define Util_IsEmptyArray(Arr) [Utils isEmptyArray:Arr]
-#define Util_IsEmptyDict(Dict) [Utils isEmptyDict:Dict]
+#define Util_IsPhoneString(Str) [LeeUtils isPhoneString:Str]
+#define Util_IsNumberString(Str) [LeeUtils isNumberString:Str]
+#define Util_IsEmptyString(Str) [LeeUtils isEmptyString:Str]
+#define Util_IsEmptyArray(Arr) [LeeUtils isEmptyArray:Arr]
+#define Util_IsEmptyDict(Dict) [LeeUtils isEmptyDict:Dict]
 
-#define Util_GetCurrentVC [Utils getCurrentViewController];
+#define Util_GetCurrentVC [LeeUtils getCurrentViewController];
 
-#define Util_MakePhoneCall(PhoneNumber) [Utils makePhoneCallWithPhoneNumber:PhoneNumber];
+#define Util_MakePhoneCall(PhoneNumber) [LeeUtils makePhoneCallWithPhoneNumber:PhoneNumber];
 
-@interface Utils : NSObject
+@interface LeeUtils : NSObject
 
 /**
  是否是电话
