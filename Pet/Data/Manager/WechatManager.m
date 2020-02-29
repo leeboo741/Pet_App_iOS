@@ -73,7 +73,6 @@ SingleImplementation(WechatManager);
             success(@"");
         }
     } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
-        
         if (fail) {
             fail(code);
         }

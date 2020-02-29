@@ -42,6 +42,7 @@ static NSString * HEADER_VALUE_APPLICATION_JSON = @"application/json";
 
 @interface HttpRequestModel : NSObject
 @property (nonatomic, assign) BOOL isFullUrl; // 是否使用完整路径  还是 需要拼接baseUrl
+@property (nonatomic, assign) BOOL notUseDefaultHandler; // 是否使用默认方法解析response
 @property (nonatomic, assign) HttpRequestMethodType methodType;
 @property (nonatomic, copy) NSString * urlStr;
 @property (nonatomic, strong) id paramers;

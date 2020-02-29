@@ -31,6 +31,7 @@
     self = [super init];
     if (self) {
         self.isFullUrl = NO;
+        self.notUseDefaultHandler = NO;
         self.methodType = HttpRequestMethodType_GET;
         self.header = [NSMutableDictionary dictionary];
         [self.header setObject:HEADER_VALUE_APPLICATION_JSON

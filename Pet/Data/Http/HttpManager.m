@@ -81,9 +81,15 @@ static CGFloat TimeOut = 20.0f; // 超时时间
 
 -(void)GETRequsetWithModel:(HttpRequestModel *)model{
     [self GET:model.urlStr parameters:model.paramers progress:model.progressBlock success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [HttpResponseHandler handlerResponseObject:responseObject
-                                      successBlock:model.successBlock
-                                         failBlock:model.failBlock];
+        if (model.notUseDefaultHandler) {
+            if (model.successBlock) {
+                model.successBlock(responseObject, @"自定义解析");
+            }
+        } else {
+            [HttpResponseHandler handlerResponseObject:responseObject
+                                          successBlock:model.successBlock
+                                             failBlock:model.failBlock];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [HttpResponseHandler handlerFailWithError:error
                                         failBlock:model.failBlock];
