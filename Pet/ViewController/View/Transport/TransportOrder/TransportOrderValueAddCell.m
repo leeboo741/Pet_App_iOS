@@ -134,10 +134,13 @@
     CGFloat constant;
     if (self.serviceIsSelected && self.showInputArea) {
         constant = 60;
+        self.inputTextField.text = self.serviceValue;
     } else {
         constant = 0.01;
+        self.inputTextField.text = @"";
     }
     self.inputAreaHeightConstraint.constant = constant;
+    
 }
 -(void)changeServiceInfoShow{
     CGFloat constant;
@@ -226,7 +229,11 @@
 
 -(void)setServiceValue:(NSString *)serviceValue{
     _serviceValue = serviceValue;
-    self.inputTextField.text = serviceValue;
+    if (self.showInputArea) {
+        self.inputTextField.text = serviceValue;
+    } else {
+        self.inputTextField.text = @"";
+    }
 }
 
 -(void)setServiceValuePlaceholder:(NSString *)serviceValuePlaceholder{

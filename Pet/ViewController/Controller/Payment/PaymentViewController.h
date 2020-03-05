@@ -11,8 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PaymentViewController : UIViewController
-@property (nonatomic, assign) CGFloat paymentPrice; // 支付金额
-@property (nonatomic) id orderObject; // 订单对象
+@property (nonatomic, copy) NSString * orderNo; // 订单编号
 @end
 
 NS_ASSUME_NONNULL_END

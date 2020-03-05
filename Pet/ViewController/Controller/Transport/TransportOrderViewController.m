@@ -310,8 +310,10 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
         TransportTypeViewModel * model = (TransportTypeViewModel *)self.transportTypeArray[i];
         if (i == index) {
             self.selectTransportType = model;
+            self.transportOrder.transportType.typeId = [NSString stringWithFormat:@"%ld",self.selectTransportType.type];
             model.typeIsSelected = YES;
             [self getMaxAblePetWeightWithStartCity:self.transportOrder.startCity endCity:self.transportOrder.endCity transportType:model.type];
+            [self getPredictPrice];
         } else {
             model.typeIsSelected = NO;
         }
@@ -334,6 +336,8 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
                 valueAdd.serviceValue = [NSString stringWithFormat:@"%@%@",city,detailAddress];
                 valueAdd.latitude = kDoubleNumber(coordinate.latitude);
                 valueAdd.longitude = kDoubleNumber(coordinate.longitude);
+                weakSelf.transportOrder.receiptLatitude = coordinate.latitude;
+                weakSelf.transportOrder.receiptLongitude = coordinate.longitude;
                 [weakSelf.tableView reloadData];
             };
             [self.navigationController pushViewController:selectLocationMapVC animated:YES];
@@ -346,6 +350,9 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
                 valueAdd.serviceValue = [NSString stringWithFormat:@"%@%@",city,detailAddress];
                 valueAdd.latitude = kDoubleNumber(coordinate.latitude);
                 valueAdd.longitude = kDoubleNumber(coordinate.longitude);
+                weakSelf.transportOrder.sendAddress = valueAdd.serviceValue;
+                weakSelf.transportOrder.sendLatitude = coordinate.latitude;
+                weakSelf.transportOrder.sendLongitude = coordinate.longitude;
                 [weakSelf.tableView reloadData];
             };
             [self.navigationController pushViewController:selectLocationMapVC animated:YES];
@@ -364,6 +371,7 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
             return NO;
         } else {
             valueAdd.serviceValue = text;
+            self.transportOrder.petAmount = [text doubleValue];
         }
     }
     return YES;
@@ -391,6 +399,51 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     TransportValueAdd * valueAdd = (TransportValueAdd *)self.transportValueAddArray[indexPath.row];
     valueAdd.serviceIsSelected = !valueAdd.serviceIsSelected;
+    TransportOrder_AddValue_SelectType selectType = [self getSelectTypeBySelected:valueAdd.serviceIsSelected];
+    switch (indexPath.row) {
+        case 0:
+        {
+            self.transportOrder.insuredPrice = selectType;
+        }
+            break;
+        case 1:
+        {
+            self.transportOrder.buyPetCage = selectType;
+        }
+            break;
+        case 2:
+        {
+            self.transportOrder.receipt = selectType;
+        }
+            break;
+        case 3:
+        {
+            self.transportOrder.send = selectType;
+        }
+            break;
+        case 4:
+        {
+            self.transportOrder.water = selectType;
+        }
+            break;
+        case 5:
+        {
+            self.transportOrder.wo = selectType;
+        }
+            break;
+        case 6:
+        {
+            self.transportOrder.warmCloth = selectType;
+        }
+            break;
+        case 7:
+        {
+            self.transportOrder.guarantee = selectType;
+        }
+            break;
+        default:
+            break;
+    }
     if (indexPath.row == 2 || indexPath.row == 3) {
         valueAdd.serviceShowInputArea = valueAdd.serviceIsSelected;
     }
@@ -407,7 +460,10 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 
 -(void)transportOrderFooterTapOrder{
     MSLog(@"点击预定");
-    TransportPayViewController * transportPayVC = [[TransportPayViewController alloc]init];
+    if (![self isAbleOrder:YES]) {
+        return;
+    }
+    TransportPayViewController * transportPayVC = [[TransportPayViewController alloc]initWithTransportOrder:self.transportOrder predictPrice:self.footerView.price];
     [self.navigationController pushViewController:transportPayVC animated:YES];
 }
 
@@ -456,6 +512,14 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 }
 
 #pragma mark - private method
+
+-(TransportOrder_AddValue_SelectType)getSelectTypeBySelected:(BOOL)selected{
+    if (selected) {
+        return TransportOrder_AddValue_SelectType_Selected;
+    } else {
+        return TransportOrder_AddValue_SelectType_Unselected;
+    }
+}
 
 -(void)resetStartCityWithCity:(NSString *)city detailAddress:(NSString *)detailAddress location:(CLLocation *)location{
     self.transportOrder.startCity = city;
@@ -519,32 +583,71 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     }
 }
 
--(BOOL)isAbleOrder{
+-(BOOL)isAbleOrder:(BOOL)willOrder{
     if (kStringIsEmpty(self.transportOrder.startCity)) {
+        if (willOrder) {
+            [MBProgressHUD showTipMessageInWindow:@"起始城市不能为空"];
+        }
         return NO;
     }
     if (kStringIsEmpty(self.transportOrder.endCity)) {
+        if (willOrder) {
+            [MBProgressHUD showTipMessageInWindow:@"目的城市不能为空"];
+        }
         return NO;
     }
-    if (!self.selectTransportType) {
+    if (!self.selectTransportType ) {
+        if (willOrder) {
+            [MBProgressHUD showTipMessageInWindow:@"请选择运输方式"];
+        }
         return NO;
     }
     if (kStringIsEmpty(self.transportOrder.petWeight)) {
+        if (willOrder) {
+            [MBProgressHUD showTipMessageInWindow:@"请输入宠物重量"];
+        }
         return NO;
     }
     if (kStringIsEmpty(self.transportOrder.petCount)) {
+        if (willOrder) {
+            [MBProgressHUD showTipMessageInWindow:@"请输入宠物数量"];
+        }
         return NO;
     }
     if (kStringIsEmpty(self.transportOrder.outTime)) {
+        if (willOrder) {
+            [MBProgressHUD showTipMessageInWindow:@"请选择出发时间"];
+        }
         return NO;
     }
-    if (kStringIsEmpty(self.transportOrder.petAge)) {
+    if (kStringIsEmpty(self.transportOrder.petAge) && willOrder) {
+        [MBProgressHUD showTipMessageInWindow:@"请选择宠物年龄"];
         return NO;
     }
-    if (kStringIsEmpty(self.transportOrder.petBreed)) {
+    if (kStringIsEmpty(self.transportOrder.petType) && willOrder) {
+        [MBProgressHUD showTipMessageInWindow:@"请选择宠物类型"];
         return NO;
     }
-    if (kStringIsEmpty(self.transportOrder.petType)) {
+    if (kStringIsEmpty(self.transportOrder.petBreed) && willOrder) {
+        [MBProgressHUD showTipMessageInWindow:@"请选择宠物品种"];
+        return NO;
+    }
+    if (self.transportOrder.petAmount < 0) {
+        if (willOrder) {
+            [MBProgressHUD showTipMessageInWindow:@"声明价值不能小于0"];
+        }
+        return NO;
+    }
+    if (self.transportOrder.receipt == TransportOrder_AddValue_SelectType_Selected && kStringIsEmpty(self.transportOrder.receiptAddress)) {
+        if (willOrder) {
+            [MBProgressHUD showTipMessageInWindow:@"请选择接宠地址"];
+        }
+        return NO;
+    }
+    if (self.transportOrder.send == TransportOrder_AddValue_SelectType_Selected && kStringIsEmpty(self.transportOrder.sendAddress)) {
+        if (willOrder) {
+            [MBProgressHUD showTipMessageInWindow:@"请选择送宠地址"];
+        }
         return NO;
     }
     return YES;
@@ -553,21 +656,11 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
 #pragma mark - request data
 
 -(void)getPredictPrice{
-    if (![self isAbleOrder]) {
+    if (![self isAbleOrder:NO]) {
         return;
     }
     __weak typeof(self) weakSelf = self;
-    PredictPriceModel * predictModel = [[PredictPriceModel alloc]init];
-    predictModel.startCity = self.transportOrder.startCity;
-    predictModel.endCity = self.transportOrder.endCity;
-    predictModel.transportType = self.selectTransportType.type;
-    predictModel.weight = [self.transportOrder.petWeight floatValue];
-    predictModel.num = [self.transportOrder.petCount integerValue];
-    predictModel.leaveDate = self.transportOrder.outTime;
-    predictModel.petClassify = self.transportOrder.petBreed;
-    predictModel.petAge = self.transportOrder.petAge;
-    predictModel.petType = self.transportOrder.petType;
-    [[OrderManager shareOrderManager] getPredictPriceWithModel:predictModel success:^(id  _Nonnull data) {
+    [[OrderManager shareOrderManager] getPredictPriceWithModel:self.transportOrder success:^(id  _Nonnull data) {
         NSNumber * number = (NSNumber* )data;
         weakSelf.footerView.price = [NSString stringWithFormat:@"%.2f",[number floatValue]];
     } fail:^(NSInteger code) {
@@ -690,6 +783,20 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     if (!_transportOrder) {
         _transportOrder = [[TransportOrder alloc]init];
         _transportOrder.outTime = [[DateUtils shareDateUtils] getDateStringWithDate:[NSDate date] withFormatterStr:Formatter_YMD];
+    }
+    TransportValueAdd * valueAdd = (TransportValueAdd *)self.transportValueAddArray[0];
+    _transportOrder.petAmount = [valueAdd.serviceValue doubleValue];
+    TransportValueAdd * receipt = (TransportValueAdd *)self.transportValueAddArray[2];
+    if (receipt.serviceIsSelected) {
+        _transportOrder.receiptAddress = receipt.serviceValue;
+        _transportOrder.receiptLatitude = [receipt.latitude doubleValue];
+        _transportOrder.receiptLongitude = [receipt.longitude doubleValue];
+    }
+    TransportValueAdd * send = (TransportValueAdd *)self.transportValueAddArray[3];
+    if(send.serviceIsSelected) {
+        _transportOrder.sendAddress = send.serviceValue;
+        _transportOrder.sendLatitude = [send.latitude doubleValue];
+        _transportOrder.sendLongitude = [send.longitude doubleValue];
     }
     return _transportOrder;
 }

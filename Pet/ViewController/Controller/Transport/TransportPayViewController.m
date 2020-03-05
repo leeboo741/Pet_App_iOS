@@ -14,6 +14,8 @@
 #import "TransportPayPetConditionConfirmCell.h"
 #import "TransportPayContractConfirmCell.h"
 #import "PaymentViewController.h"
+#import "OrderManager.h"
+#import "PayManager.h"
 
 static NSString * PersonnelCellName = @"TransportPayPersonnelCell";
 static NSString * PersonnelCellIdentifier = @"PersonnelCellIdentifier";
@@ -37,6 +39,7 @@ TransportPayContractConfirmCellDelegate>
 @property (nonatomic, strong) TransportOrder * transportOrder;
 
 @property (nonatomic, strong) TransportOrderFooterView * footerView;
+@property (nonatomic, copy) NSString * predictPrice;
 @property (nonatomic, assign) CGFloat footerY;
 
 @property (nonatomic, assign) BOOL isConfirmCondition;
@@ -46,9 +49,10 @@ TransportPayContractConfirmCellDelegate>
 
 @implementation TransportPayViewController
 #pragma mark - life cycle
--(instancetype)initWithTransportOrder:(TransportOrder *)order{
+-(instancetype)initWithTransportOrder:(TransportOrder *)order predictPrice:(nonnull NSString *)price{
     self = [super init];
     if (self) {
+        self.predictPrice = price;
         self.transportOrder = order;
         self.isConfirmCondition = NO;
         self.isConfirmContract = NO;
@@ -222,9 +226,39 @@ TransportPayContractConfirmCellDelegate>
 
 -(void)transportOrderFooterTapOrder{
     MSLog(@"点击提交");
-    PaymentViewController * paymentVC = [[PaymentViewController alloc]init];
-    paymentVC.paymentPrice = 32.0f;
-    [self.navigationController pushViewController:paymentVC animated:YES];
+    if (kStringIsEmpty(self.transportOrder.senderName)) {
+        [MBProgressHUD showTipMessageInWindow:@"寄件人姓名不能为空"];
+        return;
+    }
+    if (kStringIsEmpty(self.transportOrder.senderPhone)) {
+        [MBProgressHUD showTipMessageInWindow:@"寄件人电话不能为空"];
+        return;
+    }
+    if (kStringIsEmpty(self.transportOrder.receiverName)) {
+        [MBProgressHUD showTipMessageInWindow:@"收件人姓名不能为空"];
+        return;
+    }
+    if (kStringIsEmpty(self.transportOrder.receiverPhone)) {
+        [MBProgressHUD showTipMessageInWindow:@"收件人电话不能为空"];
+        return;
+    }
+    if (!self.isConfirmCondition) {
+        [MBProgressHUD showTipMessageInWindow:@"请确认条件"];
+        return;
+    }
+    if (!self.isConfirmContract) {
+        [MBProgressHUD showTipMessageInWindow:@"请确认条款"];
+        return;
+    }
+    [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+    [[OrderManager shareOrderManager] createOrderWithOrderEntity:self.transportOrder success:^(id  _Nonnull data) {
+        [MBProgressHUD hideHUD];
+        PaymentViewController * paymentVC = [[PaymentViewController alloc]init];
+        paymentVC.orderNo = (NSString *)data;
+        [self.navigationController pushViewController:paymentVC animated:YES];
+    } fail:^(NSInteger code) {
+        
+    }];
 }
 
 #pragma mark - config cell
@@ -266,7 +300,7 @@ TransportPayContractConfirmCellDelegate>
         self.footerY = _footerView.frame.origin.y;
         _footerView.delegate = self;
         _footerView.type = TransportOrderFooterView_Type_Commit;
-        _footerView.price = @"0";
+        _footerView.price = self.predictPrice;
         [self.tableView addSubview:_footerView];
         [self.tableView bringSubviewToFront:_footerView];
     }

@@ -9,9 +9,44 @@
 #import "WechatManager.h"
 #import "RandomKey.h"
 
+@interface WechatPayParam ()
+
+@end
+
+@implementation WechatPayParam
+
+@end
+
+@interface WechatToken ()
+
+@end
+
+@implementation WechatToken
+
+@end
+
+@interface WechatRefreshToken ()
+
+@end
+
+@implementation WechatRefreshToken
+
+@end
+
+@interface WechatUserInfo ()
+
+@end
+
+@implementation WechatUserInfo
+
+@end
+
 @interface WechatManager ()
 
 @property (nonatomic, strong) NSString *authState;
+
+@property (nonatomic, strong) WechatToken * wechatToken;
+@property (nonatomic, strong) WechatUserInfo * wechatUserInfo;
 
 @end
 
@@ -65,12 +100,15 @@ SingleImplementation(WechatManager);
  @param success 成功回调
  @param fail 失败回调
  */
--(void)getAccessTokenWithCode:(NSString *)wechatCode
+-(void)getWechatTokenWithCode:(NSString *)wechatCode
                       success:(SuccessBlock)success
                          fail:(FailBlock)fail{
-    HttpRequestModel * requestModel = [[HttpRequestModel alloc] initWithType:HttpRequestMethodType_GET Url:Wechat_URL_GetAccessToken(Wechat_App_Id, Wechat_App_Secret, wechatCode) isFullUrl:YES paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+    __weak typeof(self)weakSelf = self;
+    HttpRequestModel * requestModel = [[HttpRequestModel alloc] initWithType:HttpRequestMethodType_GET Url:Wechat_URL_GetAccessToken(Wechat_App_Id, Wechat_App_Secret, wechatCode) isFullUrl:YES useDefaultHandler:NO paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        WechatToken * wechatToken = [WechatToken mj_objectWithKeyValues:data];
+        weakSelf.wechatToken = wechatToken;
         if (success) {
-            success(@"");
+            success(wechatToken);
         }
     } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
         if (fail) {
@@ -79,6 +117,67 @@ SingleImplementation(WechatManager);
     }];
     [[HttpManager shareHttpManager] requestWithRequestModel:requestModel];
 }
+
+/**
+ 获取微信用户信息
+ 
+ @param accessToken access_token
+ @param openid openid
+ @param success sucess
+ @param fail fail
+ */
+-(void)getWechatUserInfo:(NSString *)accessToken
+                  openid:(NSString *)openid
+                 success:(SuccessBlock)success
+                    fail:(FailBlock)fail{
+    __weak typeof(self) weakSelf = self;
+    HttpRequestModel * requestModel = [[HttpRequestModel alloc] initWithType:HttpRequestMethodType_GET Url:Wechat_URL_GetWechatUserInfo(accessToken, openid) isFullUrl:YES useDefaultHandler:NO paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        WechatUserInfo * wechatUserInfo = [WechatUserInfo mj_objectWithKeyValues:data];
+        weakSelf.wechatUserInfo = wechatUserInfo;
+        if (success) {
+            success(wechatUserInfo);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:requestModel];
+}
+
+/**
+ 刷新 微信登录令牌
+
+ @param success 成功回调
+ @param fail 失败回调
+*/
+-(void)refreshWechatTokenWithSuccess:(SuccessBlock)success fail:(FailBlock)fail{
+    __weak typeof(self) weakSelf = self;
+    HttpRequestModel * requestModel = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:Wechat_URL_RefreshAccessToken(Wechat_App_Id, self.wechatToken.refresh_token) isFullUrl:YES useDefaultHandler:NO paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        WechatRefreshToken * wechatRefreshToken = [WechatRefreshToken mj_objectWithKeyValues:data];
+        if (kStringIsEmpty(wechatRefreshToken.refresh_token)) {
+            MSLog(@"refresh_token 过期")
+            if (fail) {
+                fail(HttpResponseCode_Wechat_RefreshTokenExpires);
+            }
+        } else {
+            weakSelf.wechatToken.access_token = wechatRefreshToken.access_token;
+            weakSelf.wechatToken.refresh_token = wechatRefreshToken.refresh_token;
+            weakSelf.wechatToken.scope = wechatRefreshToken.scope;
+            weakSelf.wechatToken.expires_in = wechatRefreshToken.expires_in;
+            weakSelf.wechatToken.openid = wechatRefreshToken.openid;
+            if (success) {
+                success(weakSelf.wechatToken);
+            }
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:requestModel];
+}
+
 
 /**
 *  发送微信验证请求.
@@ -93,11 +192,21 @@ SingleImplementation(WechatManager);
 - (void)sendAuthRequestWithController:(UIViewController*)viewController
                              delegate:(id<WechatAuthDelegate>)delegate
                              complete:(void (^ __nullable)(BOOL success))complete{
-    SendAuthReq* req = [[SendAuthReq alloc] init];
-    req.scope = @"snsapi_userinfo";
-    self.authState = req.state = [NSString randomKey];
-    self.delegate = delegate;
-    [WXApi sendAuthReq:req viewController:viewController delegate:self completion:complete];
+    if ([self isWechatInstalled]) {
+        SendAuthReq* req = [[SendAuthReq alloc] init];
+        req.scope = @"snsapi_userinfo";
+        self.authState = req.state = [NSString randomKey];
+        self.delegate = delegate;
+        [WXApi sendAuthReq:req viewController:viewController delegate:self completion:complete];
+    } else {
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"尚未安装微信" message:@"请先安装微信App" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertController addAction:action];
+        UIViewController * currentVC = Util_GetCurrentVC;
+        [currentVC presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 /**
@@ -182,6 +291,25 @@ SingleImplementation(WechatManager);
    [WXApi sendReq:req completion:complete];
 }
 
+/**
+ 发送 支付 请求
+ 
+ @param payParam 支付参数
+ @param delegate payDelegate
+ @param complete 完成回调
+ */
+-(void)sendPayRequestWithParam:(WechatPayParam *)payParam delegate:(id<WechatPayDelegate>)delegate complete:(void (^ __nullable)(BOOL success))complete{
+    self.payDelegate = delegate;
+    PayReq * payReq = [[PayReq alloc]init];
+    payReq.prepayId = payParam.prepayid;
+    payReq.nonceStr = payParam.noncestr;
+    payReq.package = payParam.package;
+    payReq.partnerId = payParam.partnerid;
+    payReq.sign = payParam.paySign;
+    payReq.timeStamp = [payParam.timestamp intValue];
+    [WXApi sendReq:payReq completion:complete];
+}
+
 #pragma mark - WXApiDelegate
 #pragma mark -
 
@@ -200,20 +328,42 @@ SingleImplementation(WechatManager);
         
         switch (resp.errCode) {
             case WXSuccess:
-                NSLog(@"RESP:code:%@,state:%@\n", authResp.code, authResp.state);
                 if (self.delegate && [self.delegate respondsToSelector:@selector(wechatAuthSucceed:)])
                     [self.delegate wechatAuthSucceed:authResp.code];
                 break;
             case WXErrCodeAuthDeny:
+                [MBProgressHUD showTipMessageInWindow:@"授权失败"];
                 if (self.delegate && [self.delegate respondsToSelector:@selector(wechatAuthDenied)])
                     [self.delegate wechatAuthDenied];
                 break;
             case WXErrCodeUserCancel:
+                [MBProgressHUD showTipMessageInWindow:@"取消授权"];
                 if (self.delegate && [self.delegate respondsToSelector:@selector(wechatAuthCancel)])
                     [self.delegate wechatAuthCancel];
             default:
                 break;
         }
-    }
+    }else if([resp isKindOfClass:[PayResp class]]){
+           
+           switch (resp.errCode) {
+               case WXSuccess:
+                   if (self.payDelegate && [self.payDelegate respondsToSelector:@selector(wechatPaySuccess)]) {
+                       [self.payDelegate wechatPaySuccess];
+                   }
+                   break;
+               case WXErrCodeUserCancel:
+                   [MBProgressHUD showTipMessageInWindow:@"取消支付"];
+                   if (self.payDelegate && [self.payDelegate respondsToSelector:@selector(wechatPayCancel)]) {
+                       [self.payDelegate wechatPayCancel];
+                   }
+                   break;
+               default:
+                   [MBProgressHUD showTipMessageInWindow:@"支付失败"];
+                   if (self.payDelegate && [self.payDelegate respondsToSelector:@selector(wechatPayFail)]) {
+                       [self.payDelegate wechatPayFail];
+                   }
+                   break;
+           }
+       }
 }
 @end

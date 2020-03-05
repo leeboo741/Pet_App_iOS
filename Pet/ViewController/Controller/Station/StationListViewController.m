@@ -42,7 +42,7 @@ static NSInteger PageSize = 20;
         self.waitRefresh = NO;
         [self startRefresh];
     } else {
-        [MBProgressHUD showActivityMessageInView:@"定位中"];
+        [MBProgressHUD showActivityMessageInWindow:@"定位中"];
         self.waitRefresh = YES;
         [[LocationManager shareLocationManager] requestLocationWithLocationChangeObserver:self selector:@selector(loactionChange:)];
     }

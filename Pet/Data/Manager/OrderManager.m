@@ -7,6 +7,7 @@
 //
 
 #import "OrderManager.h"
+#import "TransportOrder.h"
 
 @implementation PredictPriceModel
 @end
@@ -37,8 +38,9 @@ SingleImplementation(OrderManager);
 
 #pragma mark - public method
 
--(void)getPredictPriceWithModel:(PredictPriceModel *)predictPriceModel success:(SuccessBlock)success fail:(FailBlock)fail {
-    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:URL_PredictPrice paramers:predictPriceModel successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+-(void)getPredictPriceWithModel:(TransportOrder *)order success:(SuccessBlock)success fail:(FailBlock)fail {
+    NSDictionary * param = [self getDictFromOrder:order];
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:URL_PredictPrice paramers:param successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
         if (success) {
             success(data);
         }
@@ -238,7 +240,101 @@ SingleImplementation(OrderManager);
     }
 }
 
+/**
+ 生成订单
+ 
+ @param transportOrder 订单
+ @param success 成功回调
+ @param fail 失败回调
+ */
+-(void)createOrderWithOrderEntity:(TransportOrder *)transportOrder
+                          success:(SuccessBlock)success
+                             fail:(FailBlock)fail{
+    NSDictionary * dict = [self getDictFromOrder:transportOrder];
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:URL_InsertOrder paramers:dict successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
+
+/**
+ 获取订单金额
+ 
+ @param orderNo 订单编号
+ @param success 成功回调
+ @param fail 失败回调
+ */
+-(void)getOrderAmountWithOrderNo:(NSString *)orderNo
+                         success:(SuccessBlock)success
+                            fail:(FailBlock)fail{
+    HttpRequestModel * model = [[HttpRequestModel alloc] initWithType:HttpRequestMethodType_GET Url:URL_GetOrderAmount paramers:@{@"orderNo":orderNo} successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
+
 #pragma mark - private method
+
+-(NSDictionary *)getDictFromOrder:(TransportOrder *)order{
+    NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    NSString * startCity = kStringIsEmpty(order.startCity)?@"":order.startCity;
+    [dict setObject:startCity forKey:@"startCity"];
+    NSString * endCity = kStringIsEmpty(order.endCity)?@"":order.endCity;
+    [dict setObject:endCity forKey:@"endCity"];
+    NSString * outTime = kStringIsEmpty(order.outTime)?@"":order.outTime;
+    [dict setObject:outTime forKey:@"leaveDate"];
+    NSString * petCount = kStringIsEmpty(order.petCount)?@"":order.petCount;
+    [dict setObject:petCount forKey:@"num"];
+    NSString * petType = kStringIsEmpty(order.petType)?@"":order.petType;
+    [dict setObject:petType forKey:@"petType"];
+    NSString * petBreed = kStringIsEmpty(order.petBreed)?@"":order.petBreed;
+    [dict setObject:petBreed forKey:@"petClassify"];
+    NSString * petWeight = kStringIsEmpty(order.petWeight)?@"":order.petWeight;
+    [dict setObject:petWeight forKey:@"weight"];
+    NSString * petTypeId = kStringIsEmpty(order.transportType.typeId)?@"":order.transportType.typeId;
+    [dict setObject:petTypeId forKey:@"transportType"];
+    [dict setObject:kIntNumber((int)order.buyPetCage) forKey:@"buyPetCage"];
+    NSString * receiptAddress = kStringIsEmpty(order.receiptAddress)?@"":order.receiptAddress;
+    [dict setObject:receiptAddress forKey:@"receiptAddress"];
+    [dict setObject:kDoubleNumber(order.receiptLongitude) forKey:@"receiptLongitude"];
+    [dict setObject:kDoubleNumber(order.receiptLatitude) forKey:@"receiptLatitude"];
+    NSString * sendAddress = kStringIsEmpty(order.sendAddress)?@"": order.sendAddress;
+    [dict setObject:sendAddress forKey:@"sendAddress"];
+    [dict setObject:kDoubleNumber(order.sendLongitude) forKey:@"sendLongitude"];
+    [dict setObject:kDoubleNumber(order.sendLatitude) forKey:@"sendLatitude"];
+    [dict setObject:kDoubleNumber(order.petAmount) forKey:@"petAmount"];
+    NSString * senderName = kStringIsEmpty(order.senderName)?@"":order.senderName;
+    [dict setObject:senderName forKey:@"senderName"];
+    NSString * senderPhone = kStringIsEmpty(order.senderPhone)?@"":order.senderPhone;
+    [dict setObject:senderPhone forKey:@"senderPhone"];
+    NSString * receiverName = kStringIsEmpty(order.receiverName)?@"":order.receiverName;
+    [dict setObject:receiverName forKey:@"receiverName"];
+    NSString * receiverPhone = kStringIsEmpty(order.receiverPhone)?@"":order.receiverPhone;
+    [dict setObject:receiverPhone forKey:@"receiverPhone"];
+    NSString * customerNo = kStringIsEmpty(order.customerNo)?@"":order.customerNo;
+    [dict setObject:customerNo forKey:@"customerNo"];
+    NSString * remark = kStringIsEmpty(order.remark)?@"":order.remark;
+    [dict setObject:remark forKey:@"remarks"];
+    [dict setObject:kIntNumber((int)order.giveFood) forKey:@"giveFood"];
+    [dict setObject:kIntNumber((int)order.guarantee) forKey:@"guarantee"];
+    NSString * petAge = kStringIsEmpty(order.petAge)?@"":order.petAge;
+    [dict setObject:petAge forKey:@"petAge"];
+    [dict setObject:@"" forKey:@"shareOpenId"];
+    [dict setObject:@"" forKey:@"sendDistance"];
+    return dict;
+}
 
 /**
  整理服务器返回数据

@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @class TransportOrder;
 @interface TransportPayViewController : UITableViewController
--(instancetype)initWithTransportOrder:(TransportOrder *)order;
+-(instancetype)initWithTransportOrder:(TransportOrder *)order predictPrice:(NSString *)price;
 @end
 
 NS_ASSUME_NONNULL_END

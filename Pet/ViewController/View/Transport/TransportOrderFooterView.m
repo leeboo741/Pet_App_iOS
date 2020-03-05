@@ -78,8 +78,8 @@
     [self.orderButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.right.equalTo(self).offset(-12);
-        make.height.equalTo(self).multipliedBy(0.8);
-        make.width.mas_equalTo(100);
+        make.height.equalTo(self).multipliedBy(0.65);
+        make.width.mas_equalTo(80);
         make.left.greaterThanOrEqualTo(self.priceValue.mas_right).offset(12);
     }];
 }
@@ -121,7 +121,7 @@
     if (!_priceTitle) {
         _priceTitle = [[UILabel alloc]init];
         _priceTitle.textColor = Color_gray_2;
-        _priceTitle.font = kFontSize(16);
+        _priceTitle.font = kFontSize(13);
         _priceTitle.text = @"预估金额";
     }
     return _priceTitle;
@@ -131,7 +131,7 @@
     if (!_priceValue) {
         _priceValue = [[UILabel alloc]init];
         _priceValue.textColor = Color_red_2;
-        _priceValue.font = kFontSize(18);
+        _priceValue.font = kFontSize(14);
     }
     return _priceValue;
 }
@@ -142,7 +142,7 @@
         [_orderButton setBackgroundColor:Color_red_2];
         [_orderButton setTitle:@"预定" forState:UIControlStateNormal];
         [_orderButton setTitleColor:Color_white_1 forState:UIControlStateNormal];
-        _orderButton.titleLabel.font = kFontSize(18);
+        _orderButton.titleLabel.font = kFontSize(15);
         _orderButton.layer.cornerRadius = 10;
         [_orderButton addTarget:self action:@selector(tapOrderButton) forControlEvents:UIControlEventTouchUpInside];
     }

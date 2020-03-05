@@ -76,6 +76,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 +(void)makePhoneCallWithPhoneNumber:(NSString *)phoneNumber;
 
+/**
+ 替换特殊字符
+ 
+ @param sourceString 需要替换的字符
+ */
++(NSString *)replaceSepcialChar:(NSString *)sourceString;
+
+
+/**
+ 恢复特殊字符
+ 
+ @param sourceString 需要恢复特殊字符
+ */
++(NSString *)recoverySpecialChar:(NSString *)sourceString;
 @end
 
 NS_ASSUME_NONNULL_END

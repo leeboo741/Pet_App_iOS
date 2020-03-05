@@ -26,6 +26,7 @@ typedef void(^HttpRequestSuccessBlock)(id data, NSString * msg); // 成功回调
 typedef void(^HttpRequestFailBlock)(NSInteger code, NSString * errorMsg); // 失败回调
 typedef void(^ConstructingBodyBlock)(id<AFMultipartFormData> formData); // 上传数据回调
 typedef void(^ProgressBlock)(NSProgress * progress); // 上传进度回调
+typedef void(^JSESSIONID_ReturnBlock)(NSString * JSESSIONID); // JSESSIONID 返回回调
 
 typedef NS_ENUM(NSInteger, HttpRequestMethodType) {
     HttpRequestMethodType_GET = 0,
@@ -37,12 +38,13 @@ typedef NS_ENUM(NSInteger, HttpRequestMethodType) {
 
 static NSString * HEADER_KEY_CONTENT_TYPE = @"Content-Type";
 static NSString * HEADER_KEY_ACCEPT = @"Accept";
+static NSString * HEADER_KEY_COOKIES = @"Cookie";
 
 static NSString * HEADER_VALUE_APPLICATION_JSON = @"application/json";
 
 @interface HttpRequestModel : NSObject
 @property (nonatomic, assign) BOOL isFullUrl; // 是否使用完整路径  还是 需要拼接baseUrl
-@property (nonatomic, assign) BOOL notUseDefaultHandler; // 是否使用默认方法解析response
+@property (nonatomic, assign) BOOL useDefaultHandler; // 是否使用默认方法解析response
 @property (nonatomic, assign) HttpRequestMethodType methodType;
 @property (nonatomic, copy) NSString * urlStr;
 @property (nonatomic, strong) id paramers;
@@ -51,7 +53,8 @@ static NSString * HEADER_VALUE_APPLICATION_JSON = @"application/json";
 @property (nonatomic, copy) ProgressBlock progressBlock;
 @property (nonatomic, copy) HttpRequestSuccessBlock successBlock;
 @property (nonatomic, copy) HttpRequestFailBlock failBlock;
--(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url isFullUrl:(BOOL)isFull paramers:(id _Nullable)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock;
+@property (nonatomic, copy) JSESSIONID_ReturnBlock jsessionid_return_block;
+-(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url isFullUrl:(BOOL)isFull useDefaultHandler:(BOOL)useDefaultHandler paramers:(id _Nullable)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock;
 -(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url paramers:(id _Nullable)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock;
 @end
 
@@ -82,6 +85,8 @@ typedef NS_ENUM(NSInteger, HttpResponseCode) {
     HttpResponseCode_INVAILD_TRANSPORT = 901, // 无效的运输路线
     
     HttpResponseCode_CONNECT_FAIL = 1000, // 链接失败
+    
+    HttpResponseCode_Wechat_RefreshTokenExpires = 8000, // 微信refresh_token过期
     
     HttpResponseCode_UNKNOW = 9000, // 未知
 };

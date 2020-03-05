@@ -12,6 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class TransportOrder;
+
 typedef NS_ENUM(NSInteger, OrderTransportType) {
     OrderTransportType_ZHUANCHE = 1, // 专车
     OrderTransportType_HUOCHE = 2, // 火车
@@ -63,11 +65,12 @@ SingleInterface(OrderManager);
 /**
  查询预估价格
 
- @param predictPriceModel 预估价格查询条件
+ @param order 订单
  @param success 成功回调
  @param fail 失败回调
  */
--(void)getPredictPriceWithModel:(PredictPriceModel *)predictPriceModel success:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)getPredictPriceWithModel:(TransportOrder *)order success:(SuccessBlock)success fail:(FailBlock)fail;
+
 /**
  查询可接受最大箱子重量
 
@@ -132,6 +135,28 @@ SingleInterface(OrderManager);
  @param fail 结束回调
  */
 -(void)getEndCityWithStartCity:(NSString *)startCity keyword:(NSString *)keyword success:(GetCityDataReturnBlock)success fail:(FailBlock)fail;
+
+/**
+ 生成订单
+ 
+ @param transportOrder 订单
+ @param success 成功回调
+ @param fail 失败回调
+ */
+-(void)createOrderWithOrderEntity:(TransportOrder *)transportOrder
+                          success:(SuccessBlock)success
+                             fail:(FailBlock)fail;
+
+/**
+ 获取订单金额
+ 
+ @param orerNo 订单编号
+ @param success 成功回调
+ @param fail 失败回调
+ */
+-(void)getOrderAmountWithOrderNo:(NSString *)orderNo
+                         success:(SuccessBlock)success
+                            fail:(FailBlock)fail;
 @end
 
 NS_ASSUME_NONNULL_END

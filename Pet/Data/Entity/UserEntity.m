@@ -13,5 +13,23 @@
 @end
 
 @implementation UserEntity
++(NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{
+        @"userName":@"customerName",
+        @"avaterImagePath":@"headerImage"
+    };
+}
 
+-(StaffEntity *)staff{
+    if (!_staff) {
+        _staff = [[StaffEntity alloc]init];
+    }
+    return _staff;
+}
+-(BusinessEntity *)business{
+    if (!_business) {
+        _business = [[BusinessEntity alloc]init];
+    }
+    return _business;
+}
 @end

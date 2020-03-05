@@ -55,4 +55,24 @@
     
     [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
 }
+
+/**
+ 替换特殊字符
+ 
+ @param sourceString 需要替换的字符
+ */
++(NSString *)replaceSepcialChar:(NSString *)sourceString{
+    NSString * string = [sourceString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPasswordAllowedCharacterSet]];
+    return string;
+}
+
+/**
+ 恢复特殊字符
+ 
+ @param sourceString 需要恢复特殊字符
+ */
++(NSString *)recoverySpecialChar:(NSString *)sourceString{
+    NSString * string = [sourceString stringByRemovingPercentEncoding];
+    return string;
+}
 @end

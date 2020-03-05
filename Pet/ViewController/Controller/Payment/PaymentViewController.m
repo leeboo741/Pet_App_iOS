@@ -9,14 +9,15 @@
 #import "PaymentViewController.h"
 #import "PaymentInfoCell.h"
 #import "PaymentTypeCell.h"
+#import "OrderManager.h"
+#import "PayManager.h"
 
-
-
-@interface PaymentViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface PaymentViewController () <UITableViewDelegate, UITableViewDataSource, WechatPayDelegate>
 @property (nonatomic, strong) UITableView * tableView;
 @property (nonatomic, strong) UIButton * paymentButton;
 @property (nonatomic, strong) NSArray * paymentTypeList;
 @property (nonatomic, strong) PaymentTypeModel * selectPaymentType;
+@property (nonatomic, copy) NSString * paymentPrice;
 @end
 
 static NSString * PaymentTypeCellIdentifier = @"PaymentTypeCell";
@@ -29,6 +30,15 @@ static NSString * PaymentInfoCellIdentifier = @"PaymentInfoCell";
     self.navigationItem.title = @"支付";
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.paymentButton];
+    
+    [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+    __weak typeof(self) weakSelf = self;
+    [[OrderManager shareOrderManager] getOrderAmountWithOrderNo:self.orderNo success:^(id  _Nonnull data) {
+        [MBProgressHUD hideHUD];
+        weakSelf.paymentPrice = (NSString *)data;
+    } fail:^(NSInteger code) {
+        
+    }];
     // Do any additional setup after loading the view.
 }
 
@@ -108,20 +118,47 @@ static NSString * PaymentInfoCellIdentifier = @"PaymentInfoCell";
 #pragma mark - config cell
 
 -(void)configInfoCell:(PaymentInfoCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    cell.paymentPrice = self.paymentPrice;
+    cell.paymentPrice = [self.paymentPrice floatValue];
 }
 
 -(void)configTypeCell:(PaymentTypeCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     cell.model = self.paymentTypeList[indexPath.row];
 }
 
+#pragma mark - pay delegate
+-(void)wechatPaySuccess{
+    [AlertControllerTools showAlertWithTitle:@"支付成功" msg:nil items:@[@"确定"] showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+}
+-(void)wechatPayFail{
+    
+}
+-(void)wechatPayCancel{
+    
+}
+
 #pragma mark - action event
 
 -(void)paymentAction{
     MSLog(@"支付");
+    __weak typeof(self) weakSelf = self;
+    [MBProgressHUD showTipMessageInWindow:@"准备支付..."];
+    [[PayManager sharePayManager] getTransportPayParamForWechatWithOrderNo:self.orderNo customerNo:[[UserManager shareUserManager] getCustomerNo] success:^(id  _Nonnull data) {
+        [MBProgressHUD hideHUD];
+        WechatPayParam * payParam = (WechatPayParam *)data;
+        [[WechatManager shareWechatManager] sendPayRequestWithParam:payParam delegate:weakSelf complete:nil];
+    } fail:^(NSInteger code) {
+        
+    }];
 }
 
 #pragma mark - setters and getters
+
+-(void)setPaymentPrice:(NSString *)paymentPrice{
+    _paymentPrice = paymentPrice;
+    [self.tableView reloadData];
+}
 
 -(NSArray *)paymentTypeList{
     if (!_paymentTypeList) {

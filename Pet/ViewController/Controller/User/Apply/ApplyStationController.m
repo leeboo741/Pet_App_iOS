@@ -108,8 +108,10 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     ApplyItemCellModel * model = self.itemsArray[1];
     [[CommonManager shareCommonManager] getPhoneCodeByPhoneNumber:model.cellValue success:^(id  _Nonnull data) {
-        [MBProgressHUD showTipMessageInView:@"短信发送成功"];
+        [MBProgressHUD showTipMessageInWindow:@"短信发送成功"];
     } fail:^(NSInteger code) {
+        
+    } jsessionidReturnBlock:^(NSString * _Nonnull jsessionid) {
         
     }];
 }
@@ -224,7 +226,7 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
     ApplyItemCellModel * cellModel7 = self.itemsArray[7];
     applyModel.describes = cellModel7.cellValue;
     if ([self isSafeApplyModel:applyModel]) {
-        [MBProgressHUD showActivityMessageInView:@"提交中..."];
+        [MBProgressHUD showActivityMessageInWindow:@"提交中..."];
         [[ApplyManager shareApplyManager] requestStationApply:applyModel success:^(id  _Nonnull data) {
             [MBProgressHUD hideHUD];
         } fail:^(NSInteger code) {

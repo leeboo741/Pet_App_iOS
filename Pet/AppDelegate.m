@@ -25,7 +25,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     MSLog(@"%@",kDocumentPath);
-    
     // IQ键盘
     [self initIQKeyBorad];
     
@@ -44,8 +43,14 @@
     // 腾讯地图
     [QMapServices sharedServices].apiKey = Map_Key_Tencent;
     [AspectsUIViewController aspect_viewDidLoad];
-    LoginViewController * loginViewController = [[LoginViewController alloc]init];
-    self.window.rootViewController = loginViewController;
+    if ([[UserManager shareUserManager] getUser] != nil) {
+        MainTabbarController * tabbarVC = [[MainTabbarController alloc]init];
+        self.window.rootViewController = tabbarVC;
+    } else {
+        LoginViewController * loginViewController = [[LoginViewController alloc]init];
+        self.window.rootViewController = loginViewController;
+    }
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

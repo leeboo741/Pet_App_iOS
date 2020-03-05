@@ -9,6 +9,37 @@
 #import "UserManager.h"
 #import <WXApi.h>
 
+@implementation RegisterUserInfo
+-(instancetype)init{
+    self = [super init];
+    if (self) {
+        self.sex = SEX_MALE;
+    }
+    return self;
+}
+-(NSString *)sexStr{
+    if (self.sex == SEX_MALE) {
+        return @"男";
+    } else {
+        return @"女";
+    }
+}
+-(NSString *)appType{
+    return @"iOS";
+}
+
++(RegisterUserInfo *)getUserInfoFromWechatUserInfo:(WechatUserInfo *)wechatUserInfo{
+    RegisterUserInfo * registerUserinfo = [[RegisterUserInfo alloc]init];
+    registerUserinfo.headImageUrl = wechatUserInfo.headimgurl;
+    registerUserinfo.nickName = wechatUserInfo.nickname;
+    registerUserinfo.openid = wechatUserInfo.openid;
+    registerUserinfo.unionid = wechatUserInfo.unionid;
+    registerUserinfo.sex = [wechatUserInfo.sex integerValue];
+    return registerUserinfo;
+}
+
+@end
+
 static NSString * User_Key = @"USER_KEY";
 
 @interface UserManager ()
@@ -25,19 +56,112 @@ SingleImplementation(UserManager)
 -(instancetype)init{
     self = [super init];
     if (self) {
-        [self addObserver:self forKeyPath:@"user" options:NSKeyValueObservingOptionNew context:nil];
-        [self.user addObserver:self forKeyPath:@"role" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self
+               forKeyPath:@"user"
+                  options:NSKeyValueObservingOptionNew
+                  context:nil];
+        [self.user addObserver:self
+                    forKeyPath:@"role"
+                       options:NSKeyValueObservingOptionNew
+                       context:nil];
     }
     return self;
 }
 
 #pragma mark - public method
 
-/// 登录
-/// @param phone 电话号码
+/**
+ 手机号码登录
+ 
+ @param phone 手机号码
+ */
 -(void)loginWithPhone:(NSString *)phone{
-    
+//    HttpRequestModel * model = [HttpRequestModel alloc]initWithType:HttpRequestModel Url:<#(nonnull NSString *)#> paramers:<#(id _Nullable)#> successBlock:<#^(id  _Nonnull data, NSString * _Nonnull msg)successBlock#> failBlock:<#^(NSInteger code, NSString * _Nonnull errorMsg)failBlock#>
 }
+
+/**
+ 微信 unionid 登录
+ 
+ @param unionid 微信 unionid
+ @param success success
+ @param fail fail
+ */
+-(void)loginWithWechatUnionid:(NSString *)unionid
+                      success:(SuccessBlock)success
+                         fail:(FailBlock)fail{
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:[NSString stringWithFormat:@"%@?unionId=%@",URL_LoginWithId,unionid] paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
+
+/**
+ 注册用户
+ 
+ @param registerUserInfo 注册用户
+ @param jsessionid jsessionid
+ @param success success
+ @param fail fail
+ */
+-(void)registerUser:(RegisterUserInfo *)registerUserInfo
+         jsessionid:(NSString *)jsessionid
+            success:(SuccessBlock)success
+               fail:(FailBlock)fail{
+    NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    if (kStringIsEmpty(registerUserInfo.phone)) {
+        [MBProgressHUD showTipMessageInWindow:@"手机号不能为空"];
+        return;
+    }
+    [dict setObject:registerUserInfo.phone forKey:@"phone"];
+    if (kStringIsEmpty(registerUserInfo.verificationCode)) {
+        [MBProgressHUD showTipMessageInWindow:@"验证码不能为空"];
+        return;
+    }
+    [dict setObject:registerUserInfo.verificationCode forKey:@"verificationCode"];
+    if (!kStringIsEmpty(registerUserInfo.nickName)) {
+        [dict setObject:registerUserInfo.nickName forKey:@"customerName"];
+    }
+    if (!kStringIsEmpty(registerUserInfo.headImageUrl)) {
+        [dict setObject:[LeeUtils replaceSepcialChar:registerUserInfo.headImageUrl] forKey:@"headerImage"];
+    }
+    if (!kStringIsEmpty(registerUserInfo.openid)) {
+        [dict setObject:registerUserInfo.openid forKey:@"openId"];
+    }
+    if (!kStringIsEmpty(registerUserInfo.unionid)) {
+        [dict setObject:registerUserInfo.unionid forKey:@"unionId"];
+    }
+    if (!kStringIsEmpty(registerUserInfo.appType)) {
+    }
+    if (!kStringIsEmpty(registerUserInfo.shareStationNo)) {
+        [dict setObject:registerUserInfo.shareStationNo forKey:@"shareOpenId"];
+    }
+    if (!kStringIsEmpty(registerUserInfo.shareBusinessNo)) {
+        [dict setObject:registerUserInfo.shareBusinessNo forKey:@"businessNo"];
+    }
+    [dict setObject:registerUserInfo.appType forKey:@"appType"];
+    NSString* sexString = [registerUserInfo.sexStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    [dict setObject:sexString forKey:@"sex"];
+    NSString * url = [HttpManager appendingUrlWithBase:URL_Register paramer:dict];
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:url paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    NSString * sessionStr = [NSString stringWithFormat:@"JSESSIONID=%@",jsessionid];
+    [model.header setObject:sessionStr forKey:HEADER_KEY_COOKIES];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
+
 /**
  *  保存用户
  *  @param user 用户
@@ -75,13 +199,13 @@ SingleImplementation(UserManager)
  *  获取商户编号
  */
 -(NSString *)getBusinessNo{
-    return self.user.businessNo;
+    return self.user.business.businessNo;
 }
 /**
  *  获取站点编号
  */
 -(NSString *)getStationNo{
-    return self.user.stationNo;
+    return self.user.staff.station.stationNo;
 }
 
 /**
@@ -97,12 +221,17 @@ SingleImplementation(UserManager)
  *  @param notificationName 通知名称
  *  @parma action 注册响应方法
  */
--(void)registerUserManagerNotificationWithObserver:(id)observer notificationName:(NSString *)notificationName action:(SEL)action{
+-(void)registerUserManagerNotificationWithObserver:(id)observer
+                                  notificationName:(NSString *)notificationName
+                                            action:(SEL)action{
     // observer: 观察者
     // selector: 响应方法
     // name: 通知名称
     // object: 观察者只接收来自于object对象的发出的所注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:observer selector:action name:notificationName object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:observer
+                                             selector:action
+                                                 name:notificationName
+                                               object:self];
 }
 
 /**
@@ -114,7 +243,9 @@ SingleImplementation(UserManager)
     // observer: 观察者
     // name: 通知名称
     // object: 观察者只接收来自于object对象的发出的所注册通知
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:notificationName object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer
+                                                    name:notificationName
+                                                  object:self];
 }
 
 #pragma mark - kvo
@@ -141,21 +272,24 @@ SingleImplementation(UserManager)
     if (data != nil) {
         userInfo = @{@"data":data};
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:self userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName
+                                                        object:self userInfo:userInfo];
 }
 
 /**
  *  发送用户改变通知
  */
 -(void)postUserChangeNotification{
-    [self postNotificationWithName:USER_CHANGE_NOTIFICATION_NAME userInfoData:self.user];
+    [self postNotificationWithName:USER_CHANGE_NOTIFICATION_NAME
+                      userInfoData:self.user];
 }
 
 /**
  *  发送用户角色改变通知
  */
 -(void)postUserRoleChangeNotification{
-    [self postNotificationWithName:USER_ROLE_CHANGE_NOTIFICATION_NAME userInfoData:kIntegerNumber(self.user.role)];
+    [self postNotificationWithName:USER_ROLE_CHANGE_NOTIFICATION_NAME
+                      userInfoData:kIntegerNumber(self.user.role)];
 }
 
 #pragma mark - setters and getters

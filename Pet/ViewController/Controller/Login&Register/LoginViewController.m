@@ -13,6 +13,7 @@
 #import "MainTabbarController.h"
 #import "LocationManager.h"
 #import "WechatManager.h"
+#import "RegisterViewController.h"
 
 @interface LoginViewController ()<LoginViewDelegate, PrivacyPolicyViewDelegate, WechatAuthDelegate>
 @property (nonatomic, strong) LoginView * loginView;
@@ -65,11 +66,13 @@
         MSLog(@"注册");
     } else if (type == LoginViewTapActionType_Wechat) {
         MSLog(@"微信登录");
+        [MBProgressHUD showActivityMessageInWindow:@"授权中..."];
         [[WechatManager shareWechatManager] sendAuthRequestWithController:self delegate:self complete:^(BOOL success) {
             if (success) {
                 MSLog(@"请求微信登录成功");
             } else {
                 MSLog(@"请求微信登录失败");
+                [MBProgressHUD hideHUD];
             }
         }];
     }
@@ -87,16 +90,52 @@
 
 -(void)wechatAuthCancel{
     MSLog(@"微信授权取消");
+    [MBProgressHUD hideHUD];
+    [MBProgressHUD showTipMessageInWindow:@"授权取消"];
 }
 
 -(void)wechatAuthDenied{
     MSLog(@"微信授权失败");
+    [MBProgressHUD hideHUD];
+    [MBProgressHUD showTipMessageInWindow:@"授权失败"];
 }
 
 -(void)wechatAuthSucceed:(NSString *)code{
     MSLog(@"微信授权成功: code: %@",code);
-    [[WechatManager shareWechatManager] getAccessTokenWithCode:code success:^(id  _Nonnull data) {
-
+    [MBProgressHUD hideHUD];
+    [MBProgressHUD showActivityMessageInWindow:@"登录中..."];
+    __weak typeof(self) weakSelf = self;
+    [[WechatManager shareWechatManager] getWechatTokenWithCode:code success:^(id  _Nonnull data) {
+        WechatToken * wechatToken = (WechatToken *)data;
+        [[UserManager shareUserManager] loginWithWechatUnionid:wechatToken.unionid success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+            UserEntity * user = [UserEntity mj_objectWithKeyValues:data];
+            [[UserManager shareUserManager] saveUser:user];
+            MainTabbarController * mainTabbar = [[MainTabbarController alloc]init];
+            UIWindow * window = kKeyWindow;
+            window.rootViewController = mainTabbar;
+            [window makeKeyAndVisible];
+        } fail:^(NSInteger code) {
+            [MBProgressHUD hideHUD];
+            if (code == HttpResponseCode_NOT_EXISTS) {
+                UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"账号未注册" message:@"是否前往注册" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"前往注册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [[WechatManager shareWechatManager] getWechatUserInfo:wechatToken.access_token openid:wechatToken.openid success:^(id  _Nonnull data) {
+                        WechatUserInfo * wechatUserInfo = (WechatUserInfo *)data;
+                        RegisterUserInfo * registerUserInfo = [RegisterUserInfo getUserInfoFromWechatUserInfo:wechatUserInfo];
+                        RegisterViewController * registervc = [[RegisterViewController alloc]init];
+                        registervc.registerUserInfo = registerUserInfo;
+                        [weakSelf presentViewController:registervc animated:YES completion:nil];
+                    } fail:^(NSInteger code) {
+                        
+                    }];
+                }];
+                UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"暂不注册" style:UIAlertActionStyleCancel handler:nil];
+                [alert addAction:confirmAction];
+                [alert addAction:cancelAction];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }];
     } fail:^(NSInteger code) {
 
     }];

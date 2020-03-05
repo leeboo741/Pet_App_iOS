@@ -7,6 +7,8 @@
 //
 
 #import "HttpResponseHandler.h"
+//#import "LoginViewController.h"
+//#import "RegisterViewController.h"
 
 @implementation HttpResponseHandler
 
@@ -29,6 +31,8 @@
 
 +(void)handlerFailWithError:(NSError *)error
                   failBlock:(HttpRequestFailBlock)failBlock{
+    
+    [MBProgressHUD hideHUD];
     [HttpResponseHandler handlerFailWithCode:HttpResponseCode_CONNECT_FAIL msg:@"链接异常"];
     if (failBlock) {
         failBlock(HttpResponseCode_CONNECT_FAIL, @"链接异常");
@@ -36,6 +40,7 @@
 }
 
 +(void)handlerFailWithCode:(HttpResponseCode)code msg:(NSString *)msg{
+    [MBProgressHUD hideHUD];
     switch (code) {
         case HttpResponseCode_IS_NULL_DATA: {
             [HttpResponseHandler showErrorMsg:msg placeholderMsg:@"返回数据为空"];
@@ -125,9 +130,9 @@
 }
 +(void)showErrorMsg:(NSString *)msg placeholderMsg:(NSString *)placeholderMsg{
     if (kStringIsEmpty(msg)) {
-        [MBProgressHUD showErrorMessage:placeholderMsg];
+        [MBProgressHUD showTipMessageInWindow:placeholderMsg];
     } else {
-        [MBProgressHUD showErrorMessage:msg];
+        [MBProgressHUD showTipMessageInWindow:msg];
     }
 }
 @end

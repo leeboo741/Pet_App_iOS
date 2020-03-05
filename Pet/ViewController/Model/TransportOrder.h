@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * typeId; // 运输类型id
 @end
 
+typedef NS_ENUM(NSInteger, TransportOrder_AddValue_SelectType) {
+    TransportOrder_AddValue_SelectType_Selected = 1,
+    TransportOrder_AddValue_SelectType_Unselected = 0,
+};
 
 /**
  运输订单
@@ -39,6 +43,23 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * receiverName; // 收件人名称
 @property (nonatomic, copy) NSString * receiverPhone; // 收件人电话
 @property (nonatomic, copy) NSString * remark; // 订单备注信息
+@property (nonatomic, copy) NSString * customerNo; // openid
+@property (nonatomic, assign) TransportOrder_AddValue_SelectType buyPetCage; // 是否购买宠物箱
+@property (nonatomic, assign) TransportOrder_AddValue_SelectType giveFood;
+@property (nonatomic, assign) TransportOrder_AddValue_SelectType guarantee; // 中介担保
+@property (nonatomic, assign) TransportOrder_AddValue_SelectType water; // 饮水器
+@property (nonatomic, assign) TransportOrder_AddValue_SelectType warmCloth; // 保暖外套
+@property (nonatomic, assign) TransportOrder_AddValue_SelectType wo; // 暖窝
+@property (nonatomic, assign) TransportOrder_AddValue_SelectType receipt; // 接宠
+@property (nonatomic, copy) NSString * receiptAddress; // 接宠地址
+@property (nonatomic, assign) double receiptLongitude; // 接宠经度
+@property (nonatomic, assign) double receiptLatitude; // 接宠纬度
+@property (nonatomic, assign) TransportOrder_AddValue_SelectType send; // 送宠
+@property (nonatomic, copy) NSString * sendAddress; // 送宠地址
+@property (nonatomic, assign) double sendLongitude; // 送宠经度
+@property (nonatomic, assign) double sendLatitude; // 送宠纬度
+@property (nonatomic, assign) TransportOrder_AddValue_SelectType insuredPrice; // 保价
+@property (nonatomic, assign) double petAmount; // 声明价值
 @end
 
 NS_ASSUME_NONNULL_END

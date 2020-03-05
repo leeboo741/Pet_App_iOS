@@ -8,6 +8,18 @@
 
 #import "TransportOrder.h"
 
-@implementation TransportOrder
+@implementation TransportType
 
+@end
+
+@implementation TransportOrder
+-(NSString *)customerNo{
+    return [[UserManager shareUserManager] getCustomerNo];
+}
+-(TransportType *)transportType{
+    if (!_transportType) {
+        _transportType = [[TransportType alloc]init];
+    }
+    return _transportType;
+}
 @end

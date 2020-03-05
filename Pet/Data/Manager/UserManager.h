@@ -11,9 +11,33 @@
 #import "SingleInstanceMacro.h"
 #import "UserEntity.h"
 #import "UserDataBaseHandler.h"
+#import "HttpManager.h"
+#import "WechatManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma mark - 用户注册对象
+typedef NS_ENUM(NSInteger, SEX) {
+    SEX_MALE = 1,
+    SEX_FEMALE = 0
+};
+
+@interface RegisterUserInfo : NSObject
+@property (nonatomic, copy) NSString * headImageUrl; // 头像
+@property (nonatomic, copy) NSString * phone; // 电话
+@property (nonatomic, assign) SEX sex; // 性别
+@property (nonatomic, copy, readonly) NSString * sexStr;
+@property (nonatomic, copy) NSString * nickName; // 昵称
+@property (nonatomic, copy) NSString * unionid; // unionid
+@property (nonatomic, copy) NSString * openid; // openid
+@property (nonatomic, copy) NSString * appType; // app类型 iOS / Android / Weapp
+@property (nonatomic, copy) NSString * shareBusinessNo; // 商家分享id
+@property (nonatomic, copy) NSString * shareStationNo; // 站点分享id
+@property (nonatomic, copy) NSString * verificationCode; // 验证码
++(RegisterUserInfo *)getUserInfoFromWechatUserInfo:(WechatUserInfo *)wechatUserInfo;
+@end
+
+#pragma mark - 用户管理中心
 static NSString * USER_CHANGE_NOTIFICATION_NAME = @"UserChangeNotificationName"; // 用户改变
 static NSString * USER_ROLE_CHANGE_NOTIFICATION_NAME = @"UserRoleChangeNotificationName"; // 用户角色改变
 
@@ -27,6 +51,29 @@ SingleInterface(UserManager)
 /// 登录
 /// @param phone 电话号码
 -(void)loginWithPhone:(NSString *)phone;
+
+/**
+ 微信 unionid 登录
+ 
+ @param unionid 微信 unionid
+ @param success success
+ @param fail fail
+ */
+-(void)loginWithWechatUnionid:(NSString *)unionid
+                      success:(SuccessBlock)success
+                         fail:(FailBlock)fail;
+/**
+ 注册用户
+ 
+ @param registerUserInfo 注册用户
+ @param jsessionid jsessionid
+ @param success success
+ @param fail fail
+ */
+-(void)registerUser:(RegisterUserInfo *)registerUserInfo
+         jsessionid:(NSString *)jsessionid
+            success:(SuccessBlock)success
+               fail:(FailBlock)fail;
 
 /**
  *  保存用户
@@ -46,6 +93,10 @@ SingleInterface(UserManager)
  *  获取用户角色
  */
 -(USER_ROLE)getUserRole;
+/**
+ 获取用户编号
+ */
+-(NSString *)getCustomerNo;
 /**
  *  获取手机号
  */

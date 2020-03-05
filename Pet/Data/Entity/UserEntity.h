@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "StaffEntity.h"
+#import "BusinessEntity.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,12 +23,23 @@ typedef NS_ENUM(NSInteger, USER_ROLE) {
 
 @interface UserEntity : NSObject
 @property (nonatomic, assign) USER_ROLE role;
-@property (nonatomic, copy) NSString * userName;
-@property (nonatomic, copy) NSString * customerNo;
-@property (nonatomic, copy) NSString * businessNo;
-@property (nonatomic, copy) NSString * stationNo;
+@property (nonatomic, copy) NSString * userName; // customerName
+@property (nonatomic, copy) NSString * sex;
+@property (nonatomic, copy) NSString * customerNo; 
+@property (nonatomic, copy) NSString * shareBusiness; // shareBusiness
+@property (nonatomic, copy) NSString * shareStation; // shareStation
 @property (nonatomic, copy) NSString * phone;
 @property (nonatomic, copy) NSString * avaterImagePath;
+@property (nonatomic, assign) CGFloat points;
+@property (nonatomic, assign) CGFloat balance;
+@property (nonatomic, copy) NSString * unionId;
+@property (nonatomic, copy) NSString * openId;
+
+@property (nonatomic, strong) StaffEntity * staff;
+@property (nonatomic, strong) BusinessEntity * business;
+
+@property (nonatomic, copy) NSString * lastLogintime;
+@property (nonatomic, copy) NSString * registrationDate;
 @end
 
 NS_ASSUME_NONNULL_END

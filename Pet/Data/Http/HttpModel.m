@@ -31,7 +31,7 @@
     self = [super init];
     if (self) {
         self.isFullUrl = NO;
-        self.notUseDefaultHandler = NO;
+        self.useDefaultHandler = YES;
         self.methodType = HttpRequestMethodType_GET;
         self.header = [NSMutableDictionary dictionary];
         [self.header setObject:HEADER_VALUE_APPLICATION_JSON
@@ -50,28 +50,31 @@
     }
     return URL_BASE;
 }
--(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url isFullUrl:(BOOL)isFull paramers:(id _Nullable)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock{
-    self = [super init];
-    if (self) {
-        self.methodType = type;
-        self.urlStr = url;
-        self.paramers = paramers;
-        self.successBlock = successBlock;
-        self.failBlock = failBlock;
-        self.isFullUrl = isFull;
+
+-(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url isFullUrl:(BOOL)isFull useDefaultHandler:(BOOL)useDefaultHandler paramers:(id)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock{
+    HttpRequestModel * model = [[HttpRequestModel alloc] init];
+    if (model) {
+        model.methodType = type;
+        model.urlStr = url;
+        model.paramers = paramers;
+        model.successBlock = successBlock;
+        model.failBlock = failBlock;
+        model.isFullUrl = isFull;
+        model.useDefaultHandler = useDefaultHandler;
     }
-    return self;
+    return model;
 }
+
 -(instancetype)initWithType:(HttpRequestMethodType)type Url:(NSString *)url paramers:(id _Nullable)paramers successBlock:(HttpRequestSuccessBlock)successBlock failBlock:(HttpRequestFailBlock)failBlock{
-    self = [super init];
-    if (self) {
-        self.methodType = type;
-        self.urlStr = url;
-        self.paramers = paramers;
-        self.successBlock = successBlock;
-        self.failBlock = failBlock;
+    HttpRequestModel * model = [[HttpRequestModel alloc] init];
+    if (model) {
+        model.methodType = type;
+        model.urlStr = url;
+        model.paramers = paramers;
+        model.successBlock = successBlock;
+        model.failBlock = failBlock;
     }
-    return self;
+    return model;
 }
 @end
 

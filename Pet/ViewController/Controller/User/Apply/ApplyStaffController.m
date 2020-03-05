@@ -116,8 +116,10 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
     MSLog(@"点击获取倒计时");
     ApplyItemCellModel * model = self.itemsArray[1];
     [[CommonManager shareCommonManager] getPhoneCodeByPhoneNumber:model.cellValue success:^(id  _Nonnull data) {
-        [MBProgressHUD showTipMessageInView:@"短信发送成功"];
+        [MBProgressHUD showTipMessageInWindow:@"短信发送成功"];
     } fail:^(NSInteger code) {
+        
+    } jsessionidReturnBlock:^(NSString * _Nonnull jsessionid) {
         
     }];
 }
@@ -170,11 +172,11 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
         {
             NSLog(@"站点选择");
             if (kArrayIsEmpty(self.selectAddressArray)) {
-                [MBProgressHUD showTipMessageInView:@"请先选择区域"];
+                [MBProgressHUD showTipMessageInWindow:@"请先选择区域"];
                 return NO;
             }
             if (kArrayIsEmpty(self.stationList)) {
-                [MBProgressHUD showTipMessageInView:@"当前区域未能找到站点"];
+                [MBProgressHUD showTipMessageInWindow:@"当前区域未能找到站点"];
                 return NO;
             }
             NSMutableArray * stationItemList = [NSMutableArray array];
@@ -195,7 +197,7 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
 #pragma mark - data request
 
 -(void)getStationListWithProvince:(NSString *)province city:(NSString *)city {
-    [MBProgressHUD showActivityMessageInView:@"请稍等..."];
+    [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
     __weak typeof(self) weakSelf = self;
     [[StationManager shareStationManager] getStationListWithProvince:province city:city success:^(id  _Nonnull data) {
         [MBProgressHUD hideHUD];
@@ -219,7 +221,7 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
     model.verificationCode = cellModel3.cellValue;
     model.station = self.selectStation;
     if ([self isSafeDataWithApplyModel:model]) {
-        [MBProgressHUD showActivityMessageInView:@"提交中..."];
+        [MBProgressHUD showActivityMessageInWindow:@"提交中..."];
         [[ApplyManager shareApplyManager] requestStaffApply:model success:^(id  _Nonnull data) {
             [MBProgressHUD hideHUD];
         } fail:^(NSInteger code) {
@@ -268,19 +270,19 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
 
 -(BOOL)isSafeDataWithApplyModel:(ApplyStaffModel *)model{
     if (kStringIsEmpty(model.openId)) {
-        [MBProgressHUD showTipMessageInView:@"OpenId 为空"];
+        [MBProgressHUD showTipMessageInWindow:@"OpenId 为空"];
         return NO;
     }
     if (kStringIsEmpty(model.staffName)) {
-        [MBProgressHUD showTipMessageInView:@"员工名称不能为空"];
+        [MBProgressHUD showTipMessageInWindow:@"员工名称不能为空"];
         return NO;
     }
     if (kStringIsEmpty(model.phone) || Util_IsPhoneString(model.phone)) {
-        [MBProgressHUD showTipMessageInView:@"请填写正确手机号码"];
+        [MBProgressHUD showTipMessageInWindow:@"请填写正确手机号码"];
         return NO;
     }
     if (!model.station) {
-        [MBProgressHUD showTipMessageInView:@"站点不能为空"];
+        [MBProgressHUD showTipMessageInWindow:@"站点不能为空"];
         return NO;
     }
     return YES;

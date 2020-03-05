@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "DatabaseHandler.h"
+#import "StaffDataBaseHandler.h"
+#import "BusinessDataBaseHandler.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UserDataBaseHandler : DatabaseHandler
