@@ -47,10 +47,16 @@ static NSString * USER_ROLE_CHANGE_NOTIFICATION_NAME = @"UserRoleChangeNotificat
  */
 SingleInterface(UserManager)
 
-
-/// 登录
-/// @param phone 电话号码
--(void)loginWithPhone:(NSString *)phone;
+/**
+ 手机号码登录
+ 
+ @param phone 手机号码
+ @param success success
+ @param fail fail
+ */
+-(void)loginWithPhone:(NSString *)phone
+              success:(SuccessBlock)success
+                 fail:(FailBlock)fail;
 
 /**
  微信 unionid 登录
@@ -62,6 +68,7 @@ SingleInterface(UserManager)
 -(void)loginWithWechatUnionid:(NSString *)unionid
                       success:(SuccessBlock)success
                          fail:(FailBlock)fail;
+
 /**
  注册用户
  

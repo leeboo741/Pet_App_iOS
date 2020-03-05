@@ -103,7 +103,7 @@
 #endif
 
 #define URL_Register            @"/api/customer" // 注册
-#define URL_LoginWithPhone      @"" // 手机号登录
+#define URL_LoginWithPhone      @"/api/oAuth/phone" // 手机号登录
 #define URL_LoginWithId         @"/api/oAuth/unionId" // 微信id 登录
 
 #define URL_GetPhoneCode        @"/business/VerificationCode" // 获取短信验证码

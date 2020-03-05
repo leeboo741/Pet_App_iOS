@@ -45,6 +45,11 @@
 #pragma mark - login view delegate
 -(void)loginViewTapActionType:(LoginViewTapActionType)type{
     if (type == LoginViewTapActionType_Login) {
+        [[UserManager shareUserManager] loginWithPhone:self.account success:^(id  _Nonnull data) {
+            
+        } fail:^(NSInteger code) {
+            
+        }];
         MSLog(@"登录\n账户:%@\n密码:%@\n是否同意条款:%d",self.account,self.password,self.agreePrivacy);
         if ([[UserManager shareUserManager] getUser] == nil) {
             UserEntity * user = [[UserEntity alloc]init];

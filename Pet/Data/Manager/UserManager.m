@@ -74,9 +74,22 @@ SingleImplementation(UserManager)
  手机号码登录
  
  @param phone 手机号码
+ @param success success
+ @param fail fail 
  */
--(void)loginWithPhone:(NSString *)phone{
-//    HttpRequestModel * model = [HttpRequestModel alloc]initWithType:HttpRequestModel Url:<#(nonnull NSString *)#> paramers:<#(id _Nullable)#> successBlock:<#^(id  _Nonnull data, NSString * _Nonnull msg)successBlock#> failBlock:<#^(NSInteger code, NSString * _Nonnull errorMsg)failBlock#>
+-(void)loginWithPhone:(NSString *)phone
+              success:(SuccessBlock)success
+                 fail:(FailBlock)fail{
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:[NSString stringWithFormat:@"%@?phone=%@",URL_LoginWithPhone,phone] paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
 }
 
 /**
