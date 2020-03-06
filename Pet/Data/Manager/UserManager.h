@@ -51,10 +51,14 @@ SingleInterface(UserManager)
  手机号码登录
  
  @param phone 手机号码
+ @param jsessionId jsessionId
+ @param code 短信验证码
  @param success success
  @param fail fail
  */
 -(void)loginWithPhone:(NSString *)phone
+           jsessionId:(NSString *)jsessionId
+                 code:(NSString *)code
               success:(SuccessBlock)success
                  fail:(FailBlock)fail;
 
@@ -95,11 +99,22 @@ SingleInterface(UserManager)
  *  改变用户角色
  *  @param role 角色
  */
--(void)changeUserRole:(USER_ROLE)role;
+-(void)changeUserRole:(CURRENT_USER_ROLE)role;
 /**
  *  获取用户角色
  */
 -(USER_ROLE)getUserRole;
+/**
+ 是否是管理员
+ 是否是司机
+ 是否是客服
+ 是否是商家
+ */
+-(BOOL)isManager;
+-(BOOL)isDriver;
+-(BOOL)isService;
+-(BOOL)isBusiness;
+
 /**
  获取用户编号
  */

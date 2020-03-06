@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * text;
 @property (nonatomic, assign) BOOL secureTextEntry;
 @property (nonatomic, weak) id<InputAreaViewDelegate> delegate;
+@property (nonatomic, assign) BOOL hideIcon;
+@property (nonatomic, assign) NSTextAlignment inputAlignment;
+@property (nonatomic, assign) UIKeyboardType inputKeyboardType;
 @end
 
 NS_ASSUME_NONNULL_END

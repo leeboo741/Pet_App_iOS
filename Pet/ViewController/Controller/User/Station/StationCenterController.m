@@ -155,10 +155,10 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
         {
             UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"切换角色" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             UIAlertAction * action1 = [UIAlertAction actionWithTitle:@"个人" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [[UserManager shareUserManager]changeUserRole:USER_ROLE_CUSTOMER];
+                [[UserManager shareUserManager]changeUserRole:CURRENT_USER_ROLE_CUSTOMER];
             }];
             UIAlertAction * action2 = [UIAlertAction actionWithTitle:@"站点" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [[UserManager shareUserManager]changeUserRole:USER_ROLE_MANAGER];
+                [[UserManager shareUserManager]changeUserRole:CURRENT_USER_ROLE_STAFF];
             }];
             UIAlertAction * action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 

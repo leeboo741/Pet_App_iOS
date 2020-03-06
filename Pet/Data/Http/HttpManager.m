@@ -59,6 +59,7 @@ static CGFloat TimeOut = 20.0f; // 超时时间
             base = [NSString stringWithFormat:@"%@&%@=%@",base,key,[paramer objectForKey:key]];
         }
     }
+    base = [base stringByReplacingOccurrencesOfString:@" " withString:@""];
     return  base;
 }
 

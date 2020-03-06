@@ -72,21 +72,25 @@
     [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:user.avaterImagePath] placeholderImage:[UIImage imageNamed:@"logo"]];
     self.nameLabel.text = user.userName;
     self.phoneLabel.text = user.phone;
-    switch (user.role) {
+    switch (user.userRole) {
         case USER_ROLE_UNKOWN:
+            break;
         case USER_ROLE_CUSTOMER:
             self.roleLabel.hidden = YES;
             self.roleLabel.text = @"客户";
             break;
         case USER_ROLE_SERVICE:
+        case USER_ROLE_B_SERVICE:
             self.roleLabel.hidden = NO;
             self.roleLabel.text = @"客服";
             break;
         case USER_ROLE_DRIVER:
+        case USER_ROLE_B_DRIVER:
             self.roleLabel.hidden = NO;
             self.roleLabel.text = @"司机";
             break;
         case USER_ROLE_MANAGER:
+        case USER_ROLE_B_MANAGER:
             self.roleLabel.hidden = NO;
             self.roleLabel.text = @"管理员";
             break;

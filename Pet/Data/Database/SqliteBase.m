@@ -68,29 +68,6 @@ typedef NS_ENUM(NSInteger, Table_Column_Type) {
     [self createTableWithDataBase:database tableName:Table_Station_TableName columnList:self.stationTableColumnList]; // 站点表
     [self createTableWithDataBase:database tableName:Table_Business_TableName columnList:self.businessTableColumnList]; // 商家表
 }
-/**
- *  创建用户表
- *  @param database 数据库
- */
-//-(void)createUserTable:(FMDatabase *)database{
-//    NSString * sqlStr = [[NSString alloc]init];
-//    sqlStr = [sqlStr stringByAppendingFormat:@"create table if not exists %@",Table_User_TableName];
-//    sqlStr = [sqlStr stringByAppendingString:@"(id integer primary key autoincrement,"];
-//    sqlStr = [sqlStr stringByAppendingFormat:@"%@ integer,", Table_User_Role];
-//    sqlStr = [sqlStr stringByAppendingFormat:@"%@ text NOT NULL,", Table_User_Name];
-//    sqlStr = [sqlStr stringByAppendingFormat:@"%@ text NOT NULL,", Table_User_Phone];
-//    sqlStr = [sqlStr stringByAppendingFormat:@"%@ text,", Table_User_Avater];
-//    sqlStr = [sqlStr stringByAppendingFormat:@"%@ text,", Table_User_CustomerNo];
-//    sqlStr = [sqlStr stringByAppendingFormat:@"%@ text,", Table_User_ShareStationNo];
-//    sqlStr = [sqlStr stringByAppendingFormat:@"%@ text)", Table_User_ShareBusinessNo];
-//    MSLog(@"create %@ = %@",Table_User_TableName,sqlStr);
-//    if ([database executeUpdate:sqlStr]) {
-//        MSLog(@"创建 %@ 成功",Table_User_TableName);
-//    }else{
-//        MSLog(@"创建 %@ 失败",Table_User_TableName);
-//    }
-//    sqlStr = nil;
-//}
 
 /**
  建表
@@ -292,7 +269,8 @@ typedef NS_ENUM(NSInteger, Table_Column_Type) {
 -(NSArray<SqliteColumnObj *> *)userTableColumnList{
     if (!_userTableColumnList) {
         _userTableColumnList = @[
-            [SqliteColumnObj columnObjWithName:Table_User_Role type:Table_Column_Type_Int nullAble:YES],
+            [SqliteColumnObj columnObjWithName:Table_User_StaffRole type:Table_Column_Type_Int nullAble:YES],
+            [SqliteColumnObj columnObjWithName:Table_User_CurrentRole type:Table_Column_Type_Int nullAble:YES],
             [SqliteColumnObj columnObjWithName:Table_User_Name type:Table_Column_Type_Text nullAble:YES],
             [SqliteColumnObj columnObjWithName:Table_User_Phone type:Table_Column_Type_Text nullAble:NO],
             [SqliteColumnObj columnObjWithName:Table_User_Avater type:Table_Column_Type_Text nullAble:YES],

@@ -14,9 +14,10 @@
 @property (nonatomic, strong) UIImageView * logoImageView; // logo
 @property (nonatomic, strong) InputAreaView * accoutInputView; // 账号输入框
 @property (nonatomic, strong) InputAreaView * passwordInputView; // 密码输入框
+@property (nonatomic, strong) TimeCountButton * getCodeButton; // 验证码获取按钮
 @property (nonatomic, strong) UIButton * loginButton; // 登录按钮
-@property (nonatomic, strong) UIButton * forgetPasswordButton; // 忘记密码按钮
-@property (nonatomic, strong) UIButton * registerButton; // 注册按钮
+//@property (nonatomic, strong) UIButton * forgetPasswordButton; // 忘记密码按钮
+//@property (nonatomic, strong) UIButton * registerButton; // 注册按钮
 @property (nonatomic, strong) UIButton * pravicyButton; // 隐私声明按钮
 @property (nonatomic, strong) PrivacyPolicyView * privacyPolicyView; // 隐私政策弹窗
 @property (nonatomic, strong) UIButton * wechatLoginButton;
@@ -33,10 +34,11 @@
         [self addSubview:self.logoImageView];
         [self addSubview:self.accoutInputView];
         [self addSubview:self.passwordInputView];
+        [self addSubview:self.getCodeButton];
         [self addSubview:self.loginButton];
         [self addSubview:self.wechatLoginButton];
-        [self addSubview:self.forgetPasswordButton];
-        [self addSubview:self.registerButton];
+//        [self addSubview:self.forgetPasswordButton];
+//        [self addSubview:self.registerButton];
         [self addSubview:self.pravicyButton];
     }
     return self;
@@ -59,12 +61,21 @@
     }];
     
     [self.passwordInputView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.centerX.equalTo(self.accoutInputView);
+        make.height.equalTo(self.accoutInputView);
+        make.left.equalTo(self.accoutInputView);
+        make.width.equalTo(self.accoutInputView).multipliedBy(0.5);
         make.top.equalTo(self.accoutInputView.mas_bottom).offset(20);
     }];
     
+    [self.getCodeButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(self.passwordInputView);
+        make.left.equalTo(self.passwordInputView.mas_right).offset(5);
+        make.right.equalTo(self.accoutInputView);
+        make.centerY.equalTo(self.passwordInputView);
+    }];
+    
     [self.loginButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.width.centerX.equalTo(self.passwordInputView);
+        make.width.centerX.equalTo(self.accoutInputView);
         make.height.mas_equalTo(50);
         make.top.equalTo(self.passwordInputView.mas_bottom).offset(20);
     }];
@@ -75,15 +86,15 @@
         make.top.equalTo(self.loginButton.mas_bottom).offset(10);
     }];
     
-    [self.forgetPasswordButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.wechatLoginButton);
-        make.top.equalTo(self.wechatLoginButton.mas_bottom).offset(20);
-    }];
-    
-    [self.registerButton mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.loginButton);
-        make.centerY.equalTo(self.forgetPasswordButton);
-    }];
+//    [self.forgetPasswordButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.wechatLoginButton);
+//        make.top.equalTo(self.wechatLoginButton.mas_bottom).offset(20);
+//    }];
+//
+//    [self.registerButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(self.loginButton);
+//        make.centerY.equalTo(self.forgetPasswordButton);
+//    }];
     [self.pravicyButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom).offset(-40);
         make.width.centerX.equalTo(self.loginButton);
@@ -104,17 +115,17 @@
     }
 }
 
--(void)forgetPassword{
-    if (_delegate && [_delegate respondsToSelector:@selector(loginViewTapActionType:)]) {
-        [_delegate loginViewTapActionType:LoginViewTapActionType_ForgetPassword];
-    }
-}
-
--(void)registerAction{
-    if (_delegate && [_delegate respondsToSelector:@selector(loginViewTapActionType:)]) {
-        [_delegate loginViewTapActionType:LoginViewTapActionType_Register];
-    }
-}
+//-(void)forgetPassword{
+//    if (_delegate && [_delegate respondsToSelector:@selector(loginViewTapActionType:)]) {
+//        [_delegate loginViewTapActionType:LoginViewTapActionType_ForgetPassword];
+//    }
+//}
+//
+//-(void)registerAction{
+//    if (_delegate && [_delegate respondsToSelector:@selector(loginViewTapActionType:)]) {
+//        [_delegate loginViewTapActionType:LoginViewTapActionType_Register];
+//    }
+//}
 
 -(void)wechatLogin{
     if (_delegate && [_delegate respondsToSelector:@selector(loginViewTapActionType:)]) {
@@ -147,6 +158,8 @@
         _accoutInputView = [[InputAreaView alloc]init];
         _accoutInputView.iconImageName = Image_Account;
         _accoutInputView.delegate = self;
+        _accoutInputView.placeholder = @"请输入手机号";
+        _accoutInputView.inputKeyboardType = UIKeyboardTypePhonePad;
     }
     return _accoutInputView;
 }
@@ -156,15 +169,36 @@
         _passwordInputView = [[InputAreaView alloc]init];
         _passwordInputView.iconImageName = Image_Password;
         _passwordInputView.secureTextEntry = YES;
+        _passwordInputView.placeholder = @"验证码";
         _passwordInputView.delegate = self;
+        _passwordInputView.hideIcon = YES;
+        _passwordInputView.inputAlignment = NSTextAlignmentCenter;
+        _passwordInputView.inputKeyboardType = UIKeyboardTypeNumberPad;
     }
     return _passwordInputView;
+}
+
+-(TimeCountButton *)getCodeButton{
+    if (_getCodeButton == nil) {
+        _getCodeButton = [[TimeCountButton alloc]init];
+        _getCodeButton.delegate = self.timeCountDelegate;
+    }
+    return _getCodeButton;
+}
+
+-(void)setTimeCountDelegate:(id<TimeCountButtonDelegate>)timeCountDelegate{
+    _timeCountDelegate = timeCountDelegate;
+    self.getCodeButton.delegate = timeCountDelegate;
+}
+
+-(TimeCountState)state{
+    return self.getCodeButton.state;
 }
 
 -(UIButton *)loginButton{
     if (_loginButton == nil) {
         _loginButton = [[UIButton alloc]init];
-        [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
+        [_loginButton setTitle:@"手机号登录" forState:UIControlStateNormal];
         [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _loginButton.backgroundColor = kRGBColor(255, 165, 0);
         _loginButton.layer.cornerRadius = 10;
@@ -197,28 +231,28 @@
     return _wechatLoginButton;
 }
 
--(UIButton *)forgetPasswordButton{
-    if (!_forgetPasswordButton) {
-        _forgetPasswordButton = [[UIButton alloc]init];
-        NSString * title = @"忘记密码?";
-        NSMutableAttributedString * attributeStr = [[NSMutableAttributedString alloc]initWithString:title attributes:@{NSForegroundColorAttributeName:Color_blue_1,NSUnderlineStyleAttributeName:kIntegerNumber(NSUnderlineStyleSingle),NSFontAttributeName:[UIFont systemFontOfSize:15],NSUnderlineColorAttributeName:Color_blue_1}];
-        [_forgetPasswordButton setAttributedTitle:attributeStr forState:UIControlStateNormal];
-        [_forgetPasswordButton addTarget:self action:@selector(forgetPassword) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _forgetPasswordButton;
-}
-
--(UIButton *)registerButton{
-    if (!_registerButton) {
-        _registerButton = [[UIButton alloc]init];
-        NSString * title = @"没有账号,前往注册!";
-        
-        NSMutableAttributedString * attributeStr = [[NSMutableAttributedString alloc]initWithString:title attributes:@{NSForegroundColorAttributeName:Color_blue_1,NSUnderlineStyleAttributeName:kIntegerNumber(NSUnderlineStyleSingle),NSFontAttributeName:[UIFont systemFontOfSize:15],NSUnderlineColorAttributeName:Color_blue_1}];
-        [_registerButton setAttributedTitle:attributeStr forState:UIControlStateNormal];
-        [_registerButton addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _registerButton;
-}
+//-(UIButton *)forgetPasswordButton{
+//    if (!_forgetPasswordButton) {
+//        _forgetPasswordButton = [[UIButton alloc]init];
+//        NSString * title = @"忘记密码?";
+//        NSMutableAttributedString * attributeStr = [[NSMutableAttributedString alloc]initWithString:title attributes:@{NSForegroundColorAttributeName:Color_blue_1,NSUnderlineStyleAttributeName:kIntegerNumber(NSUnderlineStyleSingle),NSFontAttributeName:[UIFont systemFontOfSize:15],NSUnderlineColorAttributeName:Color_blue_1}];
+//        [_forgetPasswordButton setAttributedTitle:attributeStr forState:UIControlStateNormal];
+//        [_forgetPasswordButton addTarget:self action:@selector(forgetPassword) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _forgetPasswordButton;
+//}
+//
+//-(UIButton *)registerButton{
+//    if (!_registerButton) {
+//        _registerButton = [[UIButton alloc]init];
+//        NSString * title = @"没有账号,前往注册!";
+//
+//        NSMutableAttributedString * attributeStr = [[NSMutableAttributedString alloc]initWithString:title attributes:@{NSForegroundColorAttributeName:Color_blue_1,NSUnderlineStyleAttributeName:kIntegerNumber(NSUnderlineStyleSingle),NSFontAttributeName:[UIFont systemFontOfSize:15],NSUnderlineColorAttributeName:Color_blue_1}];
+//        [_registerButton setAttributedTitle:attributeStr forState:UIControlStateNormal];
+//        [_registerButton addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _registerButton;
+//}
 
 -(UIButton *)pravicyButton {
     if(_pravicyButton == nil) {

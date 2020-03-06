@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Update
 +(BOOL)updateUser:(UserEntity *)user;
++(BOOL)updateUserRole:(CURRENT_USER_ROLE)role forPhone:(NSString *)phone;
 
 #pragma mark -
 #pragma mark Select

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TimeCountButton.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,6 +39,9 @@ typedef NS_ENUM(NSInteger, LoginViewInputActionType) {
 @property (nonatomic, assign) BOOL agreePrivacy;
 @property (nonatomic, weak) id<LoginViewDelegate> delegate;
 @property (nonatomic, assign) BOOL ableWechatLogin;
+@property (nonatomic, assign)TimeCountState state;
+@property (nonatomic, weak) id<TimeCountButtonDelegate> timeCountDelegate;
+
 
 @end
 

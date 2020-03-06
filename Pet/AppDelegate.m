@@ -25,6 +25,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     MSLog(@"%@",kDocumentPath);
+    NSString * string = [[NSURL URLWithString:@"http://192.168.3.111:6060/api/customer?phone=15879067924&verificationCode=861047&appType=iOS&sex=%E7%94%B7&customerName=ghh" relativeToURL:nil] absoluteString];
     // IQ键盘
     [self initIQKeyBorad];
     

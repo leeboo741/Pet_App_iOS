@@ -12,7 +12,8 @@
 // 用户
 
 #define Table_User_TableName @"UserTable"
-#define Table_User_Role @"role"
+#define Table_User_StaffRole @"staffRole"
+#define Table_User_CurrentRole  @"currentRole"
 #define Table_User_Name @"userName"
 #define Table_User_Phone @"phone"
 #define Table_User_Avater @"avaterImagePath"

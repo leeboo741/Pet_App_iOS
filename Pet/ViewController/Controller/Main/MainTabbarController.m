@@ -55,7 +55,7 @@ SingleImplementation(MainTabbarController)
 }
 
 -(void)changeRole:(NSNotification *)notificationObj{
-    USER_ROLE role = [[notificationObj.userInfo objectForKey:@"data"] integerValue];
+    CURRENT_USER_ROLE role = [[notificationObj.userInfo objectForKey:@"data"] integerValue];
     BaseNavigationController * navi = [self getNaviControllerWithViewController:[self getCenterViewControllerWithUserRole:role]];
     
     [self setTabbarItemInfoWithViewController:navi title:@"中心" iconFontName:IconFont_Pet];
@@ -87,13 +87,13 @@ SingleImplementation(MainTabbarController)
     return naviController;
 }
 
--(UIViewController *)getCenterViewControllerWithUserRole:(USER_ROLE)role{
+-(UIViewController *)getCenterViewControllerWithUserRole:(CURRENT_USER_ROLE)role{
     UIViewController * centerViewController;
-    if (role == USER_ROLE_CUSTOMER) {
+    if (role == CURRENT_USER_ROLE_CUSTOMER) {
         centerViewController = [[CustomerCenterController alloc]init];
-    } else if (role == USER_ROLE_BUSINESS) {
+    } else if (role == CURRENT_USER_ROLE_BUSINESS) {
         centerViewController = [[StationCenterController alloc]init];
-    } else if (role == USER_ROLE_MANAGER || role == USER_ROLE_SERVICE || role == USER_ROLE_DRIVER) {
+    } else if (role ==CURRENT_USER_ROLE_STAFF) {
         centerViewController = [[SiteCenterController alloc]init];
     } else {
         centerViewController = [[UIViewController alloc]init];

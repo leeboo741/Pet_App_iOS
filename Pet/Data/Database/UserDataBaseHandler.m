@@ -15,9 +15,10 @@
 
     FMDatabase * dataBase = [SqliteBase getDatabase];
     NSString * sqlStr;
-    sqlStr = [NSString stringWithFormat:@"INSERT INTO %@ (%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    sqlStr = [NSString stringWithFormat:@"INSERT INTO %@ (%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
               Table_User_TableName,
-              Table_User_Role,
+              Table_User_StaffRole,
+              Table_User_CurrentRole,
               Table_User_Name,
               Table_User_Phone,
               Table_User_Avater,
@@ -34,7 +35,8 @@
               Table_User_BusinessNo,
               Table_User_StaffNo];
     BOOL a = [dataBase executeUpdate:sqlStr,
-              [NSNumber numberWithInteger:user.role],
+              [NSNumber numberWithInteger:user.staffRole],
+              [NSNumber numberWithInteger:user.currentRole],
               user.userName,
               user.phone,
               user.avaterImagePath,
@@ -56,7 +58,7 @@
     }
     [SqliteBase closeDatabase];
     // 插入 business 表
-    [BusinessDataBaseHandler insertBusiness:user.business];
+//    [BusinessDataBaseHandler insertBusiness:user.business];
     // 插入 staff 表
     [StaffDataBaseHandler insertStaff:user.staff];
 //    [StationDataBaseHandler insertStation:user.staff.station];
@@ -75,9 +77,9 @@
     return YES;
 }
 
-+(BOOL)updateUserRole:(USER_ROLE)role forPhone:(NSString *)phone{
++(BOOL)updateUserRole:(CURRENT_USER_ROLE)role forPhone:(NSString *)phone{
     FMDatabase * database = [SqliteBase getDatabase];
-    NSString * sqlStr = [NSString stringWithFormat:@"UPDATE %@ SET %@ = '%ld' WHERE %@ = '%@'", Table_User_TableName,Table_User_Role,role,Table_User_Phone,phone];
+    NSString * sqlStr = [NSString stringWithFormat:@"UPDATE %@ SET %@ = '%ld' WHERE %@ = '%@'", Table_User_TableName,Table_User_CurrentRole,role,Table_User_Phone,phone];
     BOOL result = [database executeUpdate:sqlStr];
     if (!result) {
         MSLog(@"更新用户表 '%@' role 数据失败:",phone);
@@ -98,7 +100,8 @@
     UserEntity * user = nil;
     while ([resultSet next]) {
         user = [[UserEntity alloc]init];
-        user.role = [resultSet intForColumn:Table_User_Role];
+        user.staffRole = [resultSet intForColumn:Table_User_StaffRole];
+        user.currentRole = [resultSet intForColumn:Table_User_CurrentRole];
         user.userName = [resultSet stringForColumn:Table_User_Name];
         user.sex = [resultSet stringForColumn:Table_User_Sex];
         user.phone = [resultSet stringForColumn:Table_User_Phone];
@@ -160,7 +163,6 @@
 }
 +(BOOL)deleteUserWithPhone:(NSString *)phone{
     FMDatabase * database = [SqliteBase getDatabase];
-    UserEntity * user = [UserDataBaseHandler getUser];
     NSString * sqlStr = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = '%@'", Table_User_TableName,Table_User_Phone,phone];
     BOOL result = [database executeUpdate:sqlStr];
     if (!result) {

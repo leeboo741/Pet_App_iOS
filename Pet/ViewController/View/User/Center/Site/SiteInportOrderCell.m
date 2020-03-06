@@ -34,7 +34,7 @@
     self.orderOperateBoxView.delegate = self;
     self.mediaSelectBoxView.delegate = self;
     self.mediaSelectBoxView.config = self;
-    if ([[UserManager shareUserManager] getUserRole] != USER_ROLE_MANAGER) {
+    if (![[UserManager shareUserManager] isManager]) {
         self.orderAssignmentsView.hidden = YES;
     } else {
         self.orderAssignmentsView.hidden = NO;
@@ -96,7 +96,7 @@
     [self insertButtonModelWithTitle:@"签收" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_SignIn show:YES];
     [self insertButtonModelWithTitle:@"临派" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_TempDeliver show:YES];
     [self insertButtonModelWithTitle:@"备注" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Remark show:YES];
-//    [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:[[UserManager shareUserManager] getUserRole] == USER_ROLE_MANAGER];
+//    [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:[[UserManager shareUserManager] isManager];
     [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:YES];
     [self insertButtonModelWithTitle:@"补价" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_AddPrice show:YES];
     [self insertButtonModelWithTitle:@"订单详情" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_DetailOrder show:YES];

@@ -21,28 +21,38 @@
     self = [super init];
     if (self) {
         self.backgroundColor = kRGBColor(245, 245, 245);
+        self.hideIcon = NO;
         self.layer.cornerRadius = 10;
         self.secureTextEntry = NO;
-        [self addSubview:self.iconImageView];
-        [self addSubview:self.inputView];
+        self.placeholder = @"请输入内容";
     }
     return self;
 }
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    [self.iconImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(8);
-        make.centerY.equalTo(self);
-        make.height.equalTo(self).offset(-16);
-        make.width.equalTo(self.mas_height).offset(-16);
-    }];
-    [self.inputView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self);
-        make.left.equalTo(self.iconImageView.mas_right).offset(12);
-        make.centerY.equalTo(self);
-        make.height.equalTo(self);
-    }];
+    self.iconImageView.hidden = self.hideIcon;
+    if (self.hideIcon) {
+        [self.inputView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self).offset(-8);;
+            make.left.equalTo(self).offset(8);
+            make.centerY.equalTo(self);
+            make.height.equalTo(self);
+        }];
+    } else {
+        [self.iconImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(8);
+            make.centerY.equalTo(self);
+            make.height.equalTo(self).offset(-16);
+            make.width.equalTo(self.mas_height).offset(-16);
+        }];
+        [self.inputView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self);
+            make.left.equalTo(self.iconImageView.mas_right).offset(12);
+            make.centerY.equalTo(self);
+            make.height.equalTo(self);
+        }];
+    }
 }
 
 #pragma mark - textfield delegate
@@ -64,10 +74,17 @@
 
 #pragma mark - setters and getters
 
+-(void)setHideIcon:(BOOL)hideIcon{
+    _hideIcon = hideIcon;
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
+
 -(UIImageView *)iconImageView{
     if (_iconImageView == nil) {
         _iconImageView = [[UIImageView alloc]init];
         _iconImageView.image = [UIImage imageNamed:self.iconImageName];
+        [self addSubview:self.iconImageView];
     }
     return _iconImageView;
 }
@@ -79,15 +96,25 @@
         _inputView.clearButtonMode = UITextFieldViewModeWhileEditing;
         _inputView.placeholder = self.placeholder;
         _inputView.secureTextEntry = self.secureTextEntry;
+        _inputView.keyboardType = self.inputKeyboardType;
+        _inputView.font = kFontSize(14);
+        [self addSubview:self.inputView];
     }
     return _inputView;
 }
 
--(NSString *)placeholder{
-    if (_placeholder == nil) {
-        _placeholder = @"请输入内容";
-    }
-    return _placeholder;
+-(void)setInputAlignment:(NSTextAlignment)inputAlignment{
+    _inputAlignment = inputAlignment;
+    self.inputView.textAlignment = inputAlignment;
+}
+-(void)setInputKeyboardType:(UIKeyboardType)inputKeyboardType{
+    _inputKeyboardType = inputKeyboardType;
+    self.inputView.keyboardType = inputKeyboardType;
+}
+
+-(void)setPlaceholder:(NSString *)placeholder{
+    _placeholder = placeholder;
+    self.inputView.placeholder = placeholder;
 }
 
 -(void)setSecureTextEntry:(BOOL)secureTextEntry{

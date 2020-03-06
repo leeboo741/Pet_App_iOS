@@ -61,7 +61,7 @@ SingleImplementation(UserManager)
                   options:NSKeyValueObservingOptionNew
                   context:nil];
         [self.user addObserver:self
-                    forKeyPath:@"role"
+                    forKeyPath:@"currentRole"
                        options:NSKeyValueObservingOptionNew
                        context:nil];
     }
@@ -74,13 +74,17 @@ SingleImplementation(UserManager)
  手机号码登录
  
  @param phone 手机号码
+ @param jsessionId jsessionId
+ @param code 短信验证码
  @param success success
  @param fail fail 
  */
 -(void)loginWithPhone:(NSString *)phone
+           jsessionId:(NSString *)jsessionId
+                 code:(NSString *)code
               success:(SuccessBlock)success
                  fail:(FailBlock)fail{
-    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:[NSString stringWithFormat:@"%@?phone=%@",URL_LoginWithPhone,phone] paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:URL_LoginWithPhone paramers:@{@"phone":phone,@"verificationCode":code} successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
         if (success) {
             success(data);
         }
@@ -89,7 +93,11 @@ SingleImplementation(UserManager)
             fail(code);
         }
     }];
-    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+    NSString * sessionStr = [NSString stringWithFormat:@"JSESSIONID=%@",jsessionId];
+    [model.header setObject:sessionStr forKey:HEADER_KEY_COOKIES];
+    HttpManager * httpManager = [HttpManager shareHttpManager];
+    httpManager.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithArray:@[@"POST",@"GET",@"HEAD"]];
+    [httpManager requestWithRequestModel:model];
 }
 
 /**
@@ -102,7 +110,7 @@ SingleImplementation(UserManager)
 -(void)loginWithWechatUnionid:(NSString *)unionid
                       success:(SuccessBlock)success
                          fail:(FailBlock)fail{
-    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:[NSString stringWithFormat:@"%@?unionId=%@",URL_LoginWithId,unionid] paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:URL_LoginWithId paramers:@{@"unionId":unionid} successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
         if (success) {
             success(data);
         }
@@ -111,7 +119,9 @@ SingleImplementation(UserManager)
             fail(code);
         }
     }];
-    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+    HttpManager * httpManager = [HttpManager shareHttpManager];
+    httpManager.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithArray:@[@"POST",@"GET",@"HEAD"]];
+    [httpManager requestWithRequestModel:model];
 }
 
 /**
@@ -158,10 +168,8 @@ SingleImplementation(UserManager)
         [dict setObject:registerUserInfo.shareBusinessNo forKey:@"businessNo"];
     }
     [dict setObject:registerUserInfo.appType forKey:@"appType"];
-    NSString* sexString = [registerUserInfo.sexStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    [dict setObject:sexString forKey:@"sex"];
-    NSString * url = [HttpManager appendingUrlWithBase:URL_Register paramer:dict];
-    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:url paramers:nil successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+    [dict setObject:registerUserInfo.sexStr forKey:@"sex"];
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:URL_Register paramers:dict successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
         if (success) {
             success(data);
         }
@@ -172,7 +180,9 @@ SingleImplementation(UserManager)
     }];
     NSString * sessionStr = [NSString stringWithFormat:@"JSESSIONID=%@",jsessionid];
     [model.header setObject:sessionStr forKey:HEADER_KEY_COOKIES];
-    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+    HttpManager * httpManager = [HttpManager shareHttpManager];
+    httpManager.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithArray:@[@"POST",@"GET",@"HEAD"]];
+    [httpManager requestWithRequestModel:model];
 }
 
 /**
@@ -193,14 +203,27 @@ SingleImplementation(UserManager)
  *  改变用户角色
  *  @param role 角色
  */
--(void)changeUserRole:(USER_ROLE)role{
-    self.user.role = role;
+-(void)changeUserRole:(CURRENT_USER_ROLE)role{
+    self.user.currentRole = role;
+    [UserDataBaseHandler updateUser:self.user];
 }
 /**
  *  获取用户角色
  */
 -(USER_ROLE)getUserRole{
-    return self.user.role;
+    return self.user.userRole;
+}
+-(BOOL)isManager{
+    return self.user.userRole == USER_ROLE_B_MANAGER || self.user.userRole == USER_ROLE_MANAGER;
+}
+-(BOOL)isDriver{
+    return self.user.userRole == USER_ROLE_B_DRIVER || self.user.userRole == USER_ROLE_DRIVER;
+}
+-(BOOL)isService{
+    return self.user.userRole == USER_ROLE_B_SERVICE || self.user.userRole == USER_ROLE_SERVICE;
+}
+-(BOOL)isBusiness{
+    return self.user.userRole == USER_ROLE_B_MANAGER || self.user.userRole == USER_ROLE_B_DRIVER || self.user.userRole == USER_ROLE_B_SERVICE || self.user.userRole == USER_ROLE_BUSINESS;
 }
 /**
  *  获取客户编号
@@ -302,7 +325,7 @@ SingleImplementation(UserManager)
  */
 -(void)postUserRoleChangeNotification{
     [self postNotificationWithName:USER_ROLE_CHANGE_NOTIFICATION_NAME
-                      userInfoData:kIntegerNumber(self.user.role)];
+                      userInfoData:kIntegerNumber(self.user.currentRole)];
 }
 
 #pragma mark - setters and getters

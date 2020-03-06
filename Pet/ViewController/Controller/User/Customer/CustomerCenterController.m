@@ -241,10 +241,10 @@ CustomerOrderCellDelegate>
         {
             UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"切换角色" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             UIAlertAction * action1 = [UIAlertAction actionWithTitle:@"站点" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [[UserManager shareUserManager]changeUserRole:USER_ROLE_SERVICE];
+                [[UserManager shareUserManager]changeUserRole:CURRENT_USER_ROLE_STAFF];
             }];
             UIAlertAction * action2 = [UIAlertAction actionWithTitle:@"商家" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [[UserManager shareUserManager]changeUserRole:USER_ROLE_BUSINESS];
+                [[UserManager shareUserManager]changeUserRole:CURRENT_USER_ROLE_BUSINESS];
             }];
             UIAlertAction * action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 

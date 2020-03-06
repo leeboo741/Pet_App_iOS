@@ -129,7 +129,6 @@ static NSString * ApplyButtonCellIdentifier = @"ApplyButtonCell";
 -(void)tapTimeCountingAtApplyTimeCountCell:(ApplyTimeCountCell *)cell{
     MSLog(@"点击获取倒计时");
     __weak typeof(self) weakSelf = self;
-    ApplyItemCellModel * model = self.itemsArray[1];
     [[CommonManager shareCommonManager] getPhoneCodeByPhoneNumber:self.registerUserInfo.phone success:^(id  _Nonnull data) {
         [MBProgressHUD showTipMessageInWindow:@"短信发送成功"];
     } fail:^(NSInteger code) {
@@ -248,7 +247,9 @@ static NSString * ApplyButtonCellIdentifier = @"ApplyButtonCell";
         return;
     }
     if ([self isSafeData:self.registerUserInfo]) {
+        [MBProgressHUD showTipMessageInWindow:@"注册中..."];
         [[UserManager shareUserManager] registerUser:self.registerUserInfo jsessionid:self.jsessionid success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
             [AlertControllerTools showAlertWithTitle:@"注册成功" msg:@"您已成功注册淘宠惠账号,请前往登录." items:@[@"前往登录"] showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
                 [self dismissViewControllerAnimated:YES completion:nil];
             }];

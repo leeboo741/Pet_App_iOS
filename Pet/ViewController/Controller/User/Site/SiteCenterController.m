@@ -228,10 +228,10 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
         {
             UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"切换角色" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             UIAlertAction * action1 = [UIAlertAction actionWithTitle:@"商家" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [[UserManager shareUserManager]changeUserRole:USER_ROLE_BUSINESS];
+                [[UserManager shareUserManager]changeUserRole:CURRENT_USER_ROLE_BUSINESS];
             }];
             UIAlertAction * action2 = [UIAlertAction actionWithTitle:@"个人" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [[UserManager shareUserManager]changeUserRole:USER_ROLE_CUSTOMER];
+                [[UserManager shareUserManager]changeUserRole:CURRENT_USER_ROLE_CUSTOMER];
             }];
             UIAlertAction * action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
@@ -277,19 +277,13 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
         CenterActionItemModel * action8 = [self getActionModelWithActionName:@"申请" andIconName:IconFont_Apply];
         CenterActionItemModel * action9 = [self getActionModelWithActionName:@"切换身份" andIconName:IconFont_ChangeRole];
         CenterActionItemModel * action10 = [self getActionModelWithActionName:@"关于我们" andIconName:IconFont_AboutUs];
-        switch ([[UserManager shareUserManager] getUserRole]) {
-            case USER_ROLE_MANAGER:
-                action6.hidden = NO;
-                action7.hidden = NO;
-                break;
-            case USER_ROLE_SERVICE:
-            case USER_ROLE_DRIVER:
-                action6.hidden = YES;
-                action7.hidden = YES;
-                break;
-                
-            default:
-                break;
+        if ([[UserManager shareUserManager] isManager]) {
+            action6.hidden = NO;
+            action7.hidden = NO;
+        }
+        if ([[UserManager shareUserManager] isDriver] || [[UserManager shareUserManager] isService]) {
+            action6.hidden = YES;
+            action7.hidden = YES;
         }
         _actionModelArray = @[action1,action2,action3,action4,action5,action6,action7,action8,action9,action10];
     }
