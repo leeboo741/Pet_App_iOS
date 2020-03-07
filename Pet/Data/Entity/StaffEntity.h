@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface StaffEntity : NSObject
+@interface StaffEntity : NSObject<NSCoding>
 @property (nonatomic, copy) NSString * name; // staffName
 @property (nonatomic, copy) NSString * staffNo; //
 @property (nonatomic, copy) NSString * openId; //

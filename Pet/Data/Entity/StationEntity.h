@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface StationEntity : NSObject
+@interface StationEntity : NSObject<NSCoding>
 @property (nonatomic, copy) NSString * stationName; // 站点名称
 @property (nonatomic, copy) NSString * stationNo; // 站点编号
 @property (nonatomic, copy) NSString * province; // 省

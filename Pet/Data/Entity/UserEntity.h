@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, CURRENT_USER_ROLE) {
     CURRENT_USER_ROLE_STAFF = 2,
 };
 
-@interface UserEntity : NSObject
+@interface UserEntity : NSObject <NSCoding>
 @property (nonatomic, assign) CURRENT_USER_ROLE currentRole; // 当前的角色 用于管理页面展示和权限控制 客户 商家 员工
 @property (nonatomic, assign) int staffRole; // 服务器下发的角色 客户 客服 管理 司机
 @property (nonatomic, assign, readonly) USER_ROLE userRole; // 根据数据拼出来的 应有角色 控制权限

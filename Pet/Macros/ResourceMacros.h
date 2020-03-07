@@ -96,7 +96,8 @@
 #pragma mark - Url Resource Macros
 
 #ifdef DEBUG
-#define URL_BASE                @"http://192.168.3.111:6060"
+//#define URL_BASE                @"http://192.168.3.111:6060"
+#define URL_BASE                @"http://192.168.3.111:7070"
 //#define URL_BASE                @"https://www.taochonghui.com"
 #else
 #define URL_BASE                @"https://www.taochonghui.com"

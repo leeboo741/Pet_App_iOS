@@ -191,7 +191,10 @@ SingleImplementation(UserManager)
  */
 -(void)saveUser:(UserEntity *)user{
     self.user = user;
-    [UserDataBaseHandler updateUser:user];
+//    [UserDataBaseHandler updateUser:user];
+    NSData * userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+    [[NSUserDefaults standardUserDefaults] setObject:userData forKey:User_Key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 /**
  *  获取用户
@@ -205,7 +208,11 @@ SingleImplementation(UserManager)
  */
 -(void)changeUserRole:(CURRENT_USER_ROLE)role{
     self.user.currentRole = role;
-    [UserDataBaseHandler updateUser:self.user];
+//    [UserDataBaseHandler updateUser:self.user];
+    
+    NSData * userData = [NSKeyedArchiver archivedDataWithRootObject:self.user];
+    [[NSUserDefaults standardUserDefaults] setObject:userData forKey:User_Key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 /**
  *  获取用户角色
@@ -331,7 +338,9 @@ SingleImplementation(UserManager)
 #pragma mark - setters and getters
 -(UserEntity *)user{
     if (!_user) {
-        _user = [UserDataBaseHandler getUser];
+//        _user = [UserDataBaseHandler getUser];
+        NSData * userData = [[NSUserDefaults standardUserDefaults] objectForKey:User_Key];
+        _user = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
     }
     return _user;
 }

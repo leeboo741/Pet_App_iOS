@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BusinessEntity : NSObject
+@interface BusinessEntity : NSObject <NSCoding>
 @property (nonatomic, copy) NSString * businessNo; // 商家编号
 @property (nonatomic, copy) NSString * businessName; // 商家名称
 @property (nonatomic, copy) NSString * iconAddress; // 商家logo地址
