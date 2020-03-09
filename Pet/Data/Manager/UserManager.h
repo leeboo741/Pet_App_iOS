@@ -101,7 +101,11 @@ SingleInterface(UserManager)
  */
 -(void)changeUserRole:(CURRENT_USER_ROLE)role;
 /**
- *  获取用户角色
+ *  获取用户当前角色
+ */
+-(CURRENT_USER_ROLE)getCurrentUserRole;
+/**
+ 获取用户角色
  */
 -(USER_ROLE)getUserRole;
 /**

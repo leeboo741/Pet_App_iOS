@@ -9,15 +9,17 @@
 
 #import <Foundation/Foundation.h>
 #import "HttpManager.h"
+#import "StationEntity.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ApplyStaffModel : NSObject
-@property (nonatomic, copy) NSString * openId; // openId
+@property (nonatomic, copy) NSString * customerNo; // openId
 @property (nonatomic, copy) NSString * phone; // 电话
 @property (nonatomic, copy) NSString * staffName; // 名称
-@property (nonatomic, strong) id station; // 站点
+@property (nonatomic, strong) StationEntity * station; // 站点
 @property (nonatomic, copy) NSString * verificationCode; // 验证码
+@property (nonatomic, copy) NSString * jsessionId;
 @end
 
 @interface ApplyStationModel : NSObject
@@ -30,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * city; // 市
 @property (nonatomic, copy) NSString * detailAddress; // 详细地址
 @property (nonatomic, copy) NSString * verificationCode; // 验证码
+@property (nonatomic, copy) NSString * jsessionId;
 @end
 
 @interface ApplyManager : NSObject

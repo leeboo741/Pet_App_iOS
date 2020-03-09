@@ -21,6 +21,7 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
 @property (nonatomic, strong) NSArray<ApplyItemCellModel *> *itemsArray;
 @property (nonatomic, strong) NSArray * selectAddressRow;
 @property (nonatomic, strong) NSArray * selectAddressArray;
+@property (nonatomic, copy) NSString * jsessionId;
 @end
 
 @implementation ApplyStationController
@@ -106,13 +107,14 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
 -(void)tapTimeCountingAtApplyTimeCountCell:(ApplyTimeCountCell *)cell{
     MSLog(@"点击获取倒计时");
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    __weak typeof(self) weakSelf = self;
     ApplyItemCellModel * model = self.itemsArray[1];
     [[CommonManager shareCommonManager] getPhoneCodeByPhoneNumber:model.cellValue success:^(id  _Nonnull data) {
         [MBProgressHUD showTipMessageInWindow:@"短信发送成功"];
     } fail:^(NSInteger code) {
-        
+        [MBProgressHUD showTipMessageInWindow:@"短信发送失败"];
     } jsessionidReturnBlock:^(NSString * _Nonnull jsessionid) {
-        
+        weakSelf.jsessionId = jsessionid;
     }];
 }
 
@@ -225,12 +227,17 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
     applyModel.detailAddress = cellModel6.cellValue;
     ApplyItemCellModel * cellModel7 = self.itemsArray[7];
     applyModel.describes = cellModel7.cellValue;
+    applyModel.jsessionId = self.jsessionId;
     if ([self isSafeApplyModel:applyModel]) {
         [MBProgressHUD showActivityMessageInWindow:@"提交中..."];
+        __weak typeof(self) weakSelf = self;
         [[ApplyManager shareApplyManager] requestStationApply:applyModel success:^(id  _Nonnull data) {
             [MBProgressHUD hideHUD];
+            [AlertControllerTools showAlertWithTitle:@"提交成功" msg:@"商家申请已经成功提交,请等待审核" items:@[@"确定"] showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }];
         } fail:^(NSInteger code) {
-            [MBProgressHUD hideHUD];
+            
         }];
     }
 }
@@ -242,8 +249,12 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
         [MBProgressHUD showErrorMessage:@"商家名称不能为空"];
         return NO;
     }
-    if (kStringIsEmpty(model.phoneNumber) || Util_IsPhoneString(model.phoneNumber)) {
+    if (kStringIsEmpty(model.phoneNumber) || !Util_IsPhoneString(model.phoneNumber)) {
         [MBProgressHUD showErrorMessage:@"请填写正确手机号码"];
+        return NO;
+    }
+    if (kStringIsEmpty(model.jsessionId)) {
+        [MBProgressHUD showErrorMessage:@"请点击获取短信验证码"];
         return NO;
     }
     if (kStringIsEmpty(model.startBusinessHours)) {

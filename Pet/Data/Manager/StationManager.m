@@ -9,6 +9,30 @@
 #import "StationManager.h"
 
 @implementation StationModel
+-(NSString *)stationNo{
+    return !_stationNo?@"":_stationNo;
+}
+-(NSString *)stationName{
+    return !_stationName?@"":_stationName;
+}
+-(NSString *)phone{
+    return !_phone?@"":_phone;
+}
+-(NSString *)province{
+    return !_province?@"":_province;
+}
+-(NSString *)district{
+    return !_district?@"":_district;
+}
+-(NSString *)openId{
+    return !_openId?@"":_openId;
+}
+-(NSString *)address{
+    return !_address?@"":_address;
+}
+-(NSString *)contact{
+    return !_contact?@"":_contact;
+}
 @end
 
 @interface StationManager ()

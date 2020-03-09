@@ -96,36 +96,36 @@
 #pragma mark - Url Resource Macros
 
 #ifdef DEBUG
-//#define URL_BASE                @"http://192.168.3.111:6060"
-#define URL_BASE                @"http://192.168.3.111:7070"
+#define URL_BASE                @"http://192.168.3.111:6060"
+//#define URL_BASE                @"http://192.168.3.111:7070"
 //#define URL_BASE                @"https://www.taochonghui.com"
 #else
 #define URL_BASE                @"https://www.taochonghui.com"
 #endif
 
-#define URL_Register            @"/api/customer" // 注册
-#define URL_LoginWithPhone      @"/api/oAuth/phone" // 手机号登录
-#define URL_LoginWithId         @"/api/oAuth/unionId" // 微信id 登录
+#define URL_Register            @"/api/customer" // 注册|完成
+#define URL_LoginWithPhone      @"/api/oAuth/phone" // 手机号登录|完成
+#define URL_LoginWithId         @"/api/oAuth/unionId" // 微信id 登录|完成
 
-#define URL_GetPhoneCode        @"/business/VerificationCode" // 获取短信验证码
+#define URL_GetPhoneCode        @"/business/VerificationCode" // 获取短信验证码|完成
 
-#define URL_Pet_Type            @"/api/petType" // 宠物类型
-#define URL_StartCity           @"/api/transport/listStartCity" // 始发城市列表
+#define URL_Pet_Type            @"/api/petType" // 宠物类型|完成
+#define URL_StartCity           @"/api/transport/listStartCity" // 始发城市列表|完成
 #define URL_EndCity             @"/api/transport/listEndCity" // 终点城市列表
-#define URL_StorePhoneByCityName @"/api/business/getPhoneByCityName" // 通过城市获取商家电话
-#define URL_InsureRateByCityName @"/api/consign/insure" // 查询保价费率
-#define URL_AbleTransportType   @"/api/transport/listTransportType" // 可用运输方式
-#define URL_AblePetCageMax      @"/api/consign/cage/max" // 最大箱子重量
-#define URL_PredictPrice        @"/api/order/getOrderPrice" // 获取预估价格
-#define URL_InsertOrder         @"/api/order/insertOrder" // 创建订单
-#define URL_GetOrderAmount      @"/api/order/price" // 获取订单价格
-#define URL_GetTranportPayParamForWechat @"/api/weChat/pay/getOrderPayParam" // 获取微信运输单支付参数
+#define URL_StorePhoneByCityName @"/api/business/getPhoneByCityName" // 通过城市获取商家电话|完成
+#define URL_InsureRateByCityName @"/api/consign/insure" // 查询保价费率|完成
+#define URL_AbleTransportType   @"/api/transport/listTransportType" // 可用运输方式|完成
+#define URL_AblePetCageMax      @"/api/consign/cage/max" // 最大箱子重量|完成
+#define URL_PredictPrice        @"/api/order/getOrderPrice" // 获取预估价格|完成
+#define URL_InsertOrder         @"/api/order/insertOrder" // 创建订单|完成
+#define URL_GetOrderAmount      @"/api/order/price" // 获取订单价格|完成
+#define URL_GetTranportPayParamForWechat @"/api/weChat/pay/getOrderPayParam" // 获取微信运输单支付参数|完成
 #define URL_GetPremiumPayParamForWechat @"/api/weChat/pay/getOrderPremiumParam" // 获取微信补价单支付参数
 #define URL_GetRechargePayParamForWechat    @"/api/weChat/pay/getRechargeParam" // 获取微信充值支付参数
 
-#define URL_Staion_List         @"/api/business/listByPosition" // 获取周边商家
+#define URL_Staion_List         @"/api/business/listByPosition" // 获取周边商家|完成
 
-#define URL_StatonListByCity    @"/api/staff/listByProvinceAndCity" // 根据城市获取站点列表
+#define URL_StatonListByCity    @"/api/staff/listByProvinceAndCity" // 根据城市获取站点列表|完成
 
 #define URL_ApplyStaff          @"/api/staff/applyForStaff" // 员工注册
 #define URL_ApplyStation        @"/business/insetBusiness" // 站点注册

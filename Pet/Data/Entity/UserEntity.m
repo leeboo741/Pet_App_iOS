@@ -29,7 +29,14 @@
     return self;
 }
 
--(USER_ROLE)role{
+-(NSString *)avaterImagePath{
+    if (_avaterImagePath) {
+        return [LeeUtils recoverySpecialChar:_avaterImagePath];
+    }
+    return nil;
+}
+
+-(USER_ROLE)userRole{
     if (kStringIsEmpty(self.customerNo)) {
         return USER_ROLE_UNKOWN;
     }

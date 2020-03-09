@@ -72,7 +72,7 @@
     [self.avaterImageView sd_setImageWithURL:[NSURL URLWithString:user.avaterImagePath] placeholderImage:[UIImage imageNamed:@"logo"]];
     self.nameLabel.text = user.userName;
     self.phoneLabel.text = user.phone;
-    switch (user.userRole) {
+     switch (user.userRole) {
         case USER_ROLE_UNKOWN:
             break;
         case USER_ROLE_CUSTOMER:

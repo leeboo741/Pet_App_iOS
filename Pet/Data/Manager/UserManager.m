@@ -215,7 +215,13 @@ SingleImplementation(UserManager)
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 /**
- *  获取用户角色
+ *  获取用户当前角色
+ */
+-(CURRENT_USER_ROLE)getCurrentUserRole{
+    return self.user.currentRole;
+}
+/**
+ 获取用户角色
  */
 -(USER_ROLE)getUserRole{
     return self.user.userRole;

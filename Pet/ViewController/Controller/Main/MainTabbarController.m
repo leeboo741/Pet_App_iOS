@@ -113,7 +113,7 @@ SingleImplementation(MainTabbarController)
         BaseNavigationController * stationNavi = [self getNaviControllerWithViewController:stationListVC];
         [self setTabbarItemInfoWithViewController:stationNavi title:@"驿站" iconFontName:IconFont_Station];
         
-        UIViewController * centerViewController = [self getCenterViewControllerWithUserRole:[[UserManager shareUserManager] getUserRole]];
+        UIViewController * centerViewController = [self getCenterViewControllerWithUserRole:[[UserManager shareUserManager] getCurrentUserRole]];
         BaseNavigationController * centerNavi = [self getNaviControllerWithViewController:centerViewController];
         [self setTabbarItemInfoWithViewController:centerNavi title:@"中心" iconFontName:IconFont_Pet];
         
