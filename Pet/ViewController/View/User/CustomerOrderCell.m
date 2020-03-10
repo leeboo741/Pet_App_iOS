@@ -60,6 +60,19 @@
 -(void)setOrderEntity:(OrderEntity *)orderEntity {
     _orderEntity = orderEntity;
     self.orderBaseInfoView.orderNo = orderEntity.orderNo;
+    self.orderBaseInfoView.orderTime = [NSString stringWithFormat:@"%@ %@",orderEntity.orderDate,orderEntity.orderTime];
+    self.orderBaseInfoView.outportTime = orderEntity.outportTime;
+    self.orderBaseInfoView.startCity = orderEntity.transport.startCity;
+    self.orderBaseInfoView.endCity = orderEntity.transport.endCity;
+    self.orderBaseInfoView.transportType = orderEntity.transport.transportTypeName;
+    self.orderBaseInfoView.petType = orderEntity.petType.petTypeName;
+    self.orderBaseInfoView.petBreed = orderEntity.petBreed.petBreedName;
+    self.orderBaseInfoView.receiverName = orderEntity.receiverName;
+    self.orderBaseInfoView.receiverPhone = orderEntity.receiverPhone;
+    self.orderBaseInfoView.senderName = orderEntity.senderName;
+    self.orderBaseInfoView.senderPhone = orderEntity.senderPhone;
+    self.orderBaseInfoView.orderState = orderEntity.orderState;
+    self.orderBaseInfoView.orderAmount = [NSString stringWithFormat:@"￥%@",orderEntity.orderAmount];
 }
 
 #pragma mark - private method

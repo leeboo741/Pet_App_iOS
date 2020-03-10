@@ -102,13 +102,21 @@
 #else
 #define URL_BASE                @"https://www.taochonghui.com"
 #endif
-
+/**
+ 用户相关
+ */
 #define URL_Register            @"/api/customer" // 注册|完成
 #define URL_LoginWithPhone      @"/api/oAuth/phone" // 手机号登录|完成
 #define URL_LoginWithId         @"/api/oAuth/unionId" // 微信id 登录|完成
 
+/**
+ 通用接口
+ */
 #define URL_GetPhoneCode        @"/business/VerificationCode" // 获取短信验证码|完成
 
+/**
+ 下单相关
+ */
 #define URL_Pet_Type            @"/api/petType" // 宠物类型|完成
 #define URL_StartCity           @"/api/transport/listStartCity" // 始发城市列表|完成
 #define URL_EndCity             @"/api/transport/listEndCity" // 终点城市列表
@@ -119,26 +127,44 @@
 #define URL_PredictPrice        @"/api/order/getOrderPrice" // 获取预估价格|完成
 #define URL_InsertOrder         @"/api/order/insertOrder" // 创建订单|完成
 #define URL_GetOrderAmount      @"/api/order/price" // 获取订单价格|完成
+#define URL_StatonListByCity    @"/api/staff/listByProvinceAndCity" // 根据城市获取站点列表|完成
+
+/**
+ 支付相关
+ */
 #define URL_GetTranportPayParamForWechat @"/api/weChat/pay/getOrderPayParam" // 获取微信运输单支付参数|完成
 #define URL_GetPremiumPayParamForWechat @"/api/weChat/pay/getOrderPremiumParam" // 获取微信补价单支付参数
 #define URL_GetRechargePayParamForWechat    @"/api/weChat/pay/getRechargeParam" // 获取微信充值支付参数
 
+/**
+ 客户相关
+ */
+#define URL_Customer_GetOrderListByStatus   @"/api/order/listOrderList" // 根据订单类型查询客户订单列表
+#define URL_Customer_EditOrderContacts      @"/api/order/update/contacts"
+
+/**
+ 站点相关
+ */
 #define URL_Staion_List         @"/api/business/listByPosition" // 获取周边商家|完成
 
-#define URL_StatonListByCity    @"/api/staff/listByProvinceAndCity" // 根据城市获取站点列表|完成
+/**
+ 员工相关
+ */
+#define URL_Site_ @""
 
-#define URL_ApplyStaff          @"/api/staff/applyForStaff" // 员工注册
-#define URL_ApplyStation        @"/business/insetBusiness" // 站点注册
+/**
+ 申请相关
+ */
+#define URL_ApplyStaff          @"/api/staff/applyForStaff" // 员工注册 |完成
+#define URL_ApplyStation        @"/business/insetBusiness" // 站点注册 |完成
 
-
+/**
+ 微信接口
+ */
 #define Wechat_URL_GetAccessToken(APPID,SECRET,CODE) [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",APPID,SECRET,CODE] // 获取 access_token
 
 #define Wechat_URL_GetWechatUserInfo(ACCESS_TOKEN,OPENID) [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@",ACCESS_TOKEN,OPENID]
 
 #define Wechat_URL_RefreshAccessToken(APPID,REFRESH_TOKEN) [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=%@&grant_type=refresh_token&refresh_token=%@",APPID,REFRESH_TOKEN] // 刷新 access_token
-
-
-
-
 
 #endif /* ResourceMacros_h */

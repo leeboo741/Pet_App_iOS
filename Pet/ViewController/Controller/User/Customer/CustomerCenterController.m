@@ -19,17 +19,13 @@
 #import "OrderDetailController.h"
 #import "OrderEvaluateController.h"
 #import "AboutUsViewController.h"
+#import "CustomerOrderManager.h"
+#import "PaymentViewController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
 static NSString * OrderCellIdentifier = @"CustomerOrderCell";
 
-typedef NS_ENUM(NSInteger, CustomerSelectOrderType) {
-    CustomerSelectOrderType_unpay = 0,
-    CustomerSelectOrderType_unsend = 1,
-    CustomerSelectOrderType_unreceiver = 2,
-    CustomerSelectOrderType_complete = 3,
-};
 
 @interface CustomerCenterController ()
 <CenterheaderCellDelegate,
@@ -171,12 +167,15 @@ CustomerOrderCellDelegate>
     cell.haveNewMessage = self.haveNewMessage;
     cell.delegate = self;
 }
+
 -(void)configActionCell:(CenterActionCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     cell.modelArray = self.actionModelArray;
     cell.delegate = self;
 }
+
 -(void)configCustomerOrderCell:(CustomerOrderCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     cell.orderType = [self getCustomerOrderType];
+    cell.orderEntity = [self getOrderEntityAtIndexPaht:indexPath];
     cell.delegate = self;
 }
 
@@ -214,6 +213,7 @@ CustomerOrderCellDelegate>
                 MMScanViewController * scanVC = [[MMScanViewController alloc]initWithQrType:MMScanTypeAll onFinish:^(NSString *result, NSError *error) {
                     if (error) {
                         MSLog(@"scan error : %@",error);
+                        [MBProgressHUD showTipMessageInWindow:@"扫描失败"];
                     } else {
                         MSLog(@"scan result : %@",result);
                     }
@@ -239,7 +239,12 @@ CustomerOrderCellDelegate>
             break;
         case 3:
         {
-            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"切换角色" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            NSString * title = @"切换角色";
+            if (![[UserManager shareUserManager] isStaff]
+                && ![[UserManager shareUserManager] isBusiness]) {
+                title = @"没有其他角色";
+            }
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             UIAlertAction * action1 = [UIAlertAction actionWithTitle:@"站点" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [[UserManager shareUserManager]changeUserRole:CURRENT_USER_ROLE_STAFF];
             }];
@@ -249,8 +254,12 @@ CustomerOrderCellDelegate>
             UIAlertAction * action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
             }];
-            [alertController addAction:action1];
-            [alertController addAction:action2];
+            if ([[UserManager shareUserManager] isStaff]) {
+                [alertController addAction:action1];
+            }
+            if ([[UserManager shareUserManager] isBusiness]) {
+                [alertController addAction:action2];
+            }
             [alertController addAction:action3];
             [self presentViewController:alertController animated:YES completion:nil];
         }
@@ -282,6 +291,7 @@ CustomerOrderCellDelegate>
         case OrderOperateButtonType_Pay:
         {
             MSLog(@"订单支付");
+            [self showConfirmPayAtIndexPath:indexPath];
         }
             break;
         case OrderOperateButtonType_DetailOrder:
@@ -367,18 +377,60 @@ CustomerOrderCellDelegate>
 }
 
 -(void)setSelectOrderType:(CustomerSelectOrderType)selectOrderType{
-    if (_selectOrderType != selectOrderType) {
-        _selectOrderType = selectOrderType;
+    _selectOrderType = selectOrderType;
+    BOOL needGetData = NO;
+    switch (selectOrderType) {
+        case CustomerSelectOrderType_unpay:
+            needGetData = kArrayIsEmpty(self.unpayOrderList);
+            break;
+        case CustomerSelectOrderType_unsend:
+            needGetData = kArrayIsEmpty(self.unsendOrderList);
+            break;
+        case CustomerSelectOrderType_unreceiver:
+            needGetData = kArrayIsEmpty(self.unreceiverOrderList);
+            break;
+        case CustomerSelectOrderType_complete:
+            needGetData = kArrayIsEmpty(self.completeOrderList);
+            break;
+    }
+    if (needGetData) {
+        [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+        __weak typeof(self) weakSelf = self;
+        [[CustomerOrderManager shareCustomerOrderManager] getCustomerOrderListByType:selectOrderType success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+            NSArray * array = (NSArray *)data;
+            if (array == nil) {
+                array = [NSArray array];
+            }
+            switch (selectOrderType) {
+                case CustomerSelectOrderType_unpay:
+                    [weakSelf.unpayOrderList addObjectsFromArray:array];
+                    break;
+                case CustomerSelectOrderType_unsend:
+                    [weakSelf.unsendOrderList addObjectsFromArray:array];
+                    break;
+                case CustomerSelectOrderType_unreceiver:
+                    [weakSelf.unreceiverOrderList addObjectsFromArray:array];
+                    break;
+                case CustomerSelectOrderType_complete:
+                    [weakSelf.completeOrderList addObjectsFromArray:array];
+                    break;
+            }
+            NSIndexSet * set = [[NSIndexSet alloc]initWithIndex:2];
+            [weakSelf.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+        } fail:^(NSInteger code) {
+            
+        }];
+    } else {
         NSIndexSet * set = [[NSIndexSet alloc]initWithIndex:2];
         [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
     }
+
 }
 
 -(NSMutableArray<OrderEntity *> *)unpayOrderList{
     if (!_unpayOrderList) {
         _unpayOrderList = [NSMutableArray array];
-        OrderEntity * order = [[OrderEntity alloc]init];
-        [_unpayOrderList addObject:order];
     }
     return _unpayOrderList;
 }
@@ -386,9 +438,6 @@ CustomerOrderCellDelegate>
 -(NSMutableArray<OrderEntity *> *)unsendOrderList{
     if (!_unsendOrderList) {
         _unsendOrderList = [NSMutableArray array];
-        OrderEntity * order = [[OrderEntity alloc]init];
-        [_unsendOrderList addObject:order];
-        [_unsendOrderList addObject:order];
     }
     return _unsendOrderList;
 }
@@ -396,10 +445,6 @@ CustomerOrderCellDelegate>
 -(NSMutableArray<OrderEntity *> *)unreceiverOrderList{
     if (!_unreceiverOrderList) {
         _unreceiverOrderList = [NSMutableArray array];
-        OrderEntity * order = [[OrderEntity alloc]init];
-        [_unreceiverOrderList addObject:order];
-        [_unreceiverOrderList addObject:order];
-        [_unreceiverOrderList addObject:order];
     }
     return _unreceiverOrderList;
 }
@@ -407,11 +452,6 @@ CustomerOrderCellDelegate>
 -(NSMutableArray<OrderEntity *> *)completeOrderList{
     if (!_completeOrderList) {
         _completeOrderList = [NSMutableArray array];
-        OrderEntity * order = [[OrderEntity alloc]init];
-        [_completeOrderList addObject:order];
-        [_completeOrderList addObject:order];
-        [_completeOrderList addObject:order];
-        [_completeOrderList addObject:order];
     }
     return _completeOrderList;
 }
@@ -448,32 +488,47 @@ CustomerOrderCellDelegate>
 }
 
 /**
+ 获取当前行的订单对象
+ 
+ @param indexPath indexPath
+ */
+-(OrderEntity *)getOrderEntityAtIndexPaht:(NSIndexPath *)indexPath{
+    switch (self.selectOrderType) {
+        case CustomerSelectOrderType_unpay:
+            return self.unpayOrderList[indexPath.row];
+        
+        case CustomerSelectOrderType_unsend:
+            return self.unsendOrderList[indexPath.row];
+        
+        case CustomerSelectOrderType_unreceiver:
+            return self.unreceiverOrderList[indexPath.row];
+        
+        case CustomerSelectOrderType_complete:
+            return self.completeOrderList[indexPath.row];
+    }
+}
+
+/**
+ 支付订单
+ @param indexPath 订单所在行
+ */
+-(void)showConfirmPayAtIndexPath:(NSIndexPath *)indexPath{
+    __weak typeof(self) weakSelf = self;
+    OrderEntity * orderEntity = [self getOrderEntityAtIndexPaht:indexPath];
+    [AlertControllerTools showAlertWithTitle:@"确认支付该订单" msg:[NSString stringWithFormat:@"订单号:%@",orderEntity.orderNo] items:@[@"确定"] showCancel:YES actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
+        PaymentViewController * paymentVC = [[PaymentViewController alloc]init];
+        paymentVC.orderNo = orderEntity.orderNo;
+        [weakSelf.navigationController pushViewController:paymentVC animated:YES];
+    }];
+}
+
+/**
  *  修改订单弹窗
  *  @param indexPath 订单所在行
  */
 -(void)showOrderEditViewAtIndexPath:(NSIndexPath *)indexPath{
     OrderEntity * editOrderEntity = nil;
-    switch (self.selectOrderType) {
-        case CustomerSelectOrderType_unpay:
-            editOrderEntity = self.unpayOrderList[indexPath.row];
-            break;
-        case CustomerSelectOrderType_unsend:
-            editOrderEntity = self.unsendOrderList[indexPath.row];
-            break;
-        case CustomerSelectOrderType_unreceiver:
-            editOrderEntity = self.unreceiverOrderList[indexPath.row];
-            break;
-        case CustomerSelectOrderType_complete:
-        {
-            [MBProgressHUD showErrorMessage:@"已完成订单不能修改"];
-        }
-            return;
-        default:
-        {
-            [MBProgressHUD showErrorMessage:@"未知订单类型"];
-        }
-            return;
-    }
+    editOrderEntity = [self getOrderEntityAtIndexPaht:indexPath];
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"修改订单" message:@"修改订单信息" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请输入寄宠人姓名";
@@ -491,7 +546,7 @@ CustomerOrderCellDelegate>
         textField.placeholder = @"请输入收宠人手机";
         textField.text = editOrderEntity.receiverPhone;
     }];
-    
+    __weak typeof(self) weakSelf = self;
     UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField * senderNameTF = alertController.textFields[0];
         UITextField * senderPhoneTF = alertController.textFields[1];
@@ -505,6 +560,22 @@ CustomerOrderCellDelegate>
             return;
         }
         MSLog(@"%@ , %@ || %@ , %@",senderNameTF.text, senderPhoneTF.text, receiverNameTF.text, receiverPhoneTF.text);
+        [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+        [[CustomerOrderManager shareCustomerOrderManager] editCustomerOrderContactsWithOrderNo:editOrderEntity.orderNo senderName:senderNameTF.text senderPhone:senderPhoneTF.text receiverName:receiverNameTF.text receiverPhone:receiverPhoneTF.text success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+            if ([data intValue] > 0) {
+                OrderEntity * orderEntity = [weakSelf getOrderEntityAtIndexPaht:indexPath];
+                orderEntity.senderName = senderNameTF.text;
+                orderEntity.senderPhone = senderPhoneTF.text;
+                orderEntity.receiverName = receiverNameTF.text;
+                orderEntity.receiverPhone = receiverPhoneTF.text;
+                [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            } else {
+                [MBProgressHUD showTipMessageInWindow:@"修改失败"];
+            }
+        } fail:^(NSInteger code) {
+            
+        }];
     }];
     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:confirmAction];
@@ -558,25 +629,13 @@ CustomerOrderCellDelegate>
  */
 -(void)showOrderPhoneCallAtIndexPath:(NSIndexPath * )indexPath{
     OrderEntity * orderEntity = nil;
-    switch (self.selectOrderType) {
-        case CustomerSelectOrderType_unpay:
-            orderEntity = self.unpayOrderList[indexPath.row];
-            break;
-        case CustomerSelectOrderType_unsend:
-            orderEntity = self.unsendOrderList[indexPath.row];
-            break;
-        case CustomerSelectOrderType_unreceiver:
-            orderEntity = self.unreceiverOrderList[indexPath.row];
-        case CustomerSelectOrderType_complete:
-            orderEntity = self.completeOrderList[indexPath.row];
-            break;
-        default:
-        {
-            [MBProgressHUD showErrorMessage:@"未知订单类型"];
-        }
-            return;
+    orderEntity = [self getOrderEntityAtIndexPaht:indexPath];
+    NSString * phoneNumber = Service_Phone;
+    if (!Util_IsEmptyString(orderEntity.transport.station.phone)
+        && Util_IsPhoneString(orderEntity.transport.station.phone)) {
+        phoneNumber = orderEntity.transport.station.phone;
     }
-    Util_MakePhoneCall(@"10086");
+    Util_MakePhoneCall(phoneNumber);
 }
 
 @end

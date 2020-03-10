@@ -109,15 +109,19 @@ SingleInterface(UserManager)
  */
 -(USER_ROLE)getUserRole;
 /**
+ 是否是员工
  是否是管理员
  是否是司机
  是否是客服
  是否是商家
  */
+-(BOOL)isStaff;
 -(BOOL)isManager;
 -(BOOL)isDriver;
 -(BOOL)isService;
 -(BOOL)isBusiness;
+
+-(StaffEntity *)getStaff;
 
 /**
  获取用户编号

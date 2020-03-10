@@ -13,7 +13,11 @@
 @end
 
 @implementation PetBreed
-
++(NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{
+        @"petBreedName":@"petClassifyName"
+    };
+}
 @end
 
 @implementation OrderTransport
@@ -34,10 +38,56 @@
             return @"未知";
     }
 }
+@end
+
+@implementation AddedInsure
 
 @end
 
+@implementation OrderRemarks
+
+@end
+
+@implementation OrderTempDeliver
+
+@end
+
+@implementation OrderPremium
+
+@end
+
+@implementation OrderMedia
+
+@end
+
+@implementation OrderStatus
++(NSDictionary *)mj_objectClassInArray{
+    return @{
+        @"orderMediaList":@"OrderMedia"
+    };
+}
+@end
+
 @implementation OrderEntity
++(NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{
+        @"orderState":@"state",
+        @"assignmentedStaffArray":@"orderAssignments",
+        @"orderAmount":@"paymentAmount",
+        @"petBreed":@"petClassify",
+        @"orderRemark":@"remarks",
+        @"outportTime":@"leaveDate",
+    };
+}
++(NSDictionary *)mj_objectClassInArray{
+    return @{
+        @"assignmentedStaffArray":@"StaffEntity",
+        @"orderTempDelivers":@"OrderTempDeliver",
+        @"orderPremiumList":@"OrderPremium",
+        @"orderStates":@"OrderStatus",
+        @"orderRemarksList":@"OrderRemarks"
+    };
+}
 -(NSString *)assignmentedStaffString{
     NSString * string = @"";
     for (StaffEntity * staff in self.assignmentedStaffArray) {

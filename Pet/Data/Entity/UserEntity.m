@@ -40,10 +40,6 @@
     if (kStringIsEmpty(self.customerNo)) {
         return USER_ROLE_UNKOWN;
     }
-    if (kStringIsEmpty(self.staff.staffNo)
-        && kStringIsEmpty(self.business.businessNo)) {
-        return USER_ROLE_CUSTOMER;
-    }
     if (!kStringIsEmpty(self.business.businessNo)
         && kStringIsEmpty(self.staff.staffNo)) {
         return USER_ROLE_BUSINESS;
@@ -58,7 +54,7 @@
             case 3:
                 return USER_ROLE_SERVICE;
             default:
-                return USER_ROLE_CUSTOMER;
+                return USER_ROLE_SERVICE;
         }
     } else if (!kStringIsEmpty(self.staff.staffNo)
                && !kStringIsEmpty(self.business.businessNo)) {
@@ -70,10 +66,10 @@
             case 3:
                 return USER_ROLE_B_SERVICE;
             default:
-                return USER_ROLE_CUSTOMER;
+                return USER_ROLE_B_SERVICE;
         }
     }
-    return USER_ROLE_UNKOWN;
+    return USER_ROLE_CUSTOMER;
 }
 
 -(StaffEntity *)staff{

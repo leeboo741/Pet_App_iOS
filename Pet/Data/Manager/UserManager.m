@@ -226,17 +226,31 @@ SingleImplementation(UserManager)
 -(USER_ROLE)getUserRole{
     return self.user.userRole;
 }
+-(BOOL)isStaff{
+    return self.user.userRole == USER_ROLE_B_MANAGER
+    || self.user.userRole == USER_ROLE_MANAGER
+    || self.user.userRole == USER_ROLE_B_DRIVER
+    || self.user.userRole == USER_ROLE_DRIVER
+    || self.user.userRole == USER_ROLE_B_SERVICE
+    || self.user.userRole == USER_ROLE_SERVICE;
+}
 -(BOOL)isManager{
-    return self.user.userRole == USER_ROLE_B_MANAGER || self.user.userRole == USER_ROLE_MANAGER;
+    return self.user.userRole == USER_ROLE_B_MANAGER
+    || self.user.userRole == USER_ROLE_MANAGER;
 }
 -(BOOL)isDriver{
-    return self.user.userRole == USER_ROLE_B_DRIVER || self.user.userRole == USER_ROLE_DRIVER;
+    return self.user.userRole == USER_ROLE_B_DRIVER
+    || self.user.userRole == USER_ROLE_DRIVER;
 }
 -(BOOL)isService{
-    return self.user.userRole == USER_ROLE_B_SERVICE || self.user.userRole == USER_ROLE_SERVICE;
+    return self.user.userRole == USER_ROLE_B_SERVICE
+    || self.user.userRole == USER_ROLE_SERVICE;
 }
 -(BOOL)isBusiness{
-    return self.user.userRole == USER_ROLE_B_MANAGER || self.user.userRole == USER_ROLE_B_DRIVER || self.user.userRole == USER_ROLE_B_SERVICE || self.user.userRole == USER_ROLE_BUSINESS;
+    return self.user.userRole == USER_ROLE_B_MANAGER
+    || self.user.userRole == USER_ROLE_B_DRIVER
+    || self.user.userRole == USER_ROLE_B_SERVICE
+    || self.user.userRole == USER_ROLE_BUSINESS;
 }
 /**
  *  获取客户编号
@@ -301,7 +315,7 @@ SingleImplementation(UserManager)
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
     if ([keyPath isEqualToString:@"user"]) {
         [self postUserChangeNotification];
-    } else if ([keyPath isEqualToString:@"role"]) {
+    } else if ([keyPath isEqualToString:@"currentRole"]) {
         [self postUserRoleChangeNotification];
     }
 }

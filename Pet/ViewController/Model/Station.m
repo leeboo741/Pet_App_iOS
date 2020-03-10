@@ -9,11 +9,6 @@
 #import "Station.h"
 
 @implementation Station
-+(NSDictionary *)mj_objectClassInArray{
-    return @{
-             @"contacts": @"contact"
-             };
-}
 +(NSDictionary *)mj_replacedKeyFromPropertyName{
     return @{
              @"stationId":@"businessNo",
@@ -27,7 +22,6 @@
              @"city":@"city",
              @"detailAddress":@"detailAddress",
              @"logoImagePath":@"iconAddress",
-//             @"":@"headerImg",
              @"state":@"state",
              @"businessType":@"businessType",
              @"businessServices":@"businessService",

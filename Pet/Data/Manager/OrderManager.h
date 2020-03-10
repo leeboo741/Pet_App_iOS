@@ -150,7 +150,7 @@ SingleInterface(OrderManager);
 /**
  获取订单金额
  
- @param orerNo 订单编号
+ @param orderNo 订单编号
  @param success 成功回调
  @param fail 失败回调
  */
