@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomerOrderManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderEvaluateController : UITableViewController
-
+@property (nonatomic, strong)OrderEntity * orderEntity;
 @end
 
 NS_ASSUME_NONNULL_END

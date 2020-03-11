@@ -25,20 +25,47 @@ static NSString * PaymentInfoCellIdentifier = @"PaymentInfoCell";
 
 @implementation PaymentViewController
 
+-(instancetype)init{
+    if (self = [super init]) {
+        [self initProperty];
+    }
+    return self;
+}
+-(instancetype)initWithCoder:(NSCoder *)coder{
+    if (self = [super initWithCoder:coder]) {
+        [self initProperty];
+    }
+    return self;
+}
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self initProperty];
+    }
+    return self;
+}
+-(void)initProperty{
+    self.payAmount = 0;
+    self.paymentType = Payment_Order_Type_Transport;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"支付";
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.paymentButton];
+    if (self.payAmount == 0) {
+        [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+        __weak typeof(self) weakSelf = self;
+        [[OrderManager shareOrderManager] getOrderAmountWithOrderNo:self.orderNo success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+            weakSelf.paymentPrice = (NSString *)data;
+            weakSelf.payAmount = [weakSelf.paymentPrice floatValue];
+        } fail:^(NSInteger code) {
+            
+        }];
+    } else {
+        self.paymentPrice = [NSString stringWithFormat:@"%.2f",self.payAmount];
+    }
     
-    [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
-    __weak typeof(self) weakSelf = self;
-    [[OrderManager shareOrderManager] getOrderAmountWithOrderNo:self.orderNo success:^(id  _Nonnull data) {
-        [MBProgressHUD hideHUD];
-        weakSelf.paymentPrice = (NSString *)data;
-    } fail:^(NSInteger code) {
-        
-    }];
     // Do any additional setup after loading the view.
 }
 
@@ -128,7 +155,10 @@ static NSString * PaymentInfoCellIdentifier = @"PaymentInfoCell";
 #pragma mark - pay delegate
 -(void)wechatPaySuccess{
     [AlertControllerTools showAlertWithTitle:@"支付成功" msg:nil items:@[@"确定"] showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        if (self.completeBlock) {
+            self.completeBlock(YES);
+        }
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 -(void)wechatPayFail{
@@ -144,13 +174,56 @@ static NSString * PaymentInfoCellIdentifier = @"PaymentInfoCell";
     MSLog(@"支付");
     __weak typeof(self) weakSelf = self;
     [MBProgressHUD showTipMessageInWindow:@"准备支付..."];
-    [[PayManager sharePayManager] getTransportPayParamForWechatWithOrderNo:self.orderNo customerNo:[[UserManager shareUserManager] getCustomerNo] success:^(id  _Nonnull data) {
+    [self getPaymentParamSuccess:^(id  _Nonnull data) {
         [MBProgressHUD hideHUD];
         WechatPayParam * payParam = (WechatPayParam *)data;
         [[WechatManager shareWechatManager] sendPayRequestWithParam:payParam delegate:weakSelf complete:nil];
     } fail:^(NSInteger code) {
         
     }];
+}
+
+#pragma mark - private method
+
+-(void)getPaymentParamSuccess:(SuccessBlock)success fail:(FailBlock)fail{
+    if (self.paymentType == Payment_Order_Type_Transport) {
+        [[PayManager sharePayManager] getTransportPayParamForWechatWithOrderNo:self.orderNo customerNo:[[UserManager shareUserManager] getCustomerNo] success:^(id  _Nonnull data) {
+            if (success) {
+                success(data);
+            }
+        } fail:^(NSInteger code) {
+            if (fail) {
+                fail(code);
+            }
+        }];
+    } else if (self.paymentType == Payment_Order_Type_Premium) {
+        [[PayManager sharePayManager] getPremiumPayParamForWechatWithBillNo:self.orderNo customerNo:[[UserManager shareUserManager] getCustomerNo] success:^(id  _Nonnull data) {
+            if (data) {
+                if (success) {
+                    success(data);
+                }
+            } else {
+                if (fail) {
+                    [HttpResponseHandler handlerFailWithCode:HttpResponseCode_IS_NULL_DATA msg:nil];
+                    fail(HttpResponseCode_IS_NULL_DATA);
+                }
+            }
+        } fail:^(NSInteger code) {
+            if (fail) {
+                fail(code);
+            }
+        }];
+    } else if (self.paymentType == Payment_Order_Type_Recharge) {
+        [[PayManager sharePayManager] getRechargePayParamForWechatWithCustomerNo:[[UserManager shareUserManager] getCustomerNo] amount:self.payAmount success:^(id  _Nonnull data) {
+            if (success) {
+                success(data);
+            }
+        } fail:^(NSInteger code) {
+            if (fail) {
+                fail(code);
+            }
+        }];
+    }
 }
 
 #pragma mark - setters and getters

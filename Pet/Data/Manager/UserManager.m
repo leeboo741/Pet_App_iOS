@@ -25,7 +25,7 @@
     }
 }
 -(NSString *)appType{
-    return @"iOS";
+    return APP_TYPE;
 }
 
 +(RegisterUserInfo *)getUserInfoFromWechatUserInfo:(WechatUserInfo *)wechatUserInfo{

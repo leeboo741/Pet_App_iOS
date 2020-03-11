@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol OrderPremiumCellDelegate <NSObject>
 
 -(void)tapPremiumButtonWithState:(NSString *)premiumState atOrderPremiumCell:(OrderPremiumCell *)cell;
-
+-(void)tapPremiumCancelButtonAtOrderPremiumCell:(OrderPremiumCell *)cell;
 @end
 
 @interface OrderPremiumCell : UITableViewCell

@@ -40,7 +40,15 @@
 }
 @end
 
+@implementation OrderTransportInfo
+
+@end
+
 @implementation AddedInsure
+
+@end
+
+@implementation AddedWeightCage
 
 @end
 
@@ -88,6 +96,12 @@
         @"orderRemarksList":@"OrderRemarks"
     };
 }
+-(OrderTransportInfo *)orderTransport{
+    if (!_orderTransport) {
+        _orderTransport = [[OrderTransportInfo alloc]init];
+    }
+    return _orderTransport;
+}
 -(NSString *)assignmentedStaffString{
     NSString * string = @"";
     for (StaffEntity * staff in self.assignmentedStaffArray) {
@@ -105,4 +119,37 @@
     }
     return _assignmentedStaffArray;
 }
+-(NSArray<OrderPremium *> *)orderPremiumList{
+    OrderPremium * premium1 = [[OrderPremium alloc]init];
+    premium1.amount = 132.1;
+    premium1.billNo = @"123123123";
+    premium1.orderNo = @"232323";
+    premium1.orderDate = @"2010-10-10";
+    premium1.orderTime = @"12:11:11";
+    premium1.reason = @"ceshiceshi";
+    premium1.state = @"待付款";
+    
+    OrderPremium * premium2 = [[OrderPremium alloc]init];
+    premium2.amount = 12.22;
+    premium2.billNo = @"123123123";
+    premium2.orderNo = @"232323";
+    premium2.orderDate = @"2010-10-10";
+    premium2.orderTime = @"12:11:11";
+    premium2.reason = @"ceshiceshi1";
+    premium2.state = @"已付款";
+    
+    OrderPremium * premium3 = [[OrderPremium alloc]init];
+    premium3.amount = 200;
+    premium3.billNo = @"123123123";
+    premium3.orderNo = @"232323";
+    premium3.orderDate = @"2010-10-10";
+    premium3.orderTime = @"12:11:11";
+    premium3.reason = @"ceshiceshi12";
+    premium3.state = @"已取消";
+    return @[premium1,premium2,premium3];
+}
+@end
+
+@implementation OrderEvaluate
+
 @end

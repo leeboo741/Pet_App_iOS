@@ -87,4 +87,107 @@ SingleImplementation(CustomerOrderManager);
     }];
     [[HttpManager shareHttpManager] requestWithRequestModel:model];
 }
+/**
+ 确认收货
+ 
+ @param orderNo 订单编号
+ @param success success
+ @param fail fail
+ */
+-(void)receiverCustomerOrderWithOrderNo:(NSString *)orderNo
+                                success:(SuccessBlock)success fail:(FailBlock)fail{
+    NSDictionary * dict = @{
+        @"orderNo":orderNo
+    };
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:URL_Customer_OrderConfirm paramers:dict successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    HttpManager * manager = [HttpManager shareHttpManager];
+    manager.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithArray:@[@"GET",@"HEAD",@"POST",@"PUT"]];
+    [manager requestWithRequestModel:model];
+}
+
+/**
+ 确认是否有权限签收订单
+ 
+ @param orderNo 订单编号
+ @param customerNo 客户编号
+ @param success success
+ @param fail fail
+ */
+-(void)ableConfirmOrderWithOrderNo:(NSString *)orderNo
+                         customrNo:(NSString *)customerNo
+                           success:(SuccessBlock)success
+                              fail:(FailBlock)fail{
+    NSDictionary * dict = @{
+        @"orderNo":orderNo,
+        @"customerNo":customerNo
+    };
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:URL_Customer_OrderAbleConfirm paramers:dict successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
+
+/**
+ 取消订单
+ 
+ @param orderNo 订单编号
+ @param customerNo 客户编号
+ @param success success
+ @param fail fail
+ */
+-(void)cancelOrderWithOrderNo:(NSString *)orderNo customerNo:(NSString *)customerNo success:(SuccessBlock)success fail:(FailBlock)fail{
+    NSDictionary * dict = @{
+        @"orderNo":orderNo,
+        @"customerNo": customerNo
+    };
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_PUT Url:URL_Customer_OrderCancel paramers:dict successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    HttpManager * manager = [HttpManager shareHttpManager];
+    manager.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithArray:@[@"GET",@"HEAD",@"PUT"]];
+    [manager requestWithRequestModel:model];
+}
+/**
+ 评价订单
+ 
+ @param evaluate 订单评价对象
+ @param success success
+ @param fail fail
+ */
+-(void)evaluateOrder:(OrderEvaluate *)evaluate
+             success:(SuccessBlock)success
+                fail:(FailBlock)fail{
+    NSDictionary * dict = [evaluate mj_JSONObject];
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:URL_Customer_EvaluateOrder paramers:dict successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    HttpManager * manager = [HttpManager shareHttpManager];
+    [manager  requestWithRequestModel:model];
+}
 @end

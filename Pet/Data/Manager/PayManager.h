@@ -28,6 +28,28 @@ SingleInterface(PayManager)
                                      customerNo:(NSString *)customerNo
                                         success:(SuccessBlock)success
                                            fail:(FailBlock)fail;
+
+/**
+ 请求 微信 补价单 支付参数
+ 
+ @param billNo 订单编号
+ @param customerNo 用户编号
+ @param success 成功回调
+ @param fail 失败回调
+ */
+-(void)getPremiumPayParamForWechatWithBillNo:(NSString *)billNo
+                                  customerNo:(NSString *)customerNo
+                                     success:(SuccessBlock)success
+                                        fail:(FailBlock)fail;
+/**
+ 请求 微信 充值单 支付参数
+ 
+ @param amount 充值金额
+ @param customerNo 用户编号
+ @param success 成功回调
+ @param fail 失败回调
+ */
+-(void)getRechargePayParamForWechatWithCustomerNo:(NSString *)customerNo amount:(CGFloat)amount success:(SuccessBlock)success fail:(FailBlock)fail;
 @end
 
 NS_ASSUME_NONNULL_END

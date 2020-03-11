@@ -45,6 +45,8 @@ TransportPayContractConfirmCellDelegate>
 @property (nonatomic, assign) BOOL isConfirmCondition;
 @property (nonatomic, assign) BOOL isConfirmContract;
 
+@property (nonatomic, assign) BOOL payComplete;
+
 @end
 
 @implementation TransportPayViewController
@@ -56,6 +58,7 @@ TransportPayContractConfirmCellDelegate>
         self.transportOrder = order;
         self.isConfirmCondition = NO;
         self.isConfirmContract = NO;
+        self.payComplete = NO;
     }
     return self;
 }
@@ -70,6 +73,13 @@ TransportPayContractConfirmCellDelegate>
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self footerView];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.payComplete) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 -(void)viewDidLayoutSubviews{
@@ -251,11 +261,22 @@ TransportPayContractConfirmCellDelegate>
         return;
     }
     [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+    __weak typeof(self) weakSelf = self;
     [[OrderManager shareOrderManager] createOrderWithOrderEntity:self.transportOrder success:^(id  _Nonnull data) {
         [MBProgressHUD hideHUD];
-        PaymentViewController * paymentVC = [[PaymentViewController alloc]init];
-        paymentVC.orderNo = (NSString *)data;
-        [self.navigationController pushViewController:paymentVC animated:YES];
+        [AlertControllerTools showAlertWithTitle:@"是否立即支付" msg:nil items:@[@"稍后支付",@"立即支付"] showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
+            if (actionIndex == 0) {
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+                
+            } else {
+                PaymentViewController * paymentVC = [[PaymentViewController alloc]init];
+                paymentVC.orderNo = (NSString *)data;
+                paymentVC.completeBlock = ^(BOOL paySuccess) {
+                    weakSelf.payComplete = paySuccess;
+                };
+                [weakSelf.navigationController pushViewController:paymentVC animated:YES];
+            }
+        }];
     } fail:^(NSInteger code) {
         
     }];

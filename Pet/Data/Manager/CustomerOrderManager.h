@@ -19,6 +19,8 @@ typedef NS_ENUM(NSInteger, CustomerSelectOrderType) {
     CustomerSelectOrderType_complete = 3,
 };
 
+
+
 @interface CustomerOrderManager : NSObject
 SingleInterface(CustomerOrderManager);
 /**
@@ -50,8 +52,48 @@ SingleInterface(CustomerOrderManager);
                               receiverPhone:(NSString *)receiverPhone
                                     success:(SuccessBlock)success
                                        fail:(FailBlock)fail;
+/**
+ 确认收货
+ 
+ @param orderNo 订单编号
+ @param success success
+ @param fail fail
+ */
+-(void)receiverCustomerOrderWithOrderNo:(NSString *)orderNo
+                                success:(SuccessBlock)success fail:(FailBlock)fail;
+/**
+ 确认是否有权限签收订单
+ 
+ @param orderNo 订单编号
+ @param customerNo 客户编号
+ @param success success
+ @param fail fail
+ */
+-(void)ableConfirmOrderWithOrderNo:(NSString *)orderNo
+                         customrNo:(NSString *)customerNo
+                           success:(SuccessBlock)success
+                              fail:(FailBlock)fail;
 
--(void)receiverCustomerOrderWithOrderNo:(NSString *)orderNo 
+/**
+ 取消订单
+ 
+ @param orderNo 订单编号
+ @param customerNo 客户编号
+ @param success success
+ @param fail fail 
+ */
+-(void)cancelOrderWithOrderNo:(NSString *)orderNo customerNo:(NSString *)customerNo success:(SuccessBlock)success fail:(FailBlock)fail;
+
+/**
+ 评价订单
+ 
+ @param evaluate 订单评价对象
+ @param success success
+ @param fail fail
+ */
+ -(void)evaluateOrder:(OrderEvaluate *)evaluate
+              success:(SuccessBlock)success
+                 fail:(FailBlock)fail;
 @end
 
 NS_ASSUME_NONNULL_END

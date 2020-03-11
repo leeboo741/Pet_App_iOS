@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
                 successBlock:(HttpRequestSuccessBlock)successBlock
                    failBlock:(HttpRequestFailBlock)failBlock;
 
++(void)handlerFailWithCode:(HttpResponseCode)code
+                       msg:(NSString *_Nullable)msg;
+
 +(void)handlerFailWithError:(NSError *)error
                   failBlock:(HttpRequestFailBlock)failBlock;
 @end

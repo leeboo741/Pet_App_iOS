@@ -39,7 +39,7 @@
     }
 }
 
-+(void)handlerFailWithCode:(HttpResponseCode)code msg:(NSString *)msg{
++(void)handlerFailWithCode:(HttpResponseCode)code msg:(NSString *_Nullable)msg{
     [MBProgressHUD hideHUD];
     switch (code) {
         case HttpResponseCode_IS_NULL_DATA: {

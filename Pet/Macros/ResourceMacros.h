@@ -92,6 +92,8 @@
 
 #define Service_Phone           @"4007778889" // 默认服务电话
 
+#define APP_TYPE                @"iOS" // app类型
+
 
 #pragma mark - Url Resource Macros
 
@@ -137,10 +139,20 @@
 #define URL_GetRechargePayParamForWechat    @"/api/weChat/pay/getRechargeParam" // 获取微信充值支付参数
 
 /**
- 客户相关
+ 订单相关
+ */
+#define URL_Order_Detail    @"/api/order/orderDetail" // 获取订单详情
+
+/**
+ 客户订单相关
  */
 #define URL_Customer_GetOrderListByStatus   @"/api/order/listOrderList" // 根据订单类型查询客户订单列表
-#define URL_Customer_EditOrderContacts      @"/api/order/update/contacts"
+#define URL_Customer_EditOrderContacts      @"/api/order/update/contacts" // 编辑订单联系人
+#define URL_Customer_OrderConfirm    @"/api/order/confirmOrder" // 确认收货 POST
+#define URL_Customer_OrderAbleConfirm @"/api/order/check/order" // 是否有收货权限 GET
+#define URL_Customer_OrderCancel     @"/api/order/cancelOrder" // 取消订单 PUT
+#define URL_Customer_SearchOrder    @"/api/order/getOrderNoByOrderNo" // 模糊搜索订单号 GET
+#define URL_Customer_EvaluateOrder  @"/api/order/evaluate" // 订单评价 POST
 
 /**
  站点相关

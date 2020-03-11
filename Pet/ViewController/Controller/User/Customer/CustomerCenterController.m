@@ -298,6 +298,8 @@ CustomerOrderCellDelegate>
         {
             MSLog(@"订单详情");
             OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
+            OrderEntity * order = [self getOrderEntityAtIndexPaht:indexPath];
+            orderDetailVC.orderNo = order.orderNo;
             [self.navigationController pushViewController:orderDetailVC animated:YES];
         }
             break;
@@ -323,6 +325,7 @@ CustomerOrderCellDelegate>
         {
             MSLog(@"评价订单");
             OrderEvaluateController * orderEvaluateController = [[OrderEvaluateController alloc]init];
+            orderEvaluateController.orderEntity = [self getOrderEntityAtIndexPaht:indexPath];
             [self.navigationController pushViewController:orderEvaluateController animated:YES];
         }
             break;
@@ -378,53 +381,22 @@ CustomerOrderCellDelegate>
 
 -(void)setSelectOrderType:(CustomerSelectOrderType)selectOrderType{
     _selectOrderType = selectOrderType;
-    BOOL needGetData = NO;
-    switch (selectOrderType) {
-        case CustomerSelectOrderType_unpay:
-            needGetData = kArrayIsEmpty(self.unpayOrderList);
-            break;
-        case CustomerSelectOrderType_unsend:
-            needGetData = kArrayIsEmpty(self.unsendOrderList);
-            break;
-        case CustomerSelectOrderType_unreceiver:
-            needGetData = kArrayIsEmpty(self.unreceiverOrderList);
-            break;
-        case CustomerSelectOrderType_complete:
-            needGetData = kArrayIsEmpty(self.completeOrderList);
-            break;
-    }
-    if (needGetData) {
-        [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
-        __weak typeof(self) weakSelf = self;
-        [[CustomerOrderManager shareCustomerOrderManager] getCustomerOrderListByType:selectOrderType success:^(id  _Nonnull data) {
-            [MBProgressHUD hideHUD];
-            NSArray * array = (NSArray *)data;
-            if (array == nil) {
-                array = [NSArray array];
-            }
-            switch (selectOrderType) {
-                case CustomerSelectOrderType_unpay:
-                    [weakSelf.unpayOrderList addObjectsFromArray:array];
-                    break;
-                case CustomerSelectOrderType_unsend:
-                    [weakSelf.unsendOrderList addObjectsFromArray:array];
-                    break;
-                case CustomerSelectOrderType_unreceiver:
-                    [weakSelf.unreceiverOrderList addObjectsFromArray:array];
-                    break;
-                case CustomerSelectOrderType_complete:
-                    [weakSelf.completeOrderList addObjectsFromArray:array];
-                    break;
-            }
-            NSIndexSet * set = [[NSIndexSet alloc]initWithIndex:2];
-            [weakSelf.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
-        } fail:^(NSInteger code) {
-            
-        }];
-    } else {
+    [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+    __weak typeof(self) weakSelf = self;
+    [[CustomerOrderManager shareCustomerOrderManager] getCustomerOrderListByType:selectOrderType success:^(id  _Nonnull data) {
+        [MBProgressHUD hideHUD];
+        NSArray * dataArray = (NSArray *)data;
+        if (dataArray == nil) {
+            dataArray = [NSArray array];
+        }
+        NSMutableArray * array = [weakSelf getOrderDataListWithOrderType:selectOrderType];
+        [array removeAllObjects];
+        [array addObjectsFromArray:dataArray];
         NSIndexSet * set = [[NSIndexSet alloc]initWithIndex:2];
-        [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
-    }
+        [weakSelf.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+    } fail:^(NSInteger code) {
+        
+    }];
 
 }
 
@@ -487,25 +459,27 @@ CustomerOrderCellDelegate>
     }
 }
 
+-(NSMutableArray *)getOrderDataListWithOrderType:(CustomerSelectOrderType)type{
+    switch (self.selectOrderType) {
+        case CustomerSelectOrderType_unpay:
+            return self.unpayOrderList;
+        case CustomerSelectOrderType_unsend:
+            return self.unsendOrderList;
+        case CustomerSelectOrderType_unreceiver:
+            return self.unreceiverOrderList;
+        case CustomerSelectOrderType_complete:
+            return self.completeOrderList;
+    }
+}
+
 /**
  获取当前行的订单对象
  
  @param indexPath indexPath
  */
 -(OrderEntity *)getOrderEntityAtIndexPaht:(NSIndexPath *)indexPath{
-    switch (self.selectOrderType) {
-        case CustomerSelectOrderType_unpay:
-            return self.unpayOrderList[indexPath.row];
-        
-        case CustomerSelectOrderType_unsend:
-            return self.unsendOrderList[indexPath.row];
-        
-        case CustomerSelectOrderType_unreceiver:
-            return self.unreceiverOrderList[indexPath.row];
-        
-        case CustomerSelectOrderType_complete:
-            return self.completeOrderList[indexPath.row];
-    }
+    NSMutableArray * array = [self getOrderDataListWithOrderType:self.selectOrderType];
+    return array[indexPath.row];
 }
 
 /**
@@ -593,14 +567,38 @@ CustomerOrderCellDelegate>
         return;
     }
     OrderEntity * tempOrderEntity = self.unreceiverOrderList[indexPath.row];
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"确认收货" message:[NSString stringWithFormat:@"是否确认签收订单:%@",tempOrderEntity.orderNo] preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        MSLog(@"确认签收");
+    __weak typeof(self) weakSelf = self;
+    [[CustomerOrderManager shareCustomerOrderManager] ableConfirmOrderWithOrderNo:tempOrderEntity.orderNo customrNo:[[UserManager shareUserManager] getCustomerNo] success:^(id  _Nonnull data) {
+        if ([data intValue] == 1) {
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"确认收货" message:[NSString stringWithFormat:@"是否确认签收订单:%@",tempOrderEntity.orderNo] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                MSLog(@"确认签收");
+                [[CustomerOrderManager shareCustomerOrderManager] receiverCustomerOrderWithOrderNo:tempOrderEntity.orderNo success:^(id  _Nonnull data) {
+                    if ([data intValue] == 1) {
+                        [MBProgressHUD showTipMessageInWindow:@"成功签收订单"];
+                        NSMutableArray * array = [weakSelf getOrderDataListWithOrderType:CustomerSelectOrderType_unreceiver];
+                        [array removeObjectAtIndex:indexPath.row
+                         ];
+                         NSIndexSet * set = [[NSIndexSet alloc]initWithIndex:2];
+                         [weakSelf.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+                    } else {
+                        [MBProgressHUD showTipMessageInWindow:@"签收失败"];
+                    }
+                } fail:^(NSInteger code) {
+                    
+                }];
+            }];
+            UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [alertController addAction:confirmAction];
+            [alertController addAction:cancelAction];
+            [weakSelf presentViewController:alertController animated:YES completion:nil];
+        } else {
+            [MBProgressHUD showErrorMessage:@"没有权限签收该订单"];
+        }
+    } fail:^(NSInteger code) {
+        
     }];
-    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [alertController addAction:confirmAction];
-    [alertController addAction:cancelAction];
-    [self presentViewController:alertController animated:YES completion:nil];
+    
 }
 
 /**
@@ -613,9 +611,24 @@ CustomerOrderCellDelegate>
         return;
     }
     OrderEntity * tempOrderEntity = self.unpayOrderList[indexPath.row];
+    __weak typeof(self) weakSelf = self;
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"确认取消" message:[NSString stringWithFormat:@"是否确认取消订单:%@",tempOrderEntity.orderNo] preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         MSLog(@"确认取消");
+        [[CustomerOrderManager shareCustomerOrderManager] cancelOrderWithOrderNo:tempOrderEntity.orderNo customerNo:[[UserManager shareUserManager] getCustomerNo] success:^(id  _Nonnull data) {
+            if ([data intValue] == 1) {
+                [MBProgressHUD showTipMessageInWindow:@"成功取消订单"];
+                NSMutableArray * array = [weakSelf getOrderDataListWithOrderType:CustomerSelectOrderType_unpay];
+                [array removeObjectAtIndex:indexPath.row
+                 ];
+                 NSIndexSet * set = [[NSIndexSet alloc]initWithIndex:2];
+                 [weakSelf.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+            } else {
+                [MBProgressHUD showTipMessageInWindow:@"取消失败"];
+            }
+        } fail:^(NSInteger code) {
+            
+        }];
     }];
     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:confirmAction];

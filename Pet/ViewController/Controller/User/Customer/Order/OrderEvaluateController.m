@@ -10,6 +10,7 @@
 #import "OrderEvaluateStarCell.h"
 #import "OrderEvaluateInputCell.h"
 #import "BottomButtonCell.h"
+#import "CustomerOrderManager.h"
 
 static NSString * OrderEvaluateStarCellIdentifier = @"OrderEvaluateStarCell";
 static NSString * OrderEvaluateInputCellIdentifier = @"OrderEvaluateInputCell";
@@ -108,6 +109,23 @@ static NSString * BottomButtonCellIdentifier = @"BottomButtonCell";
 
 -(void)tapBottomButton{
     MSLog(@"%@, %ld", self.evaluateContent, self.starLevel);
+    OrderEvaluate * evaluate = [[OrderEvaluate alloc]init];
+    evaluate.content = self.evaluateContent;
+    evaluate.star = self.starLevel;
+    evaluate.evaluator = [[UserManager shareUserManager] getPhone];
+    evaluate.order = self.orderEntity;
+    __weak typeof(self) weakSelf = self;
+    [[CustomerOrderManager shareCustomerOrderManager] evaluateOrder:evaluate success:^(id  _Nonnull data) {
+        if ([data intValue]) {
+            [AlertControllerTools showAlertWithTitle:@"评价成功" msg:nil items:@[@"确定"] showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }];
+        } else {
+            [MBProgressHUD showErrorMessage:@"评价失败"];
+        }
+    } fail:^(NSInteger code) {
+        
+    }];
 }
 
 #pragma mark - config cell
