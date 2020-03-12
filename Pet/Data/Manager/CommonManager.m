@@ -20,7 +20,10 @@ SingleImplementation(CommonManager);
  @param fail 失败回调
  @param jsessionidReturnBlock 返回 jsessionid
  */
--(void)getPhoneCodeByPhoneNumber:(NSString *)phoneNumber success:(SuccessBlock)success fail:(FailBlock)fail jsessionidReturnBlock:(void(^)(NSString * jsessionid))jsessionidReturnBlock{
+-(void)getPhoneCodeByPhoneNumber:(NSString *)phoneNumber
+                         success:(SuccessBlock)success
+                            fail:(FailBlock)fail
+           jsessionidReturnBlock:(void(^)(NSString * jsessionid))jsessionidReturnBlock{
     HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:URL_GetPhoneCode paramers:@{@"phoneNumber":phoneNumber} successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
         if (success) {
             success(data);

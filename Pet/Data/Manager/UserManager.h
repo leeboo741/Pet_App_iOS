@@ -121,8 +121,15 @@ SingleInterface(UserManager)
 -(BOOL)isService;
 -(BOOL)isBusiness;
 
+/**
+ 获取员工对象
+ */
 -(StaffEntity *)getStaff;
 
+/**
+ 获取员工编号
+ */
+-(NSString *)getStaffNo;
 /**
  获取用户编号
  */
@@ -137,13 +144,16 @@ SingleInterface(UserManager)
  *  @param notificationName 通知名称
  *  @parma action 注册响应方法
  */
--(void)registerUserManagerNotificationWithObserver:(id)observer notificationName:(NSString *)notificationName action:(SEL)action;
+-(void)registerUserManagerNotificationWithObserver:(id)observer
+                                  notificationName:(NSString *)notificationName
+                                            action:(SEL)action;
 /**
  *  移除UserManager相关通知监听
  *  @param observer 观察者
  *  @param notificationName 通知名称
  */
--(void)removeObserverForUserManager:(id)observer notificationName:(NSString *)notificationName;
+-(void)removeObserverForUserManager:(id)observer
+                   notificationName:(NSString *)notificationName;
 @end
 
 NS_ASSUME_NONNULL_END

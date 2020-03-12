@@ -60,7 +60,8 @@ SingleInterface(CustomerOrderManager);
  @param fail fail
  */
 -(void)receiverCustomerOrderWithOrderNo:(NSString *)orderNo
-                                success:(SuccessBlock)success fail:(FailBlock)fail;
+                                success:(SuccessBlock)success
+                                   fail:(FailBlock)fail;
 /**
  确认是否有权限签收订单
  
@@ -82,7 +83,10 @@ SingleInterface(CustomerOrderManager);
  @param success success
  @param fail fail 
  */
--(void)cancelOrderWithOrderNo:(NSString *)orderNo customerNo:(NSString *)customerNo success:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)cancelOrderWithOrderNo:(NSString *)orderNo
+                   customerNo:(NSString *)customerNo
+                      success:(SuccessBlock)success
+                         fail:(FailBlock)fail;
 
 /**
  评价订单
@@ -94,6 +98,16 @@ SingleInterface(CustomerOrderManager);
  -(void)evaluateOrder:(OrderEvaluate *)evaluate
               success:(SuccessBlock)success
                  fail:(FailBlock)fail;
+/**
+ 模糊查询点单号
+ 
+ @param orderNo 订单号
+ @param success success
+ @param fail fail
+ */
+-(void)getOrderNoByOrderNo:(NSString *)orderNo
+                   success:(SuccessBlock)success
+                      fail:(FailBlock)fail;
 @end
 
 NS_ASSUME_NONNULL_END

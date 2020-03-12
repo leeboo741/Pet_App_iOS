@@ -38,7 +38,9 @@ SingleImplementation(OrderManager);
 
 #pragma mark - public method
 
--(void)getPredictPriceWithModel:(TransportOrder *)order success:(SuccessBlock)success fail:(FailBlock)fail {
+-(void)getPredictPriceWithModel:(TransportOrder *)order
+                        success:(SuccessBlock)success
+                           fail:(FailBlock)fail {
     NSDictionary * param = [self getDictFromOrder:order];
     HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_POST Url:URL_PredictPrice paramers:param successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
         if (success) {
@@ -52,7 +54,11 @@ SingleImplementation(OrderManager);
     [[HttpManager shareHttpManager] requestWithRequestModel:model];
 }
 
--(void)getMaxPetCageWeightWithStartCity:(NSString *)startCity endCity:(NSString *)endCity transportType:(OrderTransportType)type success:(SuccessBlock)success fail:(FailBlock)fail{
+-(void)getMaxPetCageWeightWithStartCity:(NSString *)startCity
+                                endCity:(NSString *)endCity
+                          transportType:(OrderTransportType)type
+                                success:(SuccessBlock)success
+                                   fail:(FailBlock)fail{
     NSString * dictKey = [NSString stringWithFormat:@"%@-%@-%ld",startCity,endCity,type];
     NSNumber * maxPetWeight = [self.petWeightDict objectForKey:dictKey];
     if (!maxPetWeight) {
@@ -80,7 +86,10 @@ SingleImplementation(OrderManager);
     }
 }
 
--(void)getAbleTransportTypeWithStartCity:(NSString *)startCity endCity:(NSString *)endCity success:(SuccessBlock)success fail:(FailBlock)fail{
+-(void)getAbleTransportTypeWithStartCity:(NSString *)startCity
+                                 endCity:(NSString *)endCity
+                                 success:(SuccessBlock)success
+                                    fail:(FailBlock)fail{
     NSString * dictKey = [NSString stringWithFormat:@"%@-%@",startCity,endCity];
     NSArray * ableResults = [self.ableTransportTypeDict objectForKey:dictKey];
     if (kArrayIsEmpty(ableResults)) {
@@ -108,7 +117,9 @@ SingleImplementation(OrderManager);
     }
 }
 
--(void)getInsureRateByStartCity:(NSString *)startCity success:(SuccessBlock)success fail:(FailBlock)fail{
+-(void)getInsureRateByStartCity:(NSString *)startCity
+                        success:(SuccessBlock)success
+                           fail:(FailBlock)fail{
     InsureRateModel * insureRate = [self.startCityInsureRateDict objectForKey:startCity];
     if (!insureRate) {
         __weak typeof(self) weakSelf = self;
@@ -131,7 +142,9 @@ SingleImplementation(OrderManager);
     }
 }
 
--(void)getServicePhoneByStartCity:(NSString *)startCity success:(SuccessBlock)success fail:(FailBlock)fail{
+-(void)getServicePhoneByStartCity:(NSString *)startCity
+                          success:(SuccessBlock)success
+                             fail:(FailBlock)fail{
     NSString * servicePhone = [self.startCityServicePhoneDict objectForKey:startCity];
     if (kStringIsEmpty(servicePhone)) {
         __weak typeof(self) weakSelf = self;
@@ -153,7 +166,9 @@ SingleImplementation(OrderManager);
     }
 }
 
--(void)getStartCityWithKeyword:(NSString *)keyword success:(GetCityDataReturnBlock)success fail:(FailBlock)fail{
+-(void)getStartCityWithKeyword:(NSString *)keyword
+                       success:(GetCityDataReturnBlock)success
+                          fail:(FailBlock)fail{
     if (kStringIsEmpty(keyword)) {
         if (!kArrayIsEmpty(self.startCitys)) {
             if (success) {
@@ -185,7 +200,10 @@ SingleImplementation(OrderManager);
     }
 }
 
--(void)getEndCityWithStartCity:(NSString *)startCity keyword:(NSString *)keyword success:(GetCityDataReturnBlock)success fail:(FailBlock)fail{
+-(void)getEndCityWithStartCity:(NSString *)startCity
+                       keyword:(NSString *)keyword
+                       success:(GetCityDataReturnBlock)success
+                          fail:(FailBlock)fail{
     if (kStringIsEmpty(keyword)) {
         if ([self.endCityDict objectForKey:startCity]) {
             if (success) {
@@ -219,7 +237,8 @@ SingleImplementation(OrderManager);
     
 }
 
--(void)getPetTypeSuccess:(SuccessBlock)success fail:(FailBlock)fail{
+-(void)getPetTypeSuccess:(SuccessBlock)success
+                    fail:(FailBlock)fail{
     if (self.petTypes) {
         if (success) {
             success(self.petTypes);
@@ -342,7 +361,8 @@ SingleImplementation(OrderManager);
  @param data 服务器返回数据
  @param getDataReturnBlock 获取数据回调
  */
--(void)handlerCityDataWithData:(NSArray *)data getCityDataReturnBlock:(GetCityDataReturnBlock)getDataReturnBlock{
+-(void)handlerCityDataWithData:(NSArray *)data
+        getCityDataReturnBlock:(GetCityDataReturnBlock)getDataReturnBlock{
     // 解出城市数据
     NSArray * cityList = [CityModel mj_objectArrayWithKeyValuesArray:data];
     // 整理完成收城市数据容器
@@ -380,7 +400,10 @@ SingleImplementation(OrderManager);
  @param keyword 关键字
  @param dataSource 数据源
  */
--(void)getSearchResultWithKeyword:(NSString *)keyword dataSource:(NSArray *)dataSource indexArray:(NSArray *)indexArray getDataReturnBlock:(GetCityDataReturnBlock)returnBlock{
+-(void)getSearchResultWithKeyword:(NSString *)keyword
+                       dataSource:(NSArray *)dataSource
+                       indexArray:(NSArray *)indexArray
+               getDataReturnBlock:(GetCityDataReturnBlock)returnBlock{
     if (kStringIsEmpty(keyword) || kArrayIsEmpty(dataSource)) {
         if (returnBlock) {
             returnBlock(dataSource, indexArray);
@@ -420,7 +443,8 @@ SingleImplementation(OrderManager);
  
  @param keyword 关键字
  */
--(void)getStartSearchDataWithKeyWord:(NSString *)keyword getDataReturnBlock:(GetCityDataReturnBlock)returnBlock{
+-(void)getStartSearchDataWithKeyWord:(NSString *)keyword
+                  getDataReturnBlock:(GetCityDataReturnBlock)returnBlock{
     [self getSearchResultWithKeyword:keyword dataSource:self.startCitys indexArray:self.startCityIndexs getDataReturnBlock:returnBlock];
 }
 
@@ -430,7 +454,9 @@ SingleImplementation(OrderManager);
  @param keyword 关键字
  @param startCity 开始城市
  */
--(void)getEndSearchDataWithKeyword:(NSString *)keyword startCity:(NSString *)startCity getDataReturnBlock:(GetCityDataReturnBlock)returnBlock{
+-(void)getEndSearchDataWithKeyword:(NSString *)keyword
+                         startCity:(NSString *)startCity
+                getDataReturnBlock:(GetCityDataReturnBlock)returnBlock{
     [self getSearchResultWithKeyword:keyword dataSource:[self.endCityDict objectForKey:startCity] indexArray:[self.endCityIndexDict objectForKey:startCity] getDataReturnBlock:returnBlock];
 }
 

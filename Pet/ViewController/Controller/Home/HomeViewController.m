@@ -11,6 +11,9 @@
 #import "StationListViewController.h"
 #import "TransportOrderViewController.h"
 #import "TestShowBoxViewController.h"
+#import "CustomerOrderManager.h"
+#import "SiteOrderManager.h"
+#import "OrderDetailController.h"
 
 @interface HomeViewAction : NSObject<HomeActionProtocol>
 @property (nonatomic, copy) NSString * iconName;
@@ -53,6 +56,34 @@
 }
 
 #pragma mark - home view delegate
+-(void)handlerSearchResut:(NSString *)result{
+    if (kStringIsEmpty(result)) {
+        [MBProgressHUD showErrorMessage:@"没有查到相关单据"];
+        return;
+    } else {
+        OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
+        orderDetailVC.orderNo = result;
+        [self.navigationController pushViewController:orderDetailVC animated:YES];
+    }
+}
+-(void)homeViewConfirmSearhWithText:(NSString *)searchWord{
+    __weak typeof(self) weakSelf = self;
+    if ([[UserManager shareUserManager] getCurrentUserRole] == CURRENT_USER_ROLE_CUSTOMER) {
+        [[CustomerOrderManager shareCustomerOrderManager] getOrderNoByOrderNo:searchWord success:^(id  _Nonnull data) {
+            [weakSelf handlerSearchResut:data];
+        } fail:^(NSInteger code) {
+            
+        }];
+    } else if ([[UserManager shareUserManager] getCurrentUserRole] == CURRENT_USER_ROLE_STAFF) {
+        [[SiteOrderManager shareSiteOrderManager] getOrderNoByOrderNo:searchWord success:^(id  _Nonnull data) {
+            [weakSelf handlerSearchResut:data];
+        } fail:^(NSInteger code) {
+            
+        }];
+    } else {
+        [weakSelf handlerSearchResut:nil];
+    }
+}
 -(void)homeViewSelectBannerAtIndex:(NSInteger)index{
     
 }

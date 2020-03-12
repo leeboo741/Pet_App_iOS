@@ -260,7 +260,7 @@
         [_pravicyButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(IconFont_Unselected, 32, Color_blue_1)] forState:UIControlStateNormal];
         
         [_pravicyButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(IconFont_Selected, 32, Color_blue_1)] forState:UIControlStateSelected];
-        NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle],NSForegroundColorAttributeName:Color_blue_1};
+        NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName:kIntegerNumber(NSUnderlineStyleSingle) ,NSForegroundColorAttributeName:Color_blue_1};
         NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:@"您已阅读并同意<隐私条款>" attributes:attribtDic];
         [_pravicyButton setAttributedTitle:attribtStr forState:UIControlStateNormal];
         _pravicyButton.titleLabel.font = kFontSize(15);

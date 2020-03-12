@@ -75,4 +75,22 @@
     NSString * string = [sourceString stringByRemovingPercentEncoding];
     return string;
 }
+/**
+ 获取地址中的参数字典
+ 
+ @param url 地址
+ */
++(NSDictionary *)getUrlParamDict:(NSString *)url{
+    NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    NSArray * array = [url componentsSeparatedByString:@"?"];
+    if (!Util_IsEmptyArray(array) && array.count == 2) {
+        NSString * string = array[1];
+        NSArray * subArray = [string componentsSeparatedByString:@"&"];
+        for (NSString * subString in subArray) {
+            NSArray * paramArray = [subString componentsSeparatedByString:@"="];
+            [dict setObject:paramArray[1] forKey:paramArray[0]];
+        }
+    }
+    return dict;
+}
 @end

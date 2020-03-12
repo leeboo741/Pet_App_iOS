@@ -48,12 +48,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * cageName;
 @property (nonatomic, assign) CGFloat cagePrice;
 @end
-
+/// 备注信息
+@class OrderEntity;
 @interface OrderRemarks : NSObject
 @property (nonatomic, strong) StationEntity * station;
 @property (nonatomic, strong) StaffEntity * staff;
 @property (nonatomic, copy) NSString * remarks;
 @property (nonatomic, copy) NSString * dateTime;
+@property (nonatomic, strong) OrderEntity * order;
 @end
 /// 临派信息
 @interface OrderTempDeliver : NSObject
@@ -98,6 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * orderType;
 @property (nonatomic, assign) int sn;
 @property (nonatomic, strong) NSArray<OrderMedia *> * orderMediaList;
+@property (nonatomic, copy) NSString * currentPosition; 
 @end
 /// 订单
 @interface OrderEntity : NSObject

@@ -97,6 +97,9 @@ static CGFloat Action_Content_Width_Multiplied = 0.9; // action content 宽度 �
 #pragma mark - text feild delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     MSLog(@"点击确定搜索");
+    if (_delegate && [_delegate respondsToSelector:@selector(homeViewConfirmSearhWithText:)]) {
+        [_delegate homeViewConfirmSearhWithText:textField.text];
+    }
     return  YES;
 }
 

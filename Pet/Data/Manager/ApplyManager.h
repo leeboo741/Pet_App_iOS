@@ -45,7 +45,9 @@ SingleInterface(ApplyManager);
  @param success 成功回调
  @param fail 失败回调
  */
--(void)requestStaffApply:(ApplyStaffModel *)applyStaffModel success:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)requestStaffApply:(ApplyStaffModel *)applyStaffModel
+                 success:(SuccessBlock)success
+                    fail:(FailBlock)fail;
 
 /**
  商家申请
@@ -54,7 +56,9 @@ SingleInterface(ApplyManager);
  @param success 成功回调
  @param fail 失败回调
  */
--(void)requestStationApply:(ApplyStationModel *)applyStationModel success:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)requestStationApply:(ApplyStationModel *)applyStationModel
+                   success:(SuccessBlock)success
+                      fail:(FailBlock)fail;
 @end
 
 NS_ASSUME_NONNULL_END

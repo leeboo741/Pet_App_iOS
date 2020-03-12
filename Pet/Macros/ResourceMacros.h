@@ -151,24 +151,33 @@
 #define URL_Customer_OrderConfirm    @"/api/order/confirmOrder" // 确认收货 POST
 #define URL_Customer_OrderAbleConfirm @"/api/order/check/order" // 是否有收货权限 GET
 #define URL_Customer_OrderCancel     @"/api/order/cancelOrder" // 取消订单 PUT
-#define URL_Customer_SearchOrder    @"/api/order/getOrderNoByOrderNo" // 模糊搜索订单号 GET
+#define URL_Customer_SearchOrder    @"/api/consign/order-no/customer" // 模糊搜索订单号 GET 未完成
 #define URL_Customer_EvaluateOrder  @"/api/order/evaluate" // 订单评价 POST
 
+/**
+ 员工相关
+ */
+#define URL_Site_AddOrderRemark @"/api/order/remarks" // 添加订单备注 POST
+#define URL_Site_AddPremium @"/api/order/premium" // 新增补价单 POST
+#define URL_Site_CancelPremium  @"/api/order/premium/cancel" // 取消补价单 PUT
+#define URL_Site_GetUnpayPremiumCount   @"/api/order/premium/count/unpaid" // 获取未支付的补价单数量
+#define URL_Site_SearchOrder    @"/api/consign/order-no/staff" // 模糊搜索订单号
 /**
  站点相关
  */
 #define URL_Staion_List         @"/api/business/listByPosition" // 获取周边商家|完成
 
 /**
- 员工相关
- */
-#define URL_Site_ @""
-
-/**
  申请相关
  */
 #define URL_ApplyStaff          @"/api/staff/applyForStaff" // 员工注册 |完成
 #define URL_ApplyStation        @"/business/insetBusiness" // 站点注册 |完成
+
+/**
+ 消息相关
+ */
+#define URL_Message_GetMessageList  @"/api/message/customer" // 获取 站内信列表
+#define URL_Message_GetNewMessageList   @"/api/message/push/" // 获取 最新站内信
 
 /**
  微信接口

@@ -38,7 +38,12 @@ SingleInterface(StationManager);
  @param success 成功回调
  @param fail 失败回调
  */
--(void)getStationWithPageIndex:(NSInteger)pageIndex pageSize:(NSInteger)pageSize latitude:(double)latitude longitude:(double)longitude success:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)getStationWithPageIndex:(NSInteger)pageIndex
+                      pageSize:(NSInteger)pageSize
+                      latitude:(double)latitude
+                     longitude:(double)longitude
+                       success:(SuccessBlock)success
+                          fail:(FailBlock)fail;
 /**
  通过城市查询站点列表
  @param province 省
@@ -46,7 +51,10 @@ SingleInterface(StationManager);
  @param success 成功回调
  @param fail 失败回调
  */
--(void)getStationListWithProvince:(NSString *)province city:(NSString *)city success:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)getStationListWithProvince:(NSString *)province
+                             city:(NSString *)city
+                          success:(SuccessBlock)success
+                             fail:(FailBlock)fail;
 @end
 
 NS_ASSUME_NONNULL_END

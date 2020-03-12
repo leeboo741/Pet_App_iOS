@@ -40,7 +40,6 @@
 
 // Manager
 #import "UserManager.h"
-#import "GlobalDataManager.h"
 
 // ViewController
 #import "MainTabbarController.h"

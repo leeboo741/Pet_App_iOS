@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderRemarkInputCell : UITableViewCell
 @property (nonatomic, weak) id<OrderRemarkInputCellDelegate>delegate;
+-(void)clearInput;
 @end
 
 NS_ASSUME_NONNULL_END

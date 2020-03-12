@@ -253,6 +253,18 @@ SingleImplementation(UserManager)
     || self.user.userRole == USER_ROLE_BUSINESS;
 }
 /**
+ 获取员工
+ */
+-(StaffEntity *)getStaff{
+    return self.user.staff;
+}
+/**
+ 获取员工编号
+ */
+-(NSString *)getStaffNo{
+    return self.user.staff.staffNo;
+}
+/**
  *  获取客户编号
  */
 -(NSString *)getCustomerNo{

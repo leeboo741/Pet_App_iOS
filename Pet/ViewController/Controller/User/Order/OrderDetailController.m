@@ -43,14 +43,18 @@
 #import "OrderRemarkInputCell.h"
 #import "OrderStepCell.h"
 #import "OrderTempDeliverCell.h"
+#import "OrderRemarkCell.h"
+#import "DateUtils.h"
+#import "CommonOrderManager.h"
 
 static NSString * OrderInfoCellIdentifier = @"OrderInfoCell";
 static NSString * OrderPremiumCellIdentifier = @"OrderPremiumCell";
 static NSString * OrderRemarkInputCellIdentifier = @"OrderRemarkInputCell";
+static NSString * OrderRemarkCellIdentifier = @"OrderRemarkCell";
 static NSString * OrderStepCellIdentifier = @"OrderStepCell";
 static NSString * OrderTempDeliverCellIdentifier = @"OrderTempDeliverCell";
 
-@interface OrderDetailController () <OrderPremiumCellDelegate>
+@interface OrderDetailController () <OrderPremiumCellDelegate,OrderRemarkInputCellDelegate>
 @property (nonatomic, strong) NSArray<PremiumModel *> * premiumList;
 @property (nonatomic, strong) NSArray * baseInfoList;
 @property (nonatomic, strong) NSArray * addServiceList;
@@ -58,13 +62,23 @@ static NSString * OrderTempDeliverCellIdentifier = @"OrderTempDeliverCell";
 @property (nonatomic, strong) NSArray * remarkList;
 @property (nonatomic, strong) NSArray * orderStepList;
 @property (nonatomic, strong) OrderEntity * orderEntity;
+@property (nonatomic, assign) BOOL ableConfirmOrder;
+@property (nonatomic, strong) UIButton * confirmButton;
 @end
 
 @implementation OrderDetailController
+-(instancetype)init{
+    if (self = [super init]) {
+        self.ableConfirmOrder = NO;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"订单详情";
+    
+    self.tableView.backgroundColor = Color_white_1;
     
     [self.tableView registerNib:[UINib nibWithNibName:OrderInfoCellIdentifier bundle:nil]
          forCellReuseIdentifier:OrderInfoCellIdentifier];
@@ -75,28 +89,48 @@ static NSString * OrderTempDeliverCellIdentifier = @"OrderTempDeliverCell";
     [self.tableView registerNib:[UINib nibWithNibName:OrderRemarkInputCellIdentifier bundle:nil]
          forCellReuseIdentifier:OrderRemarkInputCellIdentifier];
     
+    [self.tableView registerNib:[UINib nibWithNibName:OrderRemarkCellIdentifier bundle:nil] forCellReuseIdentifier:OrderRemarkCellIdentifier];
+    
     [self.tableView registerNib:[UINib nibWithNibName:OrderStepCellIdentifier bundle:nil]
          forCellReuseIdentifier:OrderStepCellIdentifier];
     
     [self.tableView registerNib:[UINib nibWithNibName:OrderTempDeliverCellIdentifier bundle:nil] forCellReuseIdentifier:OrderTempDeliverCellIdentifier];
     
     [self getOrderDetailWithOrderNo:self.orderNo];
+    [self checkAbleConfirmOrder:self.orderNo];
 }
 #pragma mark - private method
-
--(void)getOrderDetailWithOrderNo:(NSString *)orderNo{
-    NSDictionary * dict = @{
-        @"orderNo": orderNo,
-        @"customerNo": [[UserManager shareUserManager] getCustomerNo]
-    };
+-(void)confirmOrderAction{
     __weak typeof(self) weakSelf = self;
-    HttpRequestModel * model = [[HttpRequestModel alloc] initWithType:HttpRequestMethodType_GET Url:URL_Order_Detail paramers:dict successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
-        weakSelf.orderEntity = [OrderEntity mj_objectWithKeyValues:data];
-        [weakSelf.tableView reloadData];
-    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+    NSString * orderNo = self.orderNo;
+    [[CustomerOrderManager shareCustomerOrderManager] receiverCustomerOrderWithOrderNo:orderNo success:^(id  _Nonnull data) {
+        [weakSelf checkAbleConfirmOrder:orderNo];
+        [weakSelf getOrderDetailWithOrderNo:orderNo];
+    } fail:^(NSInteger code) {
         
     }];
-    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
+
+-(void)checkAbleConfirmOrder:(NSString * )orderNo{
+    __weak typeof(self) weakSelf = self;
+    [[CustomerOrderManager shareCustomerOrderManager] ableConfirmOrderWithOrderNo:orderNo customrNo:[[UserManager shareUserManager] getCustomerNo] success:^(id  _Nonnull data) {
+        if ([data intValue] == 1) {
+            weakSelf.ableConfirmOrder = true;
+            [weakSelf.tableView reloadData];
+        }
+    } fail:^(NSInteger code) {
+        
+    }];
+}
+
+-(void)getOrderDetailWithOrderNo:(NSString *)orderNo{
+    __weak typeof(self) weakSelf = self;
+    [[CommonOrderManager shareCommonOrderManager] getOrderDetailWithOrderNo:orderNo success:^(id  _Nonnull data) {
+        weakSelf.orderEntity = (OrderEntity*)data;
+        [weakSelf.tableView reloadData];
+    } fail:^(NSInteger code) {
+        
+    }];
 }
 
 -(NSString *)getCellValueWithValue:(NSString *)value{
@@ -118,6 +152,18 @@ static NSString * OrderTempDeliverCellIdentifier = @"OrderTempDeliverCell";
         return @"是";
     }
     return @"否";
+}
+
+-(BOOL)ableShowRemark{
+    return [[UserManager shareUserManager] getCurrentUserRole] == CURRENT_USER_ROLE_STAFF;
+}
+
+-(BOOL)ableShowTempDeliver{
+    return !kArrayIsEmpty(self.orderEntity.orderTempDelivers);
+}
+
+-(BOOL)ableShowPremium{
+    return !kArrayIsEmpty(self.premiumList);
 }
 
 #pragma mark - tableView datasource and delegate
@@ -147,7 +193,7 @@ static NSString * OrderTempDeliverCellIdentifier = @"OrderTempDeliverCell";
             [self configRemarkInputCell:cell atIndexPath:indexPath];
             return cell;
         } else {
-            OrderInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:OrderInfoCellIdentifier forIndexPath:indexPath];
+            OrderRemarkCell * cell = [tableView dequeueReusableCellWithIdentifier:OrderRemarkCellIdentifier forIndexPath:indexPath];
             [self configRemarkCell:cell atIndexPath:indexPath];
             return cell;
         }
@@ -191,7 +237,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     [self configRemarkInputCell:cell atIndexPath:indexPath];
                 }];
             } else {
-                return [tableView fd_heightForCellWithIdentifier:OrderInfoCellIdentifier configuration:^(id cell) {
+                return [tableView fd_heightForCellWithIdentifier:OrderRemarkCellIdentifier configuration:^(id cell) {
                     [self configRemarkCell:cell atIndexPath:indexPath];
                 }];
             }
@@ -211,7 +257,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 numberOfRowsInSection:(NSInteger)section{
     switch (section) {
         case 0:
-            return self.premiumList.count;
+            return [self ableShowPremium]?self.premiumList.count:0;
         case 1:
             return self.baseInfoList.count;
         case 2:
@@ -219,9 +265,9 @@ numberOfRowsInSection:(NSInteger)section{
         case 3:
             return self.senderAndReceiverList.count;
         case 4:
-            return Util_IsEmptyArray(self.orderEntity.orderTempDelivers)?0:self.orderEntity.orderTempDelivers.count;
+            return [self ableShowTempDeliver]?self.orderEntity.orderTempDelivers.count:0;
         case 5:
-            return self.remarkList.count + 1;
+            return [self ableShowRemark]?self.remarkList.count + 1:0;
         case 6:
             return self.orderStepList.count;
         default:
@@ -243,7 +289,7 @@ titleForHeaderInSection:(NSInteger)section{
         case 4:
             return @"临时派送";
         case 5:
-            return @"备注";
+            return @"员工备注";
         case 6:
             return @"订单进度";
         default:
@@ -254,7 +300,7 @@ titleForHeaderInSection:(NSInteger)section{
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     switch (section) {
         case 0:
-            return kArrayIsEmpty(self.premiumList)? 0: 40;
+            return [self ableShowPremium]?40:0;
         case 1:
             return 40;
         case 2:
@@ -262,8 +308,9 @@ titleForHeaderInSection:(NSInteger)section{
         case 3:
             return 40;
         case 4:
-            return kArrayIsEmpty(self.orderEntity.orderTempDelivers)?0:40;
+            return [self ableShowTempDeliver]?40:0;
         case 5:
+            return [self ableShowRemark]?40:0;
             return 40;
         case 6:
             return 40;
@@ -272,15 +319,64 @@ titleForHeaderInSection:(NSInteger)section{
     }
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if (section == 6) {
+        return self.ableConfirmOrder?self.confirmButton:nil;
+    }
+    return nil;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == 6) {
+        return self.ableConfirmOrder?60:0;
+    }
+    return 0;
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 7;
 }
 
 #pragma mark - cell delegate
 
+-(void)remarkInputShouldReturnAtCell:(OrderRemarkInputCell *)cell text:(NSString *)text{
+    OrderRemarks * orderRemark = [[OrderRemarks alloc] init];
+    orderRemark.staff = [[UserManager shareUserManager] getStaff];
+    orderRemark.order = self.orderEntity;
+    orderRemark.remarks = text;
+    orderRemark.dateTime = [[DateUtils shareDateUtils] getDateStringWithDate:[NSDate date] withFormatterStr:Formatter_YMDHMS];
+    [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+    __weak typeof(self) weakSelf = self;
+    [[SiteOrderManager shareSiteOrderManager] addOrderRemark:orderRemark success:^(id  _Nonnull data) {
+        [MBProgressHUD  hideHUD];
+        if ([data intValue] < 1) {
+            [MBProgressHUD showErrorMessage:@"新增备注失败"];
+        } else {
+            NSMutableArray * array = [NSMutableArray arrayWithArray:weakSelf.orderEntity.orderRemarksList];
+            [array insertObject:orderRemark atIndex:0];
+            weakSelf.orderEntity.orderRemarksList = [NSArray arrayWithArray:array];
+            [weakSelf.tableView reloadData];
+            [cell clearInput];
+        }
+    } fail:^(NSInteger code) {
+        
+    }];
+}
+
 -(void)tapPremiumCancelButtonAtOrderPremiumCell:(OrderPremiumCell *)cell{
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     OrderPremium * premium = self.orderEntity.orderPremiumList[indexPath.row];
+    __weak typeof(self) weakSelf = self;
+    [[SiteOrderManager shareSiteOrderManager] cancelOrderPremiumWithBillNo:premium.billNo success:^(id  _Nonnull data) {
+        if ([data intValue] < 1) {
+            [MBProgressHUD showErrorMessage:@"取消失败"];
+        } else {
+            premium.state = @"已取消";
+            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    } fail:^(NSInteger code) {
+        
+    }];
 }
 
 -(void)tapPremiumButtonWithState:(NSString *)premiumState atOrderPremiumCell:(OrderPremiumCell *)cell{
@@ -292,9 +388,7 @@ titleForHeaderInSection:(NSInteger)section{
     paymentViewController.paymentType = Payment_Order_Type_Premium;
     __weak typeof(self) weakSelf = self;
     paymentViewController.completeBlock = ^(BOOL paySuccess) {
-//        if (paySuccess) {
-            [weakSelf.tableView reloadData];
-//        }
+        [weakSelf.tableView reloadData];
     };
     [self.navigationController pushViewController:paymentViewController animated:YES];
 }
@@ -397,11 +491,13 @@ titleForHeaderInSection:(NSInteger)section{
 }
 
 -(void)configRemarkInputCell:(OrderRemarkInputCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    
+    cell.delegate = self;
 }
 
--(void)configRemarkCell:(OrderInfoCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    
+-(void)configRemarkCell:(OrderRemarkCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    OrderRemarks * remarks = self.orderEntity.orderRemarksList[indexPath.row];
+    cell.remarkContent = remarks.remarks;
+    cell.remarkTime = remarks.dateTime;
 }
 
 -(void)configStepCell:(OrderStepCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -420,6 +516,16 @@ titleForHeaderInSection:(NSInteger)section{
 }
 
 #pragma mark - setters and getters
+-(UIButton *)confirmButton{
+    if (!_confirmButton) {
+        _confirmButton = [[UIButton alloc]init];
+        [_confirmButton setBackgroundColor:Color_yellow_1];
+        [_confirmButton setTitle:@"确认收货" forState:UIControlStateNormal];
+        [_confirmButton setTitleColor:Color_white_1 forState:UIControlStateNormal];
+        [_confirmButton addTarget:self action:@selector(confirmOrderAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _confirmButton;
+}
 -(NSArray<PremiumModel *> *)premiumList{
     if (kArrayIsEmpty(self.orderEntity.orderPremiumList)) {
         _premiumList = @[];
@@ -462,32 +568,31 @@ titleForHeaderInSection:(NSInteger)section{
 }
 
 -(NSArray *)remarkList{
-    if (!_remarkList) {
+    if (self.orderEntity.orderRemarksList) {
+        _remarkList = self.orderEntity.orderRemarksList;
+    } else {
         _remarkList = @[];
     }
     return _remarkList;
 }
 
 -(NSArray *)orderStepList{
-    if (!_orderStepList) {
-        OrderStepModel * model = [[OrderStepModel alloc]init];
-        model.stepTitle = @"步骤1";
-        model.stepTime = @"2020-01-10 01:06:22";
-        model.stepMediaList = @[@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578245807510&di=70db1216e8c5a7dc9c1ea808a28a249e&imgtype=0&src=http%3A%2F%2Fbig5.wallcoo.com%2Fphotograph%2Fsummer_feeling%2Fimages%2F%255Bwallcoo.com%255D_summer_feeling_234217.jpg",@"https://media.w3.org/2010/05/sintel/trailer.mp4",@"https://buzhidao.ss.com/sda"];
-        OrderStepModel * model1 = [[OrderStepModel alloc]init];
-        model1.stepTitle = @"步骤2";
-        model1.stepTime = @"2020-01-10 01:06:22";
-        model1.stepMediaList = nil;
-        OrderStepModel * model2 = [[OrderStepModel alloc]init];
-        model2.stepTitle = @"步骤3";
-        model2.stepTime = @"2020-01-10 01:06:22";
-        model2.stepMediaList = @[@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578245807510&di=70db1216e8c5a7dc9c1ea808a28a249e&imgtype=0&src=http%3A%2F%2Fbig5.wallcoo.com%2Fphotograph%2Fsummer_feeling%2Fimages%2F%255Bwallcoo.com%255D_summer_feeling_234217.jpg",@"https://media.w3.org/2010/05/sintel/trailer.mp4",@"https://buzhidao.ss.com/sda",@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578245807510&di=70db1216e8c5a7dc9c1ea808a28a249e&imgtype=0&src=http%3A%2F%2Fbig5.wallcoo.com%2Fphotograph%2Fsummer_feeling%2Fimages%2F%255Bwallcoo.com%255D_summer_feeling_234217.jpg",@"https://media.w3.org/2010/05/sintel/trailer.mp4",@"https://buzhidao.ss.com/sda",@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578245807510&di=70db1216e8c5a7dc9c1ea808a28a249e&imgtype=0&src=http%3A%2F%2Fbig5.wallcoo.com%2Fphotograph%2Fsummer_feeling%2Fimages%2F%255Bwallcoo.com%255D_summer_feeling_234217.jpg",@"https://media.w3.org/2010/05/sintel/trailer.mp4",@"https://buzhidao.ss.com/sda"];
-        OrderStepModel * model3 = [[OrderStepModel alloc]init];
-        model3.stepTitle = @"步骤4";
-        model3.stepTime = @"2020-01-10 01:06:22";
-        model3.stepMediaList = @[@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578245807510&di=70db1216e8c5a7dc9c1ea808a28a249e&imgtype=0&src=http%3A%2F%2Fbig5.wallcoo.com%2Fphotograph%2Fsummer_feeling%2Fimages%2F%255Bwallcoo.com%255D_summer_feeling_234217.jpg",@"https://media.w3.org/2010/05/sintel/trailer.mp4",@"https://buzhidao.ss.com/sda"];
-        
-        _orderStepList = @[model,model1,model2,model3];
+    if (self.orderEntity.orderStates) {
+        NSMutableArray * array = [NSMutableArray array];
+        for (OrderStatus * orderStatus in self.orderEntity.orderStates) {
+            OrderStepModel * model = [[OrderStepModel alloc]init];
+            model.stepTitle = orderStatus.currentPosition;
+            model.stepTime = [NSString stringWithFormat:@"%@ %@",orderStatus.date,orderStatus.time];
+            NSMutableArray * mediaArray = [NSMutableArray array];
+            for (OrderMedia * media in orderStatus.orderMediaList) {
+                [mediaArray addObject:media.mediaAddress];
+            }
+            model.stepMediaList = [NSArray arrayWithArray:mediaArray];
+            [array addObject:model];
+        }
+        _orderStepList = [NSArray arrayWithArray:array];
+    } else {
+        _orderStepList = @[];
     }
     return _orderStepList;
 }

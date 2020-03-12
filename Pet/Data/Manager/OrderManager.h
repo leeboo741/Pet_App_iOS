@@ -69,7 +69,9 @@ SingleInterface(OrderManager);
  @param success 成功回调
  @param fail 失败回调
  */
--(void)getPredictPriceWithModel:(TransportOrder *)order success:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)getPredictPriceWithModel:(TransportOrder *)order
+                        success:(SuccessBlock)success
+                           fail:(FailBlock)fail;
 
 /**
  查询可接受最大箱子重量
@@ -80,7 +82,11 @@ SingleInterface(OrderManager);
  @param success 成功回调
  @param fail 失败回调
  */
--(void)getMaxPetCageWeightWithStartCity:(NSString *)startCity endCity:(NSString *)endCity transportType:(OrderTransportType)type success:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)getMaxPetCageWeightWithStartCity:(NSString *)startCity
+                                endCity:(NSString *)endCity
+                          transportType:(OrderTransportType)type
+                                success:(SuccessBlock)success
+                                   fail:(FailBlock)fail;
 
 /**
  查询可用运输方式
@@ -90,7 +96,10 @@ SingleInterface(OrderManager);
  @param success 成功回调
  @param fail 结束回调
  */
--(void)getAbleTransportTypeWithStartCity:(NSString *)startCity endCity:(NSString *)endCity success:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)getAbleTransportTypeWithStartCity:(NSString *)startCity
+                                 endCity:(NSString *)endCity
+                                 success:(SuccessBlock)success
+                                    fail:(FailBlock)fail;
 /**
  通过城市获取保险费率
 
@@ -98,7 +107,9 @@ SingleInterface(OrderManager);
  @param success 成功回调
  @param fail 结束回调
  */
--(void)getInsureRateByStartCity:(NSString *)startCity success:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)getInsureRateByStartCity:(NSString *)startCity
+                        success:(SuccessBlock)success
+                           fail:(FailBlock)fail;
 
 /**
  通过城市获取商家电话
@@ -107,7 +118,9 @@ SingleInterface(OrderManager);
  @param success 成功回调
  @param fail 结束回调
  */
--(void)getServicePhoneByStartCity:(NSString *)startCity success:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)getServicePhoneByStartCity:(NSString *)startCity
+                          success:(SuccessBlock)success
+                             fail:(FailBlock)fail;
 
 /**
  获取宠物类型列表
@@ -115,7 +128,8 @@ SingleInterface(OrderManager);
  @param success 成功回调
  @param fail 结束回调
  */
--(void)getPetTypeSuccess:(SuccessBlock)success fail:(FailBlock)fail;
+-(void)getPetTypeSuccess:(SuccessBlock)success
+                    fail:(FailBlock)fail;
 
 /**
  获取开始城市列表
@@ -124,7 +138,9 @@ SingleInterface(OrderManager);
  @param success 成功回调
  @param fail 结束回调
  */
--(void)getStartCityWithKeyword:(NSString *)keyword success:(GetCityDataReturnBlock)success fail:(FailBlock)fail;
+-(void)getStartCityWithKeyword:(NSString *)keyword
+                       success:(GetCityDataReturnBlock)success
+                          fail:(FailBlock)fail;
 
 /**
  获取结束城市列表
@@ -134,7 +150,10 @@ SingleInterface(OrderManager);
  @param success 成功回调
  @param fail 结束回调
  */
--(void)getEndCityWithStartCity:(NSString *)startCity keyword:(NSString *)keyword success:(GetCityDataReturnBlock)success fail:(FailBlock)fail;
+-(void)getEndCityWithStartCity:(NSString *)startCity
+                       keyword:(NSString *)keyword
+                       success:(GetCityDataReturnBlock)success
+                          fail:(FailBlock)fail;
 
 /**
  生成订单

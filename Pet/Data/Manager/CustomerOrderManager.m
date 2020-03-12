@@ -190,4 +190,30 @@ SingleImplementation(CustomerOrderManager);
     HttpManager * manager = [HttpManager shareHttpManager];
     [manager  requestWithRequestModel:model];
 }
+
+/**
+ 模糊查询点单号
+ 
+ @param orderNo 订单号
+ @param success success
+ @param fail fail
+ */
+-(void)getOrderNoByOrderNo:(NSString *)orderNo
+                   success:(SuccessBlock)success
+                      fail:(FailBlock)fail{
+    NSDictionary * dict = @{
+        @"orderNo": orderNo,
+        @"customerNo": [[UserManager shareUserManager] getCustomerNo]
+    };
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:URL_Customer_SearchOrder paramers:dict successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
 @end

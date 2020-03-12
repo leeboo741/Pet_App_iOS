@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define Util_MakePhoneCall(PhoneNumber) [LeeUtils makePhoneCallWithPhoneNumber:PhoneNumber];
 
+#define Util_GetUrlParamDict(url) [LeeUtils getUrlParamDict:url];
+
 @interface LeeUtils : NSObject
 
 /**
@@ -90,6 +92,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param sourceString 需要恢复特殊字符
  */
 +(NSString *)recoverySpecialChar:(NSString *)sourceString;
+
+/**
+ 获取地址中的参数字典
+ 
+ @param url 地址
+ */
++(NSDictionary *)getUrlParamDict:(NSString *)url;
 @end
 
 NS_ASSUME_NONNULL_END

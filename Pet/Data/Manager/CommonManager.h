@@ -22,7 +22,10 @@ SingleInterface(CommonManager);
  @param fail 失败回调
  @param jsessionidReturnBlock 返回 jsessionid
  */
--(void)getPhoneCodeByPhoneNumber:(NSString *)phoneNumber success:(SuccessBlock)success fail:(FailBlock)fail jsessionidReturnBlock:(void(^)(NSString * jsessionid))jsessionidReturnBlock;
+-(void)getPhoneCodeByPhoneNumber:(NSString *)phoneNumber
+                         success:(SuccessBlock)success
+                            fail:(FailBlock)fail
+           jsessionidReturnBlock:(void(^)(NSString * jsessionid))jsessionidReturnBlock;
 @end
 
 NS_ASSUME_NONNULL_END

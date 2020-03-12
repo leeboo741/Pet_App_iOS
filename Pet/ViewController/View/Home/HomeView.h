@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)homeViewSelectBannerAtIndex:(NSInteger)index;
 -(void)homeViewSelectActionAtIndex:(NSInteger)index;
+-(void)homeViewConfirmSearhWithText:(NSString *)searchWord;
 
 @end
 

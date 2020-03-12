@@ -80,7 +80,10 @@ SingleImplementation(PayManager)
  @param success 成功回调
  @param fail 失败回调
  */
--(void)getRechargePayParamForWechatWithCustomerNo:(NSString *)customerNo amount:(CGFloat)amount success:(SuccessBlock)success fail:(FailBlock)fail{
+-(void)getRechargePayParamForWechatWithCustomerNo:(NSString *)customerNo
+                                           amount:(CGFloat)amount
+                                          success:(SuccessBlock)success
+                                             fail:(FailBlock)fail{
     NSDictionary * dict = @{
         @"rechargeAmount": [NSNumber numberWithDouble:amount],
         @"customerNo": customerNo,

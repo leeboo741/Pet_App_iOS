@@ -27,9 +27,14 @@
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if (_delegate && [_delegate respondsToSelector:@selector(remarkInputShouldReturnAtCell:text:)]) {
-        [_delegate remarkInputShouldReturnAtCell:self text:textField.text];
+    if (!kStringIsEmpty(textField.text)) {
+        if (_delegate && [_delegate respondsToSelector:@selector(remarkInputShouldReturnAtCell:text:)]) {
+            [_delegate remarkInputShouldReturnAtCell:self text:textField.text];
+        }
     }
     return YES;
+}
+-(void)clearInput{
+    self.remarkInputTextField.text = nil;
 }
 @end

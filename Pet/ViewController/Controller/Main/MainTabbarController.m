@@ -28,7 +28,6 @@ SingleImplementation(MainTabbarController)
     self = [super init];
     if (self) {
         [self initTabbar];
-        [[GlobalDataManager shareGlobalDataManager] setData:self withKey:GLOBAL_DATA_KEY_MAINTABBAR];
     }
     return self;
 }

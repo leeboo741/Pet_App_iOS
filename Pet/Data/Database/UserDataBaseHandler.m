@@ -35,8 +35,8 @@
               Table_User_BusinessNo,
               Table_User_StaffNo];
     BOOL a = [dataBase executeUpdate:sqlStr,
-              [NSNumber numberWithInteger:user.staffRole],
-              [NSNumber numberWithInteger:user.currentRole],
+              kIntegerNumber(user.staffRole),
+              kIntegerNumber(user.currentRole),
               user.userName,
               user.phone,
               user.avaterImagePath,

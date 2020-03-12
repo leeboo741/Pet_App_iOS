@@ -21,6 +21,8 @@
 #import "AboutUsViewController.h"
 #import "CustomerOrderManager.h"
 #import "PaymentViewController.h"
+#import "CommonOrderManager.h"
+#import "MessageManager.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -58,10 +60,22 @@ CustomerOrderCellDelegate>
     [self.tableView registerNib:[UINib nibWithNibName:CenterActionCellIdentifier bundle:nil] forCellReuseIdentifier:CenterActionCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:OrderCellIdentifier bundle:nil] forCellReuseIdentifier:OrderCellIdentifier];
     self.tableView.estimatedRowHeight = 300;
-    self.haveNewMessage = YES;
+    self.haveNewMessage = [[MessageManager shareMessageManager] getHaveNewMessage];
     self.balance = 100.90;
+    [[MessageManager shareMessageManager] registerNotificationForNewMessageWithObserver:self selector:@selector(changeHaveNewMessage:)];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [[MessageManager shareMessageManager] startGetNewMessage];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [[MessageManager shareMessageManager] pauseGetNewMessage];
+}
+
+-(void)dealloc{
+    [[MessageManager shareMessageManager] stopGetNewMessage];
+}
 #pragma mark - tableview datasource and delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -207,6 +221,7 @@ CustomerOrderCellDelegate>
                 UITextField * textField = alertController.textFields.firstObject;
                 NSString * searchOrderNo = textField.text;
                 MSLog(@"查询订单: %@", searchOrderNo);
+                [weakSelf getOrderNoByOrderNo:searchOrderNo];
             }];
             UIAlertAction * scanAction = [UIAlertAction actionWithTitle:@"扫描" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 MSLog(@"点击扫描");
@@ -216,6 +231,12 @@ CustomerOrderCellDelegate>
                         [MBProgressHUD showTipMessageInWindow:@"扫描失败"];
                     } else {
                         MSLog(@"scan result : %@",result);
+                        NSString * orderNo = [[CommonOrderManager shareCommonOrderManager] getScanOrderNoResultWithScanResult:result];
+                        if (kStringIsEmpty(orderNo)) {
+                            [MBProgressHUD showErrorMessage:@"请扫描有效二维码"];
+                            return;
+                        }
+                        [weakSelf getOrderNoByOrderNo:orderNo];
                     }
                 }];
                 [weakSelf.navigationController pushViewController:scanVC animated:YES];
@@ -429,6 +450,26 @@ CustomerOrderCellDelegate>
 }
 
 #pragma mark - private method
+
+-(void)changeHaveNewMessage:(NSNotification *)notification{
+    NSDictionary * dict = (NSDictionary *)notification.object;
+    self.haveNewMessage = [[dict objectForKey:NOTIFICATION_DATA_HAVE_NEW_MESSAGE_KEY] boolValue];
+}
+
+-(void)getOrderNoByOrderNo:(NSString *)orderNo{
+    __weak typeof(self) weakSelf = self;
+    [[CustomerOrderManager shareCustomerOrderManager] getOrderNoByOrderNo:orderNo success:^(id  _Nonnull data) {
+        if(kStringIsEmpty(data)) {
+            [MBProgressHUD showErrorMessage:@"没有查询到相关单据"];
+        } else {
+            OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
+            orderDetailVC.orderNo = data;
+            [weakSelf.navigationController pushViewController:orderDetailVC animated:YES];
+        }
+    } fail:^(NSInteger code) {
+        
+    }];
+}
 
 -(SegmentedSelectItemModel *)getSegmentedItemModelWithName:(NSString *)name isSelected:(BOOL)isSelected{
     SegmentedSelectItemModel * model = [[SegmentedSelectItemModel alloc]init];

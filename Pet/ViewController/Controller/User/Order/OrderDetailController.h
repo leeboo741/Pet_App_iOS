@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomerOrderManager.h"
+#import "SiteOrderManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
