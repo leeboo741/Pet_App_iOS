@@ -69,6 +69,7 @@ SingleInterface(SiteOrderManager);
 -(void)getOrderNoByOrderNo:(NSString *)orderNo
                    success:(SuccessBlock)success
                       fail:(FailBlock)fail;
+
 @end
 
 NS_ASSUME_NONNULL_END

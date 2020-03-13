@@ -7,6 +7,8 @@
 //
 
 #import "MessageCenterController.h"
+#import "MessageManager.h"
+#import "UITableViewController+AddMJRefresh.h"
 
 #pragma mark - Message Item Model
 #pragma mark -
@@ -15,9 +17,27 @@
 @property (nonatomic, copy) NSString * messageTitle;
 @property (nonatomic, copy) NSString * messageContent;
 @property (nonatomic, copy) NSString * messageTime;
+@property (nonatomic, copy) NSString * link;
++(MessageItemModel *)messageItemModelFromMessageEntity:(MessageEntity *)messageEntity;
++(NSArray<MessageItemModel *> *)getItemModelListByEntityList:(NSArray<MessageEntity *> *)entityList;
 @end
 
 @implementation MessageItemModel
++(MessageItemModel *)messageItemModelFromMessageEntity:(MessageEntity *)messageEntity{
+    MessageItemModel * messageItemModel = [[MessageItemModel alloc]init];
+    messageItemModel.messageTitle = messageEntity.messageTitle;
+    messageItemModel.messageContent = messageEntity.messageContent;
+    messageItemModel.messageTime = messageEntity.sendTime;
+    messageItemModel.link = messageEntity.link;
+    return messageItemModel;
+}
++(NSArray<MessageItemModel *> *)getItemModelListByEntityList:(NSArray<MessageEntity *> *)entityList{
+    NSMutableArray * array = [NSMutableArray array];
+    for (MessageEntity * entity in entityList) {
+        [array addObject:[MessageItemModel messageItemModelFromMessageEntity:entity]];
+    }
+    return array;
+}
 @end
 
 #pragma mark - Message List ViewController
@@ -27,8 +47,11 @@
 
 static NSString * MessageItemCellIdentifier = @"MessageItemCell";
 
+static NSInteger Limit = 20;
+
 @interface MessageCenterController ()
 @property (nonatomic, strong) NSMutableArray<MessageItemModel *> * dataSource;
+@property (nonatomic, assign) NSInteger offset;
 @end
 
 @implementation MessageCenterController
@@ -37,7 +60,56 @@ static NSString * MessageItemCellIdentifier = @"MessageItemCell";
     [super viewDidLoad];
     self.navigationItem.title = @"站内信";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.offset = 0;
+    [self addRefreshViewWithRefreshAction:@selector(refreshMessageList)];
+    [self addLoadMoreViewWithLoadMoreAction:@selector(loadMoreMessageList)];
     [self.tableView registerNib:[UINib nibWithNibName:MessageItemCellIdentifier bundle:nil] forCellReuseIdentifier:MessageItemCellIdentifier];
+    [self startRefresh];
+}
+
+#pragma mark - private method
+
+-(void)refreshMessageList{
+    self.offset = 0;
+    __weak typeof(self) weakSelf = self;
+    [self getMessageListWithOffset:self.offset success:^(id  _Nonnull data) {
+        [weakSelf.dataSource removeAllObjects];
+        [weakSelf.dataSource addObjectsFromArray:(NSArray *)data];
+        [weakSelf endRefresh];
+        [weakSelf.tableView reloadData];
+    } fail:^(NSInteger code) {
+        [weakSelf endRefresh];
+    }];
+}
+
+-(void)loadMoreMessageList{
+    __weak typeof(self) weakSelf = self;
+    [self getMessageListWithOffset:self.offset success:^(id  _Nonnull data) {
+        NSArray * dataArray =  (NSArray *)data;
+        if (dataArray.count < Limit) {
+            [weakSelf.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+        } else {
+            [weakSelf.tableView.mj_footer setState:MJRefreshStateIdle];
+        }
+        [weakSelf.dataSource addObjectsFromArray:dataArray];
+        [weakSelf.tableView reloadData];
+    } fail:^(NSInteger code) {
+        [weakSelf endLoadMore];
+    }];
+}
+
+-(void)getMessageListWithOffset:(NSInteger)offset success:(SuccessBlock)success fail:(FailBlock)fail{
+    __weak typeof(self) weakSelf = self;
+    [[MessageManager shareMessageManager] getMessageListWithOffset:offset limit:Limit success:^(id  _Nonnull data) {
+        weakSelf.offset = weakSelf.offset + Limit;
+        if (success) {
+            success([MessageItemModel getItemModelListByEntityList:(NSArray *)data]);
+        }
+    } fail:^(NSInteger code) {
+        if (fail) {
+            fail(code);
+        }
+    }];
 }
 
 #pragma mark - tableview datasource and delegate
@@ -59,7 +131,8 @@ static NSString * MessageItemCellIdentifier = @"MessageItemCell";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    MessageItemModel * model = self.dataSource[indexPath.row];
+    MSLog(@"%@",model.link);
 }
 
 #pragma mark - config cell
@@ -76,19 +149,6 @@ static NSString * MessageItemCellIdentifier = @"MessageItemCell";
 -(NSMutableArray<MessageItemModel *> *)dataSource{
     if (!_dataSource) {
         _dataSource = [NSMutableArray array];
-        MessageItemModel * model = [[MessageItemModel alloc]init];
-        model.messageTitle = @"新订单";
-        model.messageContent = @"您有新订单已经成功生成,单号为:20200101nc001,起始城市为:南昌市,重点城市为:安阳市,请耐心等待!";
-        model.messageTime = @"2020-01-02 08:11:12";
-        
-        MessageItemModel * model1 = [[MessageItemModel alloc]init];
-        model1.messageTitle = @"入港提示";
-        model1.messageContent = @"您的订单已经入港,您可以在待发货中查看订单!";
-        model1.messageTime = @"2020-01-02 08:11:12";
-        
-        [_dataSource addObject:model];
-        [_dataSource addObject:model1];
-        
     }
     return _dataSource;
 }

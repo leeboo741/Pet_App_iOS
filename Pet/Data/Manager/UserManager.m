@@ -56,14 +56,11 @@ SingleImplementation(UserManager)
 -(instancetype)init{
     self = [super init];
     if (self) {
-        [self addObserver:self
-               forKeyPath:@"user"
-                  options:NSKeyValueObservingOptionNew
-                  context:nil];
-        [self.user addObserver:self
-                    forKeyPath:@"currentRole"
-                       options:NSKeyValueObservingOptionNew
-                       context:nil];
+        [self addObserver:self forKeyPath:@"user" options:NSKeyValueObservingOptionNew context:nil];
+        [self.user addObserver:self forKeyPath:@"points" options:NSKeyValueObservingOptionNew context:nil];
+        [self.user addObserver:self forKeyPath:@"balance" options:NSKeyValueObservingOptionNew context:nil];
+        [self.user addObserver:self forKeyPath:@"currentRole" options:NSKeyValueObservingOptionNew context:nil];
+        [self.user addObserver:self forKeyPath:@"avaterImagePath" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -289,6 +286,44 @@ SingleImplementation(UserManager)
 -(NSString *)getPhone{
     return self.user.phone;
 }
+/**
+ 获取余额
+ */
+-(CGFloat)getBalance{
+    return self.user.balance;
+}
+/**
+ 获取积分
+ */
+-(CGFloat)getPoints{
+    return self.user.points;
+}
+/**
+ 获取头像地址
+ */
+-(NSString *)getAvaterImagePath{
+    return self.user.avaterImagePath;
+}
+
+/**
+ 刷新积分
+ */
+-(void)refreshBalance{
+    NSDictionary * dict = @{
+        @"customerNo":self.user.customerNo
+    };
+    __weak typeof(self) weakSelf = self;
+    HttpRequestModel * model = [[HttpRequestModel alloc] initWithType:HttpRequestMethodType_GET Url:URL_Customer_Balance paramers:dict successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        CGFloat value = [data floatValue];
+        if (value != weakSelf.user.balance) {
+            weakSelf.user.balance = [data floatValue];
+            [weakSelf saveUser:weakSelf.user];
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
 
 /**
  *  注册UserManager相关通知监听
@@ -329,6 +364,12 @@ SingleImplementation(UserManager)
         [self postUserChangeNotification];
     } else if ([keyPath isEqualToString:@"currentRole"]) {
         [self postUserRoleChangeNotification];
+    } else if ([keyPath isEqualToString:@"balance"]) {
+        [self postUserBalanceChangeNotification];
+    } else if ([keyPath isEqualToString:@"points"]) {
+        [self postUserPointsChangeNotification];
+    } else if ([keyPath isEqualToString:@"avaterImagePath"]) {
+        [self postAvaterImagePathChangeNotification];
     }
 }
 
@@ -365,6 +406,27 @@ SingleImplementation(UserManager)
 -(void)postUserRoleChangeNotification{
     [self postNotificationWithName:USER_ROLE_CHANGE_NOTIFICATION_NAME
                       userInfoData:kIntegerNumber(self.user.currentRole)];
+}
+/**
+ 余额改变通知
+ */
+-(void)postUserBalanceChangeNotification{
+    [self postNotificationWithName:USER_BALANCE_CHANGE_NOTIFICATION_NAME
+                      userInfoData:kFloatNumber(self.user.balance)];
+}
+/**
+ 积分改变通知
+ */
+-(void)postUserPointsChangeNotification{
+    [self postNotificationWithName:USER_POINTS_CHANGE_NOTIFICATION_NAME
+                      userInfoData:kFloatNumber(self.user.points)];
+}
+/**
+ 头像改变通知
+ */
+-(void)postAvaterImagePathChangeNotification{
+    [self postNotificationWithName:USER_AVATER_CHANGE_NOTIFICATION_NAME
+                      userInfoData:self.user.avaterImagePath];
 }
 
 #pragma mark - setters and getters

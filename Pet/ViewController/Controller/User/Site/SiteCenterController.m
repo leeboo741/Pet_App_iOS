@@ -20,6 +20,9 @@
 #import <MMScan/MMScanViewController.h>
 #import "MessageCenterController.h"
 #import "AboutUsViewController.h"
+#import "CommonOrderManager.h"
+#import "MessageManager.h"
+#import "OrderDetailController.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -40,10 +43,20 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
     [self.tableView registerNib:[UINib nibWithNibName:CenterHeaderCellIdentifier bundle:nil] forCellReuseIdentifier:CenterHeaderCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:CenterActionCellIdentifier bundle:nil] forCellReuseIdentifier:CenterActionCellIdentifier];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.haveNewMessage = YES;
-    self.balance = 100.90;
+    self.haveNewMessage = [[MessageManager shareMessageManager] getHaveNewMessage];
+    self.balance = [[UserManager shareUserManager] getBalance];
+    [[UserManager shareUserManager] registerUserManagerNotificationWithObserver:self notificationName:USER_BALANCE_CHANGE_NOTIFICATION_NAME action:@selector(changeBalance:)];
+    [[MessageManager shareMessageManager] registerNotificationForNewMessageWithObserver:self selector:@selector(changeHaveNewMessage:)];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[UserManager shareUserManager] refreshBalance];
+    MSLog(@"Site Center Appear");
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    MSLog(@"Site Center Disappear");
+}
 #pragma mark - tableview datasource and delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -131,7 +144,6 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
 #pragma mark - center header cell delegate
 
 -(void)tapMessageButtonAtHeaderCell:(CenterHeaderCell *)cell{
-    self.haveNewMessage = NO;
     MessageCenterController * messageCenterController = [[MessageCenterController alloc]init];
     [self.navigationController pushViewController:messageCenterController animated:YES];
 }
@@ -184,14 +196,22 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
                 UITextField * textField = alertController.textFields.firstObject;
                 NSString * searchOrderNo = textField.text;
                 MSLog(@"查询订单: %@", searchOrderNo);
+                [weakSelf getOrderNoByOrderNo:searchOrderNo];
             }];
             UIAlertAction * scanAction = [UIAlertAction actionWithTitle:@"扫描" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 MSLog(@"点击扫描");
                 MMScanViewController * scanVC = [[MMScanViewController alloc]initWithQrType:MMScanTypeAll onFinish:^(NSString *result, NSError *error) {
                     if (error) {
                         MSLog(@"scan error : %@",error);
+                        [MBProgressHUD showTipMessageInWindow:@"扫描失败"];
                     } else {
                         MSLog(@"scan result : %@",result);
+                        NSString * orderNo = [[CommonOrderManager shareCommonOrderManager] getScanOrderNoResultWithScanResult:result];
+                        if (kStringIsEmpty(orderNo)) {
+                            [MBProgressHUD showErrorMessage:@"请扫描有效二维码"];
+                            return;
+                        }
+                        [weakSelf getOrderNoByOrderNo:orderNo];
                     }
                 }];
                 [weakSelf.navigationController pushViewController:scanVC animated:YES];
@@ -236,7 +256,9 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
             UIAlertAction * action3 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
             }];
-            [alertController addAction:action1];
+            if ([[UserManager shareUserManager] isBusiness]) {
+                [alertController addAction:action1];
+            }
             [alertController addAction:action2];
             [alertController addAction:action3];
             [self presentViewController:alertController animated:YES completion:nil];
@@ -297,6 +319,30 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
     model.actionName = actionName;
     model.actionIconName = iconName;
     return model;
+}
+-(void)changeBalance:(NSNotification  *)notification{
+    NSDictionary * dict = (NSDictionary *)notification.userInfo;
+    self.balance = [[dict objectForKey:@"data"] floatValue];
+}
+
+-(void)changeHaveNewMessage:(NSNotification *)notification{
+    NSDictionary * dict = (NSDictionary *)notification.userInfo;
+    self.haveNewMessage = [[dict objectForKey:NOTIFICATION_DATA_HAVE_NEW_MESSAGE_KEY] boolValue];
+}
+
+-(void)getOrderNoByOrderNo:(NSString *)orderNo{
+    __weak typeof(self) weakSelf = self;
+    [[SiteOrderManager shareSiteOrderManager] getOrderNoByOrderNo:orderNo success:^(id  _Nonnull data) {
+        if(kStringIsEmpty(data)) {
+            [MBProgressHUD showErrorMessage:@"没有查询到相关单据"];
+        } else {
+            OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
+            orderDetailVC.orderNo = data;
+            [weakSelf.navigationController pushViewController:orderDetailVC animated:YES];
+        }
+    } fail:^(NSInteger code) {
+        
+    }];
 }
 
 

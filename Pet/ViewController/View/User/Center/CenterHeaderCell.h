@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UserEntity * user;
 @property (nonatomic, assign) CGFloat balance;
 @property (nonatomic, assign) BOOL haveNewMessage;
+@property (nonatomic, assign) BOOL showBalance;
 @property (nonatomic, weak) id<CenterheaderCellDelegate>delegate;
 @end
 

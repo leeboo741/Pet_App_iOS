@@ -115,8 +115,10 @@ static NSString * OrderTempDeliverCellIdentifier = @"OrderTempDeliverCell";
     __weak typeof(self) weakSelf = self;
     [[CustomerOrderManager shareCustomerOrderManager] ableConfirmOrderWithOrderNo:orderNo customrNo:[[UserManager shareUserManager] getCustomerNo] success:^(id  _Nonnull data) {
         if ([data intValue] == 1) {
-            weakSelf.ableConfirmOrder = true;
-            [weakSelf.tableView reloadData];
+            if ([[UserManager shareUserManager] getCurrentUserRole] == CURRENT_USER_ROLE_CUSTOMER) {
+                weakSelf.ableConfirmOrder = true;
+                [weakSelf.tableView reloadData];
+            }
         }
     } fail:^(NSInteger code) {
         

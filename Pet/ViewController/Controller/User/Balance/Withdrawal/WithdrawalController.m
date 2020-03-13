@@ -9,6 +9,8 @@
 #import "WithdrawalController.h"
 #import "WithdrawalView.h"
 #import "WithdrawalFlowController.h"
+#import "SiteBalanceManager.h"
+#import "BusinessBalanceManager.h"
 
 @interface WithdrawalController () <WithdrawalViewDelegate>
 @property (nonatomic, strong) WithdrawalView * withdrawalView;
@@ -27,10 +29,13 @@
     
     [self.view addSubview:self.withdrawalView];
     
-    self.balanceAmount = @"1412";
-    self.ableWithdrawalAmount = @"700";
-    self.disableWithdrawalAmount = @"712";
+    self.balanceAmount = [NSString stringWithFormat:@"%.2f",[[UserManager shareUserManager] getBalance]]; 
+    self.ableWithdrawalAmount = @"0";
+    self.disableWithdrawalAmount = @"0";
     // Do any additional setup after loading the view.
+    
+    [self getBalanceBuffer];
+    
 }
 
 -(void)viewDidLayoutSubviews{
@@ -40,12 +45,66 @@
     }];
 }
 
+#pragma mark - private method
+
+-(void)getBalanceBuffer{
+    __weak typeof(self) weakSelf = self;
+    if ([[UserManager shareUserManager] getCurrentUserRole] == CURRENT_USER_ROLE_STAFF) {
+        [[SiteBalanceManager shareSiteBalanceManager] getBalanceBufferWithStationNo:[[UserManager shareUserManager] getStationNo] success:^(id  _Nonnull data) {
+            SiteBalanceBuffer * buffer = (SiteBalanceBuffer *)data;
+            weakSelf.ableWithdrawalAmount = [NSString stringWithFormat:@"%.2f",buffer.usable];
+            weakSelf.disableWithdrawalAmount = [NSString stringWithFormat:@"%.2f",buffer.frozen];
+        } fail:^(NSInteger code) {
+        }];
+    } else if ([[UserManager shareUserManager] getCurrentUserRole] == CURRENT_USER_ROLE_BUSINESS) {
+        [[BusinessBalanceManager shareBusinessBalanceManager] getBalanceBufferWithBusinessNo:[[UserManager shareUserManager] getBusinessNo] success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+            BusinessBalanceBuffer * buffer = (BusinessBalanceBuffer *)data;
+            weakSelf.ableWithdrawalAmount = [NSString stringWithFormat:@"%.2f",buffer.usable];
+            weakSelf.disableWithdrawalAmount = [NSString stringWithFormat:@"%.2f",buffer.frozen];
+        } fail:^(NSInteger code) {
+        }];
+    }
+}
+
+-(void)beWithdrawWithAmount:(CGFloat)amount{
+    __weak typeof(self) weakSelf = self;
+    [MBProgressHUD showActivityMessageInWindow:@"提交中..."];
+    if ([[UserManager shareUserManager] getCurrentUserRole] == CURRENT_USER_ROLE_STAFF) {
+        [[SiteBalanceManager shareSiteBalanceManager] withDrawByCustomerNo:[[UserManager shareUserManager] getCustomerNo] amount:amount success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+            [weakSelf handlerWithdrawData:data];
+        } fail:^(NSInteger code) {
+            
+        }];
+    } else if ([[UserManager shareUserManager] getCurrentUserRole] == CURRENT_USER_ROLE_BUSINESS) {
+        [[BusinessBalanceManager shareBusinessBalanceManager] withDrawByBusinessNo:[[UserManager shareUserManager] getBusinessNo] amount:amount success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+            [weakSelf handlerWithdrawData:data];
+        } fail:^(NSInteger code) {
+            
+        }];
+    }
+}
+
+-(void)handlerWithdrawData:(id)data{
+    if ([data intValue] >= 1) {
+        [MBProgressHUD showTipMessageInWindow:@"提交成功,等待审核"];
+        self.withdrawalAmount = 0;
+        [self.withdrawalView clearWithdrawlInput];
+        [self getBalanceBuffer];
+    } else {
+        [MBProgressHUD showTipMessageInWindow:@"提交失败,请稍后再试"];
+    }
+}
+
 #pragma mark - withdrawalview delegate
 
 -(void)tapWithdrawalButtonAtWithdrawalView:(WithdrawalView *)view {
     if (kStringIsEmpty(self.withdrawalAmount) || [self.withdrawalAmount intValue] == 0) {
         return;
     }
+    [self beWithdrawWithAmount:[self.withdrawalAmount floatValue]];
     MSLog(@"点击提现 金额 : %@", self.withdrawalAmount);
 }
 
@@ -71,6 +130,7 @@
     if ([self.withdrawalAmount intValue] > [self.ableWithdrawalAmount intValue] || [self.withdrawalAmount intValue] == 0) {
         self.withdrawalAmount = 0;
         [self.withdrawalView clearWithdrawlInput];
+        [MBProgressHUD showErrorMessage:@"超出可提现金额范围"];
     }
 }
 

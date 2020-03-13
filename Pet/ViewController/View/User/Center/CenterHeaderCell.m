@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *infoLineTwo;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoLineTwoHeightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *balanceTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *messageButton;
 
 @end
@@ -40,6 +41,7 @@
 }
 
 -(void)initView{
+    self.showBalance = YES;
     self.avaterImageView.layer.cornerRadius = 50;
     self.avaterImageView.layer.masksToBounds = YES;
     self.roleLabel.layer.cornerRadius = 10;
@@ -112,6 +114,17 @@
         self.messageButton.badgeValue = @" ";
     } else {
         self.messageButton.badgeValue = @"";
+    }
+}
+
+-(void)setShowBalance:(BOOL)showBalance{
+    _showBalance = showBalance;
+    if (showBalance) {
+        self.balanceLabel.hidden = NO;
+        self.balanceTitleLabel.hidden = NO;
+    } else {
+        self.balanceLabel.hidden = YES;
+        self.balanceTitleLabel.hidden = YES;
     }
 }
 

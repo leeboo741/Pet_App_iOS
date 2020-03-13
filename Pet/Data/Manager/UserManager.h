@@ -40,6 +40,9 @@ typedef NS_ENUM(NSInteger, SEX) {
 #pragma mark - 用户管理中心
 static NSString * USER_CHANGE_NOTIFICATION_NAME = @"UserChangeNotificationName"; // 用户改变
 static NSString * USER_ROLE_CHANGE_NOTIFICATION_NAME = @"UserRoleChangeNotificationName"; // 用户角色改变
+static NSString * USER_BALANCE_CHANGE_NOTIFICATION_NAME = @"UserBalanceChangeNotificationName"; // 用户余额改变
+static NSString * USER_POINTS_CHANGE_NOTIFICATION_NAME = @"UserPointsChangeNotificationName"; // 用户积分改变
+static NSString * USER_AVATER_CHANGE_NOTIFICATION_NAME = @"UserAvaterChangeNotificationName"; // 用户头像改变
 
 @interface UserManager : NSObject
 /**
@@ -91,6 +94,7 @@ SingleInterface(UserManager)
  *  @param user 用户
  */
 -(void)saveUser:(UserEntity *)user;
+
 /**
  *  获取用户
  */
@@ -131,6 +135,14 @@ SingleInterface(UserManager)
  */
 -(NSString *)getStaffNo;
 /**
+ 获取站点编号
+ */
+-(NSString *)getStationNo;
+/**
+ 获取商家编号
+ */
+-(NSString *)getBusinessNo;
+/**
  获取用户编号
  */
 -(NSString *)getCustomerNo;
@@ -138,6 +150,24 @@ SingleInterface(UserManager)
  *  获取手机号
  */
 -(NSString *)getPhone;
+/**
+ 获取余额
+ */
+-(CGFloat)getBalance;
+/**
+ 获取积分
+ */
+-(CGFloat)getPoints;
+/**
+ 获取头像地址
+ */
+-(NSString *)getAvaterImagePath;
+
+/**
+ 刷新 用户 余额
+ */
+-(void)refreshBalance;
+
 /**
  *  注册UserManager相关通知监听
  *  @param observer 观察者

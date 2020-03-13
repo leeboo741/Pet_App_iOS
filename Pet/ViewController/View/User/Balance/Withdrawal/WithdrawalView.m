@@ -115,6 +115,7 @@
 #pragma mark - public method
 
 -(void)clearWithdrawlInput{
+    
     self.withdrawalTextField.text = @"";
 }
 

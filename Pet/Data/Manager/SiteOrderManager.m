@@ -123,4 +123,5 @@ SingleImplementation(SiteOrderManager);
     }];
     [[HttpManager shareHttpManager] requestWithRequestModel:model];
 }
+
 @end

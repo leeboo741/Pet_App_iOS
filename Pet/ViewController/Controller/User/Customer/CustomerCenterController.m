@@ -61,20 +61,20 @@ CustomerOrderCellDelegate>
     [self.tableView registerNib:[UINib nibWithNibName:OrderCellIdentifier bundle:nil] forCellReuseIdentifier:OrderCellIdentifier];
     self.tableView.estimatedRowHeight = 300;
     self.haveNewMessage = [[MessageManager shareMessageManager] getHaveNewMessage];
-    self.balance = 100.90;
+    self.balance = [[UserManager shareUserManager] getBalance];
+    [[UserManager shareUserManager] registerUserManagerNotificationWithObserver:self notificationName:USER_BALANCE_CHANGE_NOTIFICATION_NAME action:@selector(changeBalance:)];
     [[MessageManager shareMessageManager] registerNotificationForNewMessageWithObserver:self selector:@selector(changeHaveNewMessage:)];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [[MessageManager shareMessageManager] startGetNewMessage];
+    [super viewWillAppear:animated];
+    [[UserManager shareUserManager] refreshBalance];
+    MSLog(@"Customer Center appear");
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [[MessageManager shareMessageManager] pauseGetNewMessage];
-}
-
--(void)dealloc{
-    [[MessageManager shareMessageManager] stopGetNewMessage];
+    [super viewWillDisappear:animated];
+    MSLog(@"Customer Center Disappear");
 }
 #pragma mark - tableview datasource and delegate
 
@@ -180,6 +180,7 @@ CustomerOrderCellDelegate>
     cell.balance = self.balance;
     cell.haveNewMessage = self.haveNewMessage;
     cell.delegate = self;
+    cell.showBalance = NO;
 }
 
 -(void)configActionCell:(CenterActionCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -196,7 +197,6 @@ CustomerOrderCellDelegate>
 #pragma mark - center header cell delegate
 
 -(void)tapMessageButtonAtHeaderCell:(CenterHeaderCell *)cell{
-    self.haveNewMessage = NO;
     MessageCenterController * messageCenterController = [[MessageCenterController alloc]init];
     [self.navigationController pushViewController:messageCenterController animated:YES];
 }
@@ -451,8 +451,13 @@ CustomerOrderCellDelegate>
 
 #pragma mark - private method
 
+-(void)changeBalance:(NSNotification  *)notification{
+    NSDictionary * dict = (NSDictionary *)notification.userInfo;
+    self.balance = [[dict objectForKey:@"data"] floatValue];
+}
+
 -(void)changeHaveNewMessage:(NSNotification *)notification{
-    NSDictionary * dict = (NSDictionary *)notification.object;
+    NSDictionary * dict = (NSDictionary *)notification.userInfo;
     self.haveNewMessage = [[dict objectForKey:NOTIFICATION_DATA_HAVE_NEW_MESSAGE_KEY] boolValue];
 }
 

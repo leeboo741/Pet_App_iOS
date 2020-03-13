@@ -11,12 +11,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface MessageEntity : NSObject
+@property (nonatomic, copy) NSString * sendNo;
+@property (nonatomic, copy) NSString * status;
+@property (nonatomic, assign) NSInteger messageNo;
+@property (nonatomic, copy) NSString * messageTitle;
+@property (nonatomic, copy) NSString * updateTime;
+@property (nonatomic, copy) NSString * sendTime;
+@property (nonatomic, copy) NSString * link;
+@property (nonatomic, copy) NSString * receiveNo;
+@property (nonatomic, copy) NSString * messageContent;
+@end
+
 static NSString * _Nonnull DEFAULT_LAST_GET_MESSAGE_TIME = @"1900-01-01 00:00:00";
 static NSString * _Nonnull LAST_GET_MESSAGE_TIME_KEY = @"LastGetMessageTime";
 static NSString * HAVE_NEW_MESSAGE = @"HaveNewMessage_KEY";
 
 static NSString * NOTIFICATION_DATA_HAVE_NEW_MESSAGE_KEY = @"HaveNewMessage";
-static NSString * NOTIFICATION_DATA_NEW_MESSAGE_LIST_KEY = @"NewMessageList";
 
 
 @interface MessageManager : NSObject
@@ -45,27 +56,13 @@ SingleInterface(MessageManager);
                            fail:(FailBlock)fail;
 
 /**
- 获取最新站内信
+ 获取最新站内信数量
  
  @param success success
  @param fail fail
  */
--(void)getNewMessageListSuccess:(SuccessBlock)success
-                           fail:(FailBlock)fail;
-
-/**
- 开始定时获取最新站内信
- */
--(void)startGetNewMessage;
-/**
- 暂停获取最新站内信
- */
--(void) pauseGetNewMessage;
-
-/**
- 停止获取最新站内信
- */
--(void) stopGetNewMessage;
+-(void)getNewMessageCountSuccess:(SuccessBlock)success
+                            fail:(FailBlock)fail;
 
 /**
  是否有最新站内信
@@ -73,13 +70,6 @@ SingleInterface(MessageManager);
  @return yes 有 no 没有
  */
 -(BOOL)getHaveNewMessage;
-
-/**
- 最新站内信列表
- 
- @return 最新站内信列表
- */
--(NSArray *)getLastNewMessageList;
 
 /**
  注册监听是否有最新站内信消息
@@ -96,22 +86,6 @@ SingleInterface(MessageManager);
  @param observer 监听者
  */
 -(void)removeNotificationForNewMessageWithObserver:(id)observer;
-
-/**
- 注册监听最新站内信消息列表
- 
- @param observer 监听者
- @param selector 响应方法
- */
--(void)registerNotificationForNewMessageListWithObserver:(id)observer
-                                                selector:(SEL)selector;
-
-/**
- 移除监听最新站内信消息列表
- 
- @param observer 监听者
- */
--(void)removeNotificationForNewMessageListWithObserver:(id)observer;
 @end
 
 NS_ASSUME_NONNULL_END

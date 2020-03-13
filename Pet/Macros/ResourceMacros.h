@@ -153,6 +153,7 @@
 #define URL_Customer_OrderCancel     @"/api/order/cancelOrder" // 取消订单 PUT
 #define URL_Customer_SearchOrder    @"/api/consign/order-no/customer" // 模糊搜索订单号 GET 未完成
 #define URL_Customer_EvaluateOrder  @"/api/order/evaluate" // 订单评价 POST
+#define URL_Customer_Balance    @"/api/balance" // 查询用户余额
 
 /**
  员工相关
@@ -162,10 +163,18 @@
 #define URL_Site_CancelPremium  @"/api/order/premium/cancel" // 取消补价单 PUT
 #define URL_Site_GetUnpayPremiumCount   @"/api/order/premium/count/unpaid" // 获取未支付的补价单数量
 #define URL_Site_SearchOrder    @"/api/consign/order-no/staff" // 模糊搜索订单号
+#define URL_Site_RebateFlow    @"/api/rebate/station/flow" // 站点返利流水
+#define URL_Site_WithdrawFlow   @"/api/withdraw/station/flow" // 站点提现流水
+#define URL_Site_Withdraw       @"/api/withdraw/station" // 站点提现
+#define URL_Site_BalanceBuffer  @"/api/balance/buffer/station" // 站点可用金额和冻结金额
 /**
  站点相关
  */
-#define URL_Staion_List         @"/api/business/listByPosition" // 获取周边商家|完成
+#define URL_Station_List         @"/api/business/listByPosition" // 获取周边商家|完成
+#define URL_Station_RebateFlow    @"/api/rebate/business/flow" // 站点返利流水
+#define URL_Station_WithdrawFlow   @"/api/withdraw/business/flow" // 站点提现流水
+#define URL_Station_Withdraw       @"/api/withdraw/business" // 站点提现
+#define URL_Station_BalanceBuffer  @"/api/balance/buffer/business" // 站点可用金额和冻结金额
 
 /**
  申请相关

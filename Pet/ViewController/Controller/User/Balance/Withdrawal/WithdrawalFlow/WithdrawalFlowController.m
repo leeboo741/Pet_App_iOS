@@ -8,21 +8,61 @@
 
 #import "WithdrawalFlowController.h"
 #import "WithdrawalFlowCell.h"
+#import "SiteBalanceManager.h"
+#import "BusinessBalanceManager.h"
+#import "UITableViewController+AddMJRefresh.h"
 
 @interface WithdrawalFlowModel : NSObject
 @property (nonatomic, copy) NSString * flowNo;
 @property (nonatomic, copy) NSString * flowAmount;
 @property (nonatomic, copy) NSString * flowTime;
 @property (nonatomic, copy) NSString * flowState;
++(WithdrawalFlowModel *)getModelBySiteWithdrawModel:(SiteWithdrawFlow *)flow;
++(NSArray<WithdrawalFlowModel *> *)getModelListBySiteWithdrawModelList:(NSArray<SiteWithdrawFlow *>*)flowList;
++(WithdrawalFlowModel *)getModelByBusinessWithdrawModel:(BusinessWithdrawFlow *)flow;
++(NSArray<WithdrawalFlowModel *> *)getModelListByBusinessWithdrawModelList:(NSArray<BusinessWithdrawFlow *>*)flowList;
 @end
 
 @implementation WithdrawalFlowModel
++(WithdrawalFlowModel *)getModelBySiteWithdrawModel:(SiteWithdrawFlow *)flow{
+    WithdrawalFlowModel * model = [[WithdrawalFlowModel alloc]init];
+    model.flowAmount = [NSString stringWithFormat:@"%.2f",flow.amount];
+    model.flowNo = flow.withdrawNo;
+    model.flowState = flow.state;
+    model.flowTime = flow.withdrawTime;
+    return model;
+}
++(NSArray<WithdrawalFlowModel *> *)getModelListBySiteWithdrawModelList:(NSArray<SiteWithdrawFlow *>*)flowList{
+    NSMutableArray * array = [NSMutableArray array];
+    for (SiteWithdrawFlow * flow in flowList) {
+        [array addObject:[WithdrawalFlowModel getModelBySiteWithdrawModel:flow]];
+    }
+    return array;
+}
++(WithdrawalFlowModel *)getModelByBusinessWithdrawModel:(BusinessWithdrawFlow *)flow{
+    WithdrawalFlowModel * model = [[WithdrawalFlowModel alloc]init];
+    model.flowAmount = [NSString stringWithFormat:@"%.2f",flow.amount];
+    model.flowNo = flow.withdrawNo;
+    model.flowState = flow.state;
+    model.flowTime = flow.withdrawTime;
+    return model;
+}
++(NSArray<WithdrawalFlowModel *> *)getModelListByBusinessWithdrawModelList:(NSArray<BusinessWithdrawFlow *>*)flowList{
+    NSMutableArray * array = [NSMutableArray array];
+    for (BusinessWithdrawFlow * flow in flowList) {
+        [array addObject:[WithdrawalFlowModel getModelByBusinessWithdrawModel:flow]];
+    }
+    return array;
+}
 @end
 
 static NSString * WithdrawalFlowCellIdentifier = @"WithdrawalFlowCell";
 
+static NSInteger Limit = 30;
+
 @interface WithdrawalFlowController ()
 @property (nonatomic, strong) NSMutableArray<WithdrawalFlowModel *> *dataSource;
+@property (nonatomic, assign) NSInteger offset;
 @end
 
 @implementation WithdrawalFlowController
@@ -31,6 +71,70 @@ static NSString * WithdrawalFlowCellIdentifier = @"WithdrawalFlowCell";
     [super viewDidLoad];
     self.navigationItem.title = @"提现流水";
     [self.tableView registerNib:[UINib nibWithNibName:WithdrawalFlowCellIdentifier bundle:nil] forCellReuseIdentifier:WithdrawalFlowCellIdentifier];
+    [self addRefreshViewWithRefreshAction:@selector(refreshAction)];
+    [self addLoadMoreViewWithLoadMoreAction:@selector(loadMoreAction)];
+    [self startRefresh];
+}
+
+#pragma mark - private method
+
+-(void)refreshAction{
+    self.offset = 0;
+    __weak typeof(self) weakSelf = self;
+    [self getDataWithOffset:self.offset success:^(id  _Nonnull data) {
+        [weakSelf.dataSource removeAllObjects];
+        NSArray * array = (NSArray *)data;
+        [weakSelf.dataSource addObjectsFromArray:array];
+        [weakSelf endRefresh];
+        [weakSelf.tableView reloadData];
+    } fail:^(NSInteger code) {
+        [weakSelf endRefresh];
+    }];
+}
+
+-(void)loadMoreAction{
+    __weak typeof(self) weakSelf = self;
+    [self getDataWithOffset:self.offset success:^(id  _Nonnull data) {
+        NSArray * dataArray =  (NSArray *)data;
+        if (dataArray.count < Limit) {
+            [weakSelf.tableView.mj_footer setState:MJRefreshStateNoMoreData];
+        } else {
+            [weakSelf.tableView.mj_footer setState:MJRefreshStateIdle];
+        }
+        [weakSelf.dataSource addObjectsFromArray:dataArray];
+        [weakSelf.tableView reloadData];
+    } fail:^(NSInteger code) {
+        [weakSelf endLoadMore];
+    }];
+}
+
+-(void)getDataWithOffset:(NSInteger)offset success:(SuccessBlock)success fail:(FailBlock)fail{
+    __weak typeof(self) weakSelf = self;
+    if ([[UserManager shareUserManager] getCurrentUserRole] == CURRENT_USER_ROLE_STAFF) {
+        [[SiteBalanceManager shareSiteBalanceManager] getWithdrawFlowWithStationNo:[[UserManager shareUserManager] getStationNo] offset:offset limit:Limit success:^(id  _Nonnull data) {
+            weakSelf.offset = weakSelf.offset + Limit;
+            NSArray * array = [WithdrawalFlowModel getModelListBySiteWithdrawModelList:(NSArray *)data];
+            if (success) {
+                success(array);
+            }
+        } fail:^(NSInteger code) {
+            if (fail) {
+                fail(code);
+            }
+        }];
+    } else if ([[UserManager shareUserManager] getCurrentUserRole] == CURRENT_USER_ROLE_BUSINESS) {
+        [[BusinessBalanceManager shareBusinessBalanceManager] getWithdrawFlowWithBusinessNo:[[UserManager shareUserManager] getBusinessNo] offset:offset limit:Limit success:^(id  _Nonnull data) {
+            weakSelf.offset = weakSelf.offset + Limit;
+            NSArray * array = [WithdrawalFlowModel getModelListByBusinessWithdrawModelList:(NSArray *)data];
+            if (success) {
+                success(array);
+            }
+        } fail:^(NSInteger code) {
+            if (fail) {
+                fail(code);
+            }
+        }];
+    }
 }
 
 #pragma mark - taleview delegate and datasource
