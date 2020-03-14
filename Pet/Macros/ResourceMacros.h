@@ -129,7 +129,6 @@
 #define URL_PredictPrice        @"/api/order/getOrderPrice" // 获取预估价格|完成
 #define URL_InsertOrder         @"/api/order/insertOrder" // 创建订单|完成
 #define URL_GetOrderAmount      @"/api/order/price" // 获取订单价格|完成
-#define URL_StatonListByCity    @"/api/staff/listByProvinceAndCity" // 根据城市获取站点列表|完成
 
 /**
  支付相关
@@ -167,20 +166,33 @@
 #define URL_Site_WithdrawFlow   @"/api/withdraw/station/flow" // 站点提现流水
 #define URL_Site_Withdraw       @"/api/withdraw/station" // 站点提现
 #define URL_Site_BalanceBuffer  @"/api/balance/buffer/station" // 站点可用金额和冻结金额
+#define URL_Site_OrderListAllByState   @"/api/order/list/station" // 站点所有订单
+#define URL_Site_UpdateOrderPrice   @"/api/order/update/price" // 修改订单价格
+#define URL_Site_OrderListByOrderNo @"/api/consign/port/listByLikeOrderNo" // 查询出入港单
+#define URL_Site_OrderListAll   @"/api/consign/port/list/Complete" // 站点所有订单
+
 /**
- 站点相关
+ 商家相关
  */
 #define URL_Station_List         @"/api/business/listByPosition" // 获取周边商家|完成
-#define URL_Station_RebateFlow    @"/api/rebate/business/flow" // 站点返利流水
-#define URL_Station_WithdrawFlow   @"/api/withdraw/business/flow" // 站点提现流水
-#define URL_Station_Withdraw       @"/api/withdraw/business" // 站点提现
-#define URL_Station_BalanceBuffer  @"/api/balance/buffer/business" // 站点可用金额和冻结金额
+#define URL_Station_RebateFlow    @"/api/rebate/business/flow" // 商家返利流水
+#define URL_Station_WithdrawFlow   @"/api/withdraw/business/flow" // 商家提现流水
+#define URL_Station_Withdraw       @"/api/withdraw/business" // 商家提现
+#define URL_Station_BalanceBuffer  @"/api/balance/buffer/business" // 商家可用金额和冻结金额
 
 /**
  申请相关
  */
 #define URL_ApplyStaff          @"/api/staff/applyForStaff" // 员工注册 |完成
 #define URL_ApplyStation        @"/business/insetBusiness" // 站点注册 |完成
+#define URL_StatonListByCity    @"/api/staff/listByProvinceAndCity" // 根据城市获取站点列表|完成
+//#define URL_Siten_Staff @"/api/staff/{customerNo}" // 查询站点员工
+#define URL_Apply_Staff_UnauditedList  @"/api/staff/listUnauditedStaff" // 员工申请列表
+#define URL_Apply_Staff_Reject  @"/api/staff/reject" // 驳回员工申请
+#define URL_Apply_Staff_Apply   @"/api/staff/review" // 通过员工申请
+#define URL_Apply_Business_UnauditedList    @"/api/business/listAllUnauditedBusiness" // 商家申请列表
+#define URL_Apply_Business_Reject   @"/api/business/reject" // 驳回商家申请
+#define URL_Apply_Busi ness_Apply    @"通过商家申请" // 通过商家申请
 
 /**
  消息相关

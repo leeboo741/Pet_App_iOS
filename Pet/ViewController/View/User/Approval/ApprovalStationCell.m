@@ -56,6 +56,27 @@
     return _operateButtonModelArray;
 }
 
+-(void)setStationName:(NSString *)stationName{
+    _stationName = stationName;
+    self.stroeNameLabel.text = stationName;
+}
+-(void)setBusinessTime:(NSString *)businessTime{
+    _businessTime = businessTime;
+    self.businessTimeLabel.text = businessTime;
+}
+-(void)setPhone:(NSString *)phone{
+    _phone = phone;
+    self.contactNameLabel.text = phone;
+}
+-(void)setAddress:(NSString *)address{
+    _address = address;
+    self.addressLabel.text = address;
+}
+-(void)setDescribes:(NSString *)describes{
+    _describes = describes;
+    self.descriptionLabel.text = describes;
+}
+
 #pragma mark - private method
 
 -(void)insertButtonModelWithTitle:(NSString *)title style:(OrderOperateButtonStyle)style type:(OrderOperateButtonType)type{

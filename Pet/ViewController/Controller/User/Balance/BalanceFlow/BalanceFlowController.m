@@ -132,6 +132,7 @@ static NSInteger Limit = 30;
         }
         [weakSelf.dataSource addObjectsFromArray:dataArray];
         [weakSelf.tableView reloadData];
+        [weakSelf endLoadMore];
     } fail:^(NSInteger code) {
         [weakSelf endLoadMore];
     }];

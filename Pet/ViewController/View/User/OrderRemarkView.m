@@ -49,7 +49,9 @@
 
 -(void)setLastFollowUpContent:(NSString *)lastFollowUpContent{
     _lastFollowUpContent = lastFollowUpContent;
-    self.lastFollowUpContentLabel.text = lastFollowUpContent;
+    if (!kStringIsEmpty(lastFollowUpContent)) {
+        self.lastFollowUpContentLabel.text = lastFollowUpContent;
+    }
 }
 
 @end

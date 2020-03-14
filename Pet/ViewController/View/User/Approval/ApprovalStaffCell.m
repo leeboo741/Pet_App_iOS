@@ -53,6 +53,16 @@
     return _operateButtonModelArray;
 }
 
+-(void)setName:(NSString *)name{
+    _name = name;
+    self.nameLabel.text = name;
+}
+
+-(void)setPhone:(NSString *)phone{
+    _phone = phone;
+    self.phoneLabel.text = phone;
+}
+
 #pragma mark - private method
 
 -(void)insertButtonModelWithTitle:(NSString *)title style:(OrderOperateButtonStyle)style type:(OrderOperateButtonType)type{

@@ -172,6 +172,7 @@ static CGFloat TimeOut = 20.0f; // 超时时间
             requestModel.successBlock(responseObject, @"自定义解析");
         }
     } else {
+        MSLog(@"\n URL==> \n%@",requestModel.urlStr);
         [HttpResponseHandler handlerResponseObject:responseObject
                                       successBlock:requestModel.successBlock
                                          failBlock:requestModel.failBlock];
@@ -182,6 +183,7 @@ static CGFloat TimeOut = 20.0f; // 超时时间
     if (requestModel.jsessionid_return_block) {
         requestModel.jsessionid_return_block([self getCookiesWithUrl:requestModel.urlStr]);
     }
+    MSLog(@"\n URL==> \n%@",requestModel.urlStr);
     [HttpResponseHandler handlerFailWithError:error
                                     failBlock:requestModel.failBlock];
 }

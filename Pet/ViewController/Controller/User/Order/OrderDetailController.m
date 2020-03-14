@@ -313,7 +313,6 @@ titleForHeaderInSection:(NSInteger)section{
             return [self ableShowTempDeliver]?40:0;
         case 5:
             return [self ableShowRemark]?40:0;
-            return 40;
         case 6:
             return 40;
         default:

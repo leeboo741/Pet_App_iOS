@@ -148,7 +148,7 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
         {
             MSLog(@"开始时间选择");
             __weak typeof(self) weakSelf = self;
-            [CGXPickerView showDatePickerWithTitle:@"开始时间" DateType:UIDatePickerModeTime DefaultSelValue:nil MinDateStr:@"00:00" MaxDateStr:@"23:59" IsAutoSelect:NO Manager:nil ResultBlock:^(NSString *selectValue) {
+            [CGXPickerView showDatePickerWithTitle:@"开始时间" DateType:UIDatePickerModeTime DefaultSelValue:@"00:00" MinDateStr:@"00:00" MaxDateStr:@"23:59" IsAutoSelect:NO Manager:nil ResultBlock:^(NSString *selectValue) {
                 ApplyItemCellModel * model = weakSelf.itemsArray[indexPath.row];
                 model.cellValue = selectValue;
                 [weakSelf.tableView reloadData];
@@ -159,7 +159,7 @@ static NSString * ApplyTimeCountCellIdentifier = @"ApplyTimeCountCell";
         {
             MSLog(@"结束时间选择");
             __weak typeof(self) weakSelf = self;
-            [CGXPickerView showDatePickerWithTitle:@"结束时间" DateType:UIDatePickerModeTime DefaultSelValue:nil MinDateStr:@"00:00" MaxDateStr:@"23:59" IsAutoSelect:NO Manager:nil ResultBlock:^(NSString *selectValue) {
+            [CGXPickerView showDatePickerWithTitle:@"结束时间" DateType:UIDatePickerModeTime DefaultSelValue:@"00:00" MinDateStr:@"00:00" MaxDateStr:@"23:59" IsAutoSelect:NO Manager:nil ResultBlock:^(NSString *selectValue) {
                 ApplyItemCellModel * model = weakSelf.itemsArray[indexPath.row];
                 model.cellValue = selectValue;
                 [weakSelf.tableView reloadData];

@@ -103,6 +103,7 @@ static NSInteger Limit = 30;
         }
         [weakSelf.dataSource addObjectsFromArray:dataArray];
         [weakSelf.tableView reloadData];
+        [weakSelf endLoadMore];
     } fail:^(NSInteger code) {
         [weakSelf endLoadMore];
     }];
@@ -168,28 +169,12 @@ static NSInteger Limit = 30;
     cell.state = model.flowState;
 }
 
-
 #pragma mark - setters and getters
 -(NSMutableArray<WithdrawalFlowModel *> *)dataSource{
     if (!_dataSource) {
         _dataSource = [NSMutableArray array];
-        WithdrawalFlowModel * model = [self getFlowModelWitmAmount:@"123" state:@"待审核" time:@"2019-11-11 10:12:11"];
-        WithdrawalFlowModel * model1 = [self getFlowModelWitmAmount:@"231" state:@"已审核" time:@"2019-11-10 12:21:11"];
-        WithdrawalFlowModel * model2 = [self getFlowModelWitmAmount:@"432" state:@"已驳回" time:@"2020-01-02 13:12:11"];
-        [_dataSource addObject:model];
-        [_dataSource addObject:model1];
-        [_dataSource addObject:model2];
     }
     return  _dataSource;
 }
 
-#pragma mark - private method
--(WithdrawalFlowModel *)getFlowModelWitmAmount:(NSString *)amount state:(NSString *)state time:(NSString*)time{
-    WithdrawalFlowModel * model = [[WithdrawalFlowModel alloc]init];
-    model.flowNo = amount;
-    model.flowAmount = amount;
-    model.flowTime = time;
-    model.flowState = state;
-    return model;
-}
 @end

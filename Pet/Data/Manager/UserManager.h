@@ -131,6 +131,16 @@ SingleInterface(UserManager)
 -(StaffEntity *)getStaff;
 
 /**
+ 获取站点信息
+ */
+-(StationEntity *)getStation;
+
+/**
+ 获取商家信息
+ */
+-(BusinessEntity *)getBusiness;
+
+/**
  获取员工编号
  */
 -(NSString *)getStaffNo;

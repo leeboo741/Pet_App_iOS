@@ -84,4 +84,140 @@ SingleImplementation(ApplyManager);
     [model.header setObject:sessionStr forKey:HEADER_KEY_COOKIES];
     [[HttpManager shareHttpManager] requestWithRequestModel:model];
 }
+
+#pragma mark - 审批
+/**
+ 获取待审批的员工列表
+ 
+ @param customerNo  用户编号
+ @param success success
+ @param fail fail
+ */
+-(void)getUnauditedStaffListByCustomerNo:(NSString *)customerNo
+                                 success:(SuccessBlock)success
+                                    fail:(FailBlock)fail{
+    NSDictionary * dict = @{
+        @"phone":customerNo
+    };
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:URL_Apply_Staff_UnauditedList paramers:dict successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        NSArray<ApplyStaffModel *> *array = [ApplyStaffModel mj_objectArrayWithKeyValuesArray:data];
+        if (success) {
+            success(array);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
+/**
+ 获取待审批的商家列表
+ 
+ @param customerNo  用户编号
+ @param success success
+ @param fail fail
+ */
+-(void)getUnauditedBusinessListByCustomerNo:(NSString *)customerNo
+                                    success:(SuccessBlock)success
+                                       fail:(FailBlock)fail{
+    NSDictionary * dict = @{
+        @"customerNo":customerNo
+    };
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_GET Url:URL_Apply_Business_UnauditedList paramers:dict successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        NSArray<ApplyStationModel *> *array = [ApplyStationModel mj_objectArrayWithKeyValuesArray:data];
+        if (success) {
+            success(array);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
+/**
+ 拒绝员工审核
+ 
+ @param staff 员工对象
+ @param success success
+ @param fail fail
+ */
+-(void)rejectStaff:(ApplyStaffModel *)staff
+           success:(SuccessBlock)success
+              fail:(FailBlock)fail{
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_PUT Url:URL_Apply_Staff_Reject paramers:[staff mj_JSONObject] successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
+/**
+ 通过员工申请
+ 
+ @param staff 员工对象
+ @param success success
+ @param fail fail
+ */
+-(void)approveStaff:(ApplyStaffModel *)staff
+            success:(SuccessBlock)success
+               fail:(FailBlock)fail{
+    HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_PUT Url:URL_Apply_Staff_Apply paramers:[staff mj_JSONObject] successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+        if (success) {
+            success(data);
+        }
+    } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+        if (fail) {
+            fail(code);
+        }
+    }];
+    [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
+/**
+ 拒绝商家申请
+ 
+ @param business 商家对象
+ @param success success
+ @param fail fail
+ */
+-(void)rejectBusiness:(ApplyStationModel *)business
+              success:(SuccessBlock)success
+                 fail:(FailBlock)fail{
+     HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_PUT Url:URL_Apply_Business_Reject paramers:[business mj_JSONObject] successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+         if (success) {
+             success(data);
+         }
+     } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+         if (fail) {
+             fail(code);
+         }
+     }];
+     [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
+/**
+ 通过商家申请
+ 
+ @param business 商家对象
+ @param success success
+ @param fail fail
+ */
+-(void)approveBusiness:(ApplyStationModel *)business
+               success:(SuccessBlock)success
+                  fail:(FailBlock)fail{
+      HttpRequestModel * model = [[HttpRequestModel alloc]initWithType:HttpRequestMethodType_PUT Url:URL_Apply_Business_Apply paramers:[business mj_JSONObject] successBlock:^(id  _Nonnull data, NSString * _Nonnull msg) {
+          if (success) {
+              success(data);
+          }
+      } failBlock:^(NSInteger code, NSString * _Nonnull errorMsg) {
+          if (fail) {
+              fail(code);
+          }
+      }];
+      [[HttpManager shareHttpManager] requestWithRequestModel:model];
+}
 @end

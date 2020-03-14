@@ -11,11 +11,13 @@
 #import "OrderOperateBoxView.h"
 #import "OrderRemarkView.h"
 #import "OrderAssignmentsView.h"
+#import "MediaShowBox.h"
 
-@interface SiteOutportOrderCell () <OrderOperateBoxViewDelegate,MediaSelectBoxViewDelegate,MediaSelectBoxViewConfig>
+@interface SiteOutportOrderCell () <OrderOperateBoxViewDelegate,MediaSelectBoxViewDelegate,MediaSelectBoxViewConfig,MediaShowBoxDelegate,MediaShowBoxDataSource>
 @property (weak, nonatomic) IBOutlet OrderBaseInfoView *orderBaseInfoView;
 @property (weak, nonatomic) IBOutlet OrderAssignmentsView *orderAssignmentsView;
 @property (weak, nonatomic) IBOutlet OrderRemarkView *orderRemarkView;
+@property (weak, nonatomic) IBOutlet MediaShowBox *mediaShowBox;
 @property (weak, nonatomic) IBOutlet MediaSelectBoxView *mediaSelectBoxView;
 @property (weak, nonatomic) IBOutlet OrderOperateBoxView *orderOperateBoxView;
 @property (nonatomic, strong) NSMutableArray<OrderOperateButtonModel *> *operateButtonModelArray;
@@ -33,6 +35,8 @@
     self.orderOperateBoxView.delegate = self;
     self.mediaSelectBoxView.delegate = self;
     self.mediaSelectBoxView.config = self;
+    self.mediaShowBox.delegate = self;
+    self.mediaShowBox.dataSource = self;
     if (![[UserManager shareUserManager] isManager]) {
         self.orderAssignmentsView.hidden = YES;
     } else {
@@ -46,6 +50,19 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+#pragma mark - media show box view delegate and datasource
+
+-(void)mediaShowBox:(MediaShowBox *)showBox didSelectItemAtIndex:(NSInteger)index{
+    
+}
+
+-(NSInteger)itemColumnCountForMediaShowBox:(MediaShowBox *)showBox{
+    return 4;
+}
+-(CGFloat)itemHeightForMediaShowBox:(MediaShowBox *)showBox{
+    return 120;
 }
 
 #pragma mark - media select box view delegate and config
@@ -89,7 +106,29 @@
 -(void)setOrderEntity:(OrderEntity *)orderEntity{
     _orderEntity = orderEntity;
     self.orderBaseInfoView.orderNo = orderEntity.orderNo;
+    self.orderBaseInfoView.orderNo = orderEntity.orderNo;
+    self.orderBaseInfoView.endCity = orderEntity.transport.endCity;
+    self.orderBaseInfoView.startCity = orderEntity.transport.startCity;
+    self.orderBaseInfoView.orderAmount = orderEntity.orderAmount;
+    self.orderBaseInfoView.orderState = orderEntity.orderState;
+    self.orderBaseInfoView.orderTime = orderEntity.orderTime;
+    self.orderBaseInfoView.outportTime = orderEntity.outportTime;
+    self.orderBaseInfoView.petBreed = orderEntity.petBreed.petBreedName;
+    self.orderBaseInfoView.petType = orderEntity.petType.petTypeName;
+    self.orderBaseInfoView.receiverName = orderEntity.receiverName;
+    self.orderBaseInfoView.receiverPhone = orderEntity.receiverPhone;
+    self.orderBaseInfoView.senderName = orderEntity.senderName;
+    self.orderBaseInfoView.senderPhone = orderEntity.senderPhone;
+    self.orderBaseInfoView.transportType = orderEntity.transport.transportTypeName;
+    self.orderRemarkView.customerRemark = orderEntity.orderRemark;
+    if (!kArrayIsEmpty(orderEntity.orderRemarksList)) {
+        OrderRemarks * remarks = orderEntity.orderRemarksList[0];
+        self.orderRemarkView.lastFollowUpContent = remarks.remarks;
+    }
     self.orderAssignmentsView.assignmentsStr = orderEntity.assignmentedStaffString;
+    
+    
+    
 }
 
 #pragma mark - private method

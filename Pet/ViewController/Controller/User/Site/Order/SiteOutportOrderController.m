@@ -12,12 +12,19 @@
 #import "AssignmentsController.h"
 #import "OrderDetailController.h"
 #import "PrinterConneterManager.h"
+#import "SiteOrderManager.h"
+#import "UITableViewController+AddMJRefresh.h"
+#import "InOrOutPortFilterController.h"
 
 static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
 
-@interface SiteOutportOrderController () <SiteOutportOrderCellDelegate>
+@interface SiteOutportOrderController () <SiteOutportOrderCellDelegate,UITextFieldDelegate>
 @property (nonatomic, strong)NSMutableArray<OrderEntity *> * dataSource;
 @property (nonatomic, assign, readonly) BOOL hasPrinterConnected; // 是否链接设备
+
+@property (nonatomic, strong) UIView * actionSearchView;
+@property (nonatomic, strong) UITextField * actionSearchTextfield;
+@property (nonatomic, strong) InOrOutPortRequestParam * param;
 @end
 
 @implementation SiteOutportOrderController
@@ -25,7 +32,15 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"待出港单";
+    UIButton * button = [[UIButton alloc]init];
+    [button setTitle:@"更多筛选" forState:UIControlStateNormal];
+    [button setTitleColor:Color_blue_1 forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(moreFilter) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithCustomView:button];
+    self.navigationItem.rightBarButtonItem = item;
     [self.tableView registerNib:[UINib nibWithNibName:SiteOutportOrderCellIdentifier bundle:nil] forCellReuseIdentifier:SiteOutportOrderCellIdentifier];
+    [self addRefreshViewWithRefreshAction:@selector(refreshAction)];
+    [self startRefresh];
 }
 
 #pragma mark - tableview datasource and delegate
@@ -53,11 +68,11 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    return nil;
+    return self.actionSearchView;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 10;
+    return 50;
 }
 
 #pragma mark - config cell
@@ -144,53 +159,93 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+#pragma mark - textfield delegate
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    MSLog(@"点击确定搜索");
+    self.param.orderNo = textField.text;
+    [self startRefresh];
+    return  YES;
+}
+
 #pragma mark - setters and getters
 
 -(NSMutableArray<OrderEntity *> *)dataSource{
     if (!_dataSource) {
         _dataSource = [NSMutableArray array];
-        OrderEntity * orderEntity = [[OrderEntity alloc]init];
-        orderEntity.orderNo = @"123123123";
-        orderEntity.outportTime = @"2019-11-11 03:32:22";
-        orderEntity.startCity = @"南昌市";
-        orderEntity.endCity = @"北京市";
-        OrderTransport * transport = [[OrderTransport alloc]init];
-        transport.transportType = 1;
-        orderEntity.transport = transport;
-        PetType * type = [[PetType alloc]init];
-        type.petTypeName = @"狗";
-        orderEntity.petType = type;
-        PetBreed * breed = [[PetBreed alloc]init];
-        breed.petBreedName = @"哈士奇";
-        orderEntity.petBreed = breed;
-        orderEntity.num = 1;
-        orderEntity.weight = 12;
-        [_dataSource addObject:orderEntity];
-        
-        OrderEntity * orderEntity1 = [[OrderEntity alloc]init];
-        orderEntity1.orderNo = @"234234234";
-        [_dataSource addObject:orderEntity1];
-        
-        OrderEntity * orderEntity2 = [[OrderEntity alloc]init];
-        orderEntity2.orderNo = @"345345345";
-        [_dataSource addObject:orderEntity2];
-        
-        OrderEntity * orderEntity3 = [[OrderEntity alloc]init];
-        orderEntity3.orderNo = @"456456456";
-        [_dataSource addObject:orderEntity3];
-        
-        OrderEntity * orderEntity4 = [[OrderEntity alloc]init];
-        orderEntity4.orderNo = @"567567567";
-        [_dataSource addObject:orderEntity4];
     }
     return _dataSource;
+}
+
+-(UIView *)actionSearchView{
+    if (!_actionSearchView) {
+        _actionSearchView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50)];
+        
+        UIView * view = [[UIView alloc]initWithFrame:CGRectMake(15, _actionSearchView.frame.size.height * 0.1, _actionSearchView.frame.size.width - 30, _actionSearchView.frame.size.height * 0.8)];
+        view.backgroundColor = kRGBColor(250, 250, 250);
+        view.layer.cornerRadius = view.frame.size.height / 2;
+        view.layer.masksToBounds = YES;
+        [_actionSearchView addSubview:view];
+        
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, (view.frame.size.height - 28)/2, 28, 28)];
+        imageView.image = [UIImage iconWithInfo:TBCityIconInfoMake(IconFont_Search, 28, Color_gray_2)];
+        [view addSubview:imageView];
+        
+        _actionSearchTextfield = [[UITextField alloc]initWithFrame:CGRectMake(50, view.frame.size.height * 0.1, view.frame.size.width - 55, view.frame.size.height * 0.8)];
+        _actionSearchTextfield.delegate = self;
+        _actionSearchTextfield.textColor = Color_gray_2;
+        _actionSearchTextfield.returnKeyType = UIReturnKeySearch;
+        _actionSearchTextfield.placeholder = @"查找订单";
+        [view addSubview:_actionSearchTextfield];
+        
+        UIView * view2 = [[UIView alloc]initWithFrame:CGRectMake(0, _actionSearchView.frame.size.height - 1, _actionSearchView.frame.size.width, 1)];
+        view2.backgroundColor = kRGBColor(250, 250, 250);
+        [_actionSearchView addSubview:view2];
+    }
+    return _actionSearchView;
 }
 
 -(BOOL)hasPrinterConnected{
     return [[PrinterConneterManager sharePrinterConneterManager] hasConnectPrinter];
 }
+-(InOrOutPortRequestParam *)param{
+    if (!_param) {
+        _param = [[InOrOutPortRequestParam alloc]init];
+        NSArray * array = @[
+            [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToInport],
+            [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToOutport],
+            [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToPack]
+        ];
+        [_param.orderTypeArray addObjectsFromArray:array];
+    }
+    return _param;
+}
 
 #pragma mark - private method
+
+-(void)moreFilter{
+    InOrOutPortFilterController * inOrOutPortFilterController = [[InOrOutPortFilterController alloc]init];
+    inOrOutPortFilterController.param = self.param;
+    inOrOutPortFilterController.filterType = InOrOutPortFilter_Type_Out;
+    __weak typeof(self) weakSelf = self;
+    inOrOutPortFilterController.returnBlock = ^(InOrOutPortRequestParam * _Nonnull param) {
+        weakSelf.param = param;
+        [weakSelf startRefresh];
+    };
+    [self.navigationController pushViewController:inOrOutPortFilterController animated:YES];
+}
+
+-(void)refreshAction{
+    __weak typeof(self) weakSelf = self;
+    [[SiteOrderManager shareSiteOrderManager] getInOrOutPortOrderWithParam:self.param success:^(id  _Nonnull data) {
+        [weakSelf.dataSource removeAllObjects];
+        [weakSelf.dataSource addObjectsFromArray:(NSArray *)data];
+        [weakSelf.tableView reloadData];
+        [weakSelf endRefresh];
+    } fail:^(NSInteger code) {
+        [weakSelf endRefresh];
+    }];
+}
 
 // 备注弹窗
 -(void)showRemarkInputViewWithCell:(SiteOutportOrderCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -270,6 +325,5 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
-
 
 @end

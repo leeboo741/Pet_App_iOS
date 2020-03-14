@@ -255,6 +255,20 @@ SingleImplementation(UserManager)
 -(StaffEntity *)getStaff{
     return self.user.staff;
 }
+
+/**
+ 获取站点信息
+ */
+-(StationEntity *)getStation{
+    return self.user.staff.station;
+}
+
+/**
+ 获取商家信息
+ */
+-(BusinessEntity *)getBusiness{
+    return self.user.business;
+}
 /**
  获取员工编号
  */

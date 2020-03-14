@@ -19,6 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ApprovalStationCell : UITableViewCell
 @property (nonatomic, weak) id<ApprovalStationCellDelegate> delegate;
+@property (nonatomic, copy) NSString * stationName;
+@property (nonatomic, copy) NSString * phone;
+@property (nonatomic, copy) NSString * businessTime;
+@property (nonatomic, copy) NSString * address;
+@property (nonatomic, copy) NSString * describes;
 @end
 
 NS_ASSUME_NONNULL_END
