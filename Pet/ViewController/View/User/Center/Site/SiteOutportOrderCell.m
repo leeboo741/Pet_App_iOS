@@ -12,15 +12,21 @@
 #import "OrderRemarkView.h"
 #import "OrderAssignmentsView.h"
 #import "MediaShowBox.h"
+#import "SiteOrderManager.h"
 
 @interface SiteOutportOrderCell () <OrderOperateBoxViewDelegate,MediaSelectBoxViewDelegate,MediaSelectBoxViewConfig,MediaShowBoxDelegate,MediaShowBoxDataSource>
 @property (weak, nonatomic) IBOutlet OrderBaseInfoView *orderBaseInfoView;
 @property (weak, nonatomic) IBOutlet OrderAssignmentsView *orderAssignmentsView;
 @property (weak, nonatomic) IBOutlet OrderRemarkView *orderRemarkView;
 @property (weak, nonatomic) IBOutlet MediaShowBox *mediaShowBox;
+@property (weak, nonatomic) IBOutlet MediaShowBox *uploadMediaShowBox;
 @property (weak, nonatomic) IBOutlet MediaSelectBoxView *mediaSelectBoxView;
 @property (weak, nonatomic) IBOutlet OrderOperateBoxView *orderOperateBoxView;
 @property (nonatomic, strong) NSMutableArray<OrderOperateButtonModel *> *operateButtonModelArray;
+
+@property (nonatomic, strong) NSArray<MediaSelectItemModel *>* selectImageDataList;
+@property (nonatomic, strong) NSArray<MediaShowItemModel *> * showImageDataList;
+@property (nonatomic, strong) NSArray<MediaShowItemModel *> * commitImageDataList;
 
 @end
 
@@ -35,8 +41,8 @@
     self.orderOperateBoxView.delegate = self;
     self.mediaSelectBoxView.delegate = self;
     self.mediaSelectBoxView.config = self;
-    self.mediaShowBox.delegate = self;
     self.mediaShowBox.dataSource = self;
+    self.uploadMediaShowBox.dataSource = self;
     if (![[UserManager shareUserManager] isManager]) {
         self.orderAssignmentsView.hidden = YES;
     } else {
@@ -54,10 +60,6 @@
 
 #pragma mark - media show box view delegate and datasource
 
--(void)mediaShowBox:(MediaShowBox *)showBox didSelectItemAtIndex:(NSInteger)index{
-    
-}
-
 -(NSInteger)itemColumnCountForMediaShowBox:(MediaShowBox *)showBox{
     return 4;
 }
@@ -71,6 +73,7 @@
     if (_delegate && [_delegate respondsToSelector:@selector(siteOutportOrderCell:selectImageDataChange:)]) {
         [_delegate siteOutportOrderCell:self selectImageDataChange:dataSource];
     }
+    [self initButtonArray];
 }
 
 -(NSInteger)numberOfMediaSelectBoxColumn{
@@ -102,6 +105,15 @@
     _selectImageDataList = selectImageDataList;
     self.mediaSelectBoxView.dataSource = [NSMutableArray arrayWithArray:selectImageDataList];
 }
+-(void)setShowImageDataList:(NSArray<MediaShowItemModel *> *)showImageDataList{
+    _showImageDataList = showImageDataList;
+    self.mediaShowBox.data = [NSMutableArray arrayWithArray:showImageDataList];
+}
+
+-(void)setCommitImageDataList:(NSArray<MediaShowItemModel *> *)commitImageDataList{
+    _commitImageDataList = commitImageDataList;
+    self.uploadMediaShowBox.data = [NSMutableArray arrayWithArray:commitImageDataList];
+}
 
 -(void)setOrderEntity:(OrderEntity *)orderEntity{
     _orderEntity = orderEntity;
@@ -126,22 +138,51 @@
         self.orderRemarkView.lastFollowUpContent = remarks.remarks;
     }
     self.orderAssignmentsView.assignmentsStr = orderEntity.assignmentedStaffString;
-    
-    
-    
+    // 上一步骤 图片列表
+    OrderStatus * status = [orderEntity.orderStates firstObject];
+    NSMutableArray * showMediaList = [NSMutableArray array];
+    for (OrderMedia * media in status.orderMediaList) {
+        MediaShowItemModel * model = [[MediaShowItemModel alloc]init];
+        model.resourcePath = media.mediaAddress;
+        [showMediaList addObject:model];
+    }
+    self.showImageDataList = showMediaList;
+    // 待提交的图片
+    self.commitImageDataList = orderEntity.waitCommitMediaList;
+    // 待上传的图片
+    self.selectImageDataList = orderEntity.waitUploadMediaList;
+    [self initButtonArray];
 }
 
 #pragma mark - private method
 
+-(BOOL)showUploadButton{
+    return !kArrayIsEmpty(self.selectImageDataList);
+}
+-(BOOL)showInOrOutPortButton{
+    return kArrayIsEmpty(self.selectImageDataList) && !kArrayIsEmpty(self.commitImageDataList);
+}
+
+-(NSString *)inOrOutPortButtonTitle{
+    OrderStatus * status = [self.orderEntity.orderStates firstObject];
+    SiteOrderState state = [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateByString:status.orderType];
+    if (state == SiteOrderState_ToPack ) {
+        return @"揽件";
+    } else if (state == SiteOrderState_ToInport) {
+        return @"入港";
+    } else if (state == SiteOrderState_ToOutport) {
+        return @"出港";
+    } else {
+        return @"未知";
+    }
+}
+
 -(void)initButtonArray{
     [self.operateButtonModelArray removeAllObjects];
-//    [self insertButtonModelWithTitle:@"上传" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Upload show:!kArrayIsEmpty(self.selectImageDataList)];
-    [self insertButtonModelWithTitle:@"上传" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Upload show:YES];
-    [self insertButtonModelWithTitle:@"揽件" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Package show:YES];
-    [self insertButtonModelWithTitle:@"出港" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_OutInPort show:YES];
+    [self insertButtonModelWithTitle:@"上传" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Upload show:[self showUploadButton]];
+    [self insertButtonModelWithTitle:[self inOrOutPortButtonTitle] style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Package show:[self showInOrOutPortButton]];
     [self insertButtonModelWithTitle:@"备注" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Remark show:YES];
-//    [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:[[UserManager shareUserManager] isManager];
-    [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:YES];
+    [self insertButtonModelWithTitle:@"分配订单" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Assignment show:[[UserManager shareUserManager] isManager]];
     [self insertButtonModelWithTitle:@"补价" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_AddPrice show:YES];
     [self insertButtonModelWithTitle:@"退款" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_Refund show:YES];
     [self insertButtonModelWithTitle:@"订单详情" style:OrderOperateButtonStyle_Yellow type:OrderOperateButtonType_DetailOrder show:YES];

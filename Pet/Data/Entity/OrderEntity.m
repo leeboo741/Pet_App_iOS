@@ -24,15 +24,15 @@
 
 -(NSString *)transportTypeName{
     switch (self.transportType) {
-        case 1:
+        case OrderTransport_TransportType_Code_Zhuanche:
             return @"专车";
-        case 2:
+        case OrderTransport_TransportType_Code_Huoche:
             return @"铁路";
-        case 3:
+        case OrderTransport_TransportType_Code_Danfei:
             return @"单飞";
-        case 4:
+        case OrderTransport_TransportType_Code_Suiji:
             return @"随机";
-        case 5:
+        case OrderTransport_TransportType_Code_Daba:
             return @"大巴";
         default:
             return @"未知";
@@ -130,6 +130,13 @@
         _orderRemarksList = @[];
     }
     return _orderRemarksList;
+}
+
+-(OrderTempDeliver *)waitAddTempDelivers{
+    if (!_waitAddTempDelivers) {
+        _waitAddTempDelivers = [[OrderTempDeliver alloc]init];
+    }
+    return _waitAddTempDelivers;
 }
 @end
 

@@ -41,6 +41,7 @@
 #define IconFont_Play           @"\U0000E667" // 播放
 #define IconFont_Bill_4         @"\U0000E669" // 单据_4 入港单
 #define IconFont_Bill_3         @"\U0000E66A" // 单据_3 出港单
+#define IconFont_Logout         @"\U0000E66B" // 登出
 #define IconFont_Train          @"\U0000E674" // 火车
 #define IconFont_Bill_5         @"\U0000E67F" // 单据_5 待付款
 #define IconFont_Time           @"\U0000E6C2" // 时间
@@ -49,6 +50,13 @@
 #define IconFont_AboutUs        @"\U0000E728" // 关于我们
 #define IconFont_Message        @"\U0000E764" // 信息
 #define IconFont_NotNull        @"\U0000E83D" // 必填
+
+#define IconFont_Home_Shuoming      @"\U0000E615" // 首页 下单说明
+#define IconFont_Home_Jichongwu     @"\U0000E632" // 首页 寄宠物
+#define IconFont_Home_Chongwudian   @"\U0000E6E3" // 首页 宠物店
+#define IconFont_Home_Dingdan       @"\U0000E61A" // 首页 我的订单
+#define IconFont_Home_Fujin         @"\U0000E723" // 首页 周边
+#define IconFont_Home_Zhuizong      @"\U0000E68D" // 首页 订单跟踪
 
 #pragma mark - Color Resource Macros
 
@@ -119,22 +127,22 @@
 /**
  下单相关
  */
-#define URL_Pet_Type            @"/api/petType" // 宠物类型|完成
-#define URL_StartCity           @"/api/transport/listStartCity" // 始发城市列表|完成
-#define URL_EndCity             @"/api/transport/listEndCity" // 终点城市列表
-#define URL_StorePhoneByCityName @"/api/business/getPhoneByCityName" // 通过城市获取商家电话|完成
-#define URL_InsureRateByCityName @"/api/consign/insure" // 查询保价费率|完成
-#define URL_AbleTransportType   @"/api/transport/listTransportType" // 可用运输方式|完成
-#define URL_AblePetCageMax      @"/api/consign/cage/max" // 最大箱子重量|完成
-#define URL_PredictPrice        @"/api/order/getOrderPrice" // 获取预估价格|完成
-#define URL_InsertOrder         @"/api/order/insertOrder" // 创建订单|完成
-#define URL_GetOrderAmount      @"/api/order/price" // 获取订单价格|完成
+#define URL_Pet_Type                @"/api/petType" // 宠物类型|完成
+#define URL_StartCity               @"/api/transport/listStartCity" // 始发城市列表|完成
+#define URL_EndCity                 @"/api/transport/listEndCity" // 终点城市列表
+#define URL_StorePhoneByCityName    @"/api/business/getPhoneByCityName" // 通过城市获取商家电话|完成
+#define URL_InsureRateByCityName    @"/api/consign/insure" // 查询保价费率|完成
+#define URL_AbleTransportType       @"/api/transport/listTransportType" // 可用运输方式|完成
+#define URL_AblePetCageMax          @"/api/consign/cage/max" // 最大箱子重量|完成
+#define URL_PredictPrice            @"/api/order/getOrderPrice" // 获取预估价格|完成
+#define URL_InsertOrder             @"/api/order/insertOrder" // 创建订单|完成
+#define URL_GetOrderAmount          @"/api/order/price" // 获取订单价格|完成
 
 /**
  支付相关
  */
-#define URL_GetTranportPayParamForWechat @"/api/weChat/pay/getOrderPayParam" // 获取微信运输单支付参数|完成
-#define URL_GetPremiumPayParamForWechat @"/api/weChat/pay/getOrderPremiumParam" // 获取微信补价单支付参数
+#define URL_GetTranportPayParamForWechat    @"/api/weChat/pay/getOrderPayParam" // 获取微信运输单支付参数|完成
+#define URL_GetPremiumPayParamForWechat     @"/api/weChat/pay/getOrderPremiumParam" // 获取微信补价单支付参数
 #define URL_GetRechargePayParamForWechat    @"/api/weChat/pay/getRechargeParam" // 获取微信充值支付参数
 
 /**
@@ -147,57 +155,64 @@
  */
 #define URL_Customer_GetOrderListByStatus   @"/api/order/listOrderList" // 根据订单类型查询客户订单列表
 #define URL_Customer_EditOrderContacts      @"/api/order/update/contacts" // 编辑订单联系人
-#define URL_Customer_OrderConfirm    @"/api/order/confirmOrder" // 确认收货 POST
-#define URL_Customer_OrderAbleConfirm @"/api/order/check/order" // 是否有收货权限 GET
-#define URL_Customer_OrderCancel     @"/api/order/cancelOrder" // 取消订单 PUT
-#define URL_Customer_SearchOrder    @"/api/consign/order-no/customer" // 模糊搜索订单号 GET 未完成
-#define URL_Customer_EvaluateOrder  @"/api/order/evaluate" // 订单评价 POST
-#define URL_Customer_Balance    @"/api/balance" // 查询用户余额
+#define URL_Customer_OrderConfirm           @"/api/order/confirmOrder" // 确认收货 POST
+#define URL_Customer_OrderAbleConfirm       @"/api/order/check/order" // 是否有收货权限 GET
+#define URL_Customer_OrderCancel            @"/api/order/cancelOrder" // 取消订单 PUT
+#define URL_Customer_SearchOrder            @"/api/consign/order-no/customer" // 模糊搜索订单号 GET 未完成
+#define URL_Customer_EvaluateOrder          @"/api/order/evaluate" // 订单评价 POST
+#define URL_Customer_Balance                @"/api/balance" // 查询用户余额
 
 /**
  员工相关
  */
-#define URL_Site_AddOrderRemark @"/api/order/remarks" // 添加订单备注 POST
-#define URL_Site_AddPremium @"/api/order/premium" // 新增补价单 POST
-#define URL_Site_CancelPremium  @"/api/order/premium/cancel" // 取消补价单 PUT
+#define URL_Site_AddOrderRemark         @"/api/order/remarks" // 添加订单备注 POST
+#define URL_Site_AddPremium             @"/api/order/premium" // 新增补价单 POST
+#define URL_Site_CancelPremium          @"/api/order/premium/cancel" // 取消补价单 PUT
 #define URL_Site_GetUnpayPremiumCount   @"/api/order/premium/count/unpaid" // 获取未支付的补价单数量
-#define URL_Site_SearchOrder    @"/api/consign/order-no/staff" // 模糊搜索订单号
-#define URL_Site_RebateFlow    @"/api/rebate/station/flow" // 站点返利流水
-#define URL_Site_WithdrawFlow   @"/api/withdraw/station/flow" // 站点提现流水
-#define URL_Site_Withdraw       @"/api/withdraw/station" // 站点提现
-#define URL_Site_BalanceBuffer  @"/api/balance/buffer/station" // 站点可用金额和冻结金额
-#define URL_Site_OrderListAllByState   @"/api/order/list/station" // 站点所有订单
-#define URL_Site_UpdateOrderPrice   @"/api/order/update/price" // 修改订单价格
-#define URL_Site_OrderListByOrderNo @"/api/consign/port/listByLikeOrderNo" // 查询出入港单
-#define URL_Site_OrderListAll   @"/api/consign/port/list/Complete" // 站点所有订单
+#define URL_Site_SearchOrder            @"/api/consign/order-no/staff" // 模糊搜索订单号
+#define URL_Site_RebateFlow             @"/api/rebate/station/flow" // 站点返利流水
+#define URL_Site_WithdrawFlow           @"/api/withdraw/station/flow" // 站点提现流水
+#define URL_Site_Withdraw               @"/api/withdraw/station" // 站点提现
+#define URL_Site_BalanceBuffer          @"/api/balance/buffer/station" // 站点可用金额和冻结金额
+#define URL_Site_OrderListAllByState    @"/api/order/list/station" // 站点所有订单
+#define URL_Site_UpdateOrderPrice       @"/api/order/update/price" // 修改订单价格
+#define URL_Site_OrderListByOrderNo     @"/api/consign/port/listByLikeOrderNo" // 查询出入港单
+#define URL_Site_OrderListAll           @"/api/consign/port/list/Complete" // 站点所有订单
+#define URL_Site_UploadMediaFiles       @"/api/consign/orderState/uploadMediaFiles" // 上传图片和视频
+#define URL_Site_GetAllSubStaff(CustomerNo) [NSString stringWithFormat:@"/api/staff/%@",CustomerNo]  // 查询站点员工
+#define URL_Site_Assignment             @"/api/order/assignment/" // 订单分配
+#define URL_Site_Refund                 @"/api/order/refund" // 订单退款
+#define URL_Site_InOrOutPort            @"/api/consign/orderState/inOrOutPort" // 订单出入港
+#define URL_Site_PostTransportInfo      @"/api/order/transport" // 添加快递信息
+#define URL_Site_AddNewTempDeliver      @"/api/order/deliver" // 添加临派信息
+#define URL_Site_OrderConfirm           @"/api/order/confirmOrder" // 签收
 
 /**
  商家相关
  */
-#define URL_Station_List         @"/api/business/listByPosition" // 获取周边商家|完成
-#define URL_Station_RebateFlow    @"/api/rebate/business/flow" // 商家返利流水
-#define URL_Station_WithdrawFlow   @"/api/withdraw/business/flow" // 商家提现流水
-#define URL_Station_Withdraw       @"/api/withdraw/business" // 商家提现
-#define URL_Station_BalanceBuffer  @"/api/balance/buffer/business" // 商家可用金额和冻结金额
+#define URL_Station_List            @"/api/business/listByPosition" // 获取周边商家|完成
+#define URL_Station_RebateFlow      @"/api/rebate/business/flow" // 商家返利流水
+#define URL_Station_WithdrawFlow    @"/api/withdraw/business/flow" // 商家提现流水
+#define URL_Station_Withdraw        @"/api/withdraw/business" // 商家提现
+#define URL_Station_BalanceBuffer   @"/api/balance/buffer/business" // 商家可用金额和冻结金额
 
 /**
  申请相关
  */
-#define URL_ApplyStaff          @"/api/staff/applyForStaff" // 员工注册 |完成
-#define URL_ApplyStation        @"/business/insetBusiness" // 站点注册 |完成
-#define URL_StatonListByCity    @"/api/staff/listByProvinceAndCity" // 根据城市获取站点列表|完成
-//#define URL_Siten_Staff @"/api/staff/{customerNo}" // 查询站点员工
-#define URL_Apply_Staff_UnauditedList  @"/api/staff/listUnauditedStaff" // 员工申请列表
-#define URL_Apply_Staff_Reject  @"/api/staff/reject" // 驳回员工申请
-#define URL_Apply_Staff_Apply   @"/api/staff/review" // 通过员工申请
+#define URL_ApplyStaff                      @"/api/staff/applyForStaff" // 员工注册 |完成
+#define URL_ApplyStation                    @"/business/insetBusiness" // 站点注册 |完成
+#define URL_StatonListByCity                @"/api/staff/listByProvinceAndCity" // 根据城市获取站点列表|完成
+#define URL_Apply_Staff_UnauditedList       @"/api/staff/listUnauditedStaff" // 员工申请列表
+#define URL_Apply_Staff_Reject              @"/api/staff/reject" // 驳回员工申请
+#define URL_Apply_Staff_Apply               @"/api/staff/review" // 通过员工申请
 #define URL_Apply_Business_UnauditedList    @"/api/business/listAllUnauditedBusiness" // 商家申请列表
-#define URL_Apply_Business_Reject   @"/api/business/reject" // 驳回商家申请
-#define URL_Apply_Busi ness_Apply    @"通过商家申请" // 通过商家申请
+#define URL_Apply_Business_Reject           @"/api/business/reject" // 驳回商家申请
+#define URL_Apply_Business_Apply            @"/api/business/review" // 通过商家申请
 
 /**
  消息相关
  */
-#define URL_Message_GetMessageList  @"/api/message/customer" // 获取 站内信列表
+#define URL_Message_GetMessageList      @"/api/message/customer" // 获取 站内信列表
 #define URL_Message_GetNewMessageList   @"/api/message/push/" // 获取 最新站内信
 
 /**

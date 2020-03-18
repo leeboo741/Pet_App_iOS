@@ -9,5 +9,10 @@
 #import "MediaSelectItemModel.h"
 
 @implementation MediaSelectItemModel
-
+-(instancetype)init{
+    if (self = [super init]) {
+        self.isUploaded = NO;
+    }
+    return self;
+}
 @end

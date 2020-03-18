@@ -53,10 +53,7 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
     [[UserManager shareUserManager] refreshBalance];
     MSLog(@"Site Center Appear");
 }
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    MSLog(@"Site Center Disappear");
-}
+
 #pragma mark - tableview datasource and delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -271,6 +268,12 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
             [self.navigationController pushViewController:aboutUsVC animated:YES];
         }
             break;
+        case 11:
+        {
+            MSLog(@"退出");
+            [[UserManager shareUserManager] logout];
+        }
+            break;
         default:
             break;
     }
@@ -299,6 +302,7 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
         CenterActionItemModel * action8 = [self getActionModelWithActionName:@"申请" andIconName:IconFont_Apply];
         CenterActionItemModel * action9 = [self getActionModelWithActionName:@"切换身份" andIconName:IconFont_ChangeRole];
         CenterActionItemModel * action10 = [self getActionModelWithActionName:@"关于我们" andIconName:IconFont_AboutUs];
+        CenterActionItemModel * action11 = [self getActionModelWithActionName:@"退出" andIconName:IconFont_Logout];
         if ([[UserManager shareUserManager] isManager]) {
             action6.hidden = NO;
             action7.hidden = NO;
@@ -307,7 +311,7 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
             action6.hidden = YES;
             action7.hidden = YES;
         }
-        _actionModelArray = @[action1,action2,action3,action4,action5,action6,action7,action8,action9,action10];
+        _actionModelArray = @[action1,action2,action3,action4,action5,action6,action7,action8,action9,action10,action11];
     }
     return _actionModelArray;
 }

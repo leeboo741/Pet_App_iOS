@@ -138,6 +138,7 @@ static NSString * MediaShowItemIdentifier = @"MeidaShowItem";
 -(void)setData:(NSArray<MediaShowItemModel *> *)data{
     _data = data;
     [self resetConstraints];
+    [self.collectionView reloadData];
 }
 
 #pragma mark - private method

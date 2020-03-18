@@ -21,6 +21,7 @@
 #import "OrderManager.h"
 #import "TransportCitySelectedController.h"
 #import "LocationManager.h"
+#import "ContractViewController.h"
 
 #pragma mark - Transport Type View Model
 #pragma mark -
@@ -454,6 +455,29 @@ static NSString * ValueAddedCellIdentifier = @"ValueAddedCellIdentifier";
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     TransportValueAdd * valueAdd = (TransportValueAdd *)self.transportValueAddArray[indexPath.row];
     MSLog(@"点击Contract: %@",valueAdd.serviceContract);
+    ContractViewController * contractViewController = [[ContractViewController alloc]init];
+    if (indexPath.row == 0) {
+        contractViewController.title = @"评估说明";
+        contractViewController.type = ContractType_Text;
+        contractViewController.source = @"  根据机场、车站要求，承运宠物必须填写“声明价值”。最低1000元，最高6000元。服务费按照声明价值的1%收取。运输途中，宠物死亡，按照声明价值赔付。备注:理赔时，声明价值超过5000元的宠物，需提供血统证书。\n\n   本服务由中国平安财产保险有限公司提供";
+    } else if (indexPath.row == 1) {
+        contractViewController.title = @"宠物箱说明";
+        contractViewController.type = ContractType_Image;
+        contractViewController.source = @"https://img.taochonghui.com/weapp/petCage.jpg";
+    } else if (indexPath.row == 2) {
+        contractViewController.title = @"接宠说明";
+        contractViewController.type = ContractType_Text;
+        contractViewController.source = @"  接宠所在地，距离当地网点10公里范围内免费，超出范围接宠司机会收取相应路费。具体以当地网点联系结果为准。";
+    } else if (indexPath.row == 3) {
+        contractViewController.title = @"送宠说明";
+        contractViewController.type = ContractType_Text;
+        contractViewController.source = @"1、送宠到家，以下单客户输入的具体地址为准，并根据送宠的距离合理收取路费。\n\n 2、各地机场、车站，均有提货费用。提货费用，收件人自理。\n\n 3、宠物不送上楼，只送到小区门口或者车辆能直接开进去并且顺利倒出来的区域。如有特殊需要，请提前联系当地站点客服。\n\n 4、送宠时效：一般不超过航班落地6小时后。具体以当地机场、车站提货时效为准。\n";
+    } else if (indexPath.row == 7) {
+        contractViewController.title = @"担保注意事项";
+        contractViewController.type = ContractType_Text;
+        contractViewController.source = @"1. 斑马速运，不参与买卖双方交易过程！\n\n 2. 可以提供上门拍摄宠物实时视频服务，确保所拍视频真实有效。\n\n 3. 如需上门检测或送当地宠物医院检测，下单时请在备注栏里填写相关需求。检测所需费用，实报实销。";
+    }
+    [self.navigationController pushViewController:contractViewController animated:YES];
 }
 
 #pragma mark - footer view delegate

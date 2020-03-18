@@ -14,6 +14,7 @@
 #import "CustomerOrderManager.h"
 #import "SiteOrderManager.h"
 #import "OrderDetailController.h"
+#import "ContractViewController.h"
 
 @interface HomeViewAction : NSObject<HomeActionProtocol>
 @property (nonatomic, copy) NSString * iconName;
@@ -91,7 +92,11 @@
     switch (index) {
         case 0:
         {
-            
+            ContractViewController * contractVC = [[ContractViewController alloc]init];
+            contractVC.title = @"下单说明";
+            contractVC.source = @"https://img.taochonghui.com/weapp/selfHelp.jpg";
+            contractVC.type = ContractType_Image;
+            [self.navigationController pushViewController:contractVC animated:YES];
         }
             break;
         case 1:
@@ -137,21 +142,20 @@
 
 -(NSArray<NSString *> *)imagePathArray{
     if (!_imagePathArray) {
-        _imagePathArray = @[@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576732018554&di=f6355b47700bdb62b7381851e006cd06&imgtype=0&src=http%3A%2F%2Fimg.51ztzj.com%2Fupload%2Fimage%2F20130417%2F201304172007_670x419.jpg",
-                            @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576732013190&di=a566b0fff9b908ef63b10ad32e17e769&imgtype=0&src=http%3A%2F%2Fimg1.gtimg.com%2Frushidao%2Fpics%2Fhv1%2F20%2F108%2F1744%2F113431160.jpg",
-                            @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576731997356&di=cef20e68ef3a8adf40bdb8ea6b4e5f29&imgtype=0&src=http%3A%2F%2Fb2-q.mafengwo.net%2Fs5%2FM00%2F91%2F06%2FwKgB3FH_RVuATULaAAH7UzpKp6043.jpeg"];
+        _imagePathArray = @[@"https://img.taochonghui.com/weapp/banner01.jpg",
+                            @"https://img.taochonghui.com/weapp/banner02.jpg"];
     }
     return _imagePathArray;
 }
 
 -(NSArray<HomeViewAction *> *)homeActionArray{
     if(!_homeActionArray) {
-        HomeViewAction * action = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"下单说明"];
-        HomeViewAction * action1 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"寄宠物"];
-        HomeViewAction * action2 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"宠物店"];
-        HomeViewAction * action3 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"我的订单"];
-        HomeViewAction * action4 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"附近网点"];
-        HomeViewAction * action5 = [[HomeViewAction alloc]initWithIconName:@"" actionTitle:@"订单跟踪"];
+        HomeViewAction * action = [[HomeViewAction alloc]initWithIconName:IconFont_Home_Shuoming actionTitle:@"下单说明"];
+        HomeViewAction * action1 = [[HomeViewAction alloc]initWithIconName:IconFont_Home_Jichongwu actionTitle:@"寄宠物"];
+        HomeViewAction * action2 = [[HomeViewAction alloc]initWithIconName:IconFont_Home_Chongwudian actionTitle:@"宠物店"];
+        HomeViewAction * action3 = [[HomeViewAction alloc]initWithIconName:IconFont_Home_Dingdan actionTitle:@"我的订单"];
+        HomeViewAction * action4 = [[HomeViewAction alloc]initWithIconName:IconFont_Home_Fujin actionTitle:@"附近网点"];
+        HomeViewAction * action5 = [[HomeViewAction alloc]initWithIconName:IconFont_Home_Zhuizong actionTitle:@"订单跟踪"];
         _homeActionArray = @[action,action1,action2,action3,action4,action5];
     }
     return _homeActionArray;

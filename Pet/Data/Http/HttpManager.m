@@ -152,6 +152,7 @@ static CGFloat TimeOut = 20.0f; // 超时时间
 #pragma mark - UPLOAD
 
 -(void)UPLOADRequestWithModel:(HttpRequestModel *)model{
+    self.requestSerializer.timeoutInterval = 300;
     __weak typeof(self) weakSelf = self;
     [self POST:model.urlStr parameters:model.paramers constructingBodyWithBlock:model.constructBlock progress:model.progressBlock success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [weakSelf handlerSuccessWithRequestModel:model task:task responseObject:responseObject];

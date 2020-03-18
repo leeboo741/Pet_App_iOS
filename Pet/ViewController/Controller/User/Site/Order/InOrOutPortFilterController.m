@@ -217,6 +217,10 @@ static NSString * TableViewCellIdentifier = @"UITableViewCell";
 }
 
 #pragma mark - setters and getters
+-(void)setFilterType:(InOrOutPortFilter_Type)filterType{
+    _filterType = filterType;
+    [self.tableView reloadData];
+}
 -(NSArray *)orderStateArray{
     if (self.filterType == InOrOutPortFilter_Type_Out) {
         return @[
@@ -224,12 +228,23 @@ static NSString * TableViewCellIdentifier = @"UITableViewCell";
             [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToOutport],
             [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToPack],
         ];
-    } else {
+    } else if (self.filterType == InOrOutPortFilter_Type_In) {
         return @[
             [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToArrived],
             [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_Arrived],
             [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_Delivering],
             [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToSign],
+        ];
+    } else {
+        return @[
+            [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToInport],
+            [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToOutport],
+            [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToPack],
+            [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToArrived],
+            [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_Arrived],
+            [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_Delivering],
+            [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_ToSign],
+            [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateStringWithState:SiteOrderState_Completed],
         ];
     }
 }

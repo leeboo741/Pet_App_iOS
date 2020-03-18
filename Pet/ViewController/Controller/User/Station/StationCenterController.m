@@ -14,6 +14,7 @@
 #import "ApplyCenterController.h"
 #import "MessageCenterController.h"
 #import "AboutUsViewController.h"
+#import "MessageManager.h"
 
 static NSString * CenterHeaderCellIdentifier = @"CenterHeaderCell";
 static NSString * CenterActionCellIdentifier = @"CenterActionCell";
@@ -33,10 +34,19 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
     self.navigationItem.title = @"我的店铺";
     [self.tableView registerNib:[UINib nibWithNibName:CenterHeaderCellIdentifier bundle:nil] forCellReuseIdentifier:CenterHeaderCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:CenterActionCellIdentifier bundle:nil] forCellReuseIdentifier:CenterActionCellIdentifier];
-    self.haveNewMessage = YES;
-    self.balance = 100.90;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.haveNewMessage = [[MessageManager shareMessageManager] getHaveNewMessage];
+    self.balance = [[UserManager shareUserManager] getBalance];
+    [[UserManager shareUserManager] registerUserManagerNotificationWithObserver:self notificationName:USER_BALANCE_CHANGE_NOTIFICATION_NAME action:@selector(changeBalance:)];
+    [[MessageManager shareMessageManager] registerNotificationForNewMessageWithObserver:self selector:@selector(changeHaveNewMessage:)];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[UserManager shareUserManager] refreshBalance];
+    MSLog(@"Site Center Appear");
+}
 #pragma mark - tableview datasource and delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -164,7 +174,9 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
                 
             }];
             [alertController addAction:action1];
-            [alertController addAction:action2];
+            if ([[UserManager shareUserManager] isStaff]) {
+                [alertController addAction:action2];
+            }
             [alertController addAction:action3];
             [self presentViewController:alertController animated:YES completion:nil];
         }
@@ -174,6 +186,12 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
             MSLog(@"关于我们");
             AboutUsViewController * aboutUsVC = [[AboutUsViewController alloc] init];
             [self.navigationController pushViewController:aboutUsVC animated:YES];
+        }
+            break;
+        case 4:
+        {
+            MSLog(@"退出");
+            [[UserManager shareUserManager] logout];
         }
             break;
         default:
@@ -198,7 +216,8 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
         CenterActionItemModel * action8 = [self getActionModelWithActionName:@"申请" andIconName:IconFont_Apply];
         CenterActionItemModel * action9 = [self getActionModelWithActionName:@"切换身份" andIconName:IconFont_ChangeRole];
         CenterActionItemModel * action10 = [self getActionModelWithActionName:@"关于我们" andIconName:IconFont_AboutUs];
-        _actionModelArray = @[action7,action8,action9,action10];
+        CenterActionItemModel * action11 = [self getActionModelWithActionName:@"退出" andIconName:IconFont_Logout];
+        _actionModelArray = @[action7,action8,action9,action10,action11];
     }
     return _actionModelArray;
 }
@@ -212,5 +231,14 @@ static NSString * CenterActionCellIdentifier = @"CenterActionCell";
     return model;
 }
 
+-(void)changeBalance:(NSNotification  *)notification{
+    NSDictionary * dict = (NSDictionary *)notification.userInfo;
+    self.balance = [[dict objectForKey:@"data"] floatValue];
+}
+
+-(void)changeHaveNewMessage:(NSNotification *)notification{
+    NSDictionary * dict = (NSDictionary *)notification.userInfo;
+    self.haveNewMessage = [[dict objectForKey:NOTIFICATION_DATA_HAVE_NEW_MESSAGE_KEY] boolValue];
+}
 
 @end

@@ -10,6 +10,7 @@
 #import "OrderEntity.h"
 #import "OrderOperateBoxView.h"
 #import "MediaSelectBoxView.h"
+#import "MediaShowBox.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface SiteOutportOrderCell : UITableViewCell
-@property (nonatomic, strong) NSArray<MediaSelectItemModel *>* selectImageDataList;
 @property (nonatomic, strong) OrderEntity * orderEntity;
 @property (nonatomic, weak) id<SiteOutportOrderCellDelegate> delegate;
 @end

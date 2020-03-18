@@ -71,11 +71,6 @@ CustomerOrderCellDelegate>
     [[UserManager shareUserManager] refreshBalance];
     MSLog(@"Customer Center appear");
 }
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    MSLog(@"Customer Center Disappear");
-}
 #pragma mark - tableview datasource and delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -292,6 +287,12 @@ CustomerOrderCellDelegate>
             [self.navigationController pushViewController:aboutUsVC animated:YES];
         }
             break;
+        case 5:
+        {
+            MSLog(@"退出");
+            [[UserManager shareUserManager] logout];
+        }
+            break;
         default:
             break;
     }
@@ -382,7 +383,8 @@ CustomerOrderCellDelegate>
         CenterActionItemModel * action3 = [self getActionModelWithActionName:@"申请" andIconName:IconFont_Apply];
         CenterActionItemModel * action4 = [self getActionModelWithActionName:@"切换角色" andIconName:IconFont_ChangeRole];
         CenterActionItemModel * action5 = [self getActionModelWithActionName:@"关于我们" andIconName:IconFont_AboutUs];
-        _actionModelArray = @[action1,action2,action3,action4,action5];
+        CenterActionItemModel * action11 = [self getActionModelWithActionName:@"退出" andIconName:IconFont_Logout];
+        _actionModelArray = @[action1,action2,action3,action4,action5,action11];
     }
     return _actionModelArray;
 }

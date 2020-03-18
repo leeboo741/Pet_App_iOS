@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, InOrOutPortFilter_Type) {
     InOrOutPortFilter_Type_Out,
-    InOrOutPortFilter_Type_In
+    InOrOutPortFilter_Type_In,
+    InOrOutPortFilter_Type_All,
 };
 
 typedef void(^InOrOutPortFilterRetrunBlock)(InOrOutPortRequestParam *param);

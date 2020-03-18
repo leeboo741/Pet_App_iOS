@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIButton *disagreeButton;
 @property (weak, nonatomic) IBOutlet UIButton *agreeButton;
+@property (weak, nonatomic) IBOutlet UITextView *contentTextView;
+@property (weak, nonatomic) IBOutlet UILabel *contentTitleView;
 
 @end
 
@@ -112,9 +114,39 @@
     [self showPopView];
 }
 
+-(void)addPopViewToWindowWithContent:(NSString *)content{
+    UIWindow * window = kKeyWindow;
+    self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    [window addSubview:self];
+    [window bringSubviewToFront:self];
+    self.contentTextView.text = content;
+    [self showPopView];
+}
+
+-(void)addPopViewToWindowWithHtml:(NSString *)HtmlStr title:(NSString *)title{
+    UIWindow * window = kKeyWindow;
+    self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    [window addSubview:self];
+    [window bringSubviewToFront:self];
+    NSData *data = [HtmlStr dataUsingEncoding:NSUnicodeStringEncoding];
+    NSDictionary *options = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};
+    NSAttributedString *html = [[NSAttributedString alloc]initWithData:data
+                                                               options:options
+                                                    documentAttributes:nil
+                                                                 error:nil];
+    self.contentTextView.attributedText = html;
+    self.contentTitleView.text = title;
+    [self showPopView];
+}
+
 +(void)popPrivacyPolicyView{
     PrivacyPolicyView * privacyPolicyView = [[PrivacyPolicyView alloc]init];
     [privacyPolicyView addPopViewToWindow];
 }
++(void)popPrivacePolicyViewWithContent:(NSString *)content{
+    PrivacyPolicyView * privacyPolicyView = [[PrivacyPolicyView alloc] init];
+    [privacyPolicyView addPopViewToWindowWithContent:content];
+}
+
 
 @end

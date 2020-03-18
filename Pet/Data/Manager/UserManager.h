@@ -174,6 +174,11 @@ SingleInterface(UserManager)
 -(NSString *)getAvaterImagePath;
 
 /**
+ 登出 退出
+ */
+-(void)logout;
+
+/**
  刷新 用户 余额
  */
 -(void)refreshBalance;

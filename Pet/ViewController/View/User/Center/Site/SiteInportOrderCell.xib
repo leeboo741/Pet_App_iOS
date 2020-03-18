@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +14,7 @@
             <rect key="frame" x="0.0" y="0.0" width="365" height="395"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="365" height="394.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="365" height="395"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ey-7C-nNu" customClass="OrderBaseInfoView">
@@ -30,6 +28,14 @@
                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71Z-Oi-zpv" customClass="OrderRemarkView">
                         <rect key="frame" x="0.0" y="142" width="365" height="67"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yuP-U5-KzQ" customClass="MediaShowBox">
+                        <rect key="frame" x="0.0" y="149" width="365" height="128"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A7v-hG-uov" customClass="MediaShowBox">
+                        <rect key="frame" x="0.0" y="133" width="365" height="128"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>
                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uaP-XX-cHr" customClass="MediaSelectBoxView">
                         <rect key="frame" x="0.0" y="217" width="365" height="69"/>
@@ -45,27 +51,35 @@
                     <constraint firstItem="7ey-7C-nNu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0h6-wU-D0m"/>
                     <constraint firstItem="rFj-8e-gTU" firstAttribute="trailing" secondItem="uaP-XX-cHr" secondAttribute="trailing" id="3om-mE-QcR"/>
                     <constraint firstItem="71Z-Oi-zpv" firstAttribute="top" secondItem="jar-PR-Ja8" secondAttribute="bottom" id="6mo-iW-Cmb"/>
+                    <constraint firstItem="yuP-U5-KzQ" firstAttribute="leading" secondItem="71Z-Oi-zpv" secondAttribute="leading" id="Jf1-JX-PvK"/>
                     <constraint firstItem="jar-PR-Ja8" firstAttribute="top" secondItem="7ey-7C-nNu" secondAttribute="bottom" id="ODI-cl-XOW"/>
                     <constraint firstItem="71Z-Oi-zpv" firstAttribute="leading" secondItem="jar-PR-Ja8" secondAttribute="leading" id="UvA-hi-JuK"/>
+                    <constraint firstItem="yuP-U5-KzQ" firstAttribute="trailing" secondItem="71Z-Oi-zpv" secondAttribute="trailing" id="bN8-LG-Jom"/>
                     <constraint firstItem="jar-PR-Ja8" firstAttribute="trailing" secondItem="7ey-7C-nNu" secondAttribute="trailing" id="cvY-pI-NJL"/>
                     <constraint firstItem="uaP-XX-cHr" firstAttribute="leading" secondItem="71Z-Oi-zpv" secondAttribute="leading" id="dDJ-8j-9A6"/>
-                    <constraint firstItem="uaP-XX-cHr" firstAttribute="top" secondItem="71Z-Oi-zpv" secondAttribute="bottom" id="f65-a5-NSo"/>
+                    <constraint firstItem="uaP-XX-cHr" firstAttribute="top" secondItem="A7v-hG-uov" secondAttribute="bottom" id="dS9-DE-iv8"/>
+                    <constraint firstItem="yuP-U5-KzQ" firstAttribute="bottom" secondItem="A7v-hG-uov" secondAttribute="top" id="hkm-vZ-cm6"/>
                     <constraint firstItem="rFj-8e-gTU" firstAttribute="top" secondItem="uaP-XX-cHr" secondAttribute="bottom" id="lUo-mz-Px6"/>
+                    <constraint firstItem="A7v-hG-uov" firstAttribute="leading" secondItem="yuP-U5-KzQ" secondAttribute="leading" id="mGb-EZ-2n6"/>
                     <constraint firstItem="rFj-8e-gTU" firstAttribute="leading" secondItem="uaP-XX-cHr" secondAttribute="leading" id="pm5-91-3FB"/>
+                    <constraint firstItem="A7v-hG-uov" firstAttribute="trailing" secondItem="yuP-U5-KzQ" secondAttribute="trailing" id="qs8-8C-Ysv"/>
                     <constraint firstItem="7ey-7C-nNu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="uCe-Gy-myD"/>
                     <constraint firstAttribute="bottom" secondItem="rFj-8e-gTU" secondAttribute="bottom" constant="12" id="uEM-Ox-3g9"/>
                     <constraint firstItem="uaP-XX-cHr" firstAttribute="trailing" secondItem="71Z-Oi-zpv" secondAttribute="trailing" id="vkb-2O-c7N"/>
+                    <constraint firstItem="yuP-U5-KzQ" firstAttribute="top" secondItem="71Z-Oi-zpv" secondAttribute="bottom" id="vul-rd-QNF"/>
                     <constraint firstAttribute="trailing" secondItem="7ey-7C-nNu" secondAttribute="trailing" id="wm0-cQ-lQb"/>
                     <constraint firstItem="71Z-Oi-zpv" firstAttribute="trailing" secondItem="jar-PR-Ja8" secondAttribute="trailing" id="xh0-TX-p8E"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="lastStepMediaShowBox" destination="yuP-U5-KzQ" id="bbt-XX-Vga"/>
                 <outlet property="mediaSelectBoxView" destination="uaP-XX-cHr" id="8mC-Gd-a8p"/>
                 <outlet property="orderAssignmentsView" destination="jar-PR-Ja8" id="NYB-2N-Wjt"/>
                 <outlet property="orderBaseInfoView" destination="7ey-7C-nNu" id="SM4-dp-RAg"/>
                 <outlet property="orderOperateBoxView" destination="rFj-8e-gTU" id="z06-HN-hVa"/>
                 <outlet property="orderRemarkView" destination="71Z-Oi-zpv" id="sRc-ZO-Qwf"/>
+                <outlet property="waiCommitBoxView" destination="A7v-hG-uov" id="Vip-9q-Gnj"/>
             </connections>
             <point key="canvasLocation" x="168.80000000000001" y="302.6986506746627"/>
         </tableViewCell>

@@ -8,6 +8,7 @@
 
 #import "UserManager.h"
 #import <WXApi.h>
+#import "LoginViewController.h"
 
 @implementation RegisterUserInfo
 -(instancetype)init{
@@ -317,6 +318,19 @@ SingleImplementation(UserManager)
  */
 -(NSString *)getAvaterImagePath{
     return self.user.avaterImagePath;
+}
+
+/**
+ 登出 退出
+ */
+-(void)logout{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:User_Key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    self.user = nil;
+    
+    UIWindow * keyWindow = kKeyWindow;
+    LoginViewController * loginViewController = [[LoginViewController alloc]init];
+    keyWindow.rootViewController = loginViewController;
 }
 
 /**

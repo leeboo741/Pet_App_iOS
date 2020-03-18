@@ -10,8 +10,12 @@
 #import "StaffEntity.h"
 #import "StationEntity.h"
 #import "StaffEntity.h"
+#import "MediaSelectItemModel.h"
+#import "MediaShowItemModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class OrderEntity;
 /// 宠物类型
 @interface PetType : NSObject
 @property (nonatomic, copy) NSString * petTypeName;
@@ -20,9 +24,18 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PetBreed : NSObject
 @property (nonatomic, copy) NSString * petBreedName;
 @end
+
+typedef NS_ENUM(NSInteger, OrderTransport_TransportType_Code) {
+    OrderTransport_TransportType_Code_Zhuanche = 1, // 专车
+    OrderTransport_TransportType_Code_Huoche = 2, // 火车
+    OrderTransport_TransportType_Code_Danfei = 3, // 单飞
+    OrderTransport_TransportType_Code_Suiji = 4, // 随机
+    OrderTransport_TransportType_Code_Daba = 5, // 大巴
+};
+
 /// 运输方式
 @interface OrderTransport : NSObject
-@property (nonatomic, assign) NSInteger transportType;
+@property (nonatomic, assign) OrderTransport_TransportType_Code transportType;
 @property (nonatomic, copy, readonly) NSString * transportTypeName;
 @property (nonatomic, strong) StationEntity * station;
 @property (nonatomic, copy) NSString * startCity;
@@ -35,6 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * startCity; // 出发城市, 如果是航班添出发城市三字码
 @property (nonatomic, copy) NSString * endCity; // 目的城市, 如果是航班填目的城市三字码
 @property (nonatomic, copy) NSString * dateTime; // 预计出发时间
+@property (nonatomic, strong) OrderEntity * order;
+@property (nonatomic, strong) StaffEntity * staff;
 @end
 /// 保价信息
 @interface AddedInsure : NSObject
@@ -49,7 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat cagePrice;
 @end
 /// 备注信息
-@class OrderEntity;
 @interface OrderRemarks : NSObject
 @property (nonatomic, strong) StationEntity * station;
 @property (nonatomic, strong) StaffEntity * staff;
@@ -66,6 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * deliverTime; // 派送时间
 @property (nonatomic, assign) double longitude;
 @property (nonatomic, assign) double latitude;
+@property (nonatomic, strong) OrderEntity * order; // 关联订单
 @end
 /// 补价信息
 @interface OrderPremium : NSObject
@@ -102,6 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray<OrderMedia *> * orderMediaList;
 @property (nonatomic, copy) NSString * currentPosition; 
 @end
+
 /// 订单
 @interface OrderEntity : NSObject
 @property (nonatomic, copy) NSString * orderNo; // 订单编号
@@ -141,8 +157,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * outTradeNo;
 @property (nonatomic, copy) NSString * petAge; // 宠物年龄
 
-@property (nonatomic, strong) NSArray * waitUploadMediaList; // 等待上传的文件列表
-@property (nonatomic, strong) NSArray * waitCommitMediaList; // 上传后等待提交的文件列表
+@property (nonatomic, strong) NSArray<MediaSelectItemModel *> * waitUploadMediaList; // 等待上传的文件列表
+@property (nonatomic, strong) NSArray<MediaShowItemModel *> * waitCommitMediaList; // 等待提交的文件地址列表
+@property (nonatomic, strong) OrderTempDeliver * waitAddTempDelivers; // 等待添加的临派信息
 @end
 
 /// 订单评价

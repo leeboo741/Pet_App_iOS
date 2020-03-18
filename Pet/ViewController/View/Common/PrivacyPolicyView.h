@@ -25,6 +25,9 @@ typedef NS_ENUM(NSInteger, PrivacyPolicyButtonType) {
 @property (nonatomic, strong) IBOutlet UIView * view;
 @property (nonatomic, weak)id<PrivacyPolicyViewDelegate>delegate;
 +(void)popPrivacyPolicyView;
++(void)popPrivacePolicyViewWithContent:(NSString *)content;
 -(void)addPopViewToWindow;
+-(void)addPopViewToWindowWithContent:(NSString *)content;
+-(void)addPopViewToWindowWithHtml:(NSString *)HtmlStr title:(NSString *)title;
 @end
 

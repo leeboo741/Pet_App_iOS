@@ -23,6 +23,8 @@ typedef NS_ENUM(NSInteger, MediaSelectItemType) {
 @property (nonatomic, strong) UIImage * coverImage;
 @property (nonatomic, copy) NSString * coverImagePath;
 @property (nonatomic, strong) PHAsset * data;
+
+@property (nonatomic, assign) BOOL isUploaded; // 是否已上传
 @end
 
 NS_ASSUME_NONNULL_END

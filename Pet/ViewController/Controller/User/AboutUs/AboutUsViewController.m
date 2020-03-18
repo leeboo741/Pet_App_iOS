@@ -9,6 +9,7 @@
 #import "AboutUsViewController.h"
 #import "AboutUsHeaderView.h"
 #import "AboutUsFooterView.h"
+#import "PrivacyPolicyView.h"
 
 @interface AboutUsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView * tableView;
@@ -68,24 +69,30 @@ static CGFloat cellHeight = 60;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
+//        case 0:
+//        {
+//            MSLog(@"特别声明");
+//        }
+//            break;
+//        case 1:
+//        {
+//            MSLog(@"使用帮助");
+//        }
+//            break;
+//        case 2:
+//        {
+//            MSLog(@"给我评分");
+//        }
+//            break;
+//        case 3:
+//        {
+//            MSLog(@"隐私政策");
+//        }
+//            break;
         case 0:
         {
-            MSLog(@"特别声明");
-        }
-            break;
-        case 1:
-        {
-            MSLog(@"使用帮助");
-        }
-            break;
-        case 2:
-        {
-            MSLog(@"给我评分");
-        }
-            break;
-        case 3:
-        {
             MSLog(@"隐私政策");
+            [PrivacyPolicyView popPrivacyPolicyView];
         }
             break;
         default:
@@ -100,7 +107,8 @@ static CGFloat cellHeight = 60;
 
 #pragma mark - setters and getters
 -(NSArray *)dataSource{
-    return @[@"特别声明",@"使用帮助",@"给我评分",@"隐私政策"];
+//    return @[@"特别声明",@"使用帮助",@"给我评分",@"隐私政策"];
+    return @[@"隐私政策"];
 }
 
 -(AboutUsHeaderView *)headerView{

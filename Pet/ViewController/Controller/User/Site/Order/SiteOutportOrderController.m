@@ -15,8 +15,19 @@
 #import "SiteOrderManager.h"
 #import "UITableViewController+AddMJRefresh.h"
 #import "InOrOutPortFilterController.h"
+#import "DateUtils.h"
+#import "CGXPickerView.h"
 
 static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
+
+typedef NS_ENUM(NSInteger, SiteOut_TextField_Tag) {
+    SiteOut_TextField_Tag_Search = 999,
+    SiteOut_TextField_Tag_TransportNum = 1000,
+    SiteOut_TextField_Tag_StartCity = 1001,
+    SiteOut_TextField_Tag_EndCity = 1002,
+    SiteOut_TextField_Tag_TransportTime = 1003,
+    SiteOut_TextField_Tag_ExpressNum = 1004
+};
 
 @interface SiteOutportOrderController () <SiteOutportOrderCellDelegate,UITextFieldDelegate>
 @property (nonatomic, strong)NSMutableArray<OrderEntity *> * dataSource;
@@ -79,11 +90,10 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
 -(void)configSiteOutportOrderCell:(SiteOutportOrderCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     cell.delegate = self;
     OrderEntity * orderEntity = self.dataSource[indexPath.row];
-    cell.selectImageDataList = orderEntity.waitUploadMediaList;
     cell.orderEntity = orderEntity;
 }
 
-#pragma mark - site unpay order cell delegate
+#pragma mark - site outport order cell delegate
 
 -(void)tapSiteOutportOrderCell:(SiteOutportOrderCell *)cell operateType:(OrderOperateButtonType)type{
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -118,16 +128,20 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
         {
             MSLog(@"订单详情");
             OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
+            OrderEntity * orderEntity = self.dataSource[indexPath.row];
+            orderDetailVC.orderNo = orderEntity.orderNo;
             [self.navigationController pushViewController:orderDetailVC animated:YES];
         }
             break;
         case OrderOperateButtonType_Assignment:
         {
             MSLog(@"分配订单");
+            OrderEntity * orderEntity = self.dataSource[indexPath.row];
             AssignmentsController * assignmentsController = [[AssignmentsController alloc]init];
+            assignmentsController.orderNo = orderEntity.orderNo;
+            assignmentsController.selectStaffArray = orderEntity.assignmentedStaffArray;
             __weak typeof(self) weakSelf = self;
             assignmentsController.returnBlock = ^(NSArray<StaffEntity *> * _Nonnull assignmentedArray) {
-                OrderEntity * orderEntity = weakSelf.dataSource[indexPath.row];
                 orderEntity.assignmentedStaffArray = assignmentedArray;
                 [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             };
@@ -135,13 +149,142 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
         }
             break;
         case OrderOperateButtonType_Upload:
+        {
             MSLog(@"上传");
+            __weak typeof(self) weakSelf = self;
+            OrderEntity * orderEntity = self.dataSource[indexPath.row];
+            [MBProgressHUD showActivityMessageInWindow:@"上传文件中,请稍等..."];
+            [[SiteOrderManager shareSiteOrderManager] uploadMediaFilesWithOrderNo:orderEntity.orderNo mediaUrlPathList:orderEntity.waitUploadMediaList success:^(id  _Nonnull data) {
+                [MBProgressHUD hideHUD];
+                orderEntity.waitCommitMediaList = (NSArray *)data;
+                orderEntity.waitUploadMediaList = @[];
+                [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            } fail:^(NSInteger code) {
+                
+            }];
+        }
             break;
         case OrderOperateButtonType_Package:
-            MSLog(@"揽件");
-            break;
-        case OrderOperateButtonType_OutInPort:
-            MSLog(@"出入港");
+        {
+            MSLog(@"入港");
+            OrderEntity * orderEntity = self.dataSource[indexPath.row];
+            NSArray * fileList = [[SiteOrderManager shareSiteOrderManager] getCommitFileListFromWaitCommitMediaList:orderEntity.waitCommitMediaList];
+            OrderStatus * status = [orderEntity.orderStates firstObject];
+            SiteOrderState state = [[SiteOrderManager shareSiteOrderManager] getSiteOrderStateByString:status.orderType];
+            __weak typeof(self) weakSelf = self;
+            if (state == SiteOrderState_ToOutport) {
+                [[SiteOrderManager shareSiteOrderManager] getUnpayPremiumCountWithOrderNo:orderEntity.orderNo success:^(id  _Nonnull data) {
+                    if ([data intValue] > 0) {
+                        [AlertControllerTools showAlertWithTitle:@"订单还有未支付补价单" msg:@"完成补价后再执行该操作" items:@[@"确定"] showCancel:NO actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
+                            
+                        }];
+                    } else {
+                        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"运输信息" message:@"请输入运输信息" preferredStyle:UIAlertControllerStyleAlert];
+                        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                            textField.placeholder = @"请输入航班号|车次号";
+                            textField.tag = SiteOut_TextField_Tag_TransportNum;
+                            textField.delegate = self;
+                        }];
+                        if (orderEntity.transport.transportType == OrderTransport_TransportType_Code_Suiji
+                            || orderEntity.transport.transportType == OrderTransport_TransportType_Code_Danfei) {
+                            [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                                textField.placeholder = @"始发机场三字码";
+                                textField.tag = SiteOut_TextField_Tag_StartCity;
+                                textField.delegate = self;
+                            }];
+                            [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                                textField.placeholder = @"目的机场三字码";
+                                textField.tag = SiteOut_TextField_Tag_EndCity;
+                                textField.delegate = self;
+                            }];
+                            [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                                textField.placeholder = @"请选择航班时间";
+                                textField.tag = SiteOut_TextField_Tag_TransportTime;
+                                textField.delegate = self;
+                            }];
+                        }
+                        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                            textField.placeholder = @"请输入快递单号";
+                            textField.tag = SiteOut_TextField_Tag_ExpressNum;
+                            textField.delegate = self;
+                        }];
+                        UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            OrderTransportInfo * transportInfo = [[OrderTransportInfo alloc] init];
+                            UITextField * transportNumTF = alertController.textFields[0];
+                            transportInfo.transportNum = transportNumTF.text;
+                            if (orderEntity.transport.transportType == OrderTransport_TransportType_Code_Suiji
+                            || orderEntity.transport.transportType == OrderTransport_TransportType_Code_Danfei) {
+                                UITextField * startCityTF = alertController.textFields[1];
+                                transportInfo.startCity = startCityTF.text;
+                                if (kStringIsEmpty(transportInfo.startCity)) {
+                                    [MBProgressHUD showErrorMessage:@"始发机场三字码不能为空"];
+                                    return;
+                                }
+                                UITextField * endCityTF = alertController.textFields[2];
+                                transportInfo.endCity = endCityTF.text;
+                                if (kStringIsEmpty(transportInfo.endCity)) {
+                                    [MBProgressHUD showErrorMessage:@"目的机场三字码不能为空"];
+                                    return;
+                                }
+                                UITextField * transportTimeTF = alertController.textFields[3];
+                                transportInfo.dateTime = transportTimeTF.text;
+                                if (kStringIsEmpty(transportInfo.dateTime)) {
+                                    [MBProgressHUD showErrorMessage:@"航班时间不能为空"];
+                                    return;
+                                }
+                            }
+                            UITextField * expressNumTF = alertController.textFields.lastObject;
+                            transportInfo.expressNum = expressNumTF.text;
+                            if (kStringIsEmpty(transportInfo.expressNum)) {
+                                [MBProgressHUD showErrorMessage:@"快递单号不能为空"];
+                                return;
+                            }
+                            transportInfo.order = orderEntity;
+                            transportInfo.staff = [[UserManager shareUserManager] getStaff];
+                            [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+                            [[SiteOrderManager shareSiteOrderManager] postTransportInfo:transportInfo success:^(id  _Nonnull data) {
+                                [MBProgressHUD hideHUD];
+                                if ([data intValue] > 0) {
+                                    [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+                                    [[SiteOrderManager shareSiteOrderManager] inOrOutPortWithOrderNo:orderEntity.orderNo sn:status.sn orderType:status.orderType fileList:fileList success:^(id  _Nonnull data) {
+                                        [MBProgressHUD hideHUD];
+                                        if ([data intValue] > 0) {
+                                            [weakSelf startRefresh];
+                                        } else {
+                                            [MBProgressHUD showTipMessageInWindow:@"操作失败"];
+                                        }
+                                    } fail:^(NSInteger code) {
+                                        
+                                    }];
+                                } else {
+                                    [MBProgressHUD showErrorMessage:@"添加运输信息失败"];
+                                }
+                            } fail:^(NSInteger code) {
+                                
+                            }];
+                        }];
+                        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                        [alertController addAction:confirmAction];
+                        [alertController addAction:cancelAction];
+                        [weakSelf presentViewController:alertController animated:YES completion:nil];
+                    }
+                } fail:^(NSInteger code) {
+                    
+                }];
+            } else {
+                [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+                [[SiteOrderManager shareSiteOrderManager] inOrOutPortWithOrderNo:orderEntity.orderNo sn:status.sn orderType:status.orderType fileList:fileList success:^(id  _Nonnull data) {
+                    [MBProgressHUD hideHUD];
+                    if ([data intValue] > 0) {
+                        [weakSelf startRefresh];
+                    } else {
+                        [MBProgressHUD showTipMessageInWindow:@"操作失败"];
+                    }
+                } fail:^(NSInteger code) {
+                    
+                }];
+            }
+        }
             break;
         default:
         {
@@ -160,12 +303,27 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
 }
 
 #pragma mark - textfield delegate
-
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    if (textField.tag == SiteOut_TextField_Tag_TransportTime) {
+        NSString * todayStr = [[DateUtils shareDateUtils] getDateStringWithDate:[NSDate date] withFormatterStr:Formatter_YMD];
+        NSDate * maxDate = [[DateUtils shareDateUtils] getDateWithTargetDate:[NSDate date] durationYear:0 durationMonth:1 durationDay:0];
+        NSString * maxDateStr = [[DateUtils shareDateUtils]getDateStringWithDate:maxDate withFormatterStr:Formatter_YMD];
+        [CGXPickerView showDatePickerWithTitle:@"出发时间" DateType:UIDatePickerModeDate DefaultSelValue:nil MinDateStr:todayStr MaxDateStr:maxDateStr IsAutoSelect:NO Manager:nil ResultBlock:^(NSString *selectValue) {
+            textField.text = selectValue;
+        }];
+        return NO;
+    }
+    return YES;
+}
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    MSLog(@"点击确定搜索");
-    self.param.orderNo = textField.text;
-    [self startRefresh];
-    return  YES;
+    
+    if (textField.tag == SiteOut_TextField_Tag_Search) {
+        MSLog(@"点击确定搜索");
+        self.param.orderNo = textField.text;
+        [self startRefresh];
+        return  YES;
+    }
+    return YES;
 }
 
 #pragma mark - setters and getters
@@ -180,6 +338,7 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
 -(UIView *)actionSearchView{
     if (!_actionSearchView) {
         _actionSearchView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50)];
+        _actionSearchView.backgroundColor = Color_white_1;
         
         UIView * view = [[UIView alloc]initWithFrame:CGRectMake(15, _actionSearchView.frame.size.height * 0.1, _actionSearchView.frame.size.width - 30, _actionSearchView.frame.size.height * 0.8)];
         view.backgroundColor = kRGBColor(250, 250, 250);
@@ -193,6 +352,7 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
         
         _actionSearchTextfield = [[UITextField alloc]initWithFrame:CGRectMake(50, view.frame.size.height * 0.1, view.frame.size.width - 55, view.frame.size.height * 0.8)];
         _actionSearchTextfield.delegate = self;
+        _actionSearchTextfield.tag = SiteOut_TextField_Tag_Search;
         _actionSearchTextfield.textColor = Color_gray_2;
         _actionSearchTextfield.returnKeyType = UIReturnKeySearch;
         _actionSearchTextfield.placeholder = @"查找订单";
@@ -260,8 +420,27 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
             [MBProgressHUD showTipMessageInWindow:@"备注信息不能为空"];
             return;
         }
+        OrderRemarks * orderRemark = [[OrderRemarks alloc]init];
+        orderRemark.order = orderEntity;
+        orderRemark.remarks = remarkTextField.text;
+        orderRemark.staff = [[UserManager shareUserManager] getStaff];
+        orderRemark.station = [[UserManager shareUserManager] getStation];
         MSLog(@"第 %ld 行数据 输入备注信息: %@",indexPath.row, remarkTextField.text);
-        
+        __weak typeof(self) weakSelf = self;
+        [MBProgressHUD showActivityMessageInWindow:@"备注中..."];
+        [[SiteOrderManager shareSiteOrderManager] addOrderRemark:orderRemark success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+            if ([data intValue] == 1) {
+                NSMutableArray * array = [NSMutableArray arrayWithArray:orderEntity.orderRemarksList];
+                [array insertObject:orderRemark atIndex:0];
+                orderEntity.orderRemarksList = [NSArray arrayWithArray:array];
+                [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            } else {
+                [MBProgressHUD showTipMessageInWindow:@"备注失败"];
+            }
+        } fail:^(NSInteger code) {
+            
+        }];
     }];
     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:confirmAction];
@@ -282,7 +461,7 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
     UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField * addPriceTextField = alertController.textFields.firstObject;
         UITextField * reasonTextField = alertController.textFields[1];
-        if (kStringIsEmpty(addPriceTextField.text)) {
+        if (kStringIsEmpty(addPriceTextField.text) || !Util_IsNumberString(addPriceTextField.text)) {
             [MBProgressHUD showTipMessageInWindow:@"补价金额不能为空"];
             return;
         }
@@ -291,6 +470,22 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
             return;
         }
         MSLog(@"第 %ld 行 添加补价信息\n 金额: %@ \n 原因: %@",indexPath.row, addPriceTextField.text, reasonTextField.text);
+        OrderPremium * orderPremium = [[OrderPremium alloc] init];
+        orderPremium.amount = [addPriceTextField.text floatValue];
+        orderPremium.orderNo = orderEntity.orderNo;
+        orderPremium.reason = reasonTextField.text;
+        orderPremium.staff = [[UserManager shareUserManager] getStaff];
+        [MBProgressHUD showActivityMessageInWindow:@"新增补价单..."];
+        [[SiteOrderManager shareSiteOrderManager] addOrderPremium:orderPremium success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+            if ([data intValue] == 1) {
+                [MBProgressHUD showTipMessageInWindow:@"新增补价单成功"];
+            } else {
+                [MBProgressHUD showTipMessageInWindow:@"新增补价单失败"];
+            }
+        } fail:^(NSInteger code) {
+            
+        }];
     }];
     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:confirmAction];
@@ -311,7 +506,7 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
     UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField * serviceAmountTextField = alertController.textFields.firstObject;
         UITextField * reasonTextField = alertController.textFields[1];
-        if (kStringIsEmpty(serviceAmountTextField.text)) {
+        if (kStringIsEmpty(serviceAmountTextField.text) || !Util_IsNumberString(serviceAmountTextField.text)) {
             serviceAmountTextField.text = @"0";
         }
         if (kStringIsEmpty(reasonTextField.text)) {
@@ -319,6 +514,17 @@ static NSString * SiteOutportOrderCellIdentifier = @"SiteOutportOrderCell";
             return;
         }
         MSLog(@"第 %ld 行 添加退款信息\n 金额: %@ \n 原因: %@",indexPath.row, serviceAmountTextField.text, reasonTextField.text);
+        [MBProgressHUD showActivityMessageInWindow:@"提交中..."];
+        [[SiteOrderManager shareSiteOrderManager] addOrderRefund:orderEntity serviceFeeAmount:[serviceAmountTextField.text floatValue] refundReason:reasonTextField.text success:^(id  _Nonnull data) {
+            [MBProgressHUD hideHUD];
+            if ([data intValue] > 0) {
+                [MBProgressHUD showTipMessageInWindow:@"退款申请提交成功"];
+            } else {
+                [MBProgressHUD showTipMessageInWindow:@"退款申请提交失败"];
+            }
+        } fail:^(NSInteger code) {
+            
+        }];
     }];
     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:confirmAction];

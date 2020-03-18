@@ -8,6 +8,7 @@
 
 #import "AssignmentsController.h"
 #import "AssignmentsItemCell.h"
+#import "SiteOrderManager.h"
 
 static NSString * AssignmentsItemCellIdentifier = @"AssignmentsItemCell";
 
@@ -25,6 +26,15 @@ static NSString * AssignmentsItemCellIdentifier = @"AssignmentsItemCell";
     [self.tableView registerNib:[UINib nibWithNibName:AssignmentsItemCellIdentifier bundle:nil] forCellReuseIdentifier:AssignmentsItemCellIdentifier];
     [self addObserver:self forKeyPath:@"staffDataSource" options:NSKeyValueObservingOptionNew context:nil];
     [self addObserver:self forKeyPath:@"selectStaffArray" options:NSKeyValueObservingOptionNew context:nil];
+    __weak typeof(self) weakSelf = self;
+    [MBProgressHUD showActivityMessageInWindow:@"请稍等..."];
+    [[SiteOrderManager shareSiteOrderManager] getSiteAllSubStaffSuccess:^(id  _Nonnull data) {
+        [MBProgressHUD hideHUD];
+        weakSelf.staffDataSource = (NSArray *)data;
+        [weakSelf.tableView reloadData];
+    } fail:^(NSInteger code) {
+        
+    }];
 }
 
 -(void)dealloc{
@@ -77,15 +87,24 @@ static NSString * AssignmentsItemCellIdentifier = @"AssignmentsItemCell";
 #pragma mark - event action
 -(void)tapAssignment{
     NSMutableArray * assignmentArray = [NSMutableArray array];
+    NSMutableArray * assignmentStaffNoArray = [NSMutableArray array];
     for (StaffEntity * staff in self.staffDataSource) {
         if (staff.assignmented) {
             [assignmentArray addObject:staff];
+            [assignmentStaffNoArray addObject:kIntegerNumber([staff.staffNo integerValue])];
         }
     }
-    if (self.returnBlock) {
-        self.returnBlock(assignmentArray);
-    }
-    [self.navigationController popViewControllerAnimated:YES];
+    __weak typeof(self) weakSelf = self;
+    [MBProgressHUD showActivityMessageInWindow:@"分配中..."];
+    [[SiteOrderManager shareSiteOrderManager] assignmentOrder:self.orderNo toStaffs:assignmentStaffNoArray success:^(id  _Nonnull data) {
+        [MBProgressHUD hideHUD];
+        if (weakSelf.returnBlock) {
+            weakSelf.returnBlock(assignmentArray);
+        }
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    } fail:^(NSInteger code) {
+        
+    }];
 }
 
 #pragma mark - private method
@@ -105,16 +124,7 @@ static NSString * AssignmentsItemCellIdentifier = @"AssignmentsItemCell";
 #pragma mark - setters and getters
 -(NSArray<StaffEntity *> *)staffDataSource{
     if (!_staffDataSource) {
-        StaffEntity * staff1 = [[StaffEntity alloc]init];
-        staff1.name = @"测试1";
-        StaffEntity * staff2 = [[StaffEntity alloc]init];
-        staff2.name = @"测试2";
-        StaffEntity * staff3 = [[StaffEntity alloc]init];
-        staff3.name = @"测试3";
-        StaffEntity * staff4 = [[StaffEntity alloc]init];
-        staff4.name = @"测试4";
-        
-        _staffDataSource = @[staff1,staff2,staff3,staff4];
+        _staffDataSource = @[];
     }
     return _staffDataSource;
 }

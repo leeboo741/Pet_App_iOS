@@ -30,7 +30,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9dy-hN-Qoc" customClass="MediaShowBox">
-                        <rect key="frame" x="0.0" y="82" width="368" height="128"/>
+                        <rect key="frame" x="0.0" y="120" width="368" height="51"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gyd-XH-iI8" customClass="MediaShowBox">
+                        <rect key="frame" x="0.0" y="111" width="368" height="128"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>
                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q2Z-hn-UpB" customClass="MediaSelectBoxView">
@@ -45,7 +49,10 @@
                 <constraints>
                     <constraint firstItem="9dy-hN-Qoc" firstAttribute="leading" secondItem="IU8-tR-cfg" secondAttribute="leading" id="1X4-eG-jyK"/>
                     <constraint firstAttribute="bottom" secondItem="oOD-X0-xD1" secondAttribute="bottom" constant="12" id="4YQ-zM-Ac5"/>
+                    <constraint firstItem="Gyd-XH-iI8" firstAttribute="leading" secondItem="9dy-hN-Qoc" secondAttribute="leading" id="5E0-LZ-UGR"/>
+                    <constraint firstItem="Gyd-XH-iI8" firstAttribute="trailing" secondItem="9dy-hN-Qoc" secondAttribute="trailing" id="5he-zj-tgb"/>
                     <constraint firstItem="eEc-ff-rDl" firstAttribute="top" secondItem="YmE-13-vHm" secondAttribute="bottom" id="6UA-GY-U9K"/>
+                    <constraint firstItem="Gyd-XH-iI8" firstAttribute="top" secondItem="9dy-hN-Qoc" secondAttribute="bottom" id="6am-e9-byI"/>
                     <constraint firstItem="9dy-hN-Qoc" firstAttribute="trailing" secondItem="IU8-tR-cfg" secondAttribute="trailing" id="BxU-2H-CXJ"/>
                     <constraint firstItem="9dy-hN-Qoc" firstAttribute="top" secondItem="IU8-tR-cfg" secondAttribute="bottom" id="EsU-UI-ij9"/>
                     <constraint firstItem="IU8-tR-cfg" firstAttribute="leading" secondItem="eEc-ff-rDl" secondAttribute="leading" id="FNG-sq-L3w"/>
@@ -54,10 +61,10 @@
                     <constraint firstItem="eEc-ff-rDl" firstAttribute="trailing" secondItem="YmE-13-vHm" secondAttribute="trailing" id="WHH-nK-U9Q"/>
                     <constraint firstItem="q2Z-hn-UpB" firstAttribute="trailing" secondItem="IU8-tR-cfg" secondAttribute="trailing" id="Zvi-6E-zsA"/>
                     <constraint firstAttribute="trailing" secondItem="YmE-13-vHm" secondAttribute="trailing" id="bSm-dD-Azd"/>
+                    <constraint firstItem="q2Z-hn-UpB" firstAttribute="top" secondItem="Gyd-XH-iI8" secondAttribute="bottom" id="cMA-Xg-s4S"/>
                     <constraint firstItem="eEc-ff-rDl" firstAttribute="leading" secondItem="YmE-13-vHm" secondAttribute="leading" id="ddn-sc-33E"/>
                     <constraint firstItem="oOD-X0-xD1" firstAttribute="trailing" secondItem="IU8-tR-cfg" secondAttribute="trailing" id="deX-Mg-PYv"/>
                     <constraint firstItem="YmE-13-vHm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="drb-I5-AbS"/>
-                    <constraint firstItem="q2Z-hn-UpB" firstAttribute="top" secondItem="9dy-hN-Qoc" secondAttribute="bottom" id="f1K-CG-VeS"/>
                     <constraint firstItem="IU8-tR-cfg" firstAttribute="trailing" secondItem="eEc-ff-rDl" secondAttribute="trailing" id="qGn-RJ-D3P"/>
                     <constraint firstItem="YmE-13-vHm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="t9g-tv-oCK"/>
                     <constraint firstItem="IU8-tR-cfg" firstAttribute="top" secondItem="eEc-ff-rDl" secondAttribute="bottom" id="vsQ-Mz-jws"/>
@@ -72,6 +79,7 @@
                 <outlet property="orderBaseInfoView" destination="YmE-13-vHm" id="qLV-nd-bbD"/>
                 <outlet property="orderOperateBoxView" destination="oOD-X0-xD1" id="79L-BX-RtO"/>
                 <outlet property="orderRemarkView" destination="IU8-tR-cfg" id="Qa3-Tw-Zsr"/>
+                <outlet property="uploadMediaShowBox" destination="Gyd-XH-iI8" id="TyZ-JZ-1bd"/>
             </connections>
             <point key="canvasLocation" x="136" y="96.251874062968525"/>
         </tableViewCell>

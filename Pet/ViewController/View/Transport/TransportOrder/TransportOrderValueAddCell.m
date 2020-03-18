@@ -199,6 +199,7 @@
 -(UITapGestureRecognizer *)contractTapGestureRecognizer{
     if (!_contractTapGestureRecognizer) {
         _contractTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapContract)];
+        self.serviceContractLabel.userInteractionEnabled = YES;
         [self.serviceContractLabel addGestureRecognizer:_contractTapGestureRecognizer];
     }
     return _contractTapGestureRecognizer;

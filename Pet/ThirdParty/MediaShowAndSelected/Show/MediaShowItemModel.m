@@ -25,18 +25,20 @@
 }
 -(MediaType)mediaType{
     if (_mediaType == MediaType_Unknow) {
-        if (self.resourcePath
-            && ([self.resourcePath containsString:@".jpg"]
-                || [self.resourcePath containsString:@".png"]
-                || [self.resourcePath containsString:@".jpeg"])) {
-            return MediaType_Image;
-        } else if (self.resourcePath
-                   && [self.resourcePath containsString:@".mp4"]){
-            return MediaType_Video;
-        } else {
-            return MediaType_Unknow;
+        if (self.resourcePath) {
+            NSString * resource = [self.resourcePath lowercaseString];
+            if ([resource containsString:@".jpg"]
+            || [resource containsString:@".png"]
+            || [resource containsString:@".jpeg"]) {
+                return MediaType_Image;
+            } else if ([resource containsString:@".mp4"]) {
+                return MediaType_Video;
+            } else {
+                return MediaType_Unknow;
+            }
         }
+        return MediaType_Unknow;
     }
-    return MediaType_Unknow;
+    return _mediaType;
 }
 @end
