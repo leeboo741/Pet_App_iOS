@@ -28,7 +28,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qh9-5X-jUd">
                     <rect key="frame" x="37.5" y="100" width="300" height="467"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="客通云销隐私政策" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csB-oI-Jz1">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="斑马速运隐私政策" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csB-oI-Jz1">
                             <rect key="frame" x="80.5" y="8" width="139" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="25" id="svu-Fv-dCg"/>
@@ -106,7 +106,7 @@ Cg
                                         <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </attributes>
                                 </fragment>
-                                <fragment content="您的信任对【南昌市仰望科技有限公司】（以下简称“我们”）非常重要，我们深知用户隐私信息对您的重要性，为此我们将按法律法规要求，采取相应安全保护措施，尽力保护您的信息安全可控。在此前提下，">
+                                <fragment content="您的信任对【斑马速运】（以下简称“我们”）非常重要，我们深知用户隐私信息对您的重要性，为此我们将按法律法规要求，采取相应安全保护措施，尽力保护您的信息安全可控。在此前提下，">
                                     <attributes>
                                         <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <font key="NSFont" size="12" name="PingFangSC-Regular"/>

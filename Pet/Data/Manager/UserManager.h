@@ -13,6 +13,7 @@
 #import "UserDataBaseHandler.h"
 #import "HttpManager.h"
 #import "WechatManager.h"
+#import "MessageManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

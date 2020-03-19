@@ -134,6 +134,7 @@ static NSInteger Limit = 20;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MessageItemModel * model = self.dataSource[indexPath.row];
     MSLog(@"%@",model.link);
+    [[MessageManager shareMessageManager] handlerMessageLinks:model.link];
 }
 
 #pragma mark - config cell

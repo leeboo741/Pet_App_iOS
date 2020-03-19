@@ -326,6 +326,8 @@ SingleImplementation(UserManager)
 -(void)logout{
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:User_Key];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [[MessageManager shareMessageManager] stopGetMessageTimer];
+    [[MessageManager shareMessageManager] resetLastGetMessageTime];
     self.user = nil;
     
     UIWindow * keyWindow = kKeyWindow;

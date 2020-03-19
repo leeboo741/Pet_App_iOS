@@ -36,6 +36,13 @@
     return nil;
 }
 
+-(NSString *)customerNo{
+    if (!_customerNo) {
+        _customerNo = @"";
+    }
+    return _customerNo;
+}
+
 -(USER_ROLE)userRole{
     if (kStringIsEmpty(self.customerNo)) {
         return USER_ROLE_UNKOWN;

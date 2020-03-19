@@ -8,6 +8,7 @@
 
 #import "MessageManager.h"
 #import "DateUtils.h"
+#import "OrderDetailController.h"
 
 @interface MessageEntity ()
 
@@ -21,6 +22,11 @@ static NSInteger DefaultTimeLoop = 60; // 计时循环
 
 static NSString * NOTIFICATION_KEY_HAVENEWMESSAGE = @"HaveNewMessage_Notification";
 
+static NSString * Message_LinkType_Action = @"action";
+static NSString * Message_LinkType_OrderDetail = @"/pages/orderDetail/orderDetail";
+
+static NSString * Message_LinkAction_Login = @"login";
+
 @interface MessageManager ()
 @property (nonatomic, assign) BOOL haveNewMessage;
 @property (nonatomic) dispatch_source_t gcdTimer;
@@ -33,6 +39,22 @@ SingleImplementation(MessageManager);
         [self gcdTimer];
     }
     return self;
+}
+/**
+停止获取message定时器
+*/
+-(void)stopGetMessageTimer{
+    if (self.gcdTimer) {
+        dispatch_source_cancel(self.gcdTimer);
+        self.gcdTimer = nil;
+    }
+}
+/**
+ 重置最后获取站内信时间
+ */
+-(void)resetLastGetMessageTime{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:LAST_GET_MESSAGE_TIME_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 /**
  存储当前时间为最后获取站内信时间
@@ -137,6 +159,31 @@ SingleImplementation(MessageManager);
  */
 -(void)removeNotificationForNewMessageWithObserver:(id)observer{
     [[NSNotificationCenter defaultCenter] removeObserver:observer name:NOTIFICATION_KEY_HAVENEWMESSAGE object:self];
+}
+/**
+ 处理消息 中 的links
+ */
+-(void)handlerMessageLinks:(NSString *)messageLinks{
+    NSArray * array = [messageLinks componentsSeparatedByString:@"?"];
+    NSString * pathType = [array firstObject];
+    if ([Message_LinkType_Action isEqualToString:pathType]) {
+        NSString * actionType = array[1];
+        if ([Message_LinkAction_Login isEqualToString:actionType]) {
+            MSLog(@"静默更新用户信息");
+        }
+    } else if ([Message_LinkType_OrderDetail isEqualToString:pathType]) {
+        NSString * paramStr = array[1];
+        NSArray * paramArray = [paramStr componentsSeparatedByString:@"&"];
+        NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+        for (NSString * param in paramArray) {
+            NSArray * tempArray = [param componentsSeparatedByString:@"="];
+            [dict setObject:tempArray[1] forKey:tempArray[0]];
+        }
+        OrderDetailController * orderDetailVC = [[OrderDetailController alloc]init];
+        orderDetailVC.orderNo = [dict objectForKey:@"orderno"];
+        UIViewController * currentVC = Util_GetCurrentVC;
+        [currentVC.navigationController pushViewController:orderDetailVC animated:YES];
+    }
 }
 
 #pragma mark - setters and getters

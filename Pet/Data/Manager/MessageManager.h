@@ -86,6 +86,20 @@ SingleInterface(MessageManager);
  @param observer 监听者
  */
 -(void)removeNotificationForNewMessageWithObserver:(id)observer;
+
+/**
+ 停止获取message定时器
+ */
+-(void)stopGetMessageTimer;
+/**
+ 重置最后获取站内信时间
+ */
+-(void)resetLastGetMessageTime;
+
+/**
+ 处理消息 中 的links
+ */
+-(void)handlerMessageLinks:(NSString *)messageLinks;
 @end
 
 NS_ASSUME_NONNULL_END

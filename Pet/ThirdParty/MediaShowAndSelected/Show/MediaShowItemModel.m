@@ -31,7 +31,8 @@
             || [resource containsString:@".png"]
             || [resource containsString:@".jpeg"]) {
                 return MediaType_Image;
-            } else if ([resource containsString:@".mp4"]) {
+            } else if ([resource containsString:@".mp4"]
+                       || [resource containsString:@".mov"]) {
                 return MediaType_Video;
             } else {
                 return MediaType_Unknow;

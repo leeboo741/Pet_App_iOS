@@ -290,7 +290,9 @@ CustomerOrderCellDelegate>
         case 5:
         {
             MSLog(@"退出");
-            [[UserManager shareUserManager] logout];
+            [AlertControllerTools showAlertWithTitle:@"确认退出" msg:@"是否确定退出该账号" items:@[@"退出"] showCancel:YES actionTapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger actionIndex) {
+                [[UserManager shareUserManager] logout];
+            }];
         }
             break;
         default:
