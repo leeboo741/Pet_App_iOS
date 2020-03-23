@@ -16,9 +16,13 @@
 #import "OrderDetailController.h"
 #import "ContractViewController.h"
 
+//#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+
 @interface HomeViewAction : NSObject<HomeActionProtocol>
 @property (nonatomic, copy) NSString * iconName;
 @property (nonatomic, copy) NSString * actionTitle;
+
 -(instancetype)initWithIconName:(NSString* )iconName actionTitle:(NSString* )actionTitle;
 @end
 @implementation HomeViewAction
@@ -36,6 +40,8 @@
 @property (nonatomic, strong) HomeView *homeView;
 @property (nonatomic, strong) NSArray<NSString *> *imagePathArray;
 @property (nonatomic, strong) NSArray<HomeViewAction *> *homeActionArray;
+
+@property (nonatomic, strong) AVAudioPlayer * player;
 @end
 
 @implementation HomeViewController
@@ -122,7 +128,14 @@
             break;
         case 5:
         {
-            [[MainTabbarController shareMainTabbarController] setSelectedIndex:2];
+//            [[MainTabbarController shareMainTabbarController] setSelectedIndex:2];
+            NSString *musicName = [[NSBundle mainBundle] pathForResource:@"ring"
+                                                                   ofType:@"mp3"];
+            NSURL * soundUrl = [NSURL URLWithString:musicName];
+            _player = [[AVAudioPlayer alloc]initWithContentsOfURL:soundUrl error:nil];
+            if ([_player prepareToPlay]) {
+                [_player play];
+            }
         }
             break;
         default:

@@ -25,6 +25,7 @@
     self.button.layer.shadowOffset  = CGSizeMake(0, 0);
     self.button.layer.shadowOpacity = 0.8;
     self.button.layer.shadowRadius  = 8;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -24,6 +24,7 @@
     self.inputTextView.layer.borderWidth = 1;
     self.inputTextView.text = @"";
     self.inputTextView.delegate = self;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

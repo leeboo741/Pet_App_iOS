@@ -280,7 +280,11 @@ SingleImplementation(UserManager)
  *  获取客户编号
  */
 -(NSString *)getCustomerNo{
-    return self.user.customerNo;
+    if (self.user) {
+        return self.user.customerNo;
+    } else {
+        return @"";
+    }
 }
 /**
  *  获取商户编号

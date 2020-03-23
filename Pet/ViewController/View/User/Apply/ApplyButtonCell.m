@@ -24,6 +24,7 @@
     [self.button setTitle:@"确定" forState:UIControlStateNormal];
     [self.button setTitleColor:Color_white_1 forState:UIControlStateNormal];
     [self.button addTarget:self action:@selector(tapButton) forControlEvents:UIControlEventTouchUpInside];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

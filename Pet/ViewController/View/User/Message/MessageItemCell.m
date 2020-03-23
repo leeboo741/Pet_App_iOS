@@ -23,6 +23,7 @@
     self.boxView.layer.cornerRadius = 10;
     self.boxView.layer.borderColor = Color_gray_2.CGColor;
     self.boxView.layer.borderWidth = 1;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

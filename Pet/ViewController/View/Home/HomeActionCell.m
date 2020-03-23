@@ -63,7 +63,8 @@
 
 -(void)setIconName:(NSString *)iconName{
     _iconName = iconName;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:iconName] placeholderImage:[UIImage imageNamed:@"logo"]];
+    self.imageView.image = [UIImage iconWithInfo:TBCityIconInfoMake(iconName, 32, Color_yellow_1)];
+//    [self.imageView sd_setImageWithURL:[NSURL URLWithString:iconName] placeholderImage:[UIImage imageNamed:@"logo"]];
 }
 
 -(void)setActionTitle:(NSString *)actionTitle{

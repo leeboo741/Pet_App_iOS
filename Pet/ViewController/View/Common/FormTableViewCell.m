@@ -26,6 +26,7 @@
     [super awakeFromNib];
     // Initialization code
     self.showFlag = YES;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

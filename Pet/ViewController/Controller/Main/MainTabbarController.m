@@ -54,10 +54,17 @@ SingleImplementation(MainTabbarController)
 }
 
 -(void)changeRole:(NSNotification *)notificationObj{
+    
+    BaseNavigationController * homeNavi = self.viewControllers[0];
+    [self setTabbarItemInfoWithViewController:homeNavi title:@"首页" iconFontName:IconFont_Home];
+    
+    BaseNavigationController * stationNavi = self.viewControllers[1];
+    [self setTabbarItemInfoWithViewController:stationNavi title:@"驿站" iconFontName:IconFont_Station];
+    
     CURRENT_USER_ROLE role = [[notificationObj.userInfo objectForKey:@"data"] integerValue];
     BaseNavigationController * navi = [self getNaviControllerWithViewController:[self getCenterViewControllerWithUserRole:role]];
-    
     [self setTabbarItemInfoWithViewController:navi title:@"中心" iconFontName:IconFont_Pet];
+    
     [self replaceViewControllerAtIndex:2 withViewController:navi];
 }
 
@@ -119,6 +126,10 @@ SingleImplementation(MainTabbarController)
         _viewDataSource = @[homeNavi, stationNavi, centerNavi];
     }
     return _viewDataSource;
+}
+
+-(void)getViewControllersWithRole:(CURRENT_USER_ROLE)role{
+    
 }
 
 @end

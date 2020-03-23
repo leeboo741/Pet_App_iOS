@@ -33,6 +33,7 @@ static NSInteger Max_Time = 60;
     self.timeCountButton.layer.borderWidth = 1;
     [self.timeCountButton addTarget:self action:@selector(tapCountButton) forControlEvents:UIControlEventTouchUpInside];
     self.isTimeCounting = NO;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

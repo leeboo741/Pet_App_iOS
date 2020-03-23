@@ -41,6 +41,30 @@ SingleImplementation(LocationManager);
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     [MBProgressHUD showErrorMessage:@"定位失败"];
 }
+// 定位权限更改
+-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
+    switch ([CLLocationManager authorizationStatus]) {
+        case kCLAuthorizationStatusAuthorizedAlways:
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            [self.locationManager startUpdatingLocation];
+            break;
+        case kCLAuthorizationStatusNotDetermined:
+            [self.locationManager requestWhenInUseAuthorization];
+            break;
+        case kCLAuthorizationStatusDenied:
+        case kCLAuthorizationStatusRestricted:
+        {
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"需要授权定位权限" message:@"我们需要您的授权以供在下单，申请等等功能中定位，用以更好的提供服务。您可以在系统设置中打开授权。" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * confirmAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil];
+            [alertController addAction:confirmAction];
+            UIViewController * currentVC = Util_GetCurrentVC;
+            [currentVC presentViewController:alertController animated:YES completion:nil];
+        }
+            break;
+        default:
+            break;
+    }
+}
 
 #pragma mark - private method
 

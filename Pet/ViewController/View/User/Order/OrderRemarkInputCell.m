@@ -18,6 +18,7 @@
     [super awakeFromNib];
     // Initialization code
     self.remarkInputTextField.delegate = self;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

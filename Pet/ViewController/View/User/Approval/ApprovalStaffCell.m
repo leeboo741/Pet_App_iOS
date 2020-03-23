@@ -27,6 +27,7 @@
     [self insertButtonModelWithTitle:@"批准" style:OrderOperateButtonStyle_Green type:OrderOperateButtonType_Approval];
     [self insertButtonModelWithTitle:@"驳回" style:OrderOperateButtonStyle_Red type:OrderOperateButtonType_Reject];
     self.operationBoxView.buttonModelArray = self.operateButtonModelArray;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

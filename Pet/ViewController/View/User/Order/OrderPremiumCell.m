@@ -28,6 +28,7 @@ static NSString * unpayStr = @"待付款";
     // Initialization code
     self.cancelButton.layer.cornerRadius = 8;
     self.button.layer.cornerRadius = 8;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
